@@ -1,27 +1,29 @@
 import React from "react";
-import Question from "./Question";
+import QuestionIssuer from "./QuestionIssuer";
 
-class QuestionIssuer extends React.Component {
+class UserTotalScore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-          questionSetSize: 10000, // this value doesnt matter. just make it not null.
-        };
-    //this.getMaxQtyQuestions();
+      error: null,
+      isLoaded: false,
+      userId: 99,
+      userScore: 0,
     };
-
-  componentDidMount() {
-    this.getMaxQtyQuestions();
   }
 
-  getMaxQtyQuestions() {
-    fetch("http://localhost:8080/max")
+  componentDidMount() {
+    this.renderUserScore();
+  }
+
+  renderUserScore() {
+    fetch("http://localhost:8080/us/" + this.state.userId)
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
-            questionSetSize: result.maxQtyQuestions,
+            userScore: result.userScore,
           });
         },
         // Note: it's important to handle errors here
@@ -31,20 +33,20 @@ class QuestionIssuer extends React.Component {
           this.setState({
             isLoaded: true,
             error,
+            userScore: 0,
           });
         }
       )
     }
 
    render() {
-
-   const { questionSetSize, renderUserScore } = this.state;
+   let { userScore } = this.state;
     return (
         <React.Fragment>
-            <Question questionSetSize={questionSetSize} />
+            <p className="qtext">user total score: {userScore}</p>
         </React.Fragment>
     );
    }
 }
 
-export default QuestionIssuer;
+export default UserTotalScore;

@@ -1,11 +1,10 @@
 import React from "react";
-
+import UserTotalScore from "./UserTotalScore";
 
 class Question extends React.Component {
   constructor(props) {
     super(props);
     this.postAnswer = this.postAnswer.bind(this);
-    this.renderNextQuestion = this.renderNextQuestion.bind(this);
     this.state = {
       error: null,
       isLoaded: false,
@@ -77,13 +76,13 @@ class Question extends React.Component {
 
 
   postAnswer(selection) {
-    // TO DO: if selection is null else do POST
-    // TO DO: handle exceptions
+    // TODO: if selection is null skip, else do POST
+    // TODO: handle exceptions
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "http://localhost:8080/a", true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify( { questionId: this.state.currentQuestion, userId: 99, answer: this.state.selection, questionSetVersion: 1, answerPoints: this.state.answerPoints }));
-    // if successful go to next question
+    // TODO if successful go to next question
     this.renderNextQuestion();
   }
 
@@ -102,22 +101,31 @@ class Question extends React.Component {
     if (this.state.currentQuestion <= this.props.questionSetSize) {
 
       return (
-        <React.Fragment>
-            <p>  {question} </p>
-            <button className="answer" onClick={() => this.setState({selection: '1', answerPoints: answer1Points})}> {answer1} </button>
-            <button className="answer" onClick={() => this.setState({selection: '2', answerPoints: answer2Points})}> {answer2} </button>
-            <button className="answer" onClick={() => this.setState({selection: '3', answerPoints: answer3Points})}> {answer3} </button>
-            <button className="answer" onClick={() => this.setState({selection: '4', answerPoints: answer4Points})}> {answer4} </button>
-            <button className="answer" onClick={() => this.setState({selection: '5', answerPoints: answer5Points})}> {answer5} </button>
-            <button className="answer" onClick={() => this.setState({selection: '6', answerPoints: answer6Points})}> {answer6} </button>
-            <p>  Answer Number: {selection} Points: {answerPoints}</p>
-            <button className="submitAnswer" onClick={this.postAnswer}>  Submit </button>
+        <React.Fragment >
+            <div id="question">
+            <p className="qtext"> [you are on question #{this.state.currentQuestion} of {this.props.questionSetSize}] </p>
+            <p className="qtext"> {question} </p>
+            <button className="qbutton" onClick={() => this.setState({selection: '1', answerPoints: answer1Points})}> {answer1} </button>
+            <button className="qbutton" onClick={() => this.setState({selection: '2', answerPoints: answer2Points})}> {answer2} </button>
+            <button className="qbutton" onClick={() => this.setState({selection: '3', answerPoints: answer3Points})}> {answer3} </button>
+            <button className="qbutton" onClick={() => this.setState({selection: '4', answerPoints: answer4Points})}> {answer4} </button>
+            <button className="qbutton" onClick={() => this.setState({selection: '5', answerPoints: answer5Points})}> {answer5} </button>
+            <button className="qbutton" onClick={() => this.setState({selection: '6', answerPoints: answer6Points})}> {answer6} </button>
+            <p className="qtext">  Answer Number: {selection} Points: {answerPoints}</p>
+            <button className="qsbutton" onClick={this.postAnswer}>  Submit </button>
+            </div>
+            <div id="totalscore">
+            <UserTotalScore />
+            </div>
         </React.Fragment>
       );
      } else {
        return (
          <React.Fragment>
-             <p>  FINISHED </p>
+             <p className="qtext">  SCORING COMPLETED </p>
+             <div id="totalscore">
+             <UserTotalScore />
+             </div>
          </React.Fragment>
        );
             }; //end else statement

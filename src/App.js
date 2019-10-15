@@ -3,7 +3,7 @@ import './App.css';
 import Introduction from "./Introduction";
 //import Question from "./Question";
 import QuestionIssuer from "./QuestionIssuer";
-
+import UserTotalScore from "./UserTotalScore";
 
 
 function App() {

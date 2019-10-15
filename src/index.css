@@ -4,10 +4,18 @@ body {
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  -moz-osx-font-smoothing: grayscale;}
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
+code {font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",monospace;}
+
+p {font-family: "Lucida Console"}
+.qbutton {font-family: "Lucida Console"; font-size: 14px; padding: 10px 24px; background-color: #e7e7e7; color: black; border-radius: 4px; margin: 4px;}
+.qbutton:hover {background-color: #b3cccc}
+.qsbutton {font-family: "Lucida Console"; font-size: 14px; padding: 6px 15px; background-color: #e7e7e7; color: black; margin: 4px;}
+.qsbutton:hover {background-color: #ffb366}
+#question {border-style: solid; border-width: 1px; margin-bottom: 10px;}
+#totalscore {border-style: solid; border-width: 2px; border-color: red;width: 240px; margin-left: 10px;}
+#introduction {margin-left: 10px;}
+.qtext {margin-left: 10px;}
+#NJ {margin-left: 10px;font-family: "Arial";font-size: 20px; color: #0052cc; font-weight: bold;}
+
