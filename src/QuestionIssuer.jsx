@@ -7,7 +7,6 @@ class QuestionIssuer extends React.Component {
     this.state = {
           questionSetSize: 10000, // this value doesnt matter. just make it not null.
         };
-    //this.getMaxQtyQuestions();
     };
 
   componentDidMount() {
@@ -38,7 +37,7 @@ class QuestionIssuer extends React.Component {
 
    render() {
 
-   const { questionSetSize, renderUserScore } = this.state;
+   const { questionSetSize } = this.state;
     return (
         <React.Fragment>
             <Question questionSetSize={questionSetSize} />

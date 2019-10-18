@@ -1,5 +1,6 @@
 import React from "react";
-import QuestionIssuer from "./QuestionIssuer";
+//import QuestionIssuer from "./QuestionIssuer";
+import ScoreUrl from "./ScoreUrl";
 
 class UserTotalScore extends React.Component {
   constructor(props) {
@@ -8,15 +9,15 @@ class UserTotalScore extends React.Component {
       error: null,
       isLoaded: false,
       userId: 99,
-      userScore: 0,
+      userScore: this.props.userScore,
     };
   }
 
   componentDidMount() {
-    this.renderUserScore();
+    this.getUserScore();
   }
 
-  renderUserScore() {
+  getUserScore() {
     fetch("http://localhost:8080/us/" + this.state.userId)
       .then(res => res.json())
       .then(
@@ -26,9 +27,7 @@ class UserTotalScore extends React.Component {
             userScore: result.userScore,
           });
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
+        // Note: it's important to handle errors here instead of a catch() block so that we don't swallow exceptions from actual bugs in components.
         (error) => {
           this.setState({
             isLoaded: true,
@@ -43,7 +42,10 @@ class UserTotalScore extends React.Component {
    let { userScore } = this.state;
     return (
         <React.Fragment>
-            <p className="qtext">user total score: {userScore}</p>
+            <div id="totalscore">
+            <p id="tscore">total score: {userScore}</p>
+            </div>
+            <ScoreUrl />
         </React.Fragment>
     );
    }

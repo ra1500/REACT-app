@@ -9,8 +9,8 @@ class Introduction extends React.Component {
   render() {
     return (
     <div id="introduction">
-        <p>who am I? how do I compare to all the other souls in this world.<br></br>
-         your score is who you are. score low, improve. score high, stay high.</p>
+        <p>who am I? how do I compare to everyone else in this world?<br></br>
+         your score is who you are.</p>
 
     </div>
 
