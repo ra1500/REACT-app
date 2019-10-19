@@ -18,6 +18,10 @@ p {font-family: "Lucida Console"}
 #introduction {margin-left: 10px;}
 .qtext {margin-left: 10px; margin-top: 5px;}
 #qtext2 {margin-left: 10px; margin-bottom: 1px;}
-#NJ {margin-left: 10px;font-family: "Arial";font-size: 20px; color: #0052cc; font-weight: bold;}
+#NJ {margin-left: 10px;font-family: "Arial";font-size: 20px; color: #0052cc; font-weight: bold; display: inline-block;}
 #tscore {margin-left: 10px; margin-top: 15px;}
+#LoginStatus {display: inline-block; margin-left: 20px;}
+#userName {display: inline; color:#e67300;}
+#logoutButton {display: inline}
+.urltext {margin-left: 10px; margin-top: 0px;}
 

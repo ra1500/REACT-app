@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import axios from 'axios';
-import juice from "../img/juice.png";
-import { Card, Logo, Form, Input, Button, Error } from "../components/AuthForms";
+import { Card, Form, Input, Button, Error } from "../components/AuthForms";
 import { useAuth } from "../context/auth";
+
 
 function Login(props) {
   //const referer = props.location.state.referer || '/'; //TODO: make this work so that goes to homepage or page tried to initially access
-  const referer = "/";
+  const referer = "/Itsme";
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState("");
@@ -35,8 +35,9 @@ function Login(props) {
   }
 
   return (
+    <React.Fragment>
+    <p id="NJ">NeuralJuice</p>
     <Card>
-      <Logo src={juice} />
       <Form>
         <Input
           type="username"
@@ -44,7 +45,7 @@ function Login(props) {
           onChange={e => {
             setUserName(e.target.value);
           }}
-          placeholder="user id"
+          placeholder="user"
         />
         <Input
           type="password"
@@ -59,6 +60,7 @@ function Login(props) {
       <Link to="/signup">Don't have an account?</Link>
         { isError &&<Error>The username or password provided were incorrect!</Error> }
     </Card>
+    </React.Fragment>
   );
 }
 

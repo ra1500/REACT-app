@@ -28,13 +28,13 @@ class Question extends React.Component {
       answer5Points: null,
       answer6Points: null,
       currentQuestion: 0, //gid in QuestionsEntity for JPA get/fetch
-      //userScore: null,
-      userId: 99,
+      userScore: 0,
     };
   }
 
   componentDidMount() {
     this.renderNextQuestion();
+    this.getUserScore();
   }
 
   renderNextQuestion() {
@@ -77,44 +77,46 @@ class Question extends React.Component {
     }
 
 
-  postAnswer() {
-    // TODO: if selection is null skip, else do POST
-    // TODO: handle exceptions
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:8080/a", true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify( { questionId: this.state.currentQuestion, userId: 99, answer: this.state.selection, questionSetVersion: 1, answerPoints: this.state.answerPoints }));
-    // TODO if successful go to next question and refresh/get UserScore
-    xhr.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        //this.renderNextQuestion();
-        //this.getUserScore();
-        console.log('I was triggered');
-        } };
-    this.renderNextQuestion();
-    //this.getUserScore();
-  }
+    postAnswer() {
+        // TODO: if selection is null skip, else do POST
+        // TODO: handle exceptions
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u + ':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        let data = { questionId: this.state.currentQuestion, userName: u, answer: this.state.selection, questionSetVersion: 1, answerPoints: this.state.answerPoints };
 
-// not currently used. needs to be executed after succesful postAnswer(). need to change '99' to this.state.userId also
+        axios.post("http://localhost:8080/a",
+        data,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+        this.getUserScore(); // update downstream state after successful AJAX call!
+        this.setState({isLoaded: true,
+          });
+               }).catch(error => {this.setState({ isLoaded: true, error});
+               });
+        this.renderNextQuestion();
+    }
+
   getUserScore() {
-        fetch("http://localhost:8080/us/99" )
-      .then(res => res.json())
-      .then(
-        (result) => {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/us/" + u,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
           this.setState({
             isLoaded: true,
-            userScore: result.userScore,
+            userScore: response.data.userScore,
+
           });
-        },
-        // Note: it's important to handle errors here instead of a catch() block so that we don't swallow exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error,
-            userScore: 0,
-          });
-        }
-      )
+               }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
+               });
     }
 
   render() {

@@ -1,4 +1,5 @@
 import React from "react";
+import LoginStatus from "./LoginStatus";
 
 class TitleBar extends React.Component {
 
@@ -10,6 +11,7 @@ class TitleBar extends React.Component {
     return (
     <div>
         <p id="NJ">NeuralJuice</p>
+        <div id="LoginStatus"> <LoginStatus /> </div>
     </div>
 
     );
