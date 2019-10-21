@@ -4,6 +4,7 @@ import { useAuth } from "./context/auth";
 import { Redirect } from "react-router-dom";
 import QuestionIssuer from "./QuestionIssuer";
 import TitleBar from "./TitleBar";
+import Network from "./Network";
 
 function Itsme(props) {
   const { setAuthTokens } = useAuth();
@@ -13,6 +14,7 @@ function Itsme(props) {
     <div>
       <TitleBar />
       <QuestionIssuer />
+      <Network />
     </div>
     </React.Fragment>
   );
