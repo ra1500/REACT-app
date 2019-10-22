@@ -13,7 +13,7 @@ function Itsme(props) {
     <React.Fragment>
     <div>
       <TitleBar />
-
+      <QuestionIssuer />
       <Network />
     </div>
     </React.Fragment>

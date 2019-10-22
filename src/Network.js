@@ -1,7 +1,7 @@
 import React from "react";
 import axios from 'axios';
 //import NetworkListed from "./NetworkListed";
-import ComplexList from "./ComplexList";
+import ContactsList from "./ContactsList";
 
 class Network extends React.Component {
   constructor(props) {
@@ -36,7 +36,8 @@ class Network extends React.Component {
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true,
-          });
+                  });
+        //this.getFriendships();
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
     }
@@ -53,7 +54,7 @@ class Network extends React.Component {
         .then((response) => {
           this.setState({
             isLoaded: true,
-            allData: response.friendsList,
+            allData: response,
           });
                }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
                });
@@ -77,6 +78,8 @@ class Network extends React.Component {
 
   render() {
     let { postNewFriendship, setFriend, getFriendships, allData } = this.state;
+
+    if (allData == null) {
     return (
     <div id="network">
       <p className="urltext">Your Network</p>
@@ -87,10 +90,28 @@ class Network extends React.Component {
       <form onSubmit={this.handleSubmit2}>
         <input id="getfriends" type="submit" value="view your contacts" />
       </form>
-      <ComplexList allData={allData} />
+
     </div>
     );
-  }
+    } // end if
+
+    else {
+    return (
+    <div id="network">
+      <p className="urltext">Your Network</p>
+      <form onSubmit={this.handleSubmit}>
+          <input type="text" value={this.state.friend} onChange={this.handleChange} />
+          <input type="submit" value="Invite" />
+      </form>
+      <form onSubmit={this.handleSubmit2}>
+        <input id="getfriends" type="submit" value="view your contacts" />
+      </form>
+      <ContactsList allData={allData} />
+    </div>
+    );
+    }; // end else
+    }
+
 }
 
 export default Network;
