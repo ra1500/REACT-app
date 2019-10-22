@@ -1,5 +1,7 @@
 import React from "react";
 import axios from 'axios';
+//import NetworkListed from "./NetworkListed";
+import ComplexList from "./ComplexList";
 
 class Network extends React.Component {
   constructor(props) {
@@ -7,7 +9,6 @@ class Network extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
-    //this.getFriendships = this.getFriendships.bind(this);
 
         this.state = {
           error: null,
@@ -22,7 +23,6 @@ class Network extends React.Component {
   }
 
     postNewFriendship() {
-        // TODO: if selection is null skip, else do POST. Also, handle exceptions
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
         const p = name.password;
@@ -48,13 +48,12 @@ class Network extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/f/" + u,
+        axios.get("http://localhost:8080/user/" + u,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
             isLoaded: true,
-            userScore: response.data.userScore,
-
+            allData: response.friendsList,
           });
                }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
                });
@@ -74,8 +73,10 @@ class Network extends React.Component {
      this.getFriendships();
    }
 
+
+
   render() {
-    let { postNewFriendship, setFriend, getFriendships} = this.state;
+    let { postNewFriendship, setFriend, getFriendships, allData } = this.state;
     return (
     <div id="network">
       <p className="urltext">Your Network</p>
@@ -84,9 +85,9 @@ class Network extends React.Component {
           <input type="submit" value="Invite" />
       </form>
       <form onSubmit={this.handleSubmit2}>
-        <input type="submit" value="view your contacts" />
+        <input id="getfriends" type="submit" value="view your contacts" />
       </form>
-
+      <ComplexList allData={allData} />
     </div>
     );
   }
