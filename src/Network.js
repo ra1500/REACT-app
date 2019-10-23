@@ -30,7 +30,7 @@ class Network extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { friend: this.state.friend, connectionType: this.state.connectionType, status: this.state.status,
-         visibilityPermission: this.state.visibilityPermission, inviter: u, userName: u };
+         visibilityPermission: this.state.visibilityPermission, inviter: u };
 
         axios.post("http://localhost:8080/f", data,
         {headers : { 'Authorization' : Basic }})
@@ -49,7 +49,7 @@ class Network extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/user/" + u,
+        axios.get("http://localhost:8080/user/",
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({

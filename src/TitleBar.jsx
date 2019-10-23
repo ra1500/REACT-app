@@ -1,5 +1,6 @@
-import React from "react";
-import LoginStatus from "./LoginStatus";
+import LoginStatus2 from "./LoginStatus2";
+import { useAuth } from "./context/auth";
+import React, { useState } from "react";
 
 class TitleBar extends React.Component {
 
@@ -10,8 +11,8 @@ class TitleBar extends React.Component {
   render() {
     return (
     <div>
-        <p id="NJ">NeuralJuice</p>
-        <div id="LoginStatus"> <LoginStatus /> </div>
+        <a id="NJ" href="/"> NeuralJuice </a>
+        <div id="LoginStatus"> <LoginStatus2 /> </div>
     </div>
 
     );

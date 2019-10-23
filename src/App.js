@@ -3,11 +3,12 @@ import './App.css';
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import PrivateRoute from './PrivateRoute';
 import Home from './Home';
-import Itsme from './Itsme';
+import Main from './Main';
 import PublicUserPages from './PublicUserPages';
 import Login from "./pages/Login";
 import Signup from './pages/Signup';
 import { AuthContext } from "./context/auth";
+//import TitleBar from "./TitleBar";
 
 function App(props) {
   const [authTokens, setAuthTokens] = useState();
@@ -22,11 +23,11 @@ function App(props) {
                     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
                     <Router>
                       <div>
+                        <Route exact path="/" component={Login} />
                         <Route exact path="/" component={Home} />
-                        <Route path="/login" component={Login} />
-                        <Route path="/signup" component={Signup} />
-                        <Route path="/us/scores" component={PublicUserPages} />
-                        <PrivateRoute path="/itsme" component={Itsme} />
+                        <Route exact path="/signup" component={Signup} />
+                        <Route exact path="/us/scores" component={PublicUserPages} />
+                        <PrivateRoute path="/Main" component={Main} />
                       </div>
                     </Router>
                     </AuthContext.Provider>

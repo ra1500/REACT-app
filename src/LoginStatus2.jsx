@@ -1,10 +1,12 @@
-import React from "react"
-//import { AuthContext } from "./context/auth";
+import React, { useState } from "react";
+import { AuthContext } from "./context/auth";
 import { useAuth } from "./context/auth";
 import Login from "./pages/Login";
 import { Link, Redirect } from "react-router-dom";
 
-function LoginStatus(props) {
+function LoginStatus2(props) {
+    //const [isLoggedIn, setLoggedIn] = useState(false);
+    //const referer = "/Main";
     let userName = null;
     let name = null;
 
@@ -15,19 +17,20 @@ function LoginStatus(props) {
     else { userName = name.userName};
     const { setAuthTokens } = useAuth();
 
-  function logIn() {
-  }
 
   function logOut() {
-    const goHome = "/";
+    const goHome = "/   ";
+    //const goLogin = "/";
     setAuthTokens();
     sessionStorage.clear();
+    //window.location.replace(goHome);
     return <Redirect to={goHome} />;  //TODO: should go home and not login page
   }
 
+
     if (userName == null) {
     return (
-    <div><Link to="/login">Login</Link> </div>
+    <Login />
     );}
 
     else {
@@ -38,4 +41,4 @@ function LoginStatus(props) {
 
 
 
-export default LoginStatus;
+export default LoginStatus2;

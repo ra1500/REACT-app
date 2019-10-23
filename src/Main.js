@@ -6,7 +6,7 @@ import QuestionIssuer from "./QuestionIssuer";
 import TitleBar from "./TitleBar";
 import Network from "./Network";
 
-function Itsme(props) {
+function Main(props) {
   const { setAuthTokens } = useAuth();
 
   return (
@@ -20,4 +20,4 @@ function Itsme(props) {
   );
 }
 
-export default Itsme;
+export default Main;

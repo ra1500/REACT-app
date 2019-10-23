@@ -6,8 +6,7 @@ import { useAuth } from "../context/auth";
 
 
 function Login(props) {
-  //const referer = props.location.state.referer || '/'; //TODO: make this work so that goes to homepage or page tried to initially access
-  const referer = "/Itsme";
+  const referer = "/Main";
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState("");
@@ -36,7 +35,7 @@ function Login(props) {
 
   return (
     <React.Fragment>
-    <p id="NJ">NeuralJuice</p>
+    <a id="NJ" href="/"> NeuralJuice </a>
     <Card>
       <Form>
         <Input
@@ -45,7 +44,7 @@ function Login(props) {
           onChange={e => {
             setUserName(e.target.value);
           }}
-          placeholder="user"
+          placeholder="user id"
         />
         <Input
           type="password"
@@ -55,9 +54,9 @@ function Login(props) {
           }}
           placeholder="password"
         />
-        <Button onClick={postLogin}>Sign In</Button>
+        <Button onClick={postLogin}>Log in</Button>
       </Form>
-      <Link to="/signup">Don't have an account?</Link>
+      <a href="/signup">easy sign up</a>
         { isError &&<Error>The username or password provided were incorrect!</Error> }
     </Card>
     </React.Fragment>

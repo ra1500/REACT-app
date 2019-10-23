@@ -36,14 +36,14 @@ function Signup(props) {
 
   return (
     <React.Fragment>
-    <p id="NJ">NeuralJuice</p>
+    <a id="NJ" href="/"> NeuralJuice </a>
     <Card>
       <Form>
         <Input type="username" value={userName} onChange={e => {setUserName(e.target.value);}}placeholder="username" />
         <Input type="password" value={password} onChange={e => {setPassword(e.target.value);}}placeholder="password" />
         <Button onClick={postSignup}>Sign Up</Button>
       </Form>
-      <Link to="/login">Already have an account?</Link>
+      <Link to="/">log in</Link>
     </Card>
     </React.Fragment>
   );

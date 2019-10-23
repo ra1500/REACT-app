@@ -1,22 +1,23 @@
 import styled from 'styled-components';
 
 const Card = styled.div`
-  box-sizing: border-box;
+  box-sizing: initial   ;
   max-width: 410px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin: initial;
+  padding: initial;
+  display: initial;
+  flex-direction: initial;
+  align-items: left;
 `;
 
 const Form = styled.div`
-  display: flex;
+  display: inline-block;
   flex-direction: column;
-  width: 100%;
+
 `;
 
 const Input = styled.input`
+  display: inline-block;
   padding: 1rem;
   border: 1px solid #999;
   margin-bottom: 1rem;
@@ -24,24 +25,19 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  background: linear-gradient(to bottom, #6371c7, #5563c1);
+  background: linear-gradient(to bottom, #6371c7, #0052cc);
   border-color: #3f4eae;
-  border-radius: 3px;
+  border-radius: 0px;
   padding: 1rem;
   color: white;
   font-weight: 700;
-  width: 100%;
+
   margin-bottom: 1rem;
   font-size: 0.8rem;
 `;
 
-const Logo = styled.img`
-  width: 50%;
-  margin-bottom: 1rem;
-`;
-
 const Error = styled.div`
-  background-color: red;
+  background-color: orange;
 `;
 
-export { Form, Input, Button, Logo, Card, Error };
+export { Form, Input, Button, Card, Error };
