@@ -1,14 +1,14 @@
 import React from "react";
 import UserTotalScore from "./UserTotalScore";
 import axios from 'axios';
+import AnswerSelection from "./AnswerSelection";
+
 
 class Question extends React.Component {
   constructor(props) {
     super(props);
     this.postAnswer = this.postAnswer.bind(this);
     this.getUserScore = this.getUserScore.bind(this);
-    //this.renderNextQuestion = this.renderNextQuestion.bind(this);
-
     this.state = {
       error: null,
       isLoaded: false,
@@ -27,8 +27,9 @@ class Question extends React.Component {
       answer4Points: null,
       answer5Points: null,
       answer6Points: null,
-      currentQuestion: 0, //gid in QuestionsEntity for JPA get/fetch
+      currentQuestion: this.props.questionToGoTo, //gid in QuestionsEntity for JPA get/fetch
       userScore: 0,
+      questionToGoTo: null,
     };
   }
 
@@ -38,10 +39,7 @@ class Question extends React.Component {
   }
 
   renderNextQuestion() {
-    this.state = {currentQuestion: this.state.currentQuestion+1};
-    this.setState({currentQuestion: this.state.currentQuestion});
-    this.setState({selection: this.state.selection, answerPoints: this.state.answerPoints});
-
+    console.log(this.props.questionToGoTo + " child");
     if (this.state.currentQuestion <= this.props.questionSetSize) {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
@@ -67,6 +65,7 @@ class Question extends React.Component {
             answer4Points: response.data.answer4Points,
             answer5Points: response.data.answer5Points,
             answer6Points: response.data.answer6Points,
+            selection: "select from the above choices",
           });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -76,10 +75,7 @@ class Question extends React.Component {
             };
     }
 
-
     postAnswer() {
-        // TODO: if selection is null skip, else do POST
-        // TODO: handle exceptions
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
         const p = name.password;
@@ -93,11 +89,11 @@ class Question extends React.Component {
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.getUserScore(); // update downstream state after successful AJAX call!
+        this.props.askNextQuestion(); // call parent to render the next question. make sure to 'bind' in parent in order to use/set state in parent!!!
         this.setState({isLoaded: true,
           });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
-        this.renderNextQuestion();
     }
 
   getUserScore() {
@@ -113,7 +109,6 @@ class Question extends React.Component {
           this.setState({
             isLoaded: true,
             userScore: response.data.userScore,
-
           });
                }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
                });
@@ -131,18 +126,17 @@ class Question extends React.Component {
     } else {
 
     if (this.state.currentQuestion <= this.props.questionSetSize) {
-
       return (
         <React.Fragment >
             <div id="question">
             <p className="qtext"> [you are on question #{this.state.currentQuestion} of {this.props.questionSetSize}]  Max. points possible: 1,000</p>
             <p className="qtext"> {question} </p>
-            <button className="qbutton" onClick={() => this.setState({selection: this.state.answer1, answerPoints: answer1Points})}> {answer1} </button>
-            <button className="qbutton" onClick={() => this.setState({selection: this.state.answer2, answerPoints: answer2Points})}> {answer2} </button>
-            <button className="qbutton" onClick={() => this.setState({selection: this.state.answer3, answerPoints: answer3Points})}> {answer3} </button>
-            <button className="qbutton" onClick={() => this.setState({selection: this.state.answer4, answerPoints: answer4Points})}> {answer4} </button>
-            <button className="qbutton" onClick={() => this.setState({selection: this.state.answer5, answerPoints: answer5Points})}> {answer5} </button>
-            <button className="qbutton" onClick={() => this.setState({selection: this.state.answer6, answerPoints: answer6Points})}> {answer6} </button>
+            <AnswerSelection answer={answer1} onClick={() => this.setState({selection: this.state.answer1, answerPoints: answer1Points})}> {answer1} </AnswerSelection>
+            <AnswerSelection answer={answer2} onClick={() => this.setState({selection: this.state.answer2, answerPoints: answer2Points})}> {answer2} </AnswerSelection>
+            <AnswerSelection answer={answer3} onClick={() => this.setState({selection: this.state.answer3, answerPoints: answer3Points})}> {answer3} </AnswerSelection>
+            <AnswerSelection answer={answer4} onClick={() => this.setState({selection: this.state.answer4, answerPoints: answer4Points})}> {answer4} </AnswerSelection>
+            <AnswerSelection answer={answer5} onClick={() => this.setState({selection: this.state.answer5, answerPoints: answer5Points})}> {answer5} </AnswerSelection>
+            <AnswerSelection answer={answer6} onClick={() => this.setState({selection: this.state.answer6, answerPoints: answer6Points})}> {answer6} </AnswerSelection>
             <p id="qtext2"> Answer: {selection} </p>
             <p className="qtext"> Points: {answerPoints} </p>
             <button className="qsbutton" onClick={this.postAnswer}>  Submit </button>

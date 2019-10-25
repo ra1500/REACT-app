@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import axios from 'axios';
-import juice from "../img/juice.png";
 import { Card, Form, Input, Button} from "../components/AuthForms";
 import { useAuth } from "../context/auth";
 
@@ -43,7 +42,7 @@ function Signup(props) {
         <Input type="password" value={password} onChange={e => {setPassword(e.target.value);}}placeholder="password" />
         <Button onClick={postSignup}>Sign Up</Button>
       </Form>
-      <Link to="/">log in</Link>
+      <a href={'/'}> log in/home </a>
     </Card>
     </React.Fragment>
   );

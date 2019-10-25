@@ -1,7 +1,7 @@
 import React from "react";
 //import QuestionIssuer from "./QuestionIssuer";
 import ScoreUrl from "./ScoreUrl";
-import axios from 'axios';
+//import axios from 'axios';
 
 class UserTotalScore extends React.Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class UserTotalScore extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      userScore: this.props.userScore,
+      userScore: 0,
     };
   }
 
@@ -17,15 +17,28 @@ class UserTotalScore extends React.Component {
 //  }
 
    render() {
-   let { userScore } = this.state;
+   if (this.props.userScore != null) {
+
     return (
         <React.Fragment>
             <div id="totalscore">
-            <p id="tscore">total score: {this.props.userScore}</p>
+            <p id="tscore">score: {this.props.userScore}</p>
             </div>
             <ScoreUrl />
         </React.Fragment>
-    );
+    ); // end return
+    } //end if
+
+    else {
+    return (
+        <React.Fragment>
+            <div id="totalscore">
+            <p id="tscore">score: 0</p>
+            </div>
+            <ScoreUrl />
+        </React.Fragment>
+    ); // end return
+    } // end else
    }
 }
 

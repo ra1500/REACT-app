@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { AuthContext } from "./context/auth";
+import React from "react";
+//import { AuthContext } from "./context/auth";
 import { useAuth } from "./context/auth";
 import Login from "./pages/Login";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 function LoginStatus2(props) {
     //const [isLoggedIn, setLoggedIn] = useState(false);

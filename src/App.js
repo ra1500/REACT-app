@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import './App.css';
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import PrivateRoute from './PrivateRoute';
 import Home from './Home';
 import Main from './Main';

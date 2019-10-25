@@ -1,6 +1,5 @@
 import LoginStatus2 from "./LoginStatus2";
-import { useAuth } from "./context/auth";
-import React, { useState } from "react";
+import React from "react";
 
 class TitleBar extends React.Component {
 

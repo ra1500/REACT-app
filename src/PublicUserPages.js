@@ -32,8 +32,8 @@ class PublicUserPages extends React.Component {
     let { userName, userScore } = this.state;
     return (
     <div id="scoreurl">
-        <p id="NJ">NeuralJuice</p>
-        <p> {userName} scored: {userScore} </p>
+        <a id="NJ" href="/"> NeuralJuice </a>
+        <p> {userName} life score: {userScore} </p>
     </div>
 
     );

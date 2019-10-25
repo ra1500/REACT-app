@@ -77,7 +77,7 @@ class Network extends React.Component {
 
 
   render() {
-    let { postNewFriendship, setFriend, getFriendships, allData } = this.state;
+    let { allData } = this.state;
 
     if (allData == null) {
     return (
