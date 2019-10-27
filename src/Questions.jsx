@@ -4,11 +4,12 @@ import axios from 'axios';
 import AnswerSelection from "./AnswerSelection";
 
 
-class Question extends React.Component {
+class Questions extends React.Component {
   constructor(props) {
     super(props);
     this.postAnswer = this.postAnswer.bind(this);
-    this.getUserScore = this.getUserScore.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
       error: null,
       isLoaded: false,
@@ -27,20 +28,19 @@ class Question extends React.Component {
       answer4Points: null,
       answer5Points: null,
       answer6Points: null,
-      currentQuestion: this.props.questionToGoTo, //gid in QuestionsEntity for JPA get/fetch
       userScore: 0,
-      questionToGoTo: null,
+      currentQuestion: this.props.questionToGoTo, // initiated from parent
+      jumpQuestion: null, // used for separate get for jumpTo
     };
   }
 
   componentDidMount() {
-    this.renderNextQuestion();
+    this.getQuestion();
     this.getUserScore();
   }
 
-  renderNextQuestion() {
-    console.log(this.props.questionToGoTo + " child");
-    if (this.state.currentQuestion <= this.props.questionSetSize) {
+  getQuestion() {
+    if (this.state.currentQuestion <= this.props.questionSetSize ) {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
         const p = name.password;
@@ -66,6 +66,44 @@ class Question extends React.Component {
             answer5Points: response.data.answer5Points,
             answer6Points: response.data.answer6Points,
             selection: "select from the above choices",
+            answerPoints: 0,
+          });
+               }).catch(error => {this.setState({ isLoaded: true, error});
+               });
+
+    } else {
+          this.setState({answer1: null, selection: null}); //TODO: make all state variables null
+            };
+    }
+
+  getQuestion2() {
+    if (this.state.jumpQuestion <= this.props.questionSetSize ) {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/q/" + this.state.jumpQuestion,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+          this.setState({
+            isLoaded: true,
+            question: response.data.question,
+            answer1: response.data.answer1,
+            answer2: response.data.answer2,
+            answer3: response.data.answer3,
+            answer4: response.data.answer4,
+            answer5: response.data.answer5,
+            answer6: response.data.answer6,
+            answer1Points: response.data.answer1Points,
+            answer2Points: response.data.answer2Points,
+            answer3Points: response.data.answer3Points,
+            answer4Points: response.data.answer4Points,
+            answer5Points: response.data.answer5Points,
+            answer6Points: response.data.answer6Points,
+            selection: "select from the above choices",
+            answerPoints: 0,
           });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -83,13 +121,12 @@ class Question extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { questionId: this.state.currentQuestion, answer: this.state.selection, questionSetVersion: 1, answerPoints: this.state.answerPoints };
-
         axios.post("http://localhost:8080/a",
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.getUserScore(); // update downstream state after successful AJAX call!
-        this.props.askNextQuestion(); // call parent to render the next question. make sure to 'bind' in parent in order to use/set state in parent!!!
+        this.goToNextQuestion(); // serve up the next question
         this.setState({isLoaded: true,
           });
                }).catch(error => {this.setState({ isLoaded: true, error});
@@ -114,20 +151,40 @@ class Question extends React.Component {
                });
     }
 
+  goToNextQuestion(){
+    let next = ++this.state.currentQuestion; // 1 ok
+    this.setState({currentQuestion: next}); // 2 ok
+    this.getQuestion(); // 3 ok
+  }
+
+  handleChange(event) {
+    this.setState({jumpQuestion: event.target.value});
+  }
+  handleSubmit(event) {
+    let lock = this.state.jumpQuestion; // this is magic #1
+    this.setState({currentQuestion: lock}); // this is magic #2
+    this.getQuestion2(); // ok
+    event.preventDefault();
+  }
+
   render() {
-    let { error, isLoaded, question, userScore } = this.state;
-    let { selection, answerPoints, answer1, answer2, answer3, answer4, answer5, answer6, answer1Points, answer2Points, answer3Points,
-        answer4Points, answer5Points, answer6Points,} = this.state;
+    let { error, isLoaded, question, userScore, selection, answerPoints, answer1, answer2, answer3, answer4, answer5,
+     answer6, answer1Points, answer2Points, answer3Points, answer4Points, answer5Points, answer6Points,} = this.state;
 
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-
+    console.log(this.state.currentQuestion + " duh");
     if (this.state.currentQuestion <= this.props.questionSetSize) {
       return (
         <React.Fragment >
+            <form onSubmit={this.handleSubmit}>
+              <input type="number" onChange={this.handleChange} max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
+              <input className="qsbutton" type="submit" value="Jump to Question Number" />
+            </form>
+
             <div id="question">
             <p className="qtext"> [you are on question #{this.state.currentQuestion} of {this.props.questionSetSize}]  Max. points possible: 1,000</p>
             <p className="qtext"> {question} </p>
@@ -147,6 +204,10 @@ class Question extends React.Component {
      } else {
        return (
          <React.Fragment>
+             <form onSubmit={this.handleSubmit}>
+               <input type="number" onChange={this.handleChange} max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
+               <input className="qsbutton" type="submit" value="Jump to Question Number" />
+             </form>
              <p className="qtext">  SCORING COMPLETED </p>
              <UserTotalScore userScore={userScore}/>
          </React.Fragment>
@@ -156,4 +217,4 @@ class Question extends React.Component {
   }
 }
 
-export default Question;
+export default Questions;

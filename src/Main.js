@@ -1,5 +1,5 @@
 import React from "react";
-import QuestionIssuer from "./QuestionIssuer";
+import QuestionSetSelector from "./QuestionSetSelector";
 import TitleBar from "./TitleBar";
 import Network from "./Network";
 
@@ -9,7 +9,7 @@ function Main(props) {
     <React.Fragment>
     <div>
       <TitleBar />
-      <QuestionIssuer />
+      <QuestionSetSelector />
       <Network />
     </div>
     </React.Fragment>

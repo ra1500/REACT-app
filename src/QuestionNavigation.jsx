@@ -1,5 +1,5 @@
 import React from "react";
-import QuestionIssuer from "./QuestionIssuer";
+import QuestionSetSelector from "./QuestionSetSelector";
 
 
 class QuestionNavigation extends React.Component {
@@ -36,7 +36,7 @@ class QuestionNavigation extends React.Component {
           <input className="qsbutton" type="submit" value="Jump to Question" />
       </form>
     </div>
-    <QuestionIssuer questionToGoTo={this.state.gogo}/>
+    <QuestionSetSelector questionToGoTo={this.state.gogo}/>
     </React.Fragment>
     );
     } // end of if
@@ -54,7 +54,7 @@ class QuestionNavigation extends React.Component {
           <input className="qsbutton" type="submit" value="Jump to Question" />
       </form>
     </div>
-    <QuestionIssuer questionToGoTo={this.state.gogo2}/>
+    <QuestionSetSelector questionToGoTo={this.state.gogo2}/>
     </React.Fragment>
     );
     } // end else
