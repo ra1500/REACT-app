@@ -13,6 +13,7 @@ class Questions extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
+      questionSetVersion: 1,
       question: null,
       selection: null,
       answerPoints: null,
@@ -31,6 +32,7 @@ class Questions extends React.Component {
       userScore: 0,
       currentQuestion: this.props.questionToGoTo, // initiated from parent
       jumpQuestion: null, // used for separate get for jumpTo
+      allDeletedMessage: "",
     };
   }
 
@@ -120,14 +122,14 @@ class Questions extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { questionId: this.state.currentQuestion, answer: this.state.selection, questionSetVersion: 1, answerPoints: this.state.answerPoints };
+        let data = { questionId: this.state.currentQuestion, answer: this.state.selection, questionSetVersion: this.state.questionSetVersion, answerPoints: this.state.answerPoints };
         axios.post("http://localhost:8080/a",
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.getUserScore(); // update downstream state after successful AJAX call!
         this.goToNextQuestion(); // serve up the next question
-        this.setState({isLoaded: true,
+        this.setState({isLoaded: true, allDeletedMessage: "",
           });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -150,11 +152,10 @@ class Questions extends React.Component {
                }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
                });
     }
-
+//////////////////////////////////////////////////////////////////////////////
   goToNextQuestion(){
-    let next = ++this.state.currentQuestion; // 1 ok
-    this.setState({currentQuestion: next}); // 2 ok
-    this.getQuestion(); // 3 ok
+    this.setState({currentQuestion: ++this.state.currentQuestion});
+    this.getQuestion();
   }
 
   handleChange(event) {
@@ -163,20 +164,45 @@ class Questions extends React.Component {
   handleSubmit(event) {
     let lock = this.state.jumpQuestion; // this is magic #1
     this.setState({currentQuestion: lock}); // this is magic #2
-    this.getQuestion2(); // ok
+    this.getQuestion2(); // magic #3: needs a separate method in order to use jumpQuestion immediately instead of waiting to listen for it in setState. if i setState of currentQuestion be equal to the jumpQuestion in the input text box itself, you'd have immediate re-rendering for every typed number in the box.
     event.preventDefault();
   }
+////////////////////////////////////////////////////////////////////////////////
+   verifyDelete() {
+    if (window.confirm('are you sure you want to delete all\nyour answers to this question set?'))
+    this.deleteAllAnswers();
+    this.setState({allDeletedMessage: "answers deleted"});
+   }
+   deleteAllAnswers() {
+    const name = JSON.parse(sessionStorage.getItem('tokens'));
+    const u = name.userName;
+    const p = name.password;
+    const token = u + ':' + p;
+    const hash = btoa(token);
+    const Basic = 'Basic ' + hash;
+    const data = {questionSetVersion: this.state.questionSetVersion};
+    axios.post("http://localhost:8080/a/del",
+    data,
+    {headers : { 'Authorization' : Basic }})
+    .then((response) => {
+    this.getUserScore();
+    this.setState({currentQuestion: 1}); // qc this
+    this.getQuestion();     // qc this
+    this.setState({isLoaded: true,
+      });
+           }).catch(error => {this.setState({ isLoaded: true, error});
+           });
+   } // end of deleteAllAnswers
 
   render() {
     let { error, isLoaded, question, userScore, selection, answerPoints, answer1, answer2, answer3, answer4, answer5,
-     answer6, answer1Points, answer2Points, answer3Points, answer4Points, answer5Points, answer6Points,} = this.state;
+     answer6, answer1Points, answer2Points, answer3Points, answer4Points, answer5Points, answer6Points, allDeletedMessage} = this.state;
 
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-    console.log(this.state.currentQuestion + " duh");
     if (this.state.currentQuestion <= this.props.questionSetSize) {
       return (
         <React.Fragment >
@@ -184,7 +210,10 @@ class Questions extends React.Component {
               <input type="number" onChange={this.handleChange} max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
               <input className="qsbutton" type="submit" value="Jump to Question Number" />
             </form>
-
+            <div>
+            <button className="qsbutton" onClick={() => this.verifyDelete()}>Delete all my answers</button>
+            <p>{this.state.allDeletedMessage}</p>
+            </div>
             <div id="question">
             <p className="qtext"> [you are on question #{this.state.currentQuestion} of {this.props.questionSetSize}]  Max. points possible: 1,000</p>
             <p className="qtext"> {question} </p>
@@ -208,6 +237,10 @@ class Questions extends React.Component {
                <input type="number" onChange={this.handleChange} max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
                <input className="qsbutton" type="submit" value="Jump to Question Number" />
              </form>
+            <div>
+            <button className="qsbutton" onClick={() => this.verifyDelete()}>Delete all my answers</button>
+            <p>{this.state.allDeletedMessage}</p>
+            </div>
              <p className="qtext">  SCORING COMPLETED </p>
              <UserTotalScore userScore={userScore}/>
          </React.Fragment>

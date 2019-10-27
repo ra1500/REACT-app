@@ -13,10 +13,17 @@ import { AuthContext } from "./context/auth";
 function App(props) {
   const [authTokens, setAuthTokens] = useState();
 
+   // setAuthTokens(sessionStorage.getItem("tokens")); // ????
+
   const setTokens = (data) => {
     sessionStorage.setItem("tokens", JSON.stringify(data));
     setAuthTokens(data);
+    //if (data == null) { // this if statement probably trash. delete.
+    //setAuthTokens(sessionStorage.getItem("tokens"));
+    //}
   }
+
+//<PrivateRoute path="/Main" component={Main} /> // revert back to this after development
 
   return (
             <React.Fragment>
@@ -27,7 +34,8 @@ function App(props) {
                         <Route exact path="/" component={Home} />
                         <Route exact path="/signup" component={Signup} />
                         <Route exact path="/us/scores" component={PublicUserPages} />
-                        <PrivateRoute path="/Main" component={Main} />
+                        <Route exact path="/Main" component={Main} />
+
                       </div>
                     </Router>
                     </AuthContext.Provider>

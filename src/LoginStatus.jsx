@@ -4,7 +4,7 @@ import { useAuth } from "./context/auth";
 import Login from "./pages/Login";
 import { Redirect } from "react-router-dom";
 
-function LoginStatus2(props) {
+function LoginStatus(props) {
     //const [isLoggedIn, setLoggedIn] = useState(false);
     //const referer = "/Main";
     let userName = null;
@@ -17,7 +17,6 @@ function LoginStatus2(props) {
     else { userName = name.userName};
     const { setAuthTokens } = useAuth();
 
-
   function logOut() {
     const goHome = "/   ";
     //const goLogin = "/";
@@ -26,7 +25,6 @@ function LoginStatus2(props) {
     //window.location.replace(goHome);
     return <Redirect to={goHome} />;  //TODO: should go home and not login page
   }
-
 
     if (userName == null) {
     return (
@@ -40,5 +38,4 @@ function LoginStatus2(props) {
   }
 
 
-
-export default LoginStatus2;
+export default LoginStatus;

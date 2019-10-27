@@ -1,4 +1,4 @@
-import LoginStatus2 from "./LoginStatus2";
+import LoginStatus from "./LoginStatus";
 import React from "react";
 
 class TitleBar extends React.Component {
@@ -11,7 +11,7 @@ class TitleBar extends React.Component {
     return (
     <div>
         <a id="NJ" href="/"> NeuralJuice </a>
-        <div id="LoginStatus"> <LoginStatus2 /> </div>
+        <div id="LoginStatus"> <LoginStatus /> </div>
     </div>
 
     );

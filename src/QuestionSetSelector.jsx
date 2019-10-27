@@ -4,7 +4,6 @@ import Questions from "./Questions";
 class QuestionSetSelector extends React.Component {
   constructor(props) {
     super(props);
-    //this.getMaxQtyQuestions = this.getMaxQtyQuestions.bind(this);
     this.state = {
           questionSetSize: 10000, // this value doesnt matter. just make it not null.
           questionToGoTo: 1,
