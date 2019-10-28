@@ -9,8 +9,11 @@ class TitleBar extends React.Component {
 
   render() {
     return (
-    <div>
+    <div id="titleBar">
         <a id="NJ" href="/"> NeuralJuice </a>
+        <a id="menuLinks1" href="/Main"> Scores </a>
+        <a className="menuLinks" href="/network"> Network </a>
+        <a className="menuLinks" href="/profile"> Profile </a>
         <div id="LoginStatus"> <LoginStatus /> </div>
     </div>
 

@@ -1,6 +1,6 @@
 import React from "react";
 import axios from 'axios';
-//import NetworkListed from "./NetworkListed";
+import TitleBar from "./TitleBar";
 import ContactsList from "./ContactsList";
 
 class Network extends React.Component {
@@ -8,7 +8,7 @@ class Network extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSubmit2 = this.handleSubmit2.bind(this);
+    //this.handleSubmit2 = this.handleSubmit2.bind(this); // not used currently
 
         this.state = {
           error: null,
@@ -21,6 +21,10 @@ class Network extends React.Component {
           userName: null,
         };
   }
+
+    componentDidMount() {
+        this.getFriendships();
+    }
 
     postNewFriendship() {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
@@ -37,7 +41,7 @@ class Network extends React.Component {
         .then((response) => {
         this.setState({isLoaded: true,
                   });
-        //this.getFriendships();
+         this.getFriendships(); //
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
     }
@@ -56,6 +60,7 @@ class Network extends React.Component {
             isLoaded: true,
             allData: response,
           });
+
                }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
                });
     }
@@ -67,47 +72,46 @@ class Network extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.postNewFriendship();
+    window.location.reload(); // foreced refresh since list.map doesnt re-render
   }
 
-   handleSubmit2(event) {
-     event.preventDefault();
-     this.getFriendships();
-   }
-
+   // not used currently
+   //handleSubmit2(event) {
+   //  event.preventDefault();
+   //  this.getFriendships();
+   //}
 
 
   render() {
-    let { allData } = this.state;
-
-    if (allData == null) {
+    if (this.state.allData == null) {
     return (
+    <React.Fragment>
+    <TitleBar />
     <div id="network">
       <p className="urltext">Your Network</p>
       <form onSubmit={this.handleSubmit}>
           <input type="text" value={this.state.friend} onChange={this.handleChange} />
           <input type="submit" value="Invite" />
       </form>
-      <form onSubmit={this.handleSubmit2}>
-        <input id="getfriends" type="submit" value="view your contacts" />
-      </form>
-
+    <p> no connections </p>
     </div>
+    </React.Fragment>
     );
     } // end if
 
     else {
     return (
+    <React.Fragment>
+    <TitleBar />
+    <p className="urltext">Your Network</p>
+    <ContactsList allData={this.state.allData} />
     <div id="network">
-      <p className="urltext">Your Network</p>
       <form onSubmit={this.handleSubmit}>
           <input type="text" value={this.state.friend} onChange={this.handleChange} />
           <input type="submit" value="Invite" />
       </form>
-      <form onSubmit={this.handleSubmit2}>
-        <input id="getfriends" type="submit" value="view your contacts" />
-      </form>
-      <ContactsList allData={allData} />
     </div>
+    </React.Fragment>
     );
     }; // end else
     }

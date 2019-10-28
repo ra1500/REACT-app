@@ -33,7 +33,10 @@ function LoginStatus(props) {
 
     else {
     return (
-    <div><p id="userName"> {userName}  </p> <button id="logoutButton" onClick={() => logOut()}>Log out</button>  </div>
+    <div>
+    <button id="logoutButton" onClick={() => logOut()}>Log out</button>
+    <p id="userName"> {userName}  </p>
+    </div>
     );}
   }
 

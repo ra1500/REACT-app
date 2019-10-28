@@ -1,7 +1,6 @@
 import React from "react";
 import QuestionSetSelector from "./QuestionSetSelector";
 import TitleBar from "./TitleBar";
-import Network from "./Network";
 
 function Main(props) {
 
@@ -10,7 +9,6 @@ function Main(props) {
     <div>
       <TitleBar />
       <QuestionSetSelector />
-      <Network />
     </div>
     </React.Fragment>
   );

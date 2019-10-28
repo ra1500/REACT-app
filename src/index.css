@@ -6,22 +6,42 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;}
 
-code {font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",monospace;}
+code {font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;}
 
-p {font-family: "Lucida Console"}
-.qbutton {font-family: "Lucida Console"; font-size: 14px; padding: 10px 24px; background-color: #e7e7e7; color: black; border-radius: 0px; margin: 4px;}
-.qbutton:hover {background-color: #b3cccc}
-.qsbutton {font-family: "Lucida Console"; font-size: 14px; padding: 6px 15px; background-color: #e7e7e7; color: black; margin: 4px;}
-.qsbutton:hover {background-color: #ffb366}
-#question {border-style: solid; border-width: 1px; margin-bottom: 10px;}
-#totalscore {border-style: solid; border-width: 2px; border-color: red;width: 240px; margin-left: 10px;}
+p {font-family: "Geneva"}
+.qbutton {font-family: "Geneva"; font-size: 14px; padding: 10px 24px; background-color: #e7e7e7; color: black; border-radius: 8px; margin: 4px;}
+.qbutton:hover {background-color: #4dffa6}
+.qsbutton {font-family: "Geneva"; font-size: 14px; padding: 6px 15px; background-color: #ffff80; color: black; margin: 4px;}
+.qsbutton:hover {background-color: #ffff00}
+#question {border-bottom: solid; border-width: 1px; margin-bottom: 10px; padding-bottom: 10px; margin-top: 10px;}
+#totalscore {border-style: solid; border-width: 2px; border-color: red; width: 117px; margin-left: 10px; margin-bottom: 15px;}
 #introduction {margin-left: 10px;}
-.qtext {margin-left: 10px; margin-top: 5px;}
+.qtext {margin-left: 10px; margin-top: 15px;}
 #qtext2 {margin-left: 10px; margin-bottom: 1px;}
 #NJ {margin-left: 10px; margin-top: 5px; margin-right: 30px; font-family: "Arial";font-size: 20px; color: #0052cc; font-weight: bold; display: inline-block;text-decoration: none;}
 #tscore {margin-left: 10px; margin-top: 15px;}
 #LoginStatus {display: inline-block; margin-left: 20px;}
-#userName {display: inline; color:#e67300;}
-#logoutButton {display: inline}
-.urltext {margin-left: 10px; margin-top: 0px;}
-#getfriends {font-family: "Lucida Console"; font-size: 14px; padding: 10px 24px; background-color: #e7e7e7; color: black; border-radius: 0px; margin: 4px;}
+#userName {display: inline; color: #ff9933;}
+#logoutButton {display: inline; font-family: "Geneva"; font-size: 11px; background-color: #ffffcc; color: black; border-radius: 10px; margin-right: 5px}
+#logoutButton:hover {background-color: #ffff00}
+.urltext {margin-left: 10px; margin-top: 0px; display: inline;}
+#getfriends {font-family: "Geneva"; font-size: 14px; padding: 10px 24px; background-color: #e7e7e7; color: black; border-radius: 0px; margin: 4px;}
+#nextQuestionForm {display: inline;}
+#inputQuestionNumberBox {width: 30px;}
+#deletedAnswersMessage {display: inline; margin-left: 10px; color: red}
+#noAnswerButton {font-family: "Geneva"; font-size: 14px; padding: 10px 24px; background-color: #ff66a3; color: black; border-radius: 8px; margin: 4px;}
+#noAnswerButton:hover {background-color: #ff0066}
+#goToQuestionform {display: inline; margin-left: 10px;}
+#titleBar {border-bottom: 1px solid black; padding-bottom: 10px}
+#scoreurl {display: inline;}
+#linkToNetwork {display: inline; margin-left: 10px;}
+.menuLinks {margin-left: 20px; text-decoration: none; font-family: "Geneva"}
+.menuLinks:link, .menuLinks:visited {color: blue;}
+.menuLinks:hover {color: #000099;}
+#menuLinks1 {margin-left: 110px; text-decoration: none; font-family: "Geneva"}
+#menuLinks1:link, #menuLinks1:visited {color: blue;}
+#menuLinks1:hover {color: #000099;}
+#profileUserName {margin-left: 20px;}
+#profileLifeUserScore {margin-left: 20px; color: red}
+#qText1 {margin-left: 10px; margin-top: 5px; display: inline;}
+#qText2 {margin-left: 20px; margin-top: 5px; display: inline;}

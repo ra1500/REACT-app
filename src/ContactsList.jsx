@@ -9,25 +9,37 @@ class ContactsList extends React.Component {
         };
     }
 
+   renderTableData() {
+      return this.state.list.map((data, index) => {
+         const { friend, status,} = data //destructuring
+         return (
+            <tr key={data.friend}>
+               <td>{data.friend}</td>
+               <td>{data.status}</td>
+               <td>{data.connectionType}</td>
+               <td>{data.visibilityPermission}</td>
+            </tr>
+         )
+      })
+   }
+
+   renderTableHeader() {
+      let header = ["Contact", "Status", "Connection Type", "Privacy"]
+      return header.map((key, index) => {
+         return <th key={index}>{key}</th>
+      })
+   }
+
     render() {
-        let { list,dataString} = this.state;
-
-
         return (
         <React.Fragment>
-        <div>
-            {dataString}
-         </div>
-            <ul>
-              {list.map(data => (
-                <li key={data.friend}>
-                  <div>{data.friend}</div>
-                  <div>{data.status}</div>
-                </li>
-              ))}
-            </ul>
-        <div>
-
+         <div>
+            <table>
+               <tbody>
+                  <tr>{this.renderTableHeader()}</tr>
+                  {this.renderTableData()}
+               </tbody>
+            </table>
          </div>
         </React.Fragment>
         )

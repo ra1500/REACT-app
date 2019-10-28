@@ -14,9 +14,8 @@ class ScoreUrl extends React.Component {
     let { userName } = this.state;
     return (
     <div id="scoreurl">
-        <p className="urltext">Your score URL:</p> <a href={'/us/scores?gid=' + userName}> neuraljuice.com/us/scores?gid={userName} </a><br></br>
-        <p>share it on facebook etc.<br></br>
-        toggle here to make it private </p>
+        <p className="urltext">Your score profile page: </p> <a href={'/us/scores?gid=' + userName}> www.neuraljuice.com/us/scores?gid={userName} </a>
+
     </div>
 
     );

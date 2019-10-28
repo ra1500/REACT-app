@@ -8,7 +8,8 @@ import PublicUserPages from './PublicUserPages';
 import Login from "./pages/Login";
 import Signup from './pages/Signup';
 import { AuthContext } from "./context/auth";
-//import TitleBar from "./TitleBar";
+import Network from "./Network";
+import Profile from "./Profile";
 
 function App(props) {
   const [authTokens, setAuthTokens] = useState();
@@ -23,7 +24,9 @@ function App(props) {
     //}
   }
 
-//<PrivateRoute path="/Main" component={Main} /> // revert back to this after development
+// <PrivateRoute path="/Main" component={Main} /> // revert back to this after development
+// <PrivateRoute path="/network" component={Network} /> // revert back to this after development
+// <PrivateRoute path="/profile" component={Profile} /> // revert back to this after development
 
   return (
             <React.Fragment>
@@ -35,6 +38,8 @@ function App(props) {
                         <Route exact path="/signup" component={Signup} />
                         <Route exact path="/us/scores" component={PublicUserPages} />
                         <Route exact path="/Main" component={Main} />
+                        <Route exact path="/network" component={Network} />
+                        <Route exact path="/profile" component={Profile} />
 
                       </div>
                     </Router>

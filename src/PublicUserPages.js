@@ -16,7 +16,6 @@ class PublicUserPages extends React.Component {
   }
 
   getUserScore() {
-        //let { userName } = this.state;
         axios.get("http://localhost:8080/us/scores?gid=" + this.state.userName,)
         .then((response) => {
           this.setState({
@@ -28,12 +27,11 @@ class PublicUserPages extends React.Component {
     }
 
   render() {
-    //console.log(this.state.userName);
-    let { userName, userScore } = this.state;
     return (
     <div id="scoreurl">
         <a id="NJ" href="/"> NeuralJuice </a>
-        <p> {userName} life score: {userScore} </p>
+        <p id="profileUserName"> I am {this.state.userName}</p>
+        <p id="profileLifeUserScore">life score: {this.state.userScore} </p>
     </div>
 
     );
