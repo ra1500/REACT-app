@@ -6,7 +6,7 @@ class AnswerSelection extends React.Component {
 //  }
 
   render() {
-    if (this.props.answer == null) {
+    if (this.props.answer == null || this.props.answer == "") {
         return (null)
     }
     else {

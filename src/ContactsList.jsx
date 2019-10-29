@@ -11,11 +11,11 @@ class ContactsList extends React.Component {
 
    renderTableData() {
       return this.state.list.map((data, index) => {
-         const { friend, status,} = data //destructuring
+         const { friend, connectionStatus,} = data //destructuring
          return (
             <tr key={data.friend}>
                <td>{data.friend}</td>
-               <td>{data.status}</td>
+               <td>{data.connectionStatus}</td>
                <td>{data.connectionType}</td>
                <td>{data.visibilityPermission}</td>
             </tr>
@@ -24,7 +24,7 @@ class ContactsList extends React.Component {
    }
 
    renderTableHeader() {
-      let header = ["Contact", "Status", "Connection Type", "Privacy"]
+      let header = ["Contact", "Status", "Type", "Privacy"]
       return header.map((key, index) => {
          return <th key={index}>{key}</th>
       })
