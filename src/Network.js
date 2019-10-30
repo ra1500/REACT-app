@@ -3,6 +3,7 @@ import axios from 'axios';
 import TitleBar from "./TitleBar";
 import ContactsList from "./ContactsList";
 import ManageMyContacts from "./ManageMyContacts";
+import AuditMyContacts from "./AuditMyContacts";
 
 class Network extends React.Component {
   constructor(props) {
@@ -37,7 +38,6 @@ class Network extends React.Component {
         const Basic = 'Basic ' + hash;
         let data = { friend: this.state.friend, connectionType: this.state.connectionType, connectionStatus: this.state.connectionStatus,
          visibilityPermission: this.state.visibilityPermission, inviter: u };
-
         axios.post("http://localhost:8080/f", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
@@ -91,10 +91,10 @@ class Network extends React.Component {
 
    renderInvitationForm() {
     return (
+      <div id="invitationForm">
       <form onSubmit={this.handleSubmit}>
-        <label>
-          Connect with someone:
-          <input type="text" value={this.state.friend} onChange={this.handleChange} />
+          <label> Connect with someone:
+          <input id="invitationBox" type="text" value={this.state.friend} onChange={this.handleChange} />
           <select value={this.state.connectionType} onChange={this.handleChange2}>
               <option selected value="Friend">Friend</option>
               <option value="Colleague">Colleague</option>
@@ -109,8 +109,10 @@ class Network extends React.Component {
             </label>
         <input className="qbutton" type="submit" value="Invite" />
       </form>
+      </div>
     )
    }
+
 
   render() {
     if (this.state.allData == null) {
@@ -131,6 +133,7 @@ class Network extends React.Component {
         <ContactsList allData={this.state.allData} />
         {this.renderInvitationForm()}
         <ManageMyContacts />
+        <AuditMyContacts />
     </React.Fragment>
     );
     }; // end else

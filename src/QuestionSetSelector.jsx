@@ -17,17 +17,14 @@ class QuestionSetSelector extends React.Component {
   getMaxQtyQuestions() {
     fetch("http://localhost:8080/max")
       .then(res => res.json())
-      .then(
-        (result) => {
+      .then((result) => {
           this.setState({
             isLoaded: true,
             questionSetSize: result.maxQtyQuestions,
           });
         },
         (error) => {
-          this.setState({
-            isLoaded: true,
-            error,
+          this.setState({isLoaded: true,error,
           });
         }
       )

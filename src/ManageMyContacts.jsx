@@ -86,7 +86,7 @@ class ManageMyContacts extends React.Component {
           });
         this.invitationUpdate(); // render inviter contacts in pending connectionStatus.
         this.manageUpdate(); // render friend mgmt tools if friend exists.
-               }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
+               }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
 
@@ -162,7 +162,7 @@ class ManageMyContacts extends React.Component {
     if (this.state.connectionStatus == "pending" && this.state.inviter == this.state.userName) {
         this.setState({isAfriend: true});
      } // end if
-    if (this.state.connectionStatus != "pending") {
+    if (this.state.connectionStatus != "pending" && this.state.connectionStatus != null) {
         this.setState({isAfriend: true});
      } // end if
   }
@@ -170,6 +170,7 @@ class ManageMyContacts extends React.Component {
   render() {
     return (
     <React.Fragment>
+    <div id="manageContacts">
       <form onSubmit={this.handleSubmit}>
           <label>
           Manage My Contacts:
@@ -217,7 +218,7 @@ class ManageMyContacts extends React.Component {
 
              <input className="qbutton" onClick={() => this.handleSubmit5()} value="Delete from my network" />
       </div> }
-
+    </div>
     </React.Fragment>
     );
   }

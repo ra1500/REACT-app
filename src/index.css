@@ -45,3 +45,7 @@ p {font-family: "Geneva"}
 #profileLifeUserScore {margin-left: 20px; color: red}
 #qText1 {margin-left: 10px; margin-top: 5px; display: inline;}
 #qText2 {margin-left: 20px; margin-top: 5px; display: inline;}
+#invitationBox {display: block}
+#invitationForm {border-style: solid; border-width: 1px;}
+#manageContacts {border-style: solid; border-width: 1px;}
+#auditContacts {border-style: solid; border-width: 1px;}
