@@ -16,9 +16,9 @@ class Network extends React.Component {
           error: null,
           isLoaded: false,
           friend: null,
-          connectionType: null,
+          connectionType: "Friend",
           connectionStatus: "pending",
-          visibilityPermission: "all",
+          visibilityPermission: "Yes",
           inviter: null,
           userName: null,
         };
@@ -73,8 +73,10 @@ class Network extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    if (window.confirm('Please confirm invitation')) {
     this.postNewFriendship();
     window.location.reload(); // forced refresh since list.map doesnt re-render
+    }
   }
 
    // select connectionType
@@ -94,15 +96,15 @@ class Network extends React.Component {
           Connect with someone:
           <input type="text" value={this.state.friend} onChange={this.handleChange} />
           <select value={this.state.connectionType} onChange={this.handleChange2}>
-              <option value="Friend">Friend</option>
+              <option selected value="Friend">Friend</option>
               <option value="Colleague">Colleague</option>
               <option value="Other">Other</option>
            </select>
            </label>
            <label> Allow contact to view my profile
           <select value={this.state.visibilityPermission} onChange={this.handleChange3}>
-              <option value="Can view my profile">Yes</option>
-              <option value="My profile is hidden">No</option>
+              <option selected value="Yes">Yes</option>
+              <option value="No">No</option>
            </select>
             </label>
         <input className="qbutton" type="submit" value="Invite" />
