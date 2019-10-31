@@ -94,7 +94,7 @@ class Questions extends React.Component {
         //console.log(response.data.questionsList.question);
           this.setState({
             isLoaded: true,
-            question: response.data.questionsList.question,
+            question: response.data.question,
             answer1: response.data.answer1,
             answer2: response.data.answer2,
             answer3: response.data.answer3,
