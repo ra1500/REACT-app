@@ -50,7 +50,7 @@ class Questions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/" + this.state.currentQuestion,
+        axios.get("http://localhost:8080/q/" + this.state.questionSetVersion + "/" + this.state.currentQuestion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -88,12 +88,13 @@ class Questions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/" + this.state.jumpQuestion,
+        axios.get("http://localhost:8080/q/" + this.state.questionSetVersion + "/" + this.state.jumpQuestion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
+        //console.log(response.data.questionsList.question);
           this.setState({
             isLoaded: true,
-            question: response.data.question,
+            question: response.data.questionsList.question,
             answer1: response.data.answer1,
             answer2: response.data.answer2,
             answer3: response.data.answer3,
@@ -247,7 +248,7 @@ class Questions extends React.Component {
       return (
         <React.Fragment >
             <div id="question">
-            <p id="qText1"> #{this.state.currentQuestion} of {this.props.questionSetSize}</p><p id="qText2">1,000 points maximum</p>
+            <p id="qText1"> #{this.state.currentQuestion} of {this.props.questionSetSize}</p><p id="qText2"> tbd points maximum</p>
             <p className="qtext"> {question} </p>
             <AnswerSelection answer={answer1} onClick={() => this.setState({selection: this.state.answer1, answerPoints: answer1Points})}> {answer1} </AnswerSelection>
             <AnswerSelection answer={answer2} onClick={() => this.setState({selection: this.state.answer2, answerPoints: answer2Points})}> {answer2} </AnswerSelection>

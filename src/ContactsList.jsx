@@ -11,7 +11,6 @@ class ContactsList extends React.Component {
 
    renderTableData() {
       return this.state.list.map((data, index) => {
-         const { friend, connectionStatus,} = data //destructuring
          return (
             <tr key={data.friend}>
                <td>{data.friend}</td>

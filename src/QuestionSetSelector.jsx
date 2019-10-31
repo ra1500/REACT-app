@@ -5,7 +5,7 @@ class QuestionSetSelector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-          questionSetSize: 10000, // this value doesnt matter. just make it not null.
+          questionSetSize: 10000, //
           questionToGoTo: 1,
         };
     };
