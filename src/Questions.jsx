@@ -209,7 +209,7 @@ class Questions extends React.Component {
     const token = u + ':' + p;
     const hash = btoa(token);
     const Basic = 'Basic ' + hash;
-    const data = this.props.setNumber;
+    const data = {questionSetVersion: this.props.setNumber};
     axios.post("http://localhost:8080/a/del",
     data,
     {headers : { 'Authorization' : Basic }})
