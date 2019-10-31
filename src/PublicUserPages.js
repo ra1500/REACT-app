@@ -8,7 +8,11 @@ class PublicUserPages extends React.Component {
     let url = this.props.location.search;
     let params = queryString.parse(url);
     let user = params.gid;
-    this.state = {userName: user, userScore: null}; //TODO: why couldnt userName use setState in component did mount??? wtf. userScore did, so...
+    this.state = {
+        userName: user,
+        userScore: null,
+        setVersion: 1,
+        };
   }
 
   componentDidMount() {
@@ -16,7 +20,7 @@ class PublicUserPages extends React.Component {
   }
 
   getUserScore() {
-        axios.get("http://localhost:8080/us/scores?gid=" + this.state.userName,)
+        axios.get("http://localhost:8080/us/scores?gid=" + this.state.userName + "&sv=" + this.state.setVersion,)
         .then((response) => {
           this.setState({
             isLoaded: true,

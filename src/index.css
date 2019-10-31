@@ -49,3 +49,6 @@ p {font-family: "Geneva"}
 #invitationForm {border-style: solid; border-width: 1px;}
 #manageContacts {border-style: solid; border-width: 1px;}
 #auditContacts {border-style: solid; border-width: 1px;}
+#chooseSet {border-style: solid; border-width: 1px;}
+#selectQuestionSet {font-family: "Arial";font-size: 15px; color: #0052cc; font-weight: bold;}
+#selectQuestionSet:hover {cursor: pointer;}
