@@ -104,7 +104,7 @@ class QuestionSetSelector extends React.Component {
                 <td id="selectQuestionSet" onClick={() => this.handleSubmit1()}> Life Score </td><td> Life </td><td> Who are you? What is your life value score</td>
             </tr>
             <tr>
-                <td id="selectQuestionSet" onClick={() => this.handleSubmit2()}> (more to come)</td>
+                <td> (more to come)</td>
             </tr>
             </table>
 

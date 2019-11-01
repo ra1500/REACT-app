@@ -1,6 +1,6 @@
 import React from "react";
 //import QuestionSetSelector from "./QuestionSetSelector";
-import ScoreUrl from "./ScoreUrl";
+
 //import axios from 'axios';
 
 class UserTotalScore extends React.Component {
@@ -24,7 +24,6 @@ class UserTotalScore extends React.Component {
             <div id="totalscore">
             <p id="tscore">score: {this.props.userScore}</p>
             </div>
-            <ScoreUrl />
         </React.Fragment>
     ); // end return
     } //end if
@@ -35,7 +34,6 @@ class UserTotalScore extends React.Component {
             <div id="totalscore">
             <p id="tscore">score: 0</p>
             </div>
-            <ScoreUrl />
         </React.Fragment>
     ); // end return
     } // end else

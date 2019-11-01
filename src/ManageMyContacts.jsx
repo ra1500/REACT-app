@@ -59,7 +59,7 @@ class ManageMyContacts extends React.Component {
         axios.patch("http://localhost:8080/f/adj", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        window.location.reload(); // forced refresh since list.map doesnt re-render
+        window.location.reload(); // forced refresh since list.map doesnt re-render //TODO: FIX this
         this.setState({isLoaded: true,
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});

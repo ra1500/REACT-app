@@ -1,17 +1,22 @@
 import React from "react";
 import TitleBar from "./TitleBar";
 import axios from 'axios';
+import ScoreUrl from "./ScoreUrl";
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
           userScore: null,
+          setVersion: 1,
+          title: null,
+          version: null,
         };
     };
 
   componentDidMount() {
     this.getUserScore();
+    this.getSetVersionDescriptors();
   }
 
   getUserScore() {
@@ -21,7 +26,7 @@ class Profile extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/us/",
+        axios.get("http://localhost:8080/us?sv=" + this.state.setVersion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -32,12 +37,31 @@ class Profile extends React.Component {
                });
     }
 
+  getSetVersionDescriptors() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/qs/" + this.state.setVersion,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+          this.setState({
+            isLoaded: true,
+            title: response.data.title,
+            version: response.data.version,
+          });
+               }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
+               });
+    }
+
    render() {
     return (
         <React.Fragment>
             <TitleBar />
-            <p>score {this.state.userScore}</p>
-            <p>username, password change, email, publicprofilepermission, </p>
+            <p> {this.state.title} {this.state.version} score {this.state.userScore}</p>
+            <ScoreUrl />
         </React.Fragment>
     ); // end return
    }
