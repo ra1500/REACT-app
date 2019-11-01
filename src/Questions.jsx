@@ -17,6 +17,7 @@ class Questions extends React.Component {
       // questionSetVersion: null,
       question: null,
       selection: null,
+      auditee: "maria",
       answerPoints: null,
       answer1: null,
       answer2: null,
@@ -38,6 +39,7 @@ class Questions extends React.Component {
   }
 
   componentDidMount() {
+    //this.setState({auditee: this.state.userName});
     this.getQuestion();
     this.getUserScore();
   }
@@ -126,7 +128,8 @@ class Questions extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { questionId: this.state.currentQuestion, answer: this.state.selection, questionSetVersion: this.props.setNumber, answerPoints: this.state.answerPoints };
+        let data = { questionId: this.state.currentQuestion, answer: this.state.selection, questionSetVersion: this.props.setNumber,
+            answerPoints: this.state.answerPoints, auditee: this.state.auditee };
         axios.post("http://localhost:8080/a",
         data,
         {headers : { 'Authorization' : Basic }})
@@ -146,7 +149,7 @@ class Questions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/us?sv=" + this.props.setNumber,
+        axios.get("http://localhost:8080/us?sv=" + this.props.setNumber + "&au=" + this.state.auditee,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -164,7 +167,7 @@ class Questions extends React.Component {
        const token = u +':' + p;
        const hash = btoa(token);
        const Basic = 'Basic ' + hash;
-       axios.get("http://localhost:8080/a/" + this.state.currentQuestion + "/" + this.props.setNumber,
+       axios.get("http://localhost:8080/a/" + this.state.currentQuestion + "/" + this.props.setNumber + "/" + this.state.auditee,
        {headers : { 'Authorization' : Basic }})
        .then((response) => {
          if (response.data.answer) {
@@ -209,7 +212,7 @@ class Questions extends React.Component {
     const token = u + ':' + p;
     const hash = btoa(token);
     const Basic = 'Basic ' + hash;
-    const data = {questionSetVersion: this.props.setNumber};
+    const data = {questionSetVersion: this.props.setNumber, auditee: this.state.auditee};
     axios.post("http://localhost:8080/a/del",
     data,
     {headers : { 'Authorization' : Basic }})
