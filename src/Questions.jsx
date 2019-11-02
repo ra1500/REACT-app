@@ -17,7 +17,6 @@ class Questions extends React.Component {
       // questionSetVersion: null,
       question: null,
       selection: null,
-      auditee: "maria",
       answerPoints: null,
       answer1: null,
       answer2: null,
@@ -39,7 +38,6 @@ class Questions extends React.Component {
   }
 
   componentDidMount() {
-    //this.setState({auditee: this.state.userName});
     this.getQuestion();
     this.getUserScore();
   }
@@ -129,7 +127,7 @@ class Questions extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { questionId: this.state.currentQuestion, answer: this.state.selection, questionSetVersion: this.props.setNumber,
-            answerPoints: this.state.answerPoints, auditee: this.state.auditee };
+            answerPoints: this.state.answerPoints, auditee: this.props.auditee };
         axios.post("http://localhost:8080/a",
         data,
         {headers : { 'Authorization' : Basic }})
@@ -149,7 +147,7 @@ class Questions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/us?sv=" + this.props.setNumber + "&au=" + this.state.auditee,
+        axios.get("http://localhost:8080/us?sv=" + this.props.setNumber + "&au=" + this.props.auditee,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -167,7 +165,7 @@ class Questions extends React.Component {
        const token = u +':' + p;
        const hash = btoa(token);
        const Basic = 'Basic ' + hash;
-       axios.get("http://localhost:8080/a/" + this.state.currentQuestion + "/" + this.props.setNumber + "/" + this.state.auditee,
+       axios.get("http://localhost:8080/a/" + this.state.currentQuestion + "/" + this.props.setNumber + "/" + this.props.auditee,
        {headers : { 'Authorization' : Basic }})
        .then((response) => {
          if (response.data.answer) {
@@ -212,7 +210,7 @@ class Questions extends React.Component {
     const token = u + ':' + p;
     const hash = btoa(token);
     const Basic = 'Basic ' + hash;
-    const data = {questionSetVersion: this.props.setNumber, auditee: this.state.auditee};
+    const data = {questionSetVersion: this.props.setNumber, auditee: this.props.auditee};
     axios.post("http://localhost:8080/a/del",
     data,
     {headers : { 'Authorization' : Basic }})
@@ -237,6 +235,8 @@ class Questions extends React.Component {
   noAnswer() {
     this.setState({selection: "no answer", answerPoints: 0});
   }
+
+
 
   render() {
     let { error, isLoaded, question, userScore, selection, answerPoints, answer1, answer2, answer3, answer4, answer5,
@@ -280,13 +280,13 @@ class Questions extends React.Component {
          <React.Fragment>
              <p> {this.props.title}. {this.props.description}</p>
              <p className="qtext">  SCORING COMPLETED </p>
+             <button id="addToProfileButton" onClick={this.props.addToProfile}>  Post this score to my profile </button>
             <button className="qsbutton" onClick={() => this.verifyDelete()}>Delete all my answers</button>
             <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
               <input className="qsbutton" type="submit" value="Go to question #" />
               <input id="inputQuestionNumberBox" type="number" onChange={this.handleChange} max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
             </form>
             <button className="qsbutton" onClick={this.previous}>  Previous </button>
-            <button className="qsbutton" onClick={this.postAnswer}>  Submit </button>
             <p id="deletedAnswersMessage">{this.state.allDeletedMessage}</p>
              <UserTotalScore userScore={userScore}/>
          </React.Fragment>

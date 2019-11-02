@@ -10,6 +10,7 @@ import Signup from './pages/Signup';
 import { AuthContext } from "./context/auth";
 import Network from "./Network";
 import Profile from "./Profile";
+import AskAnswer from "./AskAnswer";
 
 function App(props) {
   const [authTokens, setAuthTokens] = useState();
@@ -38,6 +39,7 @@ function App(props) {
                         <Route exact path="/signup" component={Signup} />
                         <Route exact path="/us/scores" component={PublicUserPages} />
                         <Route exact path="/Main" component={Main} />
+                        <Route exact path="/askanswer" component={AskAnswer} />
                         <Route exact path="/network" component={Network} />
                         <Route exact path="/profile" component={Profile} />
 

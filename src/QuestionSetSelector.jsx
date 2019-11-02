@@ -6,10 +6,11 @@ class QuestionSetSelector extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
+    this.addToProfile = this.addToProfile.bind(this); // Binded since this is called from child!!!
     //this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.state = {
-          questionSetSize: 10000,
-          questionToGoTo: 1,
+          questionSetSize: 500,
+          questionToGoTo: 1, // initialized at first question sequence of the set.
           setNumber: null,
           maxPoints: 10000,
           category: null,
@@ -17,10 +18,14 @@ class QuestionSetSelector extends React.Component {
           title: null,
           version: null,
           renderQuestions: false,
+          profilePageGroup: "Public", // default is "Public". user can change permissions in profile section.
+          auditee: null,
         };
     };
 
   componentDidMount() {
+        const auditeeName = (JSON.parse(sessionStorage.getItem('tokens'))).userName;
+        this.setState({auditee: auditeeName}); // TODO this needs to come from props.
   }
 
   handleSubmit1() {
@@ -89,6 +94,25 @@ class QuestionSetSelector extends React.Component {
      }
   }
 
+  // since this is called from child, above MUST bind it!!
+  addToProfile() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u + ':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        let data = { questionSetVersion: this.state.setNumber, auditee: this.state.auditee, profilePageGroup: this.state.profilePageGroup,};
+        axios.post("http://localhost:8080/prm",
+        data,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+        this.setState({isLoaded: true,
+          });
+               }).catch(error => {this.setState({ isLoaded: true, error});
+               });
+  }
+
    render() {
     return (
         <React.Fragment>
@@ -111,7 +135,9 @@ class QuestionSetSelector extends React.Component {
         </div>
             { this.state.renderQuestions &&
             <div>
-            <Questions setNumber={this.state.setNumber} questionSetSize={this.state.questionSetSize} questionToGoTo={this.state.questionToGoTo} maxPoints={this.state.maxPoints} title={this.state.title} description={this.state.description}/>
+            <Questions setNumber={this.state.setNumber} questionSetSize={this.state.questionSetSize} questionToGoTo={this.state.questionToGoTo}
+            maxPoints={this.state.maxPoints} title={this.state.title} description={this.state.description}
+            addToProfile={this.addToProfile} auditee={this.state.auditee}/>
             </div> }
 
         </React.Fragment>
