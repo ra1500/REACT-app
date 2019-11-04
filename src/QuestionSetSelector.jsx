@@ -11,7 +11,7 @@ class QuestionSetSelector extends React.Component {
     this.state = {
           questionSetSize: 500,
           questionToGoTo: 1, // initialized at first question sequence of the set.
-          setNumber: null,
+          questionSetVersion: null,
           maxPoints: 10000,
           category: null,
           description: null,
@@ -30,16 +30,16 @@ class QuestionSetSelector extends React.Component {
 
   handleSubmit1() {
     this.setState({renderQuestions: false});
-    this.state = {setNumber: 1}; // must mutate state directly cuz setState is for matching another variable
-    this.setState({setNumber: this.state.setNumber}); // setState to the current value of state.
+    this.state = {questionSetVersion: 1}; // must mutate state directly cuz setState is for matching another variable
+    this.setState({questionSetVersion: this.state.questionSetVersion}); // setState to the current value of state.
     this.getMaxQtyAndPoints();
     this.getQuestionSetVersionEntity(); // *
   }
   handleSubmit2() {
     this.setState({renderQuestions: false});
-    this.state = {setNumber: 2}; // must mutate state directly cuz setState is for matching another variable
-    this.setState({setNumber: this.state.setNumber}); // setState to the current value of state.
-    console.log(this.state.setNumber);
+    this.state = {questionSetVersion: 2}; // must mutate state directly cuz setState is for matching another variable
+    this.setState({questionSetVersion: this.state.questionSetVersion}); // setState to the current value of state.
+    console.log(this.state.questionSetVersion);
     this.getMaxQtyAndPoints();
     this.getQuestionSetVersionEntity(); // *
   }
@@ -51,7 +51,7 @@ class QuestionSetSelector extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/max?sn=" + this.state.setNumber,
+        axios.get("http://localhost:8080/max?sn=" + this.state.questionSetVersion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -71,7 +71,7 @@ class QuestionSetSelector extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/qs/" + this.state.setNumber,
+        axios.get("http://localhost:8080/qs/" + this.state.questionSetVersion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -86,7 +86,7 @@ class QuestionSetSelector extends React.Component {
     }
 
   renderQuestions() {
-    if (this.state.setNumber == null) {
+    if (this.state.questionSetVersion == null) {
         this.setState({renderQuestions: false});
      } // end if
      else {
@@ -102,7 +102,7 @@ class QuestionSetSelector extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { questionSetVersion: this.state.setNumber, auditee: this.state.auditee, profilePageGroup: this.state.profilePageGroup,};
+        let data = { questionSetVersion: this.state.questionSetVersion, auditee: this.state.auditee, profilePageGroup: this.state.profilePageGroup,};
         axios.post("http://localhost:8080/prm",
         data,
         {headers : { 'Authorization' : Basic }})
@@ -135,7 +135,7 @@ class QuestionSetSelector extends React.Component {
         </div>
             { this.state.renderQuestions &&
             <div>
-            <Questions setNumber={this.state.setNumber} questionSetSize={this.state.questionSetSize} questionToGoTo={this.state.questionToGoTo}
+            <Questions questionSetVersion={this.state.questionSetVersion} questionSetSize={this.state.questionSetSize} questionToGoTo={this.state.questionToGoTo}
             maxPoints={this.state.maxPoints} title={this.state.title} description={this.state.description}
             addToProfile={this.addToProfile} auditee={this.state.auditee}/>
             </div> }

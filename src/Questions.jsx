@@ -50,7 +50,7 @@ class Questions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/" + this.props.setNumber + "/" + this.state.currentQuestion,
+        axios.get("http://localhost:8080/q/" + this.props.questionSetVersion + "/" + this.state.currentQuestion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -88,7 +88,7 @@ class Questions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/" + this.props.setNumber + "/" + this.state.jumpQuestion,
+        axios.get("http://localhost:8080/q/" + this.props.questionSetVersion + "/" + this.state.jumpQuestion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         //console.log(response.data.questionsList.question);
@@ -126,7 +126,7 @@ class Questions extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { questionId: this.state.currentQuestion, answer: this.state.selection, questionSetVersion: this.props.setNumber,
+        let data = { questionId: this.state.currentQuestion, answer: this.state.selection, questionSetVersion: this.props.questionSetVersion,
             answerPoints: this.state.answerPoints, auditee: this.props.auditee };
         axios.post("http://localhost:8080/a",
         data,
@@ -147,7 +147,7 @@ class Questions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/us?sv=" + this.props.setNumber + "&au=" + this.props.auditee,
+        axios.get("http://localhost:8080/us?sv=" + this.props.questionSetVersion + "&au=" + this.props.auditee,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -165,7 +165,7 @@ class Questions extends React.Component {
        const token = u +':' + p;
        const hash = btoa(token);
        const Basic = 'Basic ' + hash;
-       axios.get("http://localhost:8080/a/" + this.state.currentQuestion + "/" + this.props.setNumber + "/" + this.props.auditee,
+       axios.get("http://localhost:8080/a/" + this.state.currentQuestion + "/" + this.props.questionSetVersion + "/" + this.props.auditee,
        {headers : { 'Authorization' : Basic }})
        .then((response) => {
          if (response.data.answer) {
@@ -210,7 +210,7 @@ class Questions extends React.Component {
     const token = u + ':' + p;
     const hash = btoa(token);
     const Basic = 'Basic ' + hash;
-    const data = {questionSetVersion: this.props.setNumber, auditee: this.props.auditee};
+    const data = {questionSetVersion: this.props.questionSetVersion, auditee: this.props.auditee};
     axios.post("http://localhost:8080/a/del",
     data,
     {headers : { 'Authorization' : Basic }})

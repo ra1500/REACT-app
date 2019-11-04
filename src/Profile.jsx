@@ -17,6 +17,7 @@ class Profile extends React.Component {
   componentDidMount() {
     this.getUserScore();
     this.getSetVersionDescriptors();
+    this.getQsets();
   }
 
   getUserScore() {
@@ -51,6 +52,24 @@ class Profile extends React.Component {
             isLoaded: true,
             title: response.data.title,
             version: response.data.version,
+          });
+               }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
+               });
+    }
+
+  getQsets() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/us/pr",
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+          this.setState({
+            isLoaded: true,
+            //userScore: response.data.userScore,
           });
                }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
                });
