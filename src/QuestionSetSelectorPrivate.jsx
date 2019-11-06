@@ -20,7 +20,7 @@ class QuestionSetSelectorPrivate extends React.Component {
   render() {
     return (
     <React.Fragment>
-        <div>test</div>
+        <div>QuestionSetSelectorPrivate</div>
     </React.Fragment>
     );
   }

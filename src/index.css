@@ -54,3 +54,4 @@ p {font-family: "Geneva"}
 #selectQuestionSet:hover {cursor: pointer;}
 #addToProfileButton {font-family: "Geneva"; font-size: 14px; padding: 10px 24px; background-color: #ff66a3; color: black; border-radius: 8px; margin: 4px;}
 #addToProfileButton:hover {background-color: #ff0066}
+.askForm {display: block}

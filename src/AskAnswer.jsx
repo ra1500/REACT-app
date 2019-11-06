@@ -1,17 +1,31 @@
 import React from "react";
 import QuestionSetSelectorPrivate from "./QuestionSetSelectorPrivate";
 import TitleBar from "./TitleBar";
+import AskFormQset from "./AskFormQset";
 
-function AskAnswer(props) {
+class AskAnswer extends React.Component {
+  constructor(props) {
+    super(props);
+        this.state = {
+          error: null,
+          isLoaded: false,
+        };
+  }
 
-  return (
-    <React.Fragment>
-    <div>
-      <TitleBar />
-      <QuestionSetSelectorPrivate />
-    </div>
-    </React.Fragment>
-  );
+    componentDidMount() {
+    }
+
+  render() {
+    return (
+        <React.Fragment>
+        <div>
+          <TitleBar />
+          <QuestionSetSelectorPrivate />
+          <AskFormQset />
+        </div>
+        </React.Fragment>
+    );
+  }
 }
 
 export default AskAnswer;
