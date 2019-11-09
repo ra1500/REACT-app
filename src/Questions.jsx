@@ -149,7 +149,7 @@ class Questions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/us?sv=" + this.props.questionSetVersion + "&au=" + this.props.auditee,
+        axios.get("http://localhost:8080/a?sv=" + this.props.questionSetVersion + "&au=" + this.props.auditee,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({

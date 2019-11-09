@@ -51,7 +51,7 @@ class QuestionSetSelector extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/max?sn=" + this.state.questionSetVersion,
+        axios.get("http://localhost:8080/qs/q?sn=" + this.state.questionSetVersion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({

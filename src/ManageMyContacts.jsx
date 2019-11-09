@@ -23,45 +23,26 @@ class ManageMyContacts extends React.Component {
           inviter: null,
           userName: JSON.parse(sessionStorage.getItem('tokens')).userName,
           hasPendingInvitations: false,
-          id: null, // used for PATCH
           isAfriend: false,
           friendBeingManaged: null,
         };
   }
 
-    patchFriendshipStatus() {
+    patchFriendship() {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
         const p = name.password;
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { id: this.state.id, friend: this.state.friend, connectionStatus: this.state.connectionStatus, inviter: this.state.inviter,
+        let data = { friend: this.state.friend, connectionStatus: this.state.connectionStatus, inviter: this.state.inviter,
          connectionType: this.state.connectionType, visibilityPermission: this.state.visibilityPermission };
-        axios.patch("http://localhost:8080/f", data,
+        axios.post("http://localhost:8080/f", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true,
                   });
-               }).catch(error => {this.setState({ isLoaded: true, error});
-               });
-    }
-
-    patchFriendshipConnectionTypeOrVisibility() {
-        const name = JSON.parse(sessionStorage.getItem('tokens'));
-        const u = name.userName;
-        const p = name.password;
-        const token = u + ':' + p;
-        const hash = btoa(token);
-        const Basic = 'Basic ' + hash;
-        let data = { id: this.state.id, connectionStatus: this.state.connectionStatus,
-         connectionType: this.state.connectionType, visibilityPermission: this.state.visibilityPermission };
-        axios.patch("http://localhost:8080/f/adj", data,
-        {headers : { 'Authorization' : Basic }})
-        .then((response) => {
-        window.location.reload(); // forced refresh since list.map doesnt re-render //TODO: FIX this
-        this.setState({isLoaded: true,
-                  });
+                  window.location.reload(); // forced refresh since list.map doesnt re-render
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
     }
@@ -82,7 +63,6 @@ class ManageMyContacts extends React.Component {
             connectionStatus: response.data.connectionStatus,
             connectionType: response.data.connectionType,
             visibilityPermission: response.data.visibilityPermission,
-            id: response.data.id,
           });
         this.invitationUpdate(); // render inviter contacts in pending connectionStatus.
         this.manageUpdate(); // render friend mgmt tools if friend exists.
@@ -119,7 +99,7 @@ class ManageMyContacts extends React.Component {
   // update connectionStatus
   handleSubmit2(event) {
     event.preventDefault();
-    this.patchFriendshipStatus();
+    this.patchFriendship();
   }
    // select invitation connectionStatus update
    handleChange2(event) {
@@ -137,7 +117,7 @@ class ManageMyContacts extends React.Component {
   }
   handleSubmit4(event) {
     event.preventDefault();
-    this.patchFriendshipConnectionTypeOrVisibility();
+    this.patchFriendship();
   }
 
   // delete friend from network

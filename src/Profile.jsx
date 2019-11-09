@@ -27,7 +27,7 @@ class Profile extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/us?sv=" + this.state.setVersion  + "&au=" + u,
+        axios.get("http://localhost:8080/a?sv=" + this.state.setVersion  + "&au=" + u,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -64,7 +64,7 @@ class Profile extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/us/pr",
+        axios.get("http://localhost:8080/a/pr",
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({

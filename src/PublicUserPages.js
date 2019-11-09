@@ -20,7 +20,7 @@ class PublicUserPages extends React.Component {
   }
 
   getUserScore() {
-        axios.get("http://localhost:8080/us/scores?id=" + this.state.userName + "&sv=" + this.state.setVersion,)
+        axios.get("http://localhost:8080/a/scores?id=" + this.state.userName + "&sv=" + this.state.setVersion,)
         .then((response) => {
           this.setState({
             isLoaded: true,
