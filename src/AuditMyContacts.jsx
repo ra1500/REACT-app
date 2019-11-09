@@ -43,7 +43,7 @@ class AuditMyContacts extends React.Component {
             connectionStatus: response.data.connectionStatus,
             connectionType: response.data.connectionType,
             visibilityPermission: response.data.visibilityPermission,
-            gid: response.data.gid,
+            id: response.data.id,
           });
         this.manageAudit(); // render friend audit tools if friend exists.
                }).catch(error => {this.setState({ isLoaded: true, error,});

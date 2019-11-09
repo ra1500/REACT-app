@@ -23,6 +23,7 @@ class AskFormQset extends React.Component {
   }
 
     componentDidMount() {
+
     }
 
    handleChange1(event) {
@@ -54,12 +55,12 @@ class AskFormQset extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { title: this.state.title, category: this.state.category, description: this.state.description, };
-        axios.post("http://localhost:8080/qs", data,
+        axios.post("http://localhost:8080/qs/p?qsid=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true,
                   });
-         this.getFriendships(); //
+         this.getQuestionSetVersionNumber(); //
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
    }

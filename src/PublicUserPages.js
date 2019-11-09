@@ -7,7 +7,7 @@ class PublicUserPages extends React.Component {
     super(props);
     let url = this.props.location.search;
     let params = queryString.parse(url);
-    let user = params.gid;
+    let user = params.id;
     this.state = {
         userName: user,
         userScore: null,
@@ -20,7 +20,7 @@ class PublicUserPages extends React.Component {
   }
 
   getUserScore() {
-        axios.get("http://localhost:8080/us/scores?gid=" + this.state.userName + "&sv=" + this.state.setVersion,)
+        axios.get("http://localhost:8080/us/scores?id=" + this.state.userName + "&sv=" + this.state.setVersion,)
         .then((response) => {
           this.setState({
             isLoaded: true,

@@ -23,7 +23,7 @@ class ManageMyContacts extends React.Component {
           inviter: null,
           userName: JSON.parse(sessionStorage.getItem('tokens')).userName,
           hasPendingInvitations: false,
-          gid: null, // used for PATCH
+          id: null, // used for PATCH
           isAfriend: false,
           friendBeingManaged: null,
         };
@@ -36,7 +36,7 @@ class ManageMyContacts extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { gid: this.state.gid, friend: this.state.friend, connectionStatus: this.state.connectionStatus, inviter: this.state.inviter,
+        let data = { id: this.state.id, friend: this.state.friend, connectionStatus: this.state.connectionStatus, inviter: this.state.inviter,
          connectionType: this.state.connectionType, visibilityPermission: this.state.visibilityPermission };
         axios.patch("http://localhost:8080/f", data,
         {headers : { 'Authorization' : Basic }})
@@ -54,7 +54,7 @@ class ManageMyContacts extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { gid: this.state.gid, connectionStatus: this.state.connectionStatus,
+        let data = { id: this.state.id, connectionStatus: this.state.connectionStatus,
          connectionType: this.state.connectionType, visibilityPermission: this.state.visibilityPermission };
         axios.patch("http://localhost:8080/f/adj", data,
         {headers : { 'Authorization' : Basic }})
@@ -82,7 +82,7 @@ class ManageMyContacts extends React.Component {
             connectionStatus: response.data.connectionStatus,
             connectionType: response.data.connectionType,
             visibilityPermission: response.data.visibilityPermission,
-            gid: response.data.gid,
+            id: response.data.id,
           });
         this.invitationUpdate(); // render inviter contacts in pending connectionStatus.
         this.manageUpdate(); // render friend mgmt tools if friend exists.
@@ -97,7 +97,7 @@ class ManageMyContacts extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { gid: this.state.gid, };
+        let data = { id: this.state.id, };
         axios.delete("http://localhost:8080/f/d", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {

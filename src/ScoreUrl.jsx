@@ -73,7 +73,7 @@ class ScoreUrl extends React.Component {
   render() {
     return (
     <div id="scoreurl">
-        <p className="urltext">Your public score profile page: </p> <a href={'/us/scores?gid=' + this.state.userName}> www.neuraljuice.com/us/scores?gid={this.state.userName} </a>
+        <p className="urltext">Your public score profile page: </p> <a href={'/us/scores?id=' + this.state.userName}> www.neuraljuice.com/us/scores?id={this.state.userName} </a>
         <p> Your public profile page is now {this.state.publicProfile}</p>
       <form onSubmit={this.handleSubmit1}>
           <label> Change public profile page

@@ -92,14 +92,14 @@ class AskFormQuestion extends React.Component {
         const Basic = 'Basic ' + hash;
         const maximumPoints = Math.max(this.state.answer1Points, this.state.answer2Points,this.state.answer3Points,
         this.state.answer4Points,this.state.answer5Points,this.state.answer6Points,);
-        let data = { questionSetVersion: this.state.questionSetVersion, maxPoints: maximumPoints, question: this.state.question,
+        let data = { maxPoints: maximumPoints, question: this.state.question,
          sequenceNumber: this.props.sequenceNumber, answer1: this.state.answer1, answer1Points: this.state.answer1Points,
          answer2: this.state.answer2, answer2Points: this.state.answer2Points,
          answer3: this.state.answer3, answer3Points: this.state.answer3Points,
          answer4: this.state.answer4, answer4Points: this.state.answer4Points,
          answer5: this.state.answer5, answer5Points: this.state.answer5Points,
          answer6: this.state.answer6, answer6Points: this.state.answer6Points,};
-        axios.post("http://localhost:8080/q", data,
+        axios.post("http://localhost:8080/q/p?qsid=" + this.props.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true,

@@ -45,7 +45,7 @@ class Profile extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/qs/" + this.state.setVersion,
+        axios.get("http://localhost:8080/qs/g?qsid=" + this.state.setVersion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
