@@ -7,6 +7,7 @@ class ScoresList extends React.Component {
         this.state = {
             list: null,
             showList: false,
+            id: null,
         };
     }
 
@@ -34,14 +35,36 @@ class ScoresList extends React.Component {
                });
     }
 
+    deleteScore(event) {
+        this.setState({showList: false}); // magic
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        const data = {id: event.target.value};
+        axios.post("http://localhost:8080/prm/sc/dl", data,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+          this.setState({
+            isLoaded: true,
+            list: response.data,
+          });
+
+          this.getQsets();
+               }).catch(error => {this.setState({ isLoaded: true, error,});
+               });
+    }
+
    renderTableData() {
-    console.log(this.state.list + " list in render")
       return this.state.list.map((data, index) => {
          return (
             <tr key={data.index}>
                 <td> {data.questionSetVersionEntity.title} &nbsp; &nbsp;</td>
-                <td> {data.questionSetVersionEntity.description} &nbsp; </td>
+                <td> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
                <td> &nbsp;{data.score} </td>
+               <td> <button className="qsbutton" value={data.id} onClick={e => this.deleteScore(e)}> delete </button> </td>
             </tr>
          )
       })
@@ -50,7 +73,7 @@ class ScoresList extends React.Component {
    renderTableHeader() {
       let header = ["Title", "Description","Score"]
       return header.map((key, index) => {
-         return <th key={index}>{key}</th>
+         return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
       })
    }
 

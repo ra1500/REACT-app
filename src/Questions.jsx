@@ -290,6 +290,7 @@ class Questions extends React.Component {
             </form>
             <button className="qsbutton" onClick={this.previous}>  Previous </button>
             <p id="deletedAnswersMessage">{this.state.allDeletedMessage}</p>
+            <p id="deletedAnswersMessage">{this.props.scorePostedMessage}</p>
              <UserTotalScore userScore={userScore}/>
          </React.Fragment>
        );

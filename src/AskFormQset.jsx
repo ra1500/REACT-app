@@ -17,7 +17,7 @@ class AskFormQset extends React.Component {
           category: null,
           description: null,
           creativeSource: null,
-          questionSetVersion: "2",
+          questionSetVersion: "1",
           sequenceNumber: "1",
         };
   }

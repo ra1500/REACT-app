@@ -20,6 +20,7 @@ class QuestionSetSelector extends React.Component {
           renderQuestions: false,
           typeNumber: 9, // indicating permission index
           auditee: null,
+          scorePostedMessage: null,
         };
     };
 
@@ -107,7 +108,7 @@ class QuestionSetSelector extends React.Component {
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true,
+        this.setState({isLoaded: true, scorePostedMessage: "Your score has been posted"
           });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -142,7 +143,7 @@ class QuestionSetSelector extends React.Component {
             <div>
             <Questions questionSetVersion={this.state.questionSetVersion} questionSetSize={this.state.questionSetSize} questionToGoTo={this.state.questionToGoTo}
             maxPoints={this.state.maxPoints} title={this.state.title} description={this.state.description}
-            addToProfile={this.addToProfile} auditee={this.state.auditee}/>
+            addToProfile={this.addToProfile} auditee={this.state.auditee} scorePostedMessage={this.state.scorePostedMessage}/>
             </div> }
 
         </React.Fragment>
