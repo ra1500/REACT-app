@@ -18,7 +18,7 @@ class QuestionSetSelector extends React.Component {
           title: null,
           version: null,
           renderQuestions: false,
-          profilePageGroup: "Public", // default is "Public". user can change permissions in profile section.
+          typeNumber: 9, // indicating permission index
           auditee: null,
         };
     };
@@ -94,7 +94,7 @@ class QuestionSetSelector extends React.Component {
      }
   }
 
-  // since this is called from child, above MUST bind it!!
+  // since this is called from child, MUST bind it above!!
   addToProfile() {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
@@ -102,8 +102,8 @@ class QuestionSetSelector extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { questionSetVersion: this.state.questionSetVersion, auditee: this.state.auditee, profilePageGroup: this.state.profilePageGroup,};
-        axios.post("http://localhost:8080/prm",
+        let data = { auditee: this.state.auditee, typeNumber: this.state.typeNumber};
+        axios.post("http://localhost:8080/prm/sc/d?qsId=" + this.state.questionSetVersion,
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
@@ -122,11 +122,16 @@ class QuestionSetSelector extends React.Component {
 
             <table>
             <tr>
-                <th> Title </th><th> Category </th><th> Description </th>
+                <th> Title &nbsp;&nbsp;  </th><th> Category &nbsp;&nbsp;  </th><th> Description &nbsp; </th>
             </tr>
             <tr>
                 <td id="selectQuestionSet" onClick={() => this.handleSubmit1()}> Life Score </td><td> Life </td><td> Who are you? What is your life value score</td>
             </tr>
+
+            <tr>
+                <td id="selectQuestionSet" onClick={() => this.handleSubmit2()}> What is your future &nbsp;  </td><td> Life </td><td> Discover your destiny</td>
+            </tr>
+
             <tr>
                 <td> (more to come)</td>
             </tr>

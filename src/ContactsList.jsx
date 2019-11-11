@@ -13,9 +13,9 @@ class ContactsList extends React.Component {
       return this.state.list.map((data, index) => {
          return (
             <tr key={data.friend}>
-               <td>{data.friend}</td>
-               <td>{data.connectionStatus}</td>
-               <td>{data.connectionType}</td>
+               <td>{data.friend} &nbsp; &nbsp; &nbsp;</td>
+               <td>{data.connectionStatus} &nbsp; &nbsp;</td>
+               <td>{data.connectionType} &nbsp; &nbsp;</td>
                <td>{data.visibilityPermission}</td>
             </tr>
          )
