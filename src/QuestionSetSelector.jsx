@@ -7,7 +7,6 @@ class QuestionSetSelector extends React.Component {
     super(props);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
     this.addToProfile = this.addToProfile.bind(this); // Binded since this is called from child!!!
-    //this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.state = {
           questionSetSize: 500,
           questionToGoTo: 1, // initialized at first question sequence of the set.
@@ -21,26 +20,20 @@ class QuestionSetSelector extends React.Component {
           typeNumber: 9, // indicating permission index
           auditee: null,
           scorePostedMessage: null,
+          showList: false,
         };
     };
 
   componentDidMount() {
         const auditeeName = (JSON.parse(sessionStorage.getItem('tokens'))).userName;
         this.setState({auditee: auditeeName}); // TODO this needs to come from props.
+        this.getQsets();
   }
 
-  handleSubmit1() {
+  handleSubmit1(event) {
     this.setState({renderQuestions: false});
-    this.state = {questionSetVersion: 1}; // must mutate state directly cuz setState is for matching another variable
+    this.state = {questionSetVersion: event.target.value}; // must mutate state directly cuz setState is for matching another variable
     this.setState({questionSetVersion: this.state.questionSetVersion}); // setState to the current value of state.
-    this.getMaxQtyAndPoints();
-    this.getQuestionSetVersionEntity(); // *
-  }
-  handleSubmit2() {
-    this.setState({renderQuestions: false});
-    this.state = {questionSetVersion: 2}; // must mutate state directly cuz setState is for matching another variable
-    this.setState({questionSetVersion: this.state.questionSetVersion}); // setState to the current value of state.
-    console.log(this.state.questionSetVersion);
     this.getMaxQtyAndPoints();
     this.getQuestionSetVersionEntity(); // *
   }
@@ -86,6 +79,26 @@ class QuestionSetSelector extends React.Component {
                });
     }
 
+  getQsets() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/prm/sc/dw",
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+          this.setState({
+            isLoaded: true,
+            list: response.data,
+          });
+          this.renderTableData();
+          this.setState({showList: true});
+               }).catch(error => {this.setState({ isLoaded: true, error,});
+               });
+    }
+
   renderQuestions() {
     if (this.state.questionSetVersion == null) {
         this.setState({renderQuestions: false});
@@ -114,6 +127,22 @@ class QuestionSetSelector extends React.Component {
                });
   }
 
+   renderTableData() {
+      return this.state.list.map((data, index) => {
+         return (
+            <tr key={data.index}>
+                <td> <button className="qsbutton" value={data.questionSetVersionEntity.id} onClick={e => this.handleSubmit1(e)}> {data.questionSetVersionEntity.title} </button> </td>
+                <td> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
+            </tr>
+         )
+      })
+   }
+   renderTableHeader() {
+      let header = ["Title", "Description"]
+      return header.map((key, index) => {
+         return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
+      })
+   }
    render() {
     return (
         <React.Fragment>
@@ -121,22 +150,16 @@ class QuestionSetSelector extends React.Component {
         <div id="chooseSet">
             <p> Select a quiz. 'Life Score' is where it all begins. Share your score with you friends on your public profile page. Send them a link.</p>
 
+        { this.state.showList &&
+         <div>
             <table>
-            <tr>
-                <th> Title &nbsp;&nbsp;  </th><th> Category &nbsp;&nbsp;  </th><th> Description &nbsp; </th>
-            </tr>
-            <tr>
-                <td id="selectQuestionSet" onClick={() => this.handleSubmit1()}> Life Score </td><td> Life </td><td> Who are you? What is your life value score</td>
-            </tr>
-
-            <tr>
-                <td id="selectQuestionSet" onClick={() => this.handleSubmit2()}> What is your future &nbsp;  </td><td> Life </td><td> Discover your destiny</td>
-            </tr>
-
-            <tr>
-                <td> (more to come)</td>
-            </tr>
+               <tbody>
+               <tr>{this.renderTableHeader()}</tr>
+                {this.renderTableData()}
+               </tbody>
             </table>
+         </div> }
+
 
         </div>
             { this.state.renderQuestions &&

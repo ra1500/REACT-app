@@ -4,19 +4,17 @@ import axios from 'axios';
 class ManageMyContacts extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
     //this.handleSubmit3 = this.handleSubmit3.bind(this); // not needed. single button used instead.
     this.handleChange3 = this.handleChange3.bind(this);
-    this.handleSubmit4 = this.handleSubmit4.bind(this);
+    //this.handleSubmit4 = this.handleSubmit4.bind(this);
     this.handleChange4 = this.handleChange4.bind(this);
     this.handleSubmit5 = this.handleSubmit5.bind(this);
         this.state = {
           error: null,
           isLoaded: false,
-          friend: null,
+          friendId: this.props.friendId,
           connectionType: null,
           connectionStatus: null,
           visibilityPermission: null,
@@ -25,8 +23,14 @@ class ManageMyContacts extends React.Component {
           hasPendingInvitations: false,
           isAfriend: false,
           friendBeingManaged: null,
+          showDeletedMessage: false,
+          showUpdatedMessage: false,
         };
   }
+
+    componentDidMount() {
+        this.getSingleFriendship();
+    }
 
     patchFriendship() {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
@@ -35,14 +39,33 @@ class ManageMyContacts extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { friend: this.state.friend, connectionStatus: this.state.connectionStatus, inviter: this.state.inviter,
+        let data = { id: this.state.friendId, connectionStatus: this.state.connectionStatus, inviter: this.state.inviter,
          connectionType: this.state.connectionType, visibilityPermission: this.state.visibilityPermission };
         axios.post("http://localhost:8080/f", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true,
                   });
-                  window.location.reload(); // forced refresh since list.map doesnt re-render
+                  this.props.toggleShowNetworkList();
+               }).catch(error => {this.setState({ isLoaded: true, error});
+               });
+    }
+
+    removeFriendship() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u + ':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        let data = { id: this.state.friendId, connectionStatus: "removed", inviter: this.state.inviter,
+         connectionType: this.state.connectionType, visibilityPermission: this.state.visibilityPermission };
+        axios.post("http://localhost:8080/f", data,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+        this.setState({isLoaded: true,
+                  });
+                  this.props.toggleShowNetworkList();
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
     }
@@ -54,7 +77,7 @@ class ManageMyContacts extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/f/" + this.state.friend,
+        axios.get("http://localhost:8080/f/" + this.state.friendId,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -63,43 +86,20 @@ class ManageMyContacts extends React.Component {
             connectionStatus: response.data.connectionStatus,
             connectionType: response.data.connectionType,
             visibilityPermission: response.data.visibilityPermission,
+            friendBeingManaged: response.data.friend,
           });
-        this.invitationUpdate(); // render inviter contacts in pending connectionStatus.
         this.manageUpdate(); // render friend mgmt tools if friend exists.
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
 
-    deleteFriendship() {
-        const name = JSON.parse(sessionStorage.getItem('tokens'));
-        const u = name.userName;
-        const p = name.password;
-        const token = u + ':' + p;
-        const hash = btoa(token);
-        const Basic = 'Basic ' + hash;
-        let data = { id: this.state.id, };
-        axios.delete("http://localhost:8080/f/d", data,
-        {headers : { 'Authorization' : Basic }})
-        .then((response) => {
-        this.setState({isLoaded: true,
-                  });
-               }).catch(error => {this.setState({ isLoaded: true, error});
-               });
-    }
-
-  handleChange(event) {
-    this.setState({friend: event.target.value});
-  }
-  handleSubmit(event) {
-    event.preventDefault();
-    this.getSingleFriendship();
-    this.setState({friendBeingManaged: this.state.friend});
-  }
-
   // update connectionStatus
   handleSubmit2(event) {
     event.preventDefault();
     this.patchFriendship();
+    this.setState({isAfriend : false});
+    this.setState({hasPendingInvitations : false});
+    this.setState({showUpdatedMessage : true});
   }
    // select invitation connectionStatus update
    handleChange2(event) {
@@ -115,49 +115,42 @@ class ManageMyContacts extends React.Component {
   handleChange4(event) {
     this.setState({visibilityPermission: event.target.value});
   }
-  handleSubmit4(event) {
-    event.preventDefault();
-    this.patchFriendship();
-  }
 
-  // delete friend from network
+  // remove friend from network
   handleSubmit5(event) {
-    //event.preventDefault();
-    this.deleteFriendship();
+    event.preventDefault();
+    //this.setState({connectionStatus: "removed"}); TODO: how to change state? I don't have a clue....
+    this.removeFriendship(); // TODO: again, why a new ajax method, why can't i change state above.
+    this.setState({isAfriend : false});
+    this.setState({showDeletedMessage : true});
   }
 
+    deletedMessage() {
+    return (
+        <p> {this.state.friendBeingManaged} has been removed from your network </p>
+    )
+    }
 
-  // render invitations if they exist
-  invitationUpdate() {
-    if (this.state.connectionStatus == "pending" && this.state.inviter != this.state.userName) {
-        this.setState({hasPendingInvitations: true});
-     } // end if
-     else {
-        this.setState({hasPendingInvitations: false});
-     }
-  }
+    updatedMessage() {
+    return (
+        <p> {this.state.friendBeingManaged} has been updated </p>
+    )
+    }
 
-  // render friend management choices if friend exists
+  // render either invitation acceptance or friend managment tools
   manageUpdate() {
-    if (this.state.connectionStatus == "pending" && this.state.inviter == this.state.userName) {
-        this.setState({isAfriend: true});
+    if (this.state.connectionStatus == "pending" && this.state.inviter != this.state.userName) {
+        this.setState({isAfriend: false, hasPendingInvitations: true});
      } // end if
-    if (this.state.connectionStatus != "pending" && this.state.connectionStatus != null) {
-        this.setState({isAfriend: true});
-     } // end if
+    else {
+        this.setState({isAfriend: true, hasPendingInvitations: false});
+    }
   }
 
   render() {
     return (
     <React.Fragment>
     <div id="manageContacts">
-      <form onSubmit={this.handleSubmit}>
-          <label>
-          Manage My Contacts:
-          <input type="text" value={this.state.friend} onChange={this.handleChange} />
-          <input className="qbutton" type="submit" value="Go to Contact" />
-          </label>
-      </form>
 
       { this.state.hasPendingInvitations &&
       <div>
@@ -167,7 +160,7 @@ class ManageMyContacts extends React.Component {
                   <option selected value="pending">(Select One)</option>
                   <option value="Connected">Accept</option>
                   <option value="Declined">Decline</option>
-                  <option value="Removed">Delete</option>
+                  <option value="removed">Remove</option>
                </select>
                <input className="qbutton" type="submit" value="Update status" />
                <p>New connections can see your profile page. If you wish otherwise please manage permissions below.</p>
@@ -187,7 +180,7 @@ class ManageMyContacts extends React.Component {
                </form>
 
               <p> Privacy. Select 'No' for profile to be hidden from connection. </p>
-              <form onSubmit={this.handleSubmit4}>
+              <form onSubmit={this.handleSubmit2}>
               <select value={this.state.selectPrivacy} onChange={this.handleChange4}>
                   <option select value={this.state.visibilityPermission}> Select One </option>
                   <option value="Yes"> Yes </option>
@@ -195,9 +188,17 @@ class ManageMyContacts extends React.Component {
                </select>
                <input className="qbutton" type="submit" value="Update changes" />
              </form>
-
-             <input className="qbutton" onClick={() => this.handleSubmit5()} value="Delete from my network" />
+            <form onSubmit={this.handleSubmit5}>
+             <button className="qbutton" type="submit">remove from my network</button>
+            </form>
       </div> }
+
+      { this.state.showDeletedMessage &&
+         <div> {this.deletedMessage()} </div>}
+
+      { this.state.showUpdatedMessage &&
+         <div> {this.updatedMessage()} </div>}
+
     </div>
     </React.Fragment>
     );

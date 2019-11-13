@@ -37,13 +37,13 @@ class ScoresList extends React.Component {
 
     deleteScore(event) {
         this.setState({showList: false}); // magic
+        const data = {id: event.target.value};
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
         const p = name.password;
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        const data = {id: event.target.value};
         axios.post("http://localhost:8080/prm/sc/dl", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
@@ -51,7 +51,6 @@ class ScoresList extends React.Component {
             isLoaded: true,
             list: response.data,
           });
-
           this.getQsets();
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });

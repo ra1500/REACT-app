@@ -2,26 +2,25 @@ import React from "react";
 import axios from 'axios';
 import TitleBar from "./TitleBar";
 import ContactsList from "./ContactsList";
+import InvitationForm from "./InvitationForm";
 import ManageMyContacts from "./ManageMyContacts";
 import AuditMyContacts from "./AuditMyContacts";
 
 class Network extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange2 = this.handleChange2.bind(this); // select connectionType
-    this.handleChange3 = this.handleChange3.bind(this); // select visibilityPermission
+    this.toggleShowNetworkList = this.toggleShowNetworkList.bind(this); // called from child, therefore must be bound to activate within this component and not just within child component.
+    this.renderSingleContact = this.renderSingleContact.bind(this);
 
         this.state = {
           error: null,
           isLoaded: false,
           friend: null,
-          connectionType: "Friend",
-          connectionStatus: "pending",
-          visibilityPermission: "Yes",
           inviter: null,
           userName: null,
+          showNetworkList: false,
+          showSingleContact: false,
+          friendId: null, // sent to child 'ManageMyContacts'
         };
   }
 
@@ -29,23 +28,10 @@ class Network extends React.Component {
         this.getFriendships();
     }
 
-    postNewFriendship() {
-        const name = JSON.parse(sessionStorage.getItem('tokens'));
-        const u = name.userName;
-        const p = name.password;
-        const token = u + ':' + p;
-        const hash = btoa(token);
-        const Basic = 'Basic ' + hash;
-        let data = { friend: this.state.friend, connectionType: this.state.connectionType, connectionStatus: this.state.connectionStatus,
-         visibilityPermission: this.state.visibilityPermission, inviter: u };
-        axios.post("http://localhost:8080/f", data,
-        {headers : { 'Authorization' : Basic }})
-        .then((response) => {
-        this.setState({isLoaded: true,
-                  });
-         this.getFriendships(); //
-               }).catch(error => {this.setState({ isLoaded: true, error});
-               });
+    toggleShowNetworkList() {
+        console.log("toggle");
+        this.setState({showNetworkList: false});
+        this.getFriendships();
     }
 
     getFriendships() {
@@ -62,81 +48,41 @@ class Network extends React.Component {
             isLoaded: true,
             allData: response,
           });
-
+            this.setState({showNetworkList: true});
                }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
                });
     }
 
-  handleChange(event) {
-    this.setState({friend: event.target.value});
-  }
+   renderContactsList() {
+    return ( <ContactsList allData={this.state.allData} renderSingleContact={this.renderSingleContact}
+     toggleShowNetworkList={this.toggleShowNetworkList}/> )
+   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    if (window.confirm('Please confirm invitation')) {
-    this.postNewFriendship();
-    window.location.reload(); // forced refresh since list.map doesnt re-render
+    renderSingleContact(event) {
+        const data = {id: event.target.value};
+        this.setState({friendId: data.id});
+        this.setState({showNetworkList: false});
+        this.setState({showSingleContact: true});
     }
-  }
-
-   // select connectionType
-   handleChange2(event) {
-     this.setState({connectionType: event.target.value});
-   }
-
-   // select visibilityPermission
-   handleChange3(event) {
-     this.setState({visibilityPermission: event.target.value});
-   }
-
-   renderInvitationForm() {
-    return (
-      <div id="invitationForm">
-      <form onSubmit={this.handleSubmit}>
-          <label> Connect with someone:
-          <input id="invitationBox" type="text" value={this.state.friend} onChange={this.handleChange} />
-          <select value={this.state.connectionType} onChange={this.handleChange2}>
-              <option selected value="Friend">Friend</option>
-              <option value="Colleague">Colleague</option>
-              <option value="Other">Other</option>
-           </select>
-           </label>
-           <label> Allow contact to view my profile
-          <select value={this.state.visibilityPermission} onChange={this.handleChange3}>
-              <option selected value="Yes">Yes</option>
-              <option value="No">No</option>
-           </select>
-            </label>
-        <input className="qbutton" type="submit" value="Invite" />
-      </form>
-      </div>
-    )
-   }
 
 
   render() {
-    if (this.state.allData == null) {
-    return (
-    <React.Fragment>
-        <TitleBar />
-        {this.renderInvitationForm()}
-        <p> no connections </p>
-    </React.Fragment>
-    );
-    } // end if
-
-    else {
     return (
     <React.Fragment>
         <TitleBar />
         <p className="urltext">Your Network</p>
-        <ContactsList allData={this.state.allData} />
-        {this.renderInvitationForm()}
-        <ManageMyContacts />
-        <AuditMyContacts />
+
+        { this.state.showNetworkList &&
+        <div> {this.renderContactsList()}
+        </div> }
+
+        { this.state.showSingleContact &&
+        <div> <ManageMyContacts friendId={this.state.friendId}/>
+        </div> }
+
+
     </React.Fragment>
     );
-    }; // end else
     }
 
 }

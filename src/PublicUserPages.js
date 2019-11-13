@@ -1,45 +1,89 @@
-import React from "react";
+import React from 'react';
 import axios from 'axios';
 import queryString from 'query-string';
 
 class PublicUserPages extends React.Component {
-  constructor(props) {
-    super(props);
-    let url = this.props.location.search;
-    let params = queryString.parse(url);
-    let user = params.id;
-    this.state = {
-        userName: user,
-        userScore: null,
-        setVersion: 1,
+    constructor(props) {
+        super(props);
+        this.state = {
+            userName: null,
+            list: null,
+            showList: false,
+            id: null,
+            userName: null,
         };
-  }
+    }
 
   componentDidMount() {
-    this.getUserScore();
+    this.getQsets();
   }
 
-  getUserScore() {
-        axios.get("http://localhost:8080/a/scores?id=" + this.state.userName + "&sv=" + this.state.setVersion,)
+   displayUserName() {
+        let url = this.props.location.search;
+        let params = queryString.parse(url);
+        let user = params.id;
+        this.setState({userName: user});
+   }
+
+  getQsets() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/prm/sc/dc",
+        {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
             isLoaded: true,
-            userScore: response.data.userScore,
+            list: response.data,
           });
-               }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
+          this.renderTableData();
+          this.setState({showList: true});
+          this.displayUserName();
+               }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
 
-  render() {
-    return (
-    <div id="scoreurl">
-        <a id="NJ" href="/"> NeuralJuice </a>
-        <p id="profileUserName"> I am {this.state.userName}</p>
-        <p id="profileLifeUserScore">life score: {this.state.userScore} </p>
-    </div>
+   renderTableData() {
+      return this.state.list.map((data, index) => {
+         return (
+            <tr key={data.index}>
+                <td> {data.questionSetVersionEntity.title} &nbsp; &nbsp;</td>
+                <td> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
+               <td> &nbsp;{data.score} </td>
+            </tr>
+         )
+      })
+   }
 
-    );
-  }
+   renderTableHeader() {
+      let header = ["Title", "Description","Score"]
+      return header.map((key, index) => {
+         return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
+      })
+   }
+
+    render() {
+        return (
+        <React.Fragment>
+            <a id="NJ" href="/"> NeuralJuice </a>
+            <p id="profileUserName"> I am {this.state.userName}</p>
+
+        { this.state.showList &&
+         <div>
+            <table>
+               <tbody>
+               <tr>{this.renderTableHeader()}</tr>
+                {this.renderTableData()}
+               </tbody>
+            </table>
+         </div> }
+        </React.Fragment>
+        )
+    }
+
 }
 
 export default PublicUserPages;
