@@ -18,6 +18,8 @@ class AskFormQuestion extends React.Component {
     this.handleChange12 = this.handleChange12.bind(this);
     this.handleChange13 = this.handleChange13.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
+    this.handleSubmit2 = this.handleSubmit2.bind(this);
+    this.handleSubmit3 = this.handleSubmit3.bind(this);
         this.state = {
           error: null,
           isLoaded: false,
@@ -112,13 +114,99 @@ class AskFormQuestion extends React.Component {
   handleSubmit1(event) {
     event.preventDefault();
     this.postNewQuestion();
+          this.setState({
+            question: "",
+            answer1: "",
+            answer2: "",
+            answer3: "",
+            answer4: "",
+            answer5: "",
+            answer6: "",
+            answer1Points: "",
+            answer2Points: "",
+            answer3Points: "",
+            answer4Points: "",
+            answer5Points: "",
+            answer6Points: "",
+          });
+    this.getCurrentQuestion();
+    }
+  handleSubmit2(event) {
+    event.preventDefault();
+    }
+  handleSubmit3(event) {
+    event.preventDefault();
+    this.props.previousSequenceNumber();
+    this.getPreviousQuestion();
+    }
+
+  getPreviousQuestion() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/q/" + this.props.questionSetVersion + "/" + (this.props.sequenceNumber-1),
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+          this.setState({
+            isLoaded: true,
+            question: response.data.question,
+            questionsEntityId: response.data.id,
+            answer1: response.data.answer1,
+            answer2: response.data.answer2,
+            answer3: response.data.answer3,
+            answer4: response.data.answer4,
+            answer5: response.data.answer5,
+            answer6: response.data.answer6,
+            answer1Points: response.data.answer1Points,
+            answer2Points: response.data.answer2Points,
+            answer3Points: response.data.answer3Points,
+            answer4Points: response.data.answer4Points,
+            answer5Points: response.data.answer5Points,
+            answer6Points: response.data.answer6Points,
+          });
+               }).catch(error => {this.setState({ isLoaded: true, error});
+               });
+    }
+
+  getCurrentQuestion() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/q/" + this.props.questionSetVersion + "/" + (this.props.sequenceNumber+1),
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+          this.setState({
+            isLoaded: true,
+            question: response.data.question,
+            questionsEntityId: response.data.id,
+            answer1: response.data.answer1,
+            answer2: response.data.answer2,
+            answer3: response.data.answer3,
+            answer4: response.data.answer4,
+            answer5: response.data.answer5,
+            answer6: response.data.answer6,
+            answer1Points: response.data.answer1Points,
+            answer2Points: response.data.answer2Points,
+            answer3Points: response.data.answer3Points,
+            answer4Points: response.data.answer4Points,
+            answer5Points: response.data.answer5Points,
+            answer6Points: response.data.answer6Points,
+          });
+               }).catch(error => {this.setState({ isLoaded: true, error});
+               });
     }
 
   render() {
     return (
     <React.Fragment>
       <div id="askQuestionsForm">
-      <p>Enter a question</p>
+      <p>You are now entering question number &nbsp; {this.props.sequenceNumber}</p>
       <form onSubmit={this.handleSubmit1}>
           <div class="askDiv"><span class="askText">Question &nbsp;</span>
           <input class="askForm" size="80" maxlength="80" type="text" value={this.state.question} onChange={this.handleChange13} /></div>
@@ -153,11 +241,17 @@ class AskFormQuestion extends React.Component {
           <span class="askText">Points &nbsp;</span>
           <input type="number" maxlength="3" size="3" class="askForm" type="text" value={this.state.answer6Points} onChange={this.handleChange12} /></div>
 
-          <input className="qbutton" type="submit" value="Jump to" />
-          <input className="qbutton" type="submit" value="Previous" />
+
           <input className="qbutton" type="submit" value="Add" />
-          <input className="qbutton" type="submit" value="Finish" />
       </form>
+          <form onSubmit={this.handleSubmit2}>
+          <input className="qbutton" type="submit" value="Jump to" />
+          </form>
+          <form onSubmit={this.handleSubmit3}>
+          <input className="qbutton" type="submit" value="Previous" />
+          </form>
+
+
       </div>
     </React.Fragment>
     );
