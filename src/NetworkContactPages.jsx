@@ -1,7 +1,8 @@
 import React from "react";
 import axios from 'axios';
+import ScoresNetworkContactPages from "./ScoresNetworkContactPages";
 
-class A extends React.Component {
+class NetworkContactPages extends React.Component {
   constructor(props) {
     super(props);
     //this.handleChange = this.handleChange.bind(this);
@@ -18,10 +19,10 @@ class A extends React.Component {
   render() {
     return (
     <React.Fragment>
-
+        <ScoresNetworkContactPages friendId={this.props.friendId}/>
     </React.Fragment>
     );
   }
 }
 
-export default A;
+export default NetworkContactPages;

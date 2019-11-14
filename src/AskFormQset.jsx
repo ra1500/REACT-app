@@ -9,6 +9,7 @@ class AskFormQset extends React.Component {
     this.handleChange2 = this.handleChange2.bind(this);
     this.handleChange3 = this.handleChange3.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
+    this.toggleEditInputBoxes = this.toggleEditInputBoxes.bind(this);
     this.manageSequenceNumber = this.manageSequenceNumber.bind(this);
         this.state = {
           error: null,
@@ -19,6 +20,9 @@ class AskFormQset extends React.Component {
           creativeSource: null,
           questionSetVersion: "1",
           sequenceNumber: "1",
+          showInputBoxes: true,
+          showQsetDetails: false,
+          showAskFormQuestion: false,
         };
   }
 
@@ -39,6 +43,9 @@ class AskFormQset extends React.Component {
   handleSubmit1(event) {
     event.preventDefault();
     this.postNewQset();
+    this.setState({showInputBoxes: false});
+    this.setState({showQsetDetails: true});
+    this.setState({showAskFormQuestion: true});
     }
 
   manageSequenceNumber() {
@@ -65,21 +72,41 @@ class AskFormQset extends React.Component {
                });
    }
 
+    toggleEditInputBoxes() {
+        this.setState({showInputBoxes: true});
+        this.setState({showQsetDetails: false});
+        this.setState({showAskFormQuestion: true});
+    }
+
   render() {
     return (
     <React.Fragment>
-        <p>Make your own quiz</p>
+       <p>Pose it to your world</p>
+
+      { this.state.showInputBoxes &&
+      <div id="QsetInputBoxes">
       <form onSubmit={this.handleSubmit1}>
-          Title
-          <input class="askForm" type="text" value={this.state.question} onChange={this.handleChange1} />
-          Category
-          <input class="askForm" type="text" value={this.state.category} onChange={this.handleChange2} />
-          Description
-          <input class="askForm" type="text" value={this.state.description} onChange={this.handleChange3} />
-          <input className="qbutton" type="submit" value="Submit" />
+          <div class="askDiv"><span class="askText">Title &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span> <input class="askForm" type="text" size="20" maxlength="20" value={this.state.question} onChange={this.handleChange1} /> </div>
+          <div class="askDiv"><span class="askText">Category &nbsp; &nbsp; &nbsp;</span> <input class="askForm" type="text" size="20" maxlength="20" value={this.state.category} onChange={this.handleChange2} /></div>
+          <div class="askDiv"><span class="askText">Description &nbsp;</span> <input class="askForm" type="text" size="70" maxlength="70" value={this.state.description} onChange={this.handleChange3} /></div>
+          <input className="qbutton" type="submit" value="Submit" /><span> Submit and start adding questions to your new inquiry </span>
       </form>
-      <p>{this.state.sequenceNumber}</p>
+      </div> }
+
+      { this.state.showQsetDetails &&
+      <div id="QsetInputBoxes">
+        <p>&nbsp; &nbsp; &nbsp; Title &nbsp; > &nbsp; {this.state.title} </p>
+        <p>&nbsp; Category &nbsp; > &nbsp; {this.state.category} </p>
+        <p>Description &nbsp; > &nbsp; {this.state.description} </p>
+        <button onClick={this.toggleEditInputBoxes}> Change </button> <span> Edit Title, Category, or Description </span>
+        <input className="qbutton" type="submit" value="Delete All" />
+        <p>You are now entering question number &nbsp; {this.state.sequenceNumber}</p>
+      </div> }
+
+      { this.state.showAskFormQuestion &&
       <AskFormQuestion sequenceNumber={this.state.sequenceNumber} questionSetVersion={this.state.questionSetVersion} manageSequenceNumber={this.manageSequenceNumber} />
+      }
+
     </React.Fragment>
     );
   }

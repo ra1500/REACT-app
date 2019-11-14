@@ -18,9 +18,19 @@ p {font-family: "Geneva"}
 #introduction {margin-left: 10px;}
 .qtext {margin-left: 10px; margin-top: 15px;}
 #qtext2 {margin-left: 10px; margin-bottom: 1px;}
-#NJ {margin-left: 10px; margin-top: 5px; margin-right: 30px; font-family: "Arial";font-size: 20px; color: #0052cc; font-weight: bold; display: inline-block;text-decoration: none;}
 #tscore {margin-left: 10px; margin-top: 15px;}
+
+#titleBar {border-bottom: 1px solid black; padding-bottom: 10px}
+#NJ {margin-left: 10px; margin-top: 5px; margin-right: 30px; font-family: "Arial";font-size: 20px; color: #0052cc; font-weight: bold; display: inline;text-decoration: none;}
+#menuLinks1 {display: inline; margin-left: 110px; text-decoration: none; font-family: "Geneva"}
+#menuLinks1:link, #menuLinks1:visited {color: blue;}
+#menuLinks1:hover {color: #000099;}
+.menuLinks {display: inline; margin-left: 20px; text-decoration: none; font-family: "Geneva"}
+.menuLinks:link, .menuLinks:visited {color: blue;}
+.menuLinks:hover {color: #000099;}
 #LoginStatus {display: inline-block; margin-left: 20px;}
+
+
 #userName {display: inline; color: #ff9933;}
 #logoutButton {display: inline; font-family: "Geneva"; font-size: 11px; background-color: #ffffcc; color: black; border-radius: 10px; margin-right: 5px}
 #logoutButton:hover {background-color: #ffff00}
@@ -32,15 +42,8 @@ p {font-family: "Geneva"}
 #noAnswerButton {font-family: "Geneva"; font-size: 14px; padding: 10px 24px; background-color: #ff66a3; color: black; border-radius: 8px; margin: 4px;}
 #noAnswerButton:hover {background-color: #ff0066}
 #goToQuestionform {display: inline; margin-left: 10px;}
-#titleBar {border-bottom: 1px solid black; padding-bottom: 10px}
 #scoreurl {display: inline;}
 #linkToNetwork {display: inline; margin-left: 10px;}
-.menuLinks {margin-left: 20px; text-decoration: none; font-family: "Geneva"}
-.menuLinks:link, .menuLinks:visited {color: blue;}
-.menuLinks:hover {color: #000099;}
-#menuLinks1 {margin-left: 110px; text-decoration: none; font-family: "Geneva"}
-#menuLinks1:link, #menuLinks1:visited {color: blue;}
-#menuLinks1:hover {color: #000099;}
 #profileUserName {margin-left: 20px;}
 #profileLifeUserScore {margin-left: 20px; color: red}
 #qText1 {margin-left: 10px; margin-top: 5px; display: inline;}
@@ -54,4 +57,9 @@ p {font-family: "Geneva"}
 #selectQuestionSet:hover {cursor: pointer;}
 #addToProfileButton {font-family: "Geneva"; font-size: 14px; padding: 10px 24px; background-color: #ff66a3; color: black; border-radius: 8px; margin: 4px;}
 #addToProfileButton:hover {background-color: #ff0066}
-.askForm {display: block}
+.askForm {display: inline;}
+.askText {margin-left: 10px; display: inline; width: 50%;}
+.askDiv {}
+
+#QsetInputBoxes {margin: auto; width: 80%;}
+#askQuestionsForm {margin: auto; width: 80%;}

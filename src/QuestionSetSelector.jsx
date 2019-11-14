@@ -148,7 +148,6 @@ class QuestionSetSelector extends React.Component {
         <React.Fragment>
 
         <div id="chooseSet">
-            <p> Select a quiz. 'Life Score' is where it all begins. Share your score with you friends on your public profile page. Send them a link.</p>
 
         { this.state.showList &&
          <div>

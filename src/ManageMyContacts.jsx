@@ -6,9 +6,7 @@ class ManageMyContacts extends React.Component {
     super(props);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
-    //this.handleSubmit3 = this.handleSubmit3.bind(this); // not needed. single button used instead.
     this.handleChange3 = this.handleChange3.bind(this);
-    //this.handleSubmit4 = this.handleSubmit4.bind(this);
     this.handleChange4 = this.handleChange4.bind(this);
     this.handleSubmit5 = this.handleSubmit5.bind(this);
         this.state = {
@@ -137,7 +135,7 @@ class ManageMyContacts extends React.Component {
     )
     }
 
-  // render either invitation acceptance or friend managment tools
+  // render invitation acceptance or friend mgmt tools or reverse removed.
   manageUpdate() {
     if (this.state.connectionStatus == "pending" && this.state.inviter != this.state.userName) {
         this.setState({isAfriend: false, hasPendingInvitations: true});

@@ -117,36 +117,48 @@ class AskFormQuestion extends React.Component {
   render() {
     return (
     <React.Fragment>
-        <p>Enter a question</p>
+      <div id="askQuestionsForm">
+      <p>Enter a question</p>
       <form onSubmit={this.handleSubmit1}>
-          Question
-          <input class="askForm" type="text" value={this.state.question} onChange={this.handleChange13} />
-          Answer 1
-          <input class="askForm" type="text" value={this.state.answer1} onChange={this.handleChange1} />
-          Answer 1 Points
-          <input class="askForm" type="text" value={this.state.answer1Points} onChange={this.handleChange2} />
-          Answer 2
-          <input class="askForm" type="text" value={this.state.answer2} onChange={this.handleChange3} />
-          Answer 2 Points
-          <input class="askForm" type="text" value={this.state.answer2Points} onChange={this.handleChange4} />
-          Answer 3
-          <input class="askForm" type="text" value={this.state.answer3} onChange={this.handleChange5} />
-          Answer 3 Points
-          <input class="askForm" type="text" value={this.state.answer3Points} onChange={this.handleChange6} />
-          Answer 4
-          <input class="askForm" type="text" value={this.state.answer4} onChange={this.handleChange7} />
-          Answer 4 Points
-          <input class="askForm" type="text" value={this.state.answer4Points} onChange={this.handleChange8} />
-          Answer 5
-          <input class="askForm" type="text" value={this.state.answer5} onChange={this.handleChange9} />
-          Answer 5 Points
-          <input class="askForm" type="text" value={this.state.answer5Points} onChange={this.handleChange10} />
-          Answer 6
-          <input class="askForm" type="text" value={this.state.answer6} onChange={this.handleChange11} />
-          Answer 6 Points
-          <input class="askForm" type="text" value={this.state.answer6Points} onChange={this.handleChange12} />
-          <input className="qbutton" type="submit" value="Submit" />
+          <div class="askDiv"><span class="askText">Question &nbsp;</span>
+          <input class="askForm" size="80" maxlength="80" type="text" value={this.state.question} onChange={this.handleChange13} /></div>
+
+          <div class="askDiv"><span class="askText">Answer 1 &nbsp;</span>
+          <input class="askForm" type="text" size="40" maxlength="40" value={this.state.answer1} onChange={this.handleChange1} />
+          <span class="askText">Points &nbsp;</span>
+          <input type="number" maxlength="3" size="3" class="askForm" type="text" value={this.state.answer1Points} onChange={this.handleChange2} /></div>
+
+          <div class="askDiv"><span class="askText">Answer 2 &nbsp;</span>
+          <input class="askForm" type="text" size="40" maxlength="40" value={this.state.answer2} onChange={this.handleChange3} />
+          <span class="askText">Points &nbsp;</span>
+          <input type="number" maxlength="3" size="3" class="askForm" type="text" value={this.state.answer2Points} onChange={this.handleChange4} /></div>
+
+          <div class="askDiv"><span class="askText">Answer 3 &nbsp;</span>
+          <input class="askForm" type="text" size="40" maxlength="40" value={this.state.answer3} onChange={this.handleChange5} />
+          <span class="askText">Points &nbsp;</span>
+          <input type="number" maxlength="3" size="3" class="askForm" type="text" value={this.state.answer3Points} onChange={this.handleChange6} /></div>
+
+          <div class="askDiv"><span class="askText">Answer 4 &nbsp;</span>
+          <input class="askForm" type="text" size="40" maxlength="40" value={this.state.answer4} onChange={this.handleChange7} />
+          <span class="askText">Points &nbsp;</span>
+          <input type="number" maxlength="3" size="3" class="askForm" type="text" value={this.state.answer4Points} onChange={this.handleChange8} /></div>
+
+          <div class="askDiv"><span class="askText">Answer 5 &nbsp;</span>
+          <input class="askForm" type="text" size="40" maxlength="40" value={this.state.answer5} onChange={this.handleChange9} />
+          <span class="askText">Points &nbsp;</span>
+          <input type="number" maxlength="3" size="3" class="askForm" type="text" value={this.state.answer5Points} onChange={this.handleChange10} /></div>
+
+          <div class="askDiv"><span class="askText">Answer 6 &nbsp;</span>
+          <input class="askForm" type="text" size="40" maxlength="40" value={this.state.answer6} onChange={this.handleChange11} />
+          <span class="askText">Points &nbsp;</span>
+          <input type="number" maxlength="3" size="3" class="askForm" type="text" value={this.state.answer6Points} onChange={this.handleChange12} /></div>
+
+          <input className="qbutton" type="submit" value="Jump to" />
+          <input className="qbutton" type="submit" value="Previous" />
+          <input className="qbutton" type="submit" value="Add" />
+          <input className="qbutton" type="submit" value="Finish" />
       </form>
+      </div>
     </React.Fragment>
     );
   }

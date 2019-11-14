@@ -1,7 +1,6 @@
 import React from 'react';
-import InvitationForm from "./InvitationForm";
 
-class ContactsList extends React.Component {
+class ContactsListRemoved extends React.Component {
     constructor(props) {
         super(props);
         this.toggleShowNetworkList = this.toggleShowNetworkList.bind(this);
@@ -11,13 +10,13 @@ class ContactsList extends React.Component {
     }
 
    renderTableData() {
-     let list = this.state.list1.filter(data => data.connectionStatus != 'removed');
+     let list = this.state.list1.filter(data => data.connectionStatus == 'removed');
      this.state = {list2: list};
 
       return this.state.list2.map((data, index) => {
          return (
             <tr key={data.friend}>
-               <td> <button value={data.id} onClick={e => this.props.renderSingleContact(e)}> {data.friend} </button> </td>
+               <td> <button value={data.id} onClick={e => this.props.renderSingleContactRemoved(e)}> {data.friend} </button> </td>
                <td>{data.connectionStatus} &nbsp; &nbsp;</td>
                <td>{data.connectionType} &nbsp; &nbsp;</td>
                <td>{data.visibilityPermission}</td>
@@ -26,7 +25,6 @@ class ContactsList extends React.Component {
       })
    }
 
-    // insert this below 'this.renderTableData()'  <tr>{this.renderTableHeader()}</tr>
    renderTableHeader() {
       let header = ["Contact", "Status", "Type", "Privacy"]
       return header.map((key, index) => {
@@ -44,17 +42,15 @@ class ContactsList extends React.Component {
          <div>
             <table>
                <tbody>
-
                   {this.renderTableData()}
                </tbody>
             </table>
          </div>
-         <InvitationForm toggleShowNetworkList={this.toggleShowNetworkList}/>
-         <button onClick={this.props.toggleShowRemovedList}> view and edit removed contacts</button>
+         <button onClick={this.toggleShowNetworkList}> return to my network</button>
         </React.Fragment>
         )
     }
 
 }
 
-export default ContactsList;
+export default ContactsListRemoved;

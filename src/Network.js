@@ -2,15 +2,20 @@ import React from "react";
 import axios from 'axios';
 import TitleBar from "./TitleBar";
 import ContactsList from "./ContactsList";
+import ContactsListRemoved from "./ContactsListRemoved";
 import InvitationForm from "./InvitationForm";
 import ManageMyContacts from "./ManageMyContacts";
-import AuditMyContacts from "./AuditMyContacts";
+import ManageMyContactsRemoved from "./ManageMyContactsRemoved";
+import NetworkContactPages from "./NetworkContactPages";
+//import AuditMyContacts from "./AuditMyContacts";
 
 class Network extends React.Component {
   constructor(props) {
     super(props);
     this.toggleShowNetworkList = this.toggleShowNetworkList.bind(this); // called from child, therefore must be bound to activate within this component and not just within child component.
+    this.toggleShowRemovedList = this.toggleShowRemovedList.bind(this);
     this.renderSingleContact = this.renderSingleContact.bind(this);
+    this.renderSingleContactRemoved = this.renderSingleContactRemoved.bind(this);
 
         this.state = {
           error: null,
@@ -19,6 +24,7 @@ class Network extends React.Component {
           inviter: null,
           userName: null,
           showNetworkList: false,
+          showRemovedList: false,
           showSingleContact: false,
           friendId: null, // sent to child 'ManageMyContacts'
         };
@@ -29,9 +35,14 @@ class Network extends React.Component {
     }
 
     toggleShowNetworkList() {
-        console.log("toggle");
         this.setState({showNetworkList: false});
+        this.setState({showRemovedList: false});
         this.getFriendships();
+    }
+
+    toggleShowRemovedList() {
+        this.setState({showNetworkList: false});
+        this.getRemovedFriendships();
     }
 
     getFriendships() {
@@ -53,8 +64,32 @@ class Network extends React.Component {
                });
     }
 
+    getRemovedFriendships() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/user/",
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+          this.setState({
+            isLoaded: true,
+            allData: response,
+          });
+            this.setState({showRemovedList: true});
+               }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
+               });
+    }
+
    renderContactsList() {
     return ( <ContactsList allData={this.state.allData} renderSingleContact={this.renderSingleContact}
+     toggleShowNetworkList={this.toggleShowNetworkList} toggleShowRemovedList={this.toggleShowRemovedList}/> )
+   }
+
+   renderContactsListRemoved() {
+    return ( <ContactsListRemoved allData={this.state.allData} renderSingleContactRemoved={this.renderSingleContactRemoved}
      toggleShowNetworkList={this.toggleShowNetworkList}/> )
    }
 
@@ -62,24 +97,39 @@ class Network extends React.Component {
         const data = {id: event.target.value};
         this.setState({friendId: data.id});
         this.setState({showNetworkList: false});
+        this.setState({showRemovedList: false});
         this.setState({showSingleContact: true});
     }
 
+    renderSingleContactRemoved(event) {
+        const data = {id: event.target.value};
+        this.setState({friendId: data.id});
+        this.setState({showNetworkList: false});
+        this.setState({showRemovedList: false});
+        this.setState({showSingleContactRemoved: true});
+    }
 
   render() {
     return (
     <React.Fragment>
         <TitleBar />
-        <p className="urltext">Your Network</p>
 
         { this.state.showNetworkList &&
         <div> {this.renderContactsList()}
         </div> }
 
-        { this.state.showSingleContact &&
-        <div> <ManageMyContacts friendId={this.state.friendId}/>
+        { this.state.showRemovedList &&
+        <div> {this.renderContactsListRemoved()}
         </div> }
 
+        { this.state.showSingleContact &&
+        <div> <ManageMyContacts friendId={this.state.friendId}/>
+        <NetworkContactPages friendId={this.state.friendId}/>
+        </div> }
+
+        { this.state.showSingleContactRemoved &&
+        <div> <ManageMyContactsRemoved friendId={this.state.friendId}/>
+        </div> }
 
     </React.Fragment>
     );

@@ -1,5 +1,5 @@
 import React from "react";
-import QuestionSetSelectorPrivate from "./QuestionSetSelectorPrivate";
+//import QuestionSetSelectorPrivate from "./QuestionSetSelectorPrivate";
 import TitleBar from "./TitleBar";
 import AskFormQset from "./AskFormQset";
 
@@ -20,7 +20,6 @@ class AskAnswer extends React.Component {
         <React.Fragment>
         <div>
           <TitleBar />
-          <QuestionSetSelectorPrivate />
           <AskFormQset />
         </div>
         </React.Fragment>
