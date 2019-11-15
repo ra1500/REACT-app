@@ -153,8 +153,10 @@ class AskFormQset extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { id: this.state.questionSetVersion };
-        axios.post("http://localhost:8080/prm//sc/n?qsId=" + this.state.questionSetVersion, data,
+        let data = {typeNumber: 5};
+        console.log(this.state.typeNumber + " typeNumber");
+        console.log(data.typeNumber + " 2nd");
+        axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true,
@@ -164,11 +166,60 @@ class AskFormQset extends React.Component {
     }
 
     inviteToScoreColleagues() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u + ':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        let data = {typeNumber: 6};
+        console.log(this.state.typeNumber + " typeNumber");
+        console.log(data.typeNumber + " 2nd");
+        axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+        this.setState({isLoaded: true,
+                  });
+               }).catch(error => {this.setState({ isLoaded: true, error});
+               });
     }
     inviteToScoreOther() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u + ':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        let data = {typeNumber: 7};
+        console.log(this.state.typeNumber + " typeNumber");
+        console.log(data.typeNumber + " 2nd");
+        axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+        this.setState({isLoaded: true,
+                  });
+               }).catch(error => {this.setState({ isLoaded: true, error});
+               });
     }
     inviteToScoreEveryone() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u + ':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        let data = {typeNumber: 4};
+        console.log(this.state.typeNumber + " typeNumber");
+        console.log(data.typeNumber + " 2nd");
+        axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+        this.setState({isLoaded: true,
+                  });
+               }).catch(error => {this.setState({ isLoaded: true, error});
+               });
     }
+
     inviteToScoreConfirm() {
     }
 
