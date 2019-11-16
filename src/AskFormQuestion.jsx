@@ -17,6 +17,7 @@ class AskFormQuestion extends React.Component {
     this.handleChange11 = this.handleChange11.bind(this);
     this.handleChange12 = this.handleChange12.bind(this);
     this.handleChange13 = this.handleChange13.bind(this);
+    this.handleChange14 = this.handleChange14.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.handleSubmit3 = this.handleSubmit3.bind(this);
@@ -25,8 +26,10 @@ class AskFormQuestion extends React.Component {
           isLoaded: false,
           questionSetVersion: this.props.questionSetVersion,
           sequenceNumber: this.props.sequenceNumber,
-          maxPoints: null,
+          maxQtyQuestions: 1,
+          maxPoints: 0,
           question: null,
+          jumpToQuestionNumber: 1,
           answer1: null,
           answer2: null,
           answer3: null,
@@ -39,11 +42,14 @@ class AskFormQuestion extends React.Component {
           answer4Points: null,
           answer5Points: null,
           answer6Points: null,
+          answer1PointsBefore: 0, // used to calculate running maxPoints
+          answer2PointsBefore: 0,
+          answer3PointsBefore: 0,
+          answer4PointsBefore: 0,
+          answer5PointsBefore: 0,
+          answer6PointsBefore: 0,
         };
   }
-
-    componentDidMount() {
-    }
 
    handleChange1(event) {
      this.setState({answer1: event.target.value});
@@ -84,6 +90,12 @@ class AskFormQuestion extends React.Component {
    handleChange13(event) {
      this.setState({question: event.target.value});
    }
+   handleChange13(event) {
+     this.setState({question: event.target.value});
+   }
+   handleChange14(event) {
+     this.setState({jumpToQuestionNumber: event.target.value});
+   }
 
    postNewQuestion() {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
@@ -101,12 +113,19 @@ class AskFormQuestion extends React.Component {
          answer4: this.state.answer4, answer4Points: this.state.answer4Points,
          answer5: this.state.answer5, answer5Points: this.state.answer5Points,
          answer6: this.state.answer6, answer6Points: this.state.answer6Points,};
+        this.setState({maxPoints: Number(this.state.maxPoints) +Number(this.state.answer1Points) +Number(this.state.answer2Points) +Number(this.state.answer3Points) +Number(this.state.answer4Points) +Number(this.state.answer5Points) +Number(this.state.answer6Points)
+         - Number(this.state.answer1PointsBefore) - Number(this.state.answer2PointsBefore) - Number(this.state.answer3PointsBefore) - Number(this.state.answer4PointsBefore) - Number(this.state.answer5PointsBefore) - Number(this.state.answer6PointsBefore)});
         axios.post("http://localhost:8080/q/p?qsid=" + this.props.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true,
                   });
+         this.getCurrentQuestion(); //
          this.props.manageSequenceNumber(); //
+         if (this.props.sequenceNumber > this.state.maxQtyQuestions) {
+             this.setState({maxQtyQuestions: this.props.sequenceNumber-1});
+         } // end if
+         this.props.finalMax(this.state.maxQtyQuestions, this.state.maxPoints);
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
    }
@@ -131,8 +150,13 @@ class AskFormQuestion extends React.Component {
           });
     this.getCurrentQuestion();
     }
+
   handleSubmit2(event) {
     event.preventDefault();
+        if (this.state.jumpToQuestionNumber <= this.state.maxQtyQuestions ) {
+            this.props.jumpToSequenceNumber(this.state.jumpToQuestionNumber);
+            this.getJumpToQuestion();
+        } // end if
     }
   handleSubmit3(event) {
     event.preventDefault();
@@ -141,6 +165,7 @@ class AskFormQuestion extends React.Component {
     }
 
   getPreviousQuestion() {
+    if (this.props.sequenceNumber > 1) {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
         const p = name.password;
@@ -169,6 +194,7 @@ class AskFormQuestion extends React.Component {
           });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
+     } // end if
     }
 
   getCurrentQuestion() {
@@ -178,7 +204,46 @@ class AskFormQuestion extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/" + this.props.questionSetVersion + "/" + (this.props.sequenceNumber+1),
+        axios.get("http://localhost:8080/q/" + this.props.questionSetVersion + "/" + (+this.props.sequenceNumber+1),
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+          this.setState({
+            isLoaded: true,
+            question: response.data.question,
+            questionsEntityId: response.data.id,
+            answer1: response.data.answer1,
+            answer2: response.data.answer2,
+            answer3: response.data.answer3,
+            answer4: response.data.answer4,
+            answer5: response.data.answer5,
+            answer6: response.data.answer6,
+            answer1Points: response.data.answer1Points,
+            answer2Points: response.data.answer2Points,
+            answer3Points: response.data.answer3Points,
+            answer4Points: response.data.answer4Points,
+            answer5Points: response.data.answer5Points,
+            answer6Points: response.data.answer6Points,
+            answer1PointsBefore: Math.max(Number(response.data.answer1Points),0),
+            answer2PointsBefore: Math.max(Number(response.data.answer2Points),0),
+            answer3PointsBefore: Math.max(Number(response.data.answer3Points),0),
+            answer4PointsBefore: Math.max(Number(response.data.answer4Points),0),
+            answer5PointsBefore: Math.max(Number(response.data.answer5Points),0),
+            answer6PointsBefore: Math.max(Number(response.data.answer6Points),0),
+          });
+            console.log(this.state.answer1PointsBefore + " beforepoints");
+               }).catch(error => {this.setState({ isLoaded: true, error});
+               });
+    }
+
+  getJumpToQuestion() {
+    if (this.state.jumpToQuestionNumber > 0) {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/q/" + this.props.questionSetVersion + "/" + (this.state.jumpToQuestionNumber),
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -200,6 +265,7 @@ class AskFormQuestion extends React.Component {
           });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
+      } // end if
     }
 
   render() {
@@ -214,39 +280,42 @@ class AskFormQuestion extends React.Component {
           <div class="askDiv"><span class="askText">Answer 1 &nbsp;</span>
           <input class="askForm" type="text" size="40" maxlength="40" value={this.state.answer1} onChange={this.handleChange1} />
           <span class="askText">Points &nbsp;</span>
-          <input type="number" maxlength="3" size="3" class="askForm" type="text" value={this.state.answer1Points} onChange={this.handleChange2} /></div>
+          <input type="number" maxlength="3" size="3" class="askForm" value={this.state.answer1Points} onChange={this.handleChange2} /></div>
 
           <div class="askDiv"><span class="askText">Answer 2 &nbsp;</span>
           <input class="askForm" type="text" size="40" maxlength="40" value={this.state.answer2} onChange={this.handleChange3} />
           <span class="askText">Points &nbsp;</span>
-          <input type="number" maxlength="3" size="3" class="askForm" type="text" value={this.state.answer2Points} onChange={this.handleChange4} /></div>
+          <input type="number" maxlength="3" size="3" class="askForm" value={this.state.answer2Points} onChange={this.handleChange4} /></div>
 
           <div class="askDiv"><span class="askText">Answer 3 &nbsp;</span>
           <input class="askForm" type="text" size="40" maxlength="40" value={this.state.answer3} onChange={this.handleChange5} />
           <span class="askText">Points &nbsp;</span>
-          <input type="number" maxlength="3" size="3" class="askForm" type="text" value={this.state.answer3Points} onChange={this.handleChange6} /></div>
+          <input type="number" maxlength="3" size="3" class="askForm" value={this.state.answer3Points} onChange={this.handleChange6} /></div>
 
           <div class="askDiv"><span class="askText">Answer 4 &nbsp;</span>
           <input class="askForm" type="text" size="40" maxlength="40" value={this.state.answer4} onChange={this.handleChange7} />
           <span class="askText">Points &nbsp;</span>
-          <input type="number" maxlength="3" size="3" class="askForm" type="text" value={this.state.answer4Points} onChange={this.handleChange8} /></div>
+          <input type="number" maxlength="3" size="3" class="askForm" value={this.state.answer4Points} onChange={this.handleChange8} /></div>
 
           <div class="askDiv"><span class="askText">Answer 5 &nbsp;</span>
           <input class="askForm" type="text" size="40" maxlength="40" value={this.state.answer5} onChange={this.handleChange9} />
           <span class="askText">Points &nbsp;</span>
-          <input type="number" maxlength="3" size="3" class="askForm" type="text" value={this.state.answer5Points} onChange={this.handleChange10} /></div>
+          <input type="number" maxlength="3" size="3" class="askForm" value={this.state.answer5Points} onChange={this.handleChange10} /></div>
 
           <div class="askDiv"><span class="askText">Answer 6 &nbsp;</span>
           <input class="askForm" type="text" size="40" maxlength="40" value={this.state.answer6} onChange={this.handleChange11} />
           <span class="askText">Points &nbsp;</span>
-          <input type="number" maxlength="3" size="3" class="askForm" type="text" value={this.state.answer6Points} onChange={this.handleChange12} /></div>
+          <input type="number" maxlength="3" size="3" class="askForm" value={this.state.answer6Points} onChange={this.handleChange12} /></div>
 
 
           <input className="qbutton" type="submit" value="Add" />
       </form>
+
           <form onSubmit={this.handleSubmit2}>
-          <input className="qbutton" type="submit" value="Jump to" />
+          <input class="askForm" type="number" size="2" maxlength="2" value={this.state.invitee} onChange={this.handleChange14} />
+          <button> Jump to </button>
           </form>
+
           <form onSubmit={this.handleSubmit3}>
           <input className="qbutton" type="submit" value="Previous" />
           </form>
