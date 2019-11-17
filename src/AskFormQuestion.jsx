@@ -36,18 +36,18 @@ class AskFormQuestion extends React.Component {
           answer4: null,
           answer5: null,
           answer6: null,
-          answer1Points: null,
-          answer2Points: null,
-          answer3Points: null,
-          answer4Points: null,
-          answer5Points: null,
-          answer6Points: null,
-          answer1PointsBefore: 0, // used to calculate running maxPoints
-          answer2PointsBefore: 0,
-          answer3PointsBefore: 0,
-          answer4PointsBefore: 0,
-          answer5PointsBefore: 0,
-          answer6PointsBefore: 0,
+          answer1Points: "",
+          answer2Points: "",
+          answer3Points: "",
+          answer4Points: "",
+          answer5Points: "",
+          answer6Points: "",
+          answer1PointsBefore: "", // used to calculate running maxPoints
+          answer2PointsBefore: "",
+          answer3PointsBefore: "",
+          answer4PointsBefore: "",
+          answer5PointsBefore: "",
+          answer6PointsBefore: "",
         };
   }
 
@@ -104,17 +104,20 @@ class AskFormQuestion extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        const maximumPoints = Math.max(this.state.answer1Points, this.state.answer2Points,this.state.answer3Points,
-        this.state.answer4Points,this.state.answer5Points,this.state.answer6Points,);
+
+        let maximumPoints = Math.max(this.state.answer1Points, this.state.answer2Points, this.state.answer3Points, this.state.answer4Points, this.state.answer5Points, this.state.answer6Points,);
+        let maximumPointsBefore = Math.max(this.state.answer1PointsBefore, this.state.answer2PointsBefore, this.state.answer3PointsBefore, this.state.answer4PointsBefore, this.state.answer5PointsBefore, this.state.answer6PointsBefore, );
+
         let data = { maxPoints: maximumPoints, question: this.state.question,
          sequenceNumber: this.props.sequenceNumber, answer1: this.state.answer1, answer1Points: this.state.answer1Points,
-         answer2: this.state.answer2, answer2Points: this.state.answer2Points,
-         answer3: this.state.answer3, answer3Points: this.state.answer3Points,
-         answer4: this.state.answer4, answer4Points: this.state.answer4Points,
-         answer5: this.state.answer5, answer5Points: this.state.answer5Points,
-         answer6: this.state.answer6, answer6Points: this.state.answer6Points,};
-        this.setState({maxPoints: Number(this.state.maxPoints) +Number(this.state.answer1Points) +Number(this.state.answer2Points) +Number(this.state.answer3Points) +Number(this.state.answer4Points) +Number(this.state.answer5Points) +Number(this.state.answer6Points)
-         - Number(this.state.answer1PointsBefore) - Number(this.state.answer2PointsBefore) - Number(this.state.answer3PointsBefore) - Number(this.state.answer4PointsBefore) - Number(this.state.answer5PointsBefore) - Number(this.state.answer6PointsBefore)});
+         answer2: this.state.answer2, answer2Points: Number(this.state.answer2Points),
+         answer3: this.state.answer3, answer3Points: Number(this.state.answer3Points),
+         answer4: this.state.answer4, answer4Points: Number(this.state.answer4Points),
+         answer5: this.state.answer5, answer5Points: Number(this.state.answer5Points),
+         answer6: this.state.answer6, answer6Points: Number(this.state.answer6Points),};
+
+        this.setState({maxPoints: +Number(this.state.maxPoints) +Number(maximumPoints) -Number(maximumPointsBefore) })  ;
+
         axios.post("http://localhost:8080/q/p?qsid=" + this.props.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
@@ -125,7 +128,7 @@ class AskFormQuestion extends React.Component {
          if (this.props.sequenceNumber > this.state.maxQtyQuestions) {
              this.setState({maxQtyQuestions: this.props.sequenceNumber-1});
          } // end if
-         this.props.finalMax(this.state.maxQtyQuestions, this.state.maxPoints);
+         this.props.finalMax(this.state.maxQtyQuestions, this.state.maxPoints); //
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
    }
@@ -192,6 +195,12 @@ class AskFormQuestion extends React.Component {
             answer5Points: response.data.answer5Points,
             answer6Points: response.data.answer6Points,
           });
+            if (Number.isInteger(response.data.answer1Points)) {this.setState({answer1Points: Number(response.data.answer1Points), answer1PointsBefore: Number(response.data.answer1Points)}) } else {this.setState({ answer1PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer2Points)) {this.setState({answer2Points: Number(response.data.answer2Points), answer2PointsBefore: Number(response.data.answer2Points)}) } else {this.setState({ answer2PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer3Points)) {this.setState({answer3Points: Number(response.data.answer3Points), answer3PointsBefore: Number(response.data.answer3Points)}) } else {this.setState({ answer3PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer4Points)) {this.setState({answer4Points: Number(response.data.answer4Points), answer4PointsBefore: Number(response.data.answer4Points)}) } else {this.setState({ answer4PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer5Points)) {this.setState({answer5Points: Number(response.data.answer5Points), answer5PointsBefore: Number(response.data.answer5Points)}) } else {this.setState({ answer5PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer6Points)) {this.setState({answer6Points: Number(response.data.answer6Points), answer6PointsBefore: Number(response.data.answer6Points)}) } else {this.setState({ answer6PointsBefore: Number(0)})} ;
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
      } // end if
@@ -217,20 +226,19 @@ class AskFormQuestion extends React.Component {
             answer4: response.data.answer4,
             answer5: response.data.answer5,
             answer6: response.data.answer6,
-            answer1Points: response.data.answer1Points,
-            answer2Points: response.data.answer2Points,
-            answer3Points: response.data.answer3Points,
-            answer4Points: response.data.answer4Points,
-            answer5Points: response.data.answer5Points,
-            answer6Points: response.data.answer6Points,
-            answer1PointsBefore: Math.max(Number(response.data.answer1Points),0),
-            answer2PointsBefore: Math.max(Number(response.data.answer2Points),0),
-            answer3PointsBefore: Math.max(Number(response.data.answer3Points),0),
-            answer4PointsBefore: Math.max(Number(response.data.answer4Points),0),
-            answer5PointsBefore: Math.max(Number(response.data.answer5Points),0),
-            answer6PointsBefore: Math.max(Number(response.data.answer6Points),0),
+
+            answer2Points: Number(response.data.answer2Points),
+            answer3Points: Number(response.data.answer3Points),
+            answer4Points: Number(response.data.answer4Points),
+            answer5Points: Number(response.data.answer5Points),
+            answer6Points: Number(response.data.answer6Points),
           });
-            console.log(this.state.answer1PointsBefore + " beforepoints");
+            if (Number.isInteger(response.data.answer1Points)) {this.setState({answer1Points: Number(response.data.answer1Points), answer1PointsBefore: Number(response.data.answer1Points)}) } else {this.setState({ answer1PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer2Points)) {this.setState({answer2Points: Number(response.data.answer2Points), answer2PointsBefore: Number(response.data.answer2Points)}) } else {this.setState({ answer2PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer3Points)) {this.setState({answer3Points: Number(response.data.answer3Points), answer3PointsBefore: Number(response.data.answer3Points)}) } else {this.setState({ answer3PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer4Points)) {this.setState({answer4Points: Number(response.data.answer4Points), answer4PointsBefore: Number(response.data.answer4Points)}) } else {this.setState({ answer4PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer5Points)) {this.setState({answer5Points: Number(response.data.answer5Points), answer5PointsBefore: Number(response.data.answer5Points)}) } else {this.setState({ answer5PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer6Points)) {this.setState({answer6Points: Number(response.data.answer6Points), answer6PointsBefore: Number(response.data.answer6Points)}) } else {this.setState({ answer6PointsBefore: Number(0)})} ;
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
     }
@@ -263,6 +271,12 @@ class AskFormQuestion extends React.Component {
             answer5Points: response.data.answer5Points,
             answer6Points: response.data.answer6Points,
           });
+            if (Number.isInteger(response.data.answer1Points)) {this.setState({answer1Points: Number(response.data.answer1Points), answer1PointsBefore: Number(response.data.answer1Points)}) } else {this.setState({ answer1PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer2Points)) {this.setState({answer2Points: Number(response.data.answer2Points), answer2PointsBefore: Number(response.data.answer2Points)}) } else {this.setState({ answer2PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer3Points)) {this.setState({answer3Points: Number(response.data.answer3Points), answer3PointsBefore: Number(response.data.answer3Points)}) } else {this.setState({ answer3PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer4Points)) {this.setState({answer4Points: Number(response.data.answer4Points), answer4PointsBefore: Number(response.data.answer4Points)}) } else {this.setState({ answer4PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer5Points)) {this.setState({answer5Points: Number(response.data.answer5Points), answer5PointsBefore: Number(response.data.answer5Points)}) } else {this.setState({ answer5PointsBefore: Number(0)})} ;
+            if (Number.isInteger(response.data.answer6Points)) {this.setState({answer6Points: Number(response.data.answer6Points), answer6PointsBefore: Number(response.data.answer6Points)}) } else {this.setState({ answer6PointsBefore: Number(0)})} ;
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
       } // end if
