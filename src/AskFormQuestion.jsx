@@ -28,20 +28,20 @@ class AskFormQuestion extends React.Component {
           sequenceNumber: this.props.sequenceNumber,
           maxQtyQuestions: 1,
           maxPoints: 0,
-          question: null,
+          question: this.props.question,
           jumpToQuestionNumber: 1,
-          answer1: null,
-          answer2: null,
-          answer3: null,
-          answer4: null,
-          answer5: null,
-          answer6: null,
-          answer1Points: "",
-          answer2Points: "",
-          answer3Points: "",
-          answer4Points: "",
-          answer5Points: "",
-          answer6Points: "",
+          answer1: this.props.answer1,
+          answer2: this.props.answer2,
+          answer3: this.props.answer3,
+          answer4: this.props.answer4,
+          answer5: this.props.answer5,
+          answer6: this.props.answer6,
+          answer1Points: this.props.answer1Points,
+          answer2Points: this.props.answer2Points,
+          answer3Points: this.props.answer3Points,
+          answer4Points: this.props.answer4Points,
+          answer5Points: this.props.answer5Points,
+          answer6Points: this.props.answer6Points,
           answer1PointsBefore: "", // used to calculate running maxPoints
           answer2PointsBefore: "",
           answer3PointsBefore: "",
@@ -98,6 +98,7 @@ class AskFormQuestion extends React.Component {
    }
 
    postNewQuestion() {
+        if (this.props.sequenceNumber < 41) {  // max of 40 questions per Qset
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
         const p = name.password;
@@ -136,6 +137,8 @@ class AskFormQuestion extends React.Component {
          this.props.finalMax(this.state.maxQtyQuestions, this.state.maxPoints); //
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
+        } // end if
+        else {} // TODO message that not more than 40
    }
 
   handleSubmit1(event) {
@@ -291,7 +294,6 @@ class AskFormQuestion extends React.Component {
     return (
     <React.Fragment>
       <div id="askQuestionsForm">
-      <p>You are now entering question number &nbsp; {this.props.sequenceNumber}</p>
       <form onSubmit={this.handleSubmit1}>
           <div class="askDiv"><span class="askText">Question &nbsp;</span>
           <input class="askForm" size="80" maxlength="80" type="text" value={this.state.question} onChange={this.handleChange13} /></div>
@@ -326,7 +328,7 @@ class AskFormQuestion extends React.Component {
           <span class="askText">Points &nbsp;</span>
           <input type="number" maxlength="3" size="3" class="askForm" value={this.state.answer6Points} onChange={this.handleChange12} /></div>
 
-
+            <p> # {this.props.sequenceNumber}</p>
           <input className="qbutton" type="submit" value="Add" />
       </form>
 

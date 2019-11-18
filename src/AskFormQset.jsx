@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import AskFormQuestion from "./AskFormQuestion";
+import AskManage from "./AskManage";
 
 class AskFormQset extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class AskFormQset extends React.Component {
     this.inviteToScoreIndividual = this.inviteToScoreIndividual.bind(this);
     this.jumpToSequenceNumber = this.jumpToSequenceNumber.bind(this);
     this.finalMax = this.finalMax.bind(this);
+    this.manageAset = this.manageAset.bind(this);
         this.state = {
           error: null,
           isLoaded: false,
@@ -48,12 +50,22 @@ class AskFormQset extends React.Component {
           showInvitationCompletedIndividual: false,
           maxQtyQuestions: 0,
           maxPointsTotal: 0,
+          showManage: false,
+          question: null, // used during 'AskManage'
+          answer1: null, // used during 'AskManage'
+          answer2: null,
+          answer3: null,
+          answer4: null,
+          answer5: null,
+          answer6: null,
+          answer1Points: null,
+          answer2Points: null,
+          answer3Points: null,
+          answer4Points: null,
+          answer5Points: null,
+          answer6Points: null,
         };
   }
-
-    componentDidMount() {
-
-    }
 
    handleChange1(event) {
      this.setState({title: event.target.value});
@@ -106,7 +118,7 @@ class AskFormQset extends React.Component {
         .then((response) => {
         this.setState({isLoaded: true, questionSetVersion: response.data.id,
                   });
-         this.getQuestionSetVersionNumber(); //
+         //this.getQuestionSetVersionNumber(); //
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
    }
@@ -161,7 +173,8 @@ class AskFormQset extends React.Component {
     }
 
     manageSets() {
-        // TODO
+        this.setState({showIntro: false});
+        this.setState({showManage: true});
     }
 
     inviteToScore() {
@@ -261,6 +274,72 @@ class AskFormQset extends React.Component {
         this.setState({maxQtyQuestions: value1, maxPointsTotal: value2});
     }
 
+    // called from child AskManage
+    manageAset(event) {
+        const data = {qsetId: event.target.value}; //
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/q/f/" + data.qsetId,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+          this.setState({
+            isLoaded: true,
+            question: response.data.question,
+            questionSetVersion: response.data.questionSetVersionEntity.id,
+            title: response.data.questionSetVersionEntity.title,
+            category: response.data.questionSetVersionEntity.category,
+            description: response.data.questionSetVersionEntity.description,
+            answer1: response.data.answer1,
+            answer2: response.data.answer2,
+            answer3: response.data.answer3,
+            answer4: response.data.answer4,
+            answer5: response.data.answer5,
+            answer6: response.data.answer6,
+            answer1Points: Number(response.data.answer1Points),
+            answer2Points: Number(response.data.answer2Points),
+            answer3Points: Number(response.data.answer3Points),
+            answer4Points: Number(response.data.answer4Points),
+            answer5Points: Number(response.data.answer5Points),
+            answer6Points: Number(response.data.answer6Points),
+          });
+            if (Number.isInteger(response.data.answer1Points)) {this.setState({answer1Points: Number(response.data.answer1Points), answer1PointsBefore: Number(response.data.answer1Points)}) } else {this.setState({ answer1PointsBefore: Number(0), answer1Points: Number(0)})} ;
+            if (Number.isInteger(response.data.answer2Points)) {this.setState({answer2Points: Number(response.data.answer2Points), answer2PointsBefore: Number(response.data.answer2Points)}) } else {this.setState({ answer2PointsBefore: Number(0), answer2Points: Number(0)})} ;
+            if (Number.isInteger(response.data.answer3Points)) {this.setState({answer3Points: Number(response.data.answer3Points), answer3PointsBefore: Number(response.data.answer3Points)}) } else {this.setState({ answer3PointsBefore: Number(0), answer3Points: Number(0)})} ;
+            if (Number.isInteger(response.data.answer4Points)) {this.setState({answer4Points: Number(response.data.answer4Points), answer4PointsBefore: Number(response.data.answer4Points)}) } else {this.setState({ answer4PointsBefore: Number(0), answer4Points: Number(0)})} ;
+            if (Number.isInteger(response.data.answer5Points)) {this.setState({answer5Points: Number(response.data.answer5Points), answer5PointsBefore: Number(response.data.answer5Points)}) } else {this.setState({ answer5PointsBefore: Number(0), answer5Points: Number(0)})} ;
+            if (Number.isInteger(response.data.answer6Points)) {this.setState({answer6Points: Number(response.data.answer6Points), answer6PointsBefore: Number(response.data.answer6Points)}) } else {this.setState({ answer6PointsBefore: Number(0), answer6Points: Number(0)})} ;
+            this.setState({showFinished: true});
+            this.getMaxQtyAndPoints();
+               }).catch(error => {this.setState({ isLoaded: true, error});
+               });
+        this.setState({showFinished: true, showManage: false});
+    }
+
+    // called from this.manageAset() for use during 'AskManage'
+    getMaxQtyAndPoints() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/qs/q?sn=" + this.state.questionSetVersion,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+          this.setState({
+            isLoaded: true,
+            maxQtyQuestions: response.data.maxQtyQuestions,
+            maxPointsTotal: response.data.maxPoints,
+          });
+          this.renderQuestions(); // ********
+               }).catch(error => {this.setState({ isLoaded: true, error,});
+               });
+    }
+
 
   render() {
     return (
@@ -268,7 +347,8 @@ class AskFormQset extends React.Component {
       { this.state.showIntro &&
       <div id="QsetInputBoxes">
         <p></p>
-        <p> Welcome to Pose. Create your own set of questions and then invite your connections to answer. </p>
+        <p> Welcome to Pose. Create your own set of questions and then invite your connections to answer. </p><br></br>
+        <p> (Maximum of 40 questions per set. Maximum of 10 user created inquiries)</p>
         <button onClick={this.startAnewQset}> Create  </button>
         <p></p>
         <p> Manage an existing set. Edit or delete.<br></br> Note that deleting a
@@ -288,8 +368,8 @@ class AskFormQset extends React.Component {
 
       { this.state.showQsetDetails &&
       <div id="QsetInputBoxes">
-        <p>&nbsp; &nbsp; &nbsp; Title &nbsp; > &nbsp; {this.state.title} </p>
-        <p>Description &nbsp; > &nbsp; {this.state.description} </p>
+        <p>&nbsp; &nbsp; &nbsp; Title &nbsp; &nbsp; {this.state.title} </p>
+        <p>Description &nbsp; &nbsp; {this.state.description} </p>
         <p> Question count {this.state.maxQtyQuestions} Max Points {this.state.maxPointsTotal} </p>
         <button onClick={this.toggleEditInputBoxes}> Change </button> <span> Edit Title and Description </span>
         <button onClick={this.deleteAll}> Cancel/Delete All </button>
@@ -322,7 +402,9 @@ class AskFormQset extends React.Component {
       </div> }
 
       { this.state.showAskFormQuestion &&
-      <AskFormQuestion sequenceNumber={this.state.sequenceNumber} questionSetVersion={this.state.questionSetVersion} manageSequenceNumber={this.manageSequenceNumber} previousSequenceNumber={this.previousSequenceNumber} jumpToSequenceNumber={this.jumpToSequenceNumber} finalMax={this.finalMax} />
+      <AskFormQuestion sequenceNumber={this.state.sequenceNumber} questionSetVersion={this.state.questionSetVersion} manageSequenceNumber={this.manageSequenceNumber} previousSequenceNumber={this.previousSequenceNumber} jumpToSequenceNumber={this.jumpToSequenceNumber} finalMax={this.finalMax} question={this.state.question}
+      answer1={this.state.answer1} answer2={this.state.answer2} answer3={this.state.answer3} answer4={this.state.answer4} answer5={this.state.answer5} answer6={this.state.answer6}
+       answer1Points={this.state.answer1Points} answer2Points={this.state.answer2Points} answer3Points={this.state.answer3Points} answer4Points={this.state.answer4Points} answer5Points={this.state.answer5Points} answer6Points={this.state.answer6Points} />
       }
 
       { this.state.showInvitationCompleted &&
@@ -340,6 +422,10 @@ class AskFormQset extends React.Component {
         <button onClick={this.inviteToScoreIndividual}> Individual Contact </button>
       </div> }
 
+      { this.state.showManage &&
+      <div>
+        <AskManage manageAset={this.manageAset} />
+      </div> }
 
     </React.Fragment>
     );
