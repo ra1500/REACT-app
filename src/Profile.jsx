@@ -10,9 +10,11 @@ class Profile extends React.Component {
     super(props);
     this.manageAudit = this.manageAudit.bind(this);
     this.inviteToAuditFriends = this.inviteToAuditFriends.bind(this);
-    //this.inviteToAuditColleagues = this.inviteToAuditColleagues.bind(this);
-    //this.inviteToAuditOther = this.inviteToAuditOther.bind(this);
-    //this.inviteToAuditEveryone = this.inviteToAuditEveryone.bind(this);
+    this.inviteToAuditColleagues = this.inviteToAuditColleagues.bind(this);
+    this.inviteToAuditOther = this.inviteToAuditOther.bind(this);
+    this.inviteToAuditEveryone = this.inviteToAuditEveryone.bind(this);
+    this.inviteToAuditIndividual = this.inviteToAuditIndividual.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.state = {
         showLists: true,
         showManageAudit: false,
@@ -21,6 +23,7 @@ class Profile extends React.Component {
         description: null,
         score: null,
         questionSetVersionEntityId: null,
+        friend: null, // friend invited to audit. individual add.
         };
     };
 
@@ -46,7 +49,7 @@ class Profile extends React.Component {
                });
     }
 
-    inviteToAuditFriends() {
+    inviteToAudit(group) {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
         const p = name.password;
@@ -54,7 +57,7 @@ class Profile extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { };
-        axios.post("http://localhost:8080/a/fr/" + this.state.questionSetVersionEntityId,
+        axios.post("http://localhost:8080/a/fr/" + this.state.questionSetVersionEntityId + "/" + group,
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
@@ -64,6 +67,42 @@ class Profile extends React.Component {
                });
     }
 
+    inviteToAuditIndividualFriend() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u + ':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        let data = { userName: this.state.friend };
+        axios.post("http://localhost:8080/a/in/" + this.state.questionSetVersionEntityId,
+        data,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+        this.setState({isLoaded: true,
+          });
+               }).catch(error => {this.setState({ isLoaded: true, error});
+               });
+    }
+
+    handleChange(event) {
+        this.setState({friend: event.target.value});
+    }
+    inviteToAuditFriends() {
+        this.inviteToAudit("f");
+    }
+    inviteToAuditColleagues() {
+        this.inviteToAudit("c");
+    }
+    inviteToAuditOther() {
+        this.inviteToAudit("o");
+    }
+    inviteToAuditEveryone() {
+        this.inviteToAudit("e");
+    }
+    inviteToAuditIndividual() {
+        this.inviteToAuditIndividualFriend();
+    }
 
    render() {
     return (
@@ -89,7 +128,7 @@ class Profile extends React.Component {
                 <button onClick={this.inviteToAuditColleagues}> Colleagues </button>
                 <button onClick={this.inviteToAuditOther}> Other </button>
                 <button onClick={this.inviteToAuditEveryone}> All Connections </button>
-                <input class="askForm" type="text" size="20" maxlength="20" value={this.state.invitee} onChange={this.handleChange4} />
+                <input class="askForm" type="text" size="20" maxlength="20" value={this.state.invitee} onChange={this.handleChange} />
                 <button onClick={this.inviteToAuditIndividual}> Individual Contact </button>
             </div> }
 
