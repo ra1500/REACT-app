@@ -78,7 +78,7 @@ class Questions extends React.Component {
                });
 
     } else {
-          this.setState({answer1: null, selection: null}); //TODO: make all state variables null
+          //this.setState({answer1: null, selection: null}); //TODO: make all state variables null
             };
     }
 
@@ -93,7 +93,6 @@ class Questions extends React.Component {
         axios.get("http://localhost:8080/q/" + this.props.questionSetVersion + "/" + this.state.jumpQuestion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        //console.log(response.data.questionsList.question);
           this.setState({
             isLoaded: true,
             question: response.data.question,
@@ -118,7 +117,7 @@ class Questions extends React.Component {
                });
 
     } else {
-          //this.setState({answer1: null, selection: null}); //TODO: make all state variables null
+          //
             };
     }
 
@@ -130,7 +129,7 @@ class Questions extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { answer: this.state.selection,answerPoints: this.state.answerPoints, auditee: this.props.auditee };
-        axios.post("http://localhost:8080/a/" + this.state.questionsEntityId,
+        axios.post("http://localhost:8080/a/r/" + this.state.questionsEntityId,
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
@@ -149,7 +148,7 @@ class Questions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/a?sv=" + this.props.questionSetVersion + "&au=" + this.props.auditee,
+        axios.get("http://localhost:8080/a?sv=" + this.props.questionSetVersion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -167,7 +166,7 @@ class Questions extends React.Component {
        const token = u +':' + p;
        const hash = btoa(token);
        const Basic = 'Basic ' + hash;
-       axios.get("http://localhost:8080/a/" + this.state.questionsEntityId + "/" + this.props.auditee,
+       axios.get("http://localhost:8080/a/l/" + this.state.questionsEntityId,
        {headers : { 'Authorization' : Basic }})
        .then((response) => {
          if (response.data.answer) {
@@ -203,8 +202,8 @@ class Questions extends React.Component {
     this.deleteAllAnswers();
     this.setState({allDeletedMessage: "answers deleted"});
     }
-
    }
+
    deleteAllAnswers() {
     const name = JSON.parse(sessionStorage.getItem('tokens'));
     const u = name.userName;
@@ -242,7 +241,7 @@ class Questions extends React.Component {
 
   render() {
     let { error, isLoaded, question, userScore, selection, answerPoints, answer1, answer2, answer3, answer4, answer5,
-     answer6, answer1Points, answer2Points, answer3Points, answer4Points, answer5Points, answer6Points, allDeletedMessage} = this.state;
+     answer6, answer1Points, answer2Points, answer3Points, answer4Points, answer5Points, answer6Points} = this.state;
 
     if (error) {
       return <div>Error: {error.message}</div>;

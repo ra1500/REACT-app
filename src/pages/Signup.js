@@ -8,7 +8,7 @@ function Signup(props) {
   //const referer = props.location.state.referer || '/'; //TODO: make this work so that goes to homepage or page tried to initially access
   const referer = "/";
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [ setIsError] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const { setAuthTokens } = useAuth();

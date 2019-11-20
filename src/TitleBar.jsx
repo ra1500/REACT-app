@@ -13,7 +13,7 @@ class TitleBar extends React.Component {
 
         <a id="NJ" href="/"> NeuralJuice </a>
 
-        <a id="menuLinks1" href="/Main"> Avenue </a>
+        <a id="menuLinks1" href="/start"> Welcome </a>
         <a className="menuLinks" href="/Main"> Score </a>
         <a className="menuLinks" href="/askanswer"> Pose </a>
         <a className="menuLinks" href="/network"> Network </a>

@@ -10,7 +10,6 @@ class PublicUserPages extends React.Component {
             list: null,
             showList: false,
             id: null,
-            userName: null,
         };
     }
 

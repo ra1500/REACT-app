@@ -4,6 +4,7 @@ import axios from 'axios';
 import ScoreUrl from "./ScoreUrl";
 import ScoresList from "./ScoresList";
 import QuestionSetsPrivateProfile from "./QuestionSetsPrivateProfile";
+import ViewAudits from "./ViewAudits";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Profile extends React.Component {
     this.inviteToAuditOther = this.inviteToAuditOther.bind(this);
     this.inviteToAuditEveryone = this.inviteToAuditEveryone.bind(this);
     this.inviteToAuditIndividual = this.inviteToAuditIndividual.bind(this);
+    this.viewAudits = this.viewAudits.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
         showLists: true,
@@ -24,6 +26,8 @@ class Profile extends React.Component {
         score: null,
         questionSetVersionEntityId: null,
         friend: null, // friend invited to audit. individual add.
+        auditorsAddedMessage: null,
+        showCompletedAudits: false,
         };
     };
 
@@ -90,18 +94,28 @@ class Profile extends React.Component {
     }
     inviteToAuditFriends() {
         this.inviteToAudit("f");
+        this.setState({auditorsAddedMessage:  "All your friends have been added as auditors"});
     }
     inviteToAuditColleagues() {
         this.inviteToAudit("c");
+        this.setState({auditorsAddedMessage:  "All your Colleagues have been added as auditors"});
     }
     inviteToAuditOther() {
         this.inviteToAudit("o");
+        this.setState({auditorsAddedMessage:  "All your 'other' contacts have been added as auditors"});
     }
     inviteToAuditEveryone() {
         this.inviteToAudit("e");
+        this.setState({auditorsAddedMessage:  "All your contacts have been added as auditors"});
     }
     inviteToAuditIndividual() {
         this.inviteToAuditIndividualFriend();
+        this.setState({auditorsAddedMessage: this.state.friend + " has been added as an auditor"});
+    }
+
+    viewAudits(event) {
+        this.setState({questionSetVersionEntityId: event.target.value});
+        this.setState({showLists: false, showCompletedAudits: true });
     }
 
    render() {
@@ -111,7 +125,7 @@ class Profile extends React.Component {
 
               { this.state.showLists &&
               <div id="QsetInputBoxes">
-                <ScoresList manageAudit={this.manageAudit} />
+                <ScoresList manageAudit={this.manageAudit} viewAudits={this.viewAudits}/>
                 <QuestionSetsPrivateProfile />
                 <ScoreUrl />
               </div> }
@@ -130,6 +144,12 @@ class Profile extends React.Component {
                 <button onClick={this.inviteToAuditEveryone}> All Connections </button>
                 <input class="askForm" type="text" size="20" maxlength="20" value={this.state.invitee} onChange={this.handleChange} />
                 <button onClick={this.inviteToAuditIndividual}> Individual Contact </button>
+                <p> {this.state.auditorsAddedMessage} </p>
+            </div> }
+
+            { this.state.showCompletedAudits &&
+            <div>
+                <ViewAudits questionSetVersionEntityId={this.state.questionSetVersionEntityId} />
             </div> }
 
         </React.Fragment>

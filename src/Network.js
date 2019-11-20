@@ -7,7 +7,8 @@ import InvitationForm from "./InvitationForm";
 import ManageMyContacts from "./ManageMyContacts";
 import ManageMyContactsRemoved from "./ManageMyContactsRemoved";
 import NetworkContactPages from "./NetworkContactPages";
-//import AuditMyContacts from "./AuditMyContacts";
+import NetworkContactAudit from "./NetworkContactAudit";
+import AuditQuestions from "./AuditQuestions";
 
 class Network extends React.Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class Network extends React.Component {
     this.toggleShowRemovedList = this.toggleShowRemovedList.bind(this);
     this.renderSingleContact = this.renderSingleContact.bind(this);
     this.renderSingleContactRemoved = this.renderSingleContactRemoved.bind(this);
-
+    this.auditMe = this.auditMe.bind(this);
+    this.sendDownFriend = this.sendDownFriend.bind(this);
         this.state = {
           error: null,
           isLoaded: false,
@@ -27,6 +29,8 @@ class Network extends React.Component {
           showRemovedList: false,
           showSingleContact: false,
           friendId: null, // sent to child 'ManageMyContacts'
+          showQuestionSetAuditing: false,
+          questionSetVersionEntityId: null, // used in questionSet auditing below.
         };
   }
 
@@ -58,6 +62,7 @@ class Network extends React.Component {
           this.setState({
             isLoaded: true,
             allData: response,
+
           });
             this.setState({showNetworkList: true});
                }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
@@ -109,6 +114,16 @@ class Network extends React.Component {
         this.setState({showSingleContactRemoved: true});
     }
 
+    auditMe(event) {
+        this.setState({showSingleContact: false});
+        this.setState({showQuestionSetAuditing: true});
+        this.setState({questionSetVersionEntityId: event.target.value});
+    }
+
+    sendDownFriend(event) {
+        this.setState({friend: event.target.value});
+    }
+
   render() {
     return (
     <React.Fragment>
@@ -124,11 +139,20 @@ class Network extends React.Component {
 
         { this.state.showSingleContact &&
         <div> <ManageMyContacts friendId={this.state.friendId}/>
+        <NetworkContactAudit friendId={this.state.friendId} auditMe={this.auditMe}/>
         <NetworkContactPages friendId={this.state.friendId}/>
         </div> }
 
         { this.state.showSingleContactRemoved &&
         <div> <ManageMyContactsRemoved friendId={this.state.friendId}/>
+        </div> }
+
+        { this.state.showQuestionSetAuditing &&
+        <div>
+            <p> Audit your contacts answers. You can choose and submit different answers and also add comments.<br></br>
+              Your contact can then review how you scored them and read your coments.<br></br>
+              (Note that once you have submited your own answer, you will not be able to again see your contacts original answer)</p>
+            <AuditQuestions questionSetVersionEntityId={this.state.questionSetVersionEntityId} friendId={this.state.friendId}/>
         </div> }
 
     </React.Fragment>

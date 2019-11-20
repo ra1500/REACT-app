@@ -58,6 +58,7 @@ class QuestionSetSelector extends React.Component {
                });
     }
 
+    // TODO is this redundant? just get from useranswersentity via parent.
   getQuestionSetVersionEntity() {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
@@ -108,7 +109,7 @@ class QuestionSetSelector extends React.Component {
      }
   }
 
-  // since this is called from child, MUST bind it above!!
+  // since this is called from child, MUST bind it above
   addToProfile() {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;

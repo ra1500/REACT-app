@@ -36,7 +36,8 @@ class ScoresList extends React.Component {
     }
 
     deleteScore(event) {
-        this.setState({showList: false}); // magic
+      if (window.confirm('Are you sure you want to delete\nthis from your profile? \n(All audits will also be deleted)')) {
+        this.setState({showList: false});
         const data = {id: event.target.value};
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
@@ -54,6 +55,7 @@ class ScoresList extends React.Component {
           this.getQsets();
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
+      }
     }
 
 
@@ -67,6 +69,7 @@ class ScoresList extends React.Component {
                <td> &nbsp;{data.score} </td>
                <td> <button className="qsbutton" value={data.id} onClick={e => this.deleteScore(e)}> remove </button> </td>
                <td> <button className="qsbutton" value={data.id} onClick={e => this.props.manageAudit(e)}> Invite Audit </button> </td>
+               <td> <button className="qsbutton" value={data.questionSetVersionEntity.id} onClick={e => this.props.viewAudits(e)}> View Audits </button> </td>
             </tr>
          )
       })

@@ -67,14 +67,14 @@ class InvitationForm extends React.Component {
           <label> Connect with someone:
           <input id="invitationBox" type="text" value={this.state.friend} onChange={this.handleChange} />
           <select value={this.state.connectionType} onChange={this.handleChange2}>
-              <option selected value="Friend">Friend</option>
+              <option value="Friend">Friend</option>
               <option value="Colleague">Colleague</option>
               <option value="Other">Other</option>
            </select>
            </label>
            <label> Allow contact to view my profile
           <select value={this.state.visibilityPermission} onChange={this.handleChange3}>
-              <option selected value="Yes">Yes</option>
+              <option value="Yes">Yes</option>
               <option value="No">No</option>
            </select>
             </label>
