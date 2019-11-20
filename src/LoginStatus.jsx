@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 
 function LoginStatus(props) {
     //const [isLoggedIn, setLoggedIn] = useState(false);
-    //const referer = "/Main";
+    //const referer = "/score";
     let userName = null;
     let name = null;
 

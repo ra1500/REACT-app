@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import PrivateRoute from './PrivateRoute';
 import Home from './Home';
-import Main from './Main';
+import Score from './Score';
 import PublicUserPages from './PublicUserPages';
 import Login from "./pages/Login";
 import Signup from './pages/Signup';
@@ -26,7 +26,7 @@ function App(props) {
     //}
   }
 
-// <PrivateRoute path="/Main" component={Main} /> // revert back to this after development
+// <PrivateRoute path="/score" component={Score} /> // revert back to this after development
 // <PrivateRoute path="/network" component={Network} /> // revert back to this after development
 // <PrivateRoute path="/profile" component={Profile} /> // revert back to this after development
 
@@ -40,7 +40,7 @@ function App(props) {
                         <Route exact path="/signup" component={Signup} />
                         <Route exact path="/us/scores" component={PublicUserPages} />
                         <Route exact path="/start" component={Start} />
-                        <Route exact path="/Main" component={Main} />
+                        <Route exact path="/score" component={Score} />
                         <Route exact path="/askanswer" component={AskAnswer} />
                         <Route exact path="/network" component={Network} />
                         <Route exact path="/profile" component={Profile} />
