@@ -1,44 +1,54 @@
 import React from "react";
-//import { AuthContext } from "./context/auth";
+import { AuthContext } from "./context/auth";
 import { useAuth } from "./context/auth";
-import Login from "./pages/Login";
+import Introduction from "./Introduction";
 import { Redirect } from "react-router-dom";
 
-function LoginStatus(props) {
-    //const [isLoggedIn, setLoggedIn] = useState(false);
-    //const referer = "/score";
-    let userName = null;
-    let name = null;
-
-    if (sessionStorage.getItem('tokens') != null) {
-        name = JSON.parse(sessionStorage.getItem('tokens'));}
-    else {name = null};
-    if (name == null) { userName = null}
-    else { userName = name.userName};
-    const { setAuthTokens } = useAuth();
-
-  function logOut() {
-    const goHome = "/   ";
-    //const goLogin = "/";
-    setAuthTokens();
-    sessionStorage.clear();
-    //window.location.replace(goHome);
-    return <Redirect to={goHome} />;  //TODO: should go home and not login page
+class LoginStatus extends React.Component {
+  constructor(props) {
+    super(props);
+        this.state = {
+          error: null,
+          isLoaded: false,
+          userName: JSON.parse(sessionStorage.getItem('tokens')).userName,
+          name: null,
+          goHome: "/",
+          //authTokens: null,
+        };
   }
 
-    if (userName == null) {
+    componentDidMount() {
+    }
+
+  logOut() {
+    //console.log()
+    this.setState({authTokens: null}); // TODO: ensure this is actually loging out context state
+    sessionStorage.clear();
+    return <Redirect to={this.state.goHome} />;
+  }
+
+
+  render() {
+
+    if (this.state.userName == null) {
     return (
-    <Login />
-    );}
+    <Introduction />
+    );
+    } // end if
 
     else {
     return (
-    <div>
-    <button id="logoutButton" onClick={() => logOut()}>Log out</button>
-    <p id="userName"> {userName}  </p>
-    </div>
-    );}
-  }
+    <React.Fragment>
+        <div>
+            <button id="logoutButton" onClick={() => this.logOut()}>Log out</button>
+            <p id="userName"> {this.state.userName}  </p>
+        </div>
+    </React.Fragment>
+    );
+    } // end else
 
+   }
+
+  }
 
 export default LoginStatus;

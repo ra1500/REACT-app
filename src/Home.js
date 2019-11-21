@@ -1,5 +1,4 @@
 import Introduction from "./Introduction";
-//import TitleBar from "./TitleBar";
 import React from "react";
 
 function Home(props) {
