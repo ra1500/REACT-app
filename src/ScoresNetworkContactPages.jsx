@@ -59,7 +59,7 @@ class ScoresNetworkContactPages extends React.Component {
         return (
         <React.Fragment>
         { this.state.showList &&
-         <div>
+         <div id="scoresNetworkContactPages">
             <table>
                <tbody>
                <tr>{this.renderTableHeader()}</tr>

@@ -31,9 +31,8 @@ function App(props) {
                     <Router>
                       <div>
                         <Route exact path="/" component={Home} />
-                        <Route exact path="/signup" component={Signup} />
                         <Route exact path="/us/scores" component={PublicUserPages} />
-                        <Route exact path="/start" component={Start} />
+                        <Route exact path="/welcome" component={Start} />
                         <Route exact path="/score" component={Score} />
                         <Route exact path="/askanswer" component={AskAnswer} />
                         <Route exact path="/network" component={Network} />

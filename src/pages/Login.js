@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
-import { Card, Form, Input, Button, Error } from "../components/AuthForms";
+import { Form } from "../components/AuthForms";
 import { useAuth } from "../context/auth";
 
 
 function Login(props) {
-  const referer = "/start";
+  const referer = "/welcome";
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);
   const [userName, setUserName] = useState("");
@@ -34,32 +34,18 @@ function Login(props) {
     return <Redirect to={referer} />;
   }
 
+// TODO why must this be <Form> instead of <form>?
   return (
     <React.Fragment>
-    <a id="NJ" href="/"> NeuralJuice </a>
-    <Card>
+      <div id="loginBox">
       <Form>
-        <Input
-          type="username"
-          value={userName}
-          onChange={e => {
-            setUserName(e.target.value);
-          }}
-          placeholder="user id"
-        />
-        <Input
-          type="password"
-          value={password}
-          onChange={e => {
-            setPassword(e.target.value);
-          }}
-          placeholder="password"
-        />
-        <Button onClick={postLogin}>Log in</Button>
+        <input class="loginInput" type="username" value={userName} onChange={e => {setUserName(e.target.value);}} placeholder="username"/>
+        <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}} placeholder="password"/>
+        <button id="loginBeginButton" onClick={postLogin}>Let's go</button>
       </Form>
-      <a href="/signup">easy sign up</a>
-        { isError &&<Error>The username or password provided were incorrect!</Error> }
-    </Card>
+        { isError &&
+        <p>The username or password provided were incorrect!</p> }
+        </div>
     </React.Fragment>
   );
 }

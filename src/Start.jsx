@@ -20,8 +20,8 @@ class Start extends React.Component {
     return (
     <React.Fragment>
     <TitleBar />
-    <div>
-        x has invited you to audit their ... answers and score.
+    <div id="welcome">
+        Let's begin
     </div>
     </React.Fragment>
     );

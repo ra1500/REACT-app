@@ -17,7 +17,7 @@ class ContactsList extends React.Component {
       return this.state.list2.map((data, index) => {
          return (
             <tr key={data.friend}>
-               <td> <button value={data.id} onClick={e => this.props.renderSingleContact(e)}> {data.friend} </button> </td>
+               <td> <button class="titleButton" value={data.id} onClick={e => this.props.renderSingleContact(e)}> {data.friend} </button> </td>
                <td>{data.connectionStatus} &nbsp; &nbsp;</td>
                <td>{data.connectionType} &nbsp; &nbsp;</td>
                <td>{data.visibilityPermission}</td>
@@ -41,10 +41,9 @@ class ContactsList extends React.Component {
     render() {
         return (
         <React.Fragment>
-         <div>
+         <div id="contactsList">
             <table>
                <tbody>
-
                   {this.renderTableData()}
                </tbody>
             </table>

@@ -132,7 +132,7 @@ class QuestionSetSelector extends React.Component {
       return this.state.list.map((data, index) => {
          return (
             <tr key={data.index}>
-                <td> <button className="qsbutton" value={data.questionSetVersionEntity.id} onClick={e => this.handleSubmit1(e)}> {data.questionSetVersionEntity.title} </button> </td>
+                <td> <button className="titleButton" value={data.questionSetVersionEntity.id} onClick={e => this.handleSubmit1(e)}> {data.questionSetVersionEntity.title} </button> </td>
                 <td> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
             </tr>
          )
@@ -149,7 +149,6 @@ class QuestionSetSelector extends React.Component {
         <React.Fragment>
 
         <div id="chooseSet">
-
         { this.state.showList &&
          <div>
             <table>
@@ -159,15 +158,14 @@ class QuestionSetSelector extends React.Component {
                </tbody>
             </table>
          </div> }
-
-
         </div>
-            { this.state.renderQuestions &&
-            <div>
-            <Questions questionSetVersion={this.state.questionSetVersion} questionSetSize={this.state.questionSetSize} questionToGoTo={this.state.questionToGoTo}
-            maxPoints={this.state.maxPoints} title={this.state.title} description={this.state.description}
-            addToProfile={this.addToProfile} auditee={this.state.auditee} scorePostedMessage={this.state.scorePostedMessage}/>
-            </div> }
+
+        { this.state.renderQuestions &&
+        <div id="questionsComponent">
+        <Questions questionSetVersion={this.state.questionSetVersion} questionSetSize={this.state.questionSetSize} questionToGoTo={this.state.questionToGoTo}
+        maxPoints={this.state.maxPoints} title={this.state.title} description={this.state.description}
+        addToProfile={this.addToProfile} auditee={this.state.auditee} scorePostedMessage={this.state.scorePostedMessage}/>
+        </div> }
 
         </React.Fragment>
     ); // end return

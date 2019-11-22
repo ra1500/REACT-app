@@ -124,14 +124,14 @@ class Profile extends React.Component {
               <TitleBar />
 
               { this.state.showLists &&
-              <div id="QsetInputBoxes">
+              <div id="profilePage">
                 <ScoresList manageAudit={this.manageAudit} viewAudits={this.viewAudits}/>
                 <QuestionSetsPrivateProfile />
                 <ScoreUrl />
               </div> }
 
               { this.state.showManageAudit &&
-              <div id="QsetInputBoxes">
+              <div id="profilePage">
                 <p> Audits! Invite your contacts to audit your scores </p>
                 <p> {this.state.title} {this.state.description} {this.state.score}</p>
               </div> }

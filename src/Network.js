@@ -129,25 +129,29 @@ class Network extends React.Component {
     <React.Fragment>
         <TitleBar />
 
-        { this.state.showNetworkList &&
-        <div> {this.renderContactsList()}
+        {this.state.showNetworkList &&
+        <div>
+        {this.renderContactsList()}
         </div> }
 
-        { this.state.showRemovedList &&
-        <div> {this.renderContactsListRemoved()}
+        {this.state.showRemovedList &&
+        <div>
+        {this.renderContactsListRemoved()}
         </div> }
 
-        { this.state.showSingleContact &&
-        <div> <ManageMyContacts friendId={this.state.friendId}/>
+        {this.state.showSingleContact &&
+        <div>
+        <ManageMyContacts friendId={this.state.friendId}/>
         <NetworkContactAudit friendId={this.state.friendId} auditMe={this.auditMe}/>
         <NetworkContactPages friendId={this.state.friendId}/>
         </div> }
 
-        { this.state.showSingleContactRemoved &&
-        <div> <ManageMyContactsRemoved friendId={this.state.friendId}/>
+        {this.state.showSingleContactRemoved &&
+        <div>
+         <ManageMyContactsRemoved friendId={this.state.friendId}/>
         </div> }
 
-        { this.state.showQuestionSetAuditing &&
+        {this.state.showQuestionSetAuditing &&
         <div>
             <p> Audit your contacts answers. You can choose and submit different answers and also add comments.<br></br>
               Your contact can then review how you scored them and read your coments.<br></br>

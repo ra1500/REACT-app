@@ -166,7 +166,7 @@ class ManageMyContacts extends React.Component {
       </div> }
 
       { this.state.isAfriend &&
-      <div>
+      <div id="manageMyContacts">
             <p>Change connection settings for {this.state.friendBeingManaged}  below: </p>
             <form>
               <select value={this.state.selectConnectionType} onChange={this.handleChange3}>

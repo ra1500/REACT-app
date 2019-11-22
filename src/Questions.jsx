@@ -252,7 +252,7 @@ class Questions extends React.Component {
       return (
         <React.Fragment >
             <div id="question">
-            <p> {this.props.title}. {this.props.description}</p>
+            <p id="questionHeader"> {this.props.title}. {this.props.description}</p>
             <p id="qText1"> #{this.state.currentQuestion} of {this.props.questionSetSize}</p><p id="qText2"> {this.props.maxPoints} points maximum</p>
             <p className="qtext"> {question} </p>
             <AnswerSelection answer={answer1} onClick={() => this.setState({selection: this.state.answer1, answerPoints: answer1Points})}> {answer1} </AnswerSelection>

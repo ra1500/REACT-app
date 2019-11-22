@@ -42,7 +42,7 @@ class NetworkContactAudit extends React.Component {
   render() {
     return (
     <React.Fragment>
-        <div>
+        <div id="networkContactAudit">
         {this.state.friend} has invited you to audit one of their quizes. Select to audit.
         <button className="qsbutton" value={this.state.questionSetVersionEntityId} onClick={e => this.props.auditMe(e)}> {this.state.title} </button>
         <p> {this.state.description} </p>

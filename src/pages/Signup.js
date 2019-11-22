@@ -3,10 +3,10 @@ import { Redirect } from "react-router-dom";
 import axios from 'axios';
 import { Card, Form, Input, Button} from "../components/AuthForms";
 import { useAuth } from "../context/auth";
+import TitleBar from '../TitleBar';
 
 function Signup(props) {
-  //const referer = props.location.state.referer || '/'; //TODO: make this work so that goes to homepage or page tried to initially access
-  const referer = "/";
+  const referer = "/welcome";
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [ setIsError] = useState(false);
   const [userName, setUserName] = useState("");
@@ -35,15 +35,13 @@ function Signup(props) {
 
   return (
     <React.Fragment>
-    <a id="NJ" href="/"> NeuralJuice </a>
-    <Card>
+      <div id="signupForm">
       <Form>
-        <Input type="username" value={userName} onChange={e => {setUserName(e.target.value);}}placeholder="username" />
-        <Input type="password" value={password} onChange={e => {setPassword(e.target.value);}}placeholder="password" />
-        <Button onClick={postSignup}>Sign Up</Button>
+        <input class="loginInput" type="username" value={userName} onChange={e => {setUserName(e.target.value);}}placeholder="username" />
+        <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}}placeholder="password" />
+        <button class="titleButton" onClick={postSignup}>Sign Up</button>
       </Form>
-      <a href={'/'}> log in/home </a>
-    </Card>
+      </div>
     </React.Fragment>
   );
 }

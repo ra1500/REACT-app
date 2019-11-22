@@ -67,9 +67,9 @@ class ScoresList extends React.Component {
                 <td> {data.questionSetVersionEntity.title} &nbsp; &nbsp;</td>
                 <td> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
                <td> &nbsp;{data.score} </td>
-               <td> <button className="qsbutton" value={data.id} onClick={e => this.deleteScore(e)}> remove </button> </td>
-               <td> <button className="qsbutton" value={data.id} onClick={e => this.props.manageAudit(e)}> Invite Audit </button> </td>
-               <td> <button className="qsbutton" value={data.questionSetVersionEntity.id} onClick={e => this.props.viewAudits(e)}> View Audits </button> </td>
+               <td> <button className="titleButton" value={data.questionSetVersionEntity.id} onClick={e => this.props.viewAudits(e)}> View Audits </button> </td>
+               <td> <button className="inviteAuditButton" value={data.id} onClick={e => this.props.manageAudit(e)}> Invite Auditors </button> </td>
+               <td> <button className="deleteScoreButton" value={data.id} onClick={e => this.deleteScore(e)}> delete </button> </td>
             </tr>
          )
       })
