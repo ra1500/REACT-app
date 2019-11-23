@@ -12,6 +12,7 @@ class ScoreUrl extends React.Component {
     userName: u,
     publicProfile: null,
     selectProfile: null,
+    privacyUpdatedMessage: null,
     };
   }
 
@@ -65,6 +66,7 @@ class ScoreUrl extends React.Component {
     .then((response) => {
     this.setState({isLoaded: true,
             publicProfile: response.data.publicProfile,
+            privacyUpdatedMessage: " (updated)",
               });
            }).catch(error => {this.setState({ isLoaded: true, error});
            });
@@ -73,18 +75,24 @@ class ScoreUrl extends React.Component {
   render() {
     return (
     <div id="scoreurl">
-        <p className="urltext">Your public score profile page: </p> <a href={'/us/scores?id=' + this.state.userName}> www.neuraljuice.com/us/scores?id={this.state.userName} </a>
-        <p> Your public profile page is now {this.state.publicProfile}</p>
-      <form onSubmit={this.handleSubmit1}>
-          <label> Change public profile page
-          <select value={this.state.connectionType} onChange={this.handleChange1}>
-              <option value="Public">Public</option>
-              <option value="Network">Network only</option>
-              <option value="Private">Private/Hidden</option>
-           </select>
-           <input type="submit" value="Update" />
-           </label>
-       </form>
+        <p>Profile View Permission<br></br>
+         Curent Status: {this.state.publicProfile} <span id="userName">{this.state.privacyUpdatedMessage}</span></p>
+
+        <form onSubmit={this.handleSubmit1}>
+            <div>
+              <label><input value="Public" onChange={this.handleChange1} type="radio" name="optradio" /> Public (Internet & Network) </label>
+            </div>
+            <div>
+              <label><input value="Network" onChange={this.handleChange1} type="radio" name="optradio" /> Network </label>
+            </div>
+            <div>
+              <label><input value="Private" onChange={this.handleChange1} type="radio" name="optradio" /> Private </label>
+            </div>
+            <button type="submit" className="inviteAuditButton"> Update </button>
+        </form>
+
+       <a id="publicProfileURLhref" href={'/flavor?id=' + this.state.userName}> www.neuraljuice.com/flavor?id={this.state.userName} </a>
+       <p class="paragraphInline"> (Your public profile page URL) </p>
     </div>
 
     );

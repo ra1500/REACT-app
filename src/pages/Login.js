@@ -44,7 +44,7 @@ function Login(props) {
         <button id="loginBeginButton" onClick={postLogin}>Let's go</button>
       </Form>
         { isError &&
-        <p>The username or password provided were incorrect!</p> }
+        <p>The username or password provided were incorrect</p> }
         </div>
     </React.Fragment>
   );

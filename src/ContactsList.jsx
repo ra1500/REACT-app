@@ -4,7 +4,6 @@ import InvitationForm from "./InvitationForm";
 class ContactsList extends React.Component {
     constructor(props) {
         super(props);
-        this.toggleShowNetworkList = this.toggleShowNetworkList.bind(this);
         this.state = {
             list1: props.allData.data.friendsList, //
         };
@@ -34,22 +33,17 @@ class ContactsList extends React.Component {
       })
    }
 
-    toggleShowNetworkList() {
-        this.props.toggleShowNetworkList();
-    }
-
     render() {
         return (
         <React.Fragment>
          <div id="contactsList">
+         <p> Network Contacts </p>
             <table>
                <tbody>
                   {this.renderTableData()}
                </tbody>
             </table>
          </div>
-         <InvitationForm toggleShowNetworkList={this.toggleShowNetworkList}/>
-         <button onClick={this.props.toggleShowRemovedList}> view and edit removed contacts</button>
         </React.Fragment>
         )
     }

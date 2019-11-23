@@ -6,7 +6,7 @@ class PublicUserPages extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: null,
+            userName: "(not found)",
             list: null,
             showList: false,
             id: null,
@@ -17,22 +17,12 @@ class PublicUserPages extends React.Component {
     this.getQsets();
   }
 
-   displayUserName() {
+  getQsets() {
         let url = this.props.location.search;
         let params = queryString.parse(url);
         let user = params.id;
         this.setState({userName: user});
-   }
-
-  getQsets() {
-        const name = JSON.parse(sessionStorage.getItem('tokens'));
-        const u = name.userName;
-        const p = name.password;
-        const token = u +':' + p;
-        const hash = btoa(token);
-        const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/prm/sc/dc",
-        {headers : { 'Authorization' : Basic }})
+        axios.get("http://localhost:8080/prm/sc/dc?id=" + user)
         .then((response) => {
           this.setState({
             isLoaded: true,
@@ -40,7 +30,6 @@ class PublicUserPages extends React.Component {
           });
           this.renderTableData();
           this.setState({showList: true});
-          this.displayUserName();
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -67,11 +56,12 @@ class PublicUserPages extends React.Component {
     render() {
         return (
         <React.Fragment>
+            <div id="titleBar">
             <a id="NJ" href="/"> NeuralJuice </a>
-            <p id="profileUserName"> I am {this.state.userName}</p>
-
+            <p id="profileUserName">{this.state.userName}</p>
+            </ div>
         { this.state.showList &&
-         <div>
+         <div class="publicProfileList">
             <table>
                <tbody>
                <tr>{this.renderTableHeader()}</tr>

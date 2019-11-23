@@ -13,12 +13,13 @@ import AuditQuestions from "./AuditQuestions";
 class Network extends React.Component {
   constructor(props) {
     super(props);
-    this.toggleShowNetworkList = this.toggleShowNetworkList.bind(this); // called from child, therefore must be bound to activate within this component and not just within child component.
-    this.toggleShowRemovedList = this.toggleShowRemovedList.bind(this);
+    this.goToRemovedContacts = this.goToRemovedContacts.bind(this);
     this.renderSingleContact = this.renderSingleContact.bind(this);
     this.renderSingleContactRemoved = this.renderSingleContactRemoved.bind(this);
     this.auditMe = this.auditMe.bind(this);
     this.sendDownFriend = this.sendDownFriend.bind(this);
+    this.goToNetwork = this.goToNetwork.bind(this);
+    this.goToInvite = this.goToInvite.bind(this);
         this.state = {
           error: null,
           isLoaded: false,
@@ -31,22 +32,12 @@ class Network extends React.Component {
           friendId: null, // sent to child 'ManageMyContacts'
           showQuestionSetAuditing: false,
           questionSetVersionEntityId: null, // used in questionSet auditing below.
+          showInviteFriends: false,
         };
   }
 
     componentDidMount() {
         this.getFriendships();
-    }
-
-    toggleShowNetworkList() {
-        this.setState({showNetworkList: false});
-        this.setState({showRemovedList: false});
-        this.getFriendships();
-    }
-
-    toggleShowRemovedList() {
-        this.setState({showNetworkList: false});
-        this.getRemovedFriendships();
     }
 
     getFriendships() {
@@ -90,7 +81,7 @@ class Network extends React.Component {
 
    renderContactsList() {
     return ( <ContactsList allData={this.state.allData} renderSingleContact={this.renderSingleContact}
-     toggleShowNetworkList={this.toggleShowNetworkList} toggleShowRemovedList={this.toggleShowRemovedList}/> )
+      toggleShowRemovedList={this.toggleShowRemovedList}/> )
    }
 
    renderContactsListRemoved() {
@@ -124,14 +115,38 @@ class Network extends React.Component {
         this.setState({friend: event.target.value});
     }
 
+    goToNetwork() {
+        this.setState({showSingleContact: false, showQuestionSetAuditing: false, showRemovedList: false, showSingleContactRemoved: false, showInviteFriends: false});
+        this.setState({showNetworkList: false}); // set to true after this in getFriendships()
+        this.getFriendships();
+    }
+    goToInvite() {
+        this.setState({showInviteFriends: true, showNetworkList: false, showSingleContact: false, showQuestionSetAuditing: false, showRemovedList: false, showSingleContactRemoved: false});
+    }
+    goToRemovedContacts() {
+        this.setState({showInviteFriends: false, showNetworkList: false, showSingleContact: false, showQuestionSetAuditing: false, showRemovedList: false, showSingleContactRemoved: false});
+        this.getRemovedFriendships();
+    }
+
   render() {
     return (
     <React.Fragment>
         <TitleBar />
 
+          <div class="settingsButtionDiv">
+            <button class="settingsButton" onClick={this.goToNetwork}> Network </button>
+            <button class="settingsButton" onClick={this.goToInvite}> Invite </button>
+            <button class="settingsButton" onClick={this.goToRemovedContacts}> Removed List </button>
+          </div>
+
         {this.state.showNetworkList &&
         <div>
         {this.renderContactsList()}
+        </div> }
+
+        {this.state.showInviteFriends &&
+        <div>
+        <InvitationForm />
         </div> }
 
         {this.state.showRemovedList &&

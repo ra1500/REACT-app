@@ -39,7 +39,7 @@ class ManageMyContacts extends React.Component {
         const Basic = 'Basic ' + hash;
         let data = { id: this.state.friendId, connectionStatus: this.state.connectionStatus, inviter: this.state.inviter,
          connectionType: this.state.connectionType, visibilityPermission: this.state.visibilityPermission };
-        axios.post("http://localhost:8080/f", data,
+        axios.post("http://localhost:8080/f/a", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true,
@@ -58,7 +58,7 @@ class ManageMyContacts extends React.Component {
         const Basic = 'Basic ' + hash;
         let data = { id: this.state.friendId, connectionStatus: "removed", inviter: this.state.inviter,
          connectionType: this.state.connectionType, visibilityPermission: this.state.visibilityPermission };
-        axios.post("http://localhost:8080/f", data,
+        axios.post("http://localhost:8080/f/a", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true,

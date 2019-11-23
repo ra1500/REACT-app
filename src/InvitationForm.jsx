@@ -14,6 +14,8 @@ class InvitationForm extends React.Component {
           connectionType: "Friend",
           connectionStatus: "pending",
           visibilityPermission: "Yes",
+          invitationSentMessage: null,
+          friendInvited: null,
         };
   }
 
@@ -53,41 +55,46 @@ class InvitationForm extends React.Component {
         axios.post("http://localhost:8080/f", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true,
-                  });
-         this.props.toggleShowNetworkList();
+        if (response.status === 204) {
+        this.setState({invitationSentMessage: " user not found" });}
+        else {
+        this.setState({isLoaded: true, friendInvited: this.state.friend, invitationSentMessage: " invitation has been sent to" + this.state.friend,
+                  }); }
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
     }
 
-   renderInvitationForm() {
-    return (
-      <div id="invitationForm">
-      <form onSubmit={this.handleSubmit}>
-          <label> Connect with someone:
-          <input id="invitationBox" type="text" value={this.state.friend} onChange={this.handleChange} />
-          <select value={this.state.connectionType} onChange={this.handleChange2}>
-              <option value="Friend">Friend</option>
-              <option value="Colleague">Colleague</option>
-              <option value="Other">Other</option>
-           </select>
-           </label>
-           <label> Allow contact to view my profile
-          <select value={this.state.visibilityPermission} onChange={this.handleChange3}>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-           </select>
-            </label>
-        <input className="qbutton" type="submit" value="Invite" />
-      </form>
-      </div>
-    )
-   }
-
   render() {
     return (
     <React.Fragment>
-        {this.renderInvitationForm()}
+      <div class="profilePage">
+        <p> Network Invitation </p>
+        <div id="invitationForm">
+        <input id="invitationBox" type="text" value={this.state.friend} onChange={this.handleChange} placeholder=" username of contact" />
+        <form id="inviteRadio1">
+            <div>
+              <label><input value="Friend" onChange={this.handleChange2} type="radio" name="optradio" /> Friend </label>
+            </div>
+            <div>
+              <label><input value="Colleague" onChange={this.handleChange2} type="radio" name="optradio" /> Colleague </label>
+            </div>
+            <div>
+              <label><input value="Other" onChange={this.handleChange2} type="radio" name="optradio" /> Other </label>
+            </div>
+        </form>
+        <form id="inviteRadio2">
+            <div>
+              <label><input value="Yes" onChange={this.handleChange3} type="radio" name="optradio" /> Yes (can view your network profile) </label>
+            </div>
+            <div>
+              <label><input value="No" onChange={this.handleChange3} type="radio" name="optradio" /> No (cannot view your network profile) </label>
+            </div>
+        </form>
+        <p></p>
+        <button type="submit" onClick={this.handleSubmit} className="inviteAuditButton"> Invite </button>
+        <span id="userName"> {this.state.invitationSentMessage} </span>
+        </div>
+      </div>
     </React.Fragment>
     );
   }

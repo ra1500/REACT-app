@@ -5,6 +5,7 @@ import ScoreUrl from "./ScoreUrl";
 import ScoresList from "./ScoresList";
 import QuestionSetsPrivateProfile from "./QuestionSetsPrivateProfile";
 import ViewAudits from "./ViewAudits";
+import UpdateUserInfo from "./UpdateUserInfo";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -17,6 +18,8 @@ class Profile extends React.Component {
     this.inviteToAuditIndividual = this.inviteToAuditIndividual.bind(this);
     this.viewAudits = this.viewAudits.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.goToUserSettings = this.goToUserSettings.bind(this);
+    this.goToPrivateProfile = this.goToPrivateProfile.bind(this);
     this.state = {
         showLists: true,
         showManageAudit: false,
@@ -28,6 +31,8 @@ class Profile extends React.Component {
         friend: null, // friend invited to audit. individual add.
         auditorsAddedMessage: null,
         showCompletedAudits: false,
+        showSettingsButton: true,
+        showSettingsSection: false,
         };
     };
 
@@ -112,10 +117,15 @@ class Profile extends React.Component {
         this.inviteToAuditIndividualFriend();
         this.setState({auditorsAddedMessage: this.state.friend + " has been added as an auditor"});
     }
-
     viewAudits(event) {
         this.setState({questionSetVersionEntityId: event.target.value});
         this.setState({showLists: false, showCompletedAudits: true });
+    }
+    goToUserSettings() {
+        this.setState({showSettingsSection: true, showLists: false,});
+    }
+    goToPrivateProfile() {
+        this.setState({showSettingsSection: false, showLists: true,});
     }
 
    render() {
@@ -123,21 +133,34 @@ class Profile extends React.Component {
         <React.Fragment>
               <TitleBar />
 
+              { this.state.showSettingsButton &&
+              <div class="settingsButtionDiv">
+                <button class="settingsButton" onClick={this.goToPrivateProfile}> Me </button>
+                <button class="settingsButton" onClick={this.goToUserSettings}> Settings </button>
+              </div> }
+
+              { this.state.showSettingsSection &&
+              <div class="profilePage">
+                <p> Settings </p>
+                <ScoreUrl />
+                <UpdateUserInfo />
+              </div> }
+
               { this.state.showLists &&
-              <div id="profilePage">
+              <div class="profilePage">
+                <p> Me </p>
                 <ScoresList manageAudit={this.manageAudit} viewAudits={this.viewAudits}/>
                 <QuestionSetsPrivateProfile />
-                <ScoreUrl />
               </div> }
 
               { this.state.showManageAudit &&
-              <div id="profilePage">
+              <div class="profilePage">
                 <p> Audits! Invite your contacts to audit your scores </p>
                 <p> {this.state.title} {this.state.description} {this.state.score}</p>
               </div> }
 
             { this.state.showInviteToAudit &&
-            <div>
+            <div class="profilePage">
                 <button onClick={this.inviteToAuditFriends}> Friends </button>
                 <button onClick={this.inviteToAuditColleagues}> Colleagues </button>
                 <button onClick={this.inviteToAuditOther}> Other </button>
@@ -148,7 +171,7 @@ class Profile extends React.Component {
             </div> }
 
             { this.state.showCompletedAudits &&
-            <div>
+            <div class="profilePage">
                 <ViewAudits questionSetVersionEntityId={this.state.questionSetVersionEntityId} />
             </div> }
 

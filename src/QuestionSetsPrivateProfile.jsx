@@ -45,7 +45,7 @@ class QuestionSetsPrivateProfile extends React.Component {
       return this.state.list.map((data, index) => {
          return (
             <tr key={data.index}>
-                <td> <button className="qsbutton" value={data.questionSetVersionEntity.id} onClick={e => this.handleSubmit(e)}> {data.questionSetVersionEntity.title} </button> </td>
+                <td>  {data.questionSetVersionEntity.title} </td>
                 <td> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
             </tr>
          )

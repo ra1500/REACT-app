@@ -31,7 +31,7 @@ function App(props) {
                     <Router>
                       <div>
                         <Route exact path="/" component={Home} />
-                        <Route exact path="/us/scores" component={PublicUserPages} />
+                        <Route exact path="/flavor" component={PublicUserPages} />
                         <Route exact path="/welcome" component={Start} />
                         <Route exact path="/score" component={Score} />
                         <Route exact path="/askanswer" component={AskAnswer} />

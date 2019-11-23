@@ -31,7 +31,7 @@ class ManageMyContactsRemoved extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { id: this.state.friendId, connectionStatus: "Connected", inviter: this.state.inviter, connectionType: "Friend", visibilityPermission: "Yes"};
-        axios.post("http://localhost:8080/f", data,
+        axios.post("http://localhost:8080/f/a", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true,
@@ -79,17 +79,18 @@ class ManageMyContactsRemoved extends React.Component {
   render() {
     return (
     <React.Fragment>
+    <div class="profilePage">
+    <p> Reinstate Contact </p>
     <div id="manageContacts">
             <form onSubmit={this.handleSubmit5}>
             <p> This will return contact to your network with a 'Connected' status.</p>
              <button className="qbutton" type="submit">Add to contacts list</button>
             </form>
-      </div>
 
       { this.state.showUpdatedMessage &&
          <div> {this.updatedMessage()} </div>}
-
-
+      </div>
+    </div>
     </React.Fragment>
     );
   }

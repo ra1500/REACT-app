@@ -3,7 +3,6 @@ import React from 'react';
 class ContactsListRemoved extends React.Component {
     constructor(props) {
         super(props);
-        this.toggleShowNetworkList = this.toggleShowNetworkList.bind(this);
         this.state = {
             list1: props.allData.data.friendsList, //
         };
@@ -16,7 +15,7 @@ class ContactsListRemoved extends React.Component {
       return this.state.list2.map((data, index) => {
          return (
             <tr key={data.friend}>
-               <td> <button value={data.id} onClick={e => this.props.renderSingleContactRemoved(e)}> {data.friend} </button> </td>
+               <td> <button class="inviteAuditButton" value={data.id} onClick={e => this.props.renderSingleContactRemoved(e)}> {data.friend} </button> </td>
                <td>{data.connectionStatus} &nbsp; &nbsp;</td>
                <td>{data.connectionType} &nbsp; &nbsp;</td>
                <td>{data.visibilityPermission}</td>
@@ -32,21 +31,19 @@ class ContactsListRemoved extends React.Component {
       })
    }
 
-    toggleShowNetworkList() {
-        this.props.toggleShowNetworkList();
-    }
-
     render() {
         return (
         <React.Fragment>
-         <div>
+        <div class="profilePage">
+        <p> Removed Contacts </p>
+         <div id="manageContacts">
             <table>
                <tbody>
                   {this.renderTableData()}
                </tbody>
             </table>
          </div>
-         <button onClick={this.toggleShowNetworkList}> return to my network</button>
+         </div>
         </React.Fragment>
         )
     }
