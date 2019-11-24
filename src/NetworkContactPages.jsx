@@ -124,7 +124,7 @@ class NetworkContactPages extends React.Component {
     <React.Fragment>
 
         <div id="NetworkSingleContactDiv">
-            <span id="singleNetworkContactButtonP"> {this.state.friend} </span>
+            <span id="singleNetworkContactButtonP"> {this.state.friend}'s Good Stuff </span>
             <button id="singleNetworkContactButton1" onClick={this.goToContactSettings}> Settings </button>
             <button id="singleNetworkContactButton2" onClick={this.goToAudit}> Audit Them </button>
             <button id="singleNetworkContactButton2" onClick={this.goToGoodStuff}> Good Stuff </button>

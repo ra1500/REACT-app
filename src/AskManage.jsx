@@ -39,8 +39,8 @@ class AskManage extends React.Component {
    renderTableData() {
       return this.state.list.map((data, index) => {
          return (
-            <tr key={data.index}>
-                <td> <button className="qsbutton" value={data.questionSetVersionEntity.id} onClick={e => this.props.manageAset(e)}> {data.questionSetVersionEntity.title} </button> </td>
+            <tr key={data.index} id="manageQsetRow">
+                <td> <button class="inviteAuditButton" value={data.questionSetVersionEntity.id} onClick={e => this.props.manageAset(e)}> {data.questionSetVersionEntity.title} </button> </td>
                 <td> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
             </tr>
          )
@@ -55,6 +55,10 @@ class AskManage extends React.Component {
    render() {
     return (
         <React.Fragment>
+      <div class="profilePage">
+        <p> Question Sets Manager</p>
+        <p></p>
+        <div class="invitationForm">
 
         { this.state.showList &&
          <div>
@@ -66,6 +70,8 @@ class AskManage extends React.Component {
             </table>
          </div> }
 
+        </div>
+        </div>
         </React.Fragment>
     ); // end return
    }

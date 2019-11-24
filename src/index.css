@@ -24,8 +24,8 @@ p {font-family: "Geneva"}
 .qtext {margin-left: 10px; margin-top: 15px;}
 #qtext2 {margin-left: 10px; margin-bottom: 1px;}
 #tscore {margin-left: 10px; margin-top: 15px;}
-.titleButton {margin-right: 5px; width: 120px;border: 1px solid; background-color: white; color: #00b300; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
-.titleButton:hover {background-color: #ffff00}
+.titleButton {height: 23px; margin-right: 5px; width: 130px;border: 1px solid; background-color: white; color: #00b300; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
+.titleButton:hover {}
 .removedContactButton {margin-right: 5px; width: 80px;border: 1px solid; background-color: white; color: #ff8000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
 .removedContactButton:hover {background-color: #ffff00}
 #titleBar {border-bottom: 0px solid black; padding-bottom: 15px; padding-top: 15px; background-color: #f2f2f2}
@@ -63,27 +63,24 @@ p {font-family: "Geneva"}
 .invitationForm {border-style: solid; border-width: 1px; padding: 5px;}
 #manageContacts {border-style: solid; border-width: 1px; padding: 5px;}
 #auditContacts {border-style: solid; border-width: 1px;}
-.inviteAuditButton {margin-bottom: 0px; border: 1px solid; background-color: white; color: #ff8000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold; margin-left: 5px;}
-.deleteScoreButton {border: 1px solid; background-color: white; color: #ff0000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold; margin-left: 5px;}
+.firstP {height: 9px; display: inline-block; width: 140px;}
+.secondP {height: 9px; display: inline-block;}
+.inviteAuditButton {height: 23px; width: 130px; margin-bottom: 0px; border: 1px solid; background-color: white; color: #ff8000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold; margin-left: 5px;margin-right: 5px;}
+.deleteScoreButton {height: 23px; width: 130px; border: 1px solid; background-color: white; color: #ff0000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold; margin-left: 5px; margin-right: 5px;}
 .profilePage {padding-top: 15px; padding-bottom: 15px; margin-left: 25%; margin-right: 25%;}
 #inviteRadio1 { padding-top: 10px; display: inline-block; width: 120px}
 #inviteRadio2 { display: inline-block}
 .settingsButtionDiv { float: left; padding-left: 50px; padding-right: 5px; padding-top: 15px; }
 .settingsButton { width: 130px; display: block; margin-bottom: 10px; background-color: white; border: 1px solid; text-decoration: none; font-size: 14px; font-family: "Geneva";}
 .settingsButton:hover {background-color: #e6e6e6}
-
 #singleNetworkContactButtonP {display: inline; font-family: "Geneva"}
-
 #singleNetworkContactButton1 { margin-right: 30%; display: inline; float: right; width: 100px; margin-bottom: 10px; background-color: white; border: 1px solid; text-decoration: none; font-size: 14px; font-family: "Geneva";}
 #singleNetworkContactButton1:hover {background-color: #e6e6e6}
 #singleNetworkContactButton2 {margin-right: 10px; display: inline; float: right; width: 100px; margin-bottom: 10px; background-color: white; border: 1px solid; text-decoration: none; font-size: 14px; font-family: "Geneva";}
 #singleNetworkContactButton2:hover {background-color: #e6e6e6}
 #singleNetworkContactButton3 { ; display: inline; float: right; width: 100px; margin-bottom: 10px; background-color: white; border: 1px solid; text-decoration: none; font-size: 14px; font-family: "Geneva";}
 #singleNetworkContactButton3:hover {background-color: #e6e6e6}
-
-
 #NetworkSingleContactDiv {border-bottom-style: double; border-color: #0000ff; padding-top: 15px; padding-bottom: 15px; margin-left: 25%; margin-right: 25%;}
-
 #chooseSet {border: none; padding-top: 15px; padding-left: 25%;}
 #questionsComponent {border-style: solid; border-width: 2px; margin-top: 20px; padding-top: 15px; margin-left: 20%; margin-right: 20%; padding-left: 15px;}
 #questionHeader {margin-left: 10px; margin-top: 5px; display: inline;}
@@ -91,7 +88,13 @@ p {font-family: "Geneva"}
 #selectQuestionSet:hover {cursor: pointer;}
 #addToProfileButton {font-family: "Geneva"; font-size: 14px; padding: 10px 24px; background-color: #ff66a3; color: black; border-radius: 8px; margin: 4px;}
 #addToProfileButton:hover {background-color: #ff0066}
-.askForm {display: inline;}
+#floatRightSubmitQuestionButton {float: right; margin-top: 25px;}
+#askForm1 {display: inline; width: 30%;}
+#askForm2 {display: inline-block; width: 80%;}
+#newQuestion {display: inline-block; width: 80%;}
+.newAnswer {display: inline-block; width: 50%;}
+.newAnswerPoints {display: inline-block; width: 10%;}
+
 .askText {margin-left: 10px; display: inline; width: 50%;}
 .askDiv {}
 #signupForm { margin-left: 25%; padding-top: 20px; }

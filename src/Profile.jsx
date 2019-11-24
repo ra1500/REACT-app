@@ -33,6 +33,7 @@ class Profile extends React.Component {
         showCompletedAudits: false,
         showSettingsButton: true,
         showSettingsSection: false,
+        userName: JSON.parse(sessionStorage.getItem('tokens')).userName, // used in header only
         };
     };
 
@@ -147,10 +148,14 @@ class Profile extends React.Component {
               </div> }
 
               { this.state.showLists &&
+              <div>
+              <div id="NetworkSingleContactDiv">
+              <span id="singleNetworkContactButtonP"> {this.state.userName}'s Good Stuff'</span>
+              </div>
               <div class="profilePage">
-                <p> My Good Stuff </p>
                 <ScoresList manageAudit={this.manageAudit} viewAudits={this.viewAudits}/>
                 <QuestionSetsPrivateProfile />
+              </div>
               </div> }
 
               { this.state.showManageAudit &&

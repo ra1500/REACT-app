@@ -352,57 +352,78 @@ class AskFormQset extends React.Component {
 
       { this.state.showIntro &&
       <div class="profilePage">
+        <p> Ask Your Network </p>
         <p></p>
-        <p> Welcome to Pose. Create your own set of questions and then invite your connections to answer. </p><br></br>
-        <p> (Maximum of 40 questions per set. Maximum of 10 user created inquiries)</p>
-        <p></p>
-        <p> Manage an existing set. Edit or delete.<br></br> Note that deleting a
+        <div class="invitationForm">
+        <p>Create your own set of questions and then invite your connections to answer. </p>
+        <p> 40 questions maximum. 10 sets per user maximum.</p>
+        <p> Also, manage an existing set you already created. Edit or delete it. Note that deleting a
          set will also delete the set and answers in all of your connection's ego pages whom you<br></br>
-         gave permission to view. Editing will not affect your connection's answers (including points)</p>
+         gave permission to view. Editing will not affect your connection's answers (including points).</p>
+         </div>
       </div> }
 
       { this.state.showInputBoxes &&
-      <div id="QsetInputBoxes">
+      <div class="profilePage">
+        <p> Ask Your Network </p>
+        <p></p>
+        <div class="invitationForm">
       <form onSubmit={this.handleSubmit1}>
-          <div class="askDiv"><span class="askText">Title &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span> <input class="askForm" type="text" size="20" maxlength="20" value={this.state.title} onChange={this.handleChange1} /> </div>
-          <div class="askDiv"><span class="askText">Description &nbsp;</span> <input class="askForm" type="text" size="70" maxlength="70" value={this.state.description} onChange={this.handleChange3} /></div>
-          <input className="qbutton" type="submit" value="Save title and description. Next add questions" /><span> </span>
+          <div class="askDiv"><span class="askText">Title &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span> <input id="askForm1" type="text" maxlength="20" value={this.state.title} onChange={this.handleChange1} /> </div>
+          <div class="askDiv"><span class="askText">Description &nbsp;</span> <input id="askForm2" type="text" maxlength="70" value={this.state.description} onChange={this.handleChange3} /></div>
+          <br></br>
+          <button className="titleButton" type="submit" > Save </button><span> Next, Add/Edit questions. </span>
       </form>
+        </div>
       </div> }
 
       { this.state.showQsetDetails &&
-      <div id="QsetInputBoxes">
-        <p>&nbsp; &nbsp; &nbsp; Title &nbsp; &nbsp; {this.state.title} </p>
-        <p>Description &nbsp; &nbsp; {this.state.description} </p>
-        <p> Question count {this.state.maxQtyQuestions} Max Points {this.state.maxPointsTotal} </p>
-        <button onClick={this.toggleEditInputBoxes}> Change </button> <span> Edit Title and Description </span>
-        <button onClick={this.deleteAll}> Cancel/Delete All </button>
-        <button onClick={this.finishedEntry}> Finish </button>
+      <div class="profilePage">
+        <p> Pose Your Network </p>
+        <p></p>
+        <div class="invitationForm">
+        <div><p class="firstP">Title: </p><p class="secondP">{this.state.title}</p></div>
+        <div><p class="firstP">Description: </p><p class="secondP">{this.state.description}</p></div>
+        <div><p class="firstP">Question Count: </p><p class="secondP">{this.state.maxQtyQuestions}</p></div>
+        <div><p class="firstP">Max Points: </p><p class="secondP">{this.state.maxPointsTotal}</p></div>
+        <button class="inviteAuditButton" onClick={this.toggleEditInputBoxes}> Edit </button>
+        <button class="deleteScoreButton" onClick={this.deleteAll}> Cancel/Delete </button>
+        <button class="titleButton" onClick={this.finishedEntry}> Finish </button>
+        </div>
       </div> }
 
       { this.state.showFinished &&
-      <div id="QsetInputBoxes">
-        <p>&nbsp; &nbsp; &nbsp; Title &nbsp; > &nbsp; {this.state.title} </p>
-        <p>Description &nbsp; > &nbsp; {this.state.description} </p>
-        <p> Question count {this.state.maxQtyQuestions} Max Points {this.state.maxPointsTotal} </p>
-        <button onClick={this.deleteAll}> Cancel/Delete All </button>
-        <button onClick={this.editAgain}> Edit Again </button>
-        <button onClick={this.inviteToScore}> Invite contacts to score </button>
+      <div class="profilePage">
+        <p> Saved Question Set</p>
+        <p></p>
+        <div class="invitationForm">
+        <div><p class="firstP">Title: </p><p class="secondP">{this.state.title}</p></div>
+        <div><p class="firstP">Description: </p><p class="secondP">{this.state.description}</p></div>
+        <div><p class="firstP">Question Count: </p><p class="secondP">{this.state.maxQtyQuestions}</p></div>
+        <div><p class="firstP">Max Points: </p><p class="secondP">{this.state.maxPointsTotal}</p></div>
+        <button class="deleteScoreButton" onClick={this.deleteAll}> Cancel/Delete </button>
+        <button class="inviteAuditButton" onClick={this.editAgain}> Edit </button>
+        <button class="titleButton" onClick={this.inviteToScore}> Invite </button><span> Invite your contacts to score too. </span>
             { this.state.showInviteToScore &&
             <div>
-                <button onClick={this.inviteToScoreFriends}> All Friends </button>
-                <button onClick={this.inviteToScoreColleagues}> All Colleagues </button>
-                <button onClick={this.inviteToScoreOther}> All Other </button>
-                <button onClick={this.inviteToScoreEveryone}> All Connections </button>
+                <button class="titleButton" onClick={this.inviteToScoreFriends}> All Friends </button>
+                <button class="titleButton" onClick={this.inviteToScoreColleagues}> All Colleagues </button>
+                <button class="titleButton" onClick={this.inviteToScoreOther}> All Other </button>
+                <button class="titleButton" onClick={this.inviteToScoreEveryone}> All Connections </button>
                 <input class="askForm" type="text" size="70" maxlength="70" value={this.state.invitee} onChange={this.handleChange4} />
-                <button onClick={this.inviteToScoreIndividual}> Individual Contact </button>
+                <button class="titleButton" onClick={this.inviteToScoreIndividual}> Individual Contact </button>
             </div> }
+      </div>
       </div> }
 
       { this.state.showAllDeleted &&
-      <div id="QsetInputBoxes">
-        <p>&nbsp; &nbsp; &nbsp; Title &nbsp; > &nbsp; {this.state.title} </p>
-        <p>Deleted. All questions and answers including those in your contact list who answered have been deleted. </p>
+      <div class="profilePage">
+        <p> Deleted Question Set </p>
+        <p></p>
+        <div class="invitationForm">
+        <div><p class="firstP">Title: </p><p class="secondP">{this.state.title}</p></div>
+        <p>All questions and answers, including any of your contact's answers, have been deleted. </p>
+        </div>
       </div> }
 
       { this.state.showAskFormQuestion &&

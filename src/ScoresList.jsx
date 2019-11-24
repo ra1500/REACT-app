@@ -85,6 +85,7 @@ class ScoresList extends React.Component {
     render() {
         return (
         <React.Fragment>
+
         { this.state.showList &&
          <div>
             <table>
@@ -94,6 +95,7 @@ class ScoresList extends React.Component {
                </tbody>
             </table>
          </div> }
+
         </React.Fragment>
         )
     }
