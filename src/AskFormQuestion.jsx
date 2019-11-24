@@ -298,7 +298,7 @@ class AskFormQuestion extends React.Component {
       <div class="invitationForm">
       <form onSubmit={this.handleSubmit1}>
           <div class="askDiv"><span class="askText">Question &nbsp;</span>
-          <input id="newQuestion" maxlength="80" type="text" value={this.state.question} onChange={this.handleChange13} /></div>
+          <input id="newQuestion" maxlength="80" type="text" value={this.state.question} onChange={this.handleChange13}  autocomplete="off"/></div>
 
           <div class="askDiv"><span class="askText">Answer 1 &nbsp;</span>
           <input class="newAnswer" type="text" maxlength="50" value={this.state.answer1} onChange={this.handleChange1} />

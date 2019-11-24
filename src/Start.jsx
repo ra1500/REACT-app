@@ -19,10 +19,14 @@ class Start extends React.Component {
   render() {
     return (
     <React.Fragment>
-    <TitleBar />
-    <div id="welcome">
-        Let's begin
-    </div>
+      <TitleBar />
+      <div class="profilePage">
+        <p> Let's begin </p>
+        <p></p>
+        <div class="invitationForm">
+            <p> Let's begin </p>
+        </div>
+        </div>
     </React.Fragment>
     );
   }

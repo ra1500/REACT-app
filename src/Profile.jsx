@@ -150,7 +150,7 @@ class Profile extends React.Component {
               { this.state.showLists &&
               <div>
               <div id="NetworkSingleContactDiv">
-              <span id="singleNetworkContactButtonP"> {this.state.userName}'s Good Stuff'</span>
+              <span id="singleNetworkContactButtonP"> {this.state.userName}'s good stuff</span>
               </div>
               <div class="profilePage">
                 <ScoresList manageAudit={this.manageAudit} viewAudits={this.viewAudits}/>

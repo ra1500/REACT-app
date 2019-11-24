@@ -19,12 +19,9 @@ class AskFormQset extends React.Component {
     this.previousSequenceNumber = this.previousSequenceNumber.bind(this);
     this.startAnewQset = this.startAnewQset.bind(this);
     this.manageSets = this.manageSets.bind(this);
+    this.inviteToScoreSelector = this.inviteToScoreSelector.bind(this);
     this.inviteToScore = this.inviteToScore.bind(this);
-    this.inviteToScoreFriends = this.inviteToScoreFriends.bind(this);
-    this.inviteToScoreColleagues = this.inviteToScoreColleagues.bind(this);
-    this.inviteToScoreOther = this.inviteToScoreOther.bind(this);
-    this.inviteToScoreEveryone = this.inviteToScoreEveryone.bind(this);
-    this.inviteToScoreIndividual = this.inviteToScoreIndividual.bind(this);
+    this.inviteToScoreSubmit = this.inviteToScoreSubmit.bind(this);
     this.jumpToSequenceNumber = this.jumpToSequenceNumber.bind(this);
     this.finalMax = this.finalMax.bind(this);
     this.manageAset = this.manageAset.bind(this);
@@ -44,10 +41,7 @@ class AskFormQset extends React.Component {
           showAllDeleted: false,
           showIntro: true,
           showInviteToScore: false,
-          invitationCompletedMessage: null,
-          showInvitationCompleted: false,
           invitee: null,
-          showInvitationCompletedIndividual: false,
           maxQtyQuestions: 0,
           maxPointsTotal: 0,
           showManage: false,
@@ -64,6 +58,8 @@ class AskFormQset extends React.Component {
           answer4Points: null,
           answer5Points: null,
           answer6Points: null,
+          inviteSelectionMessage: null,
+          ivitationSelection: null,
         };
   }
 
@@ -83,9 +79,7 @@ class AskFormQset extends React.Component {
   handleSubmit1(event) {
     event.preventDefault();
     this.postNewQset();
-    this.setState({showInputBoxes: false});
-    this.setState({showQsetDetails: true});
-    this.setState({showAskFormQuestion: true});
+    this.setState({showInputBoxes: false, showQsetDetails: true, showAskFormQuestion: true});
     }
 
   manageSequenceNumber() {
@@ -118,15 +112,19 @@ class AskFormQset extends React.Component {
         .then((response) => {
         this.setState({isLoaded: true, questionSetVersion: response.data.id,
                   });
-         //this.getQuestionSetVersionNumber(); //
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
    }
 
     startAnewQset() {
-        this.setState({showIntro: false});
-        this.setState({showInputBoxes: true});
+        this.setState({ questionSetVersion: 0, question: null, sequenceNumber: 1, showIntro: false, showInputBoxes: true, showQsetDetails: false, showFinished: false,
+         showAllDeleted: false, showAskFormQuestion: false, showManage: false, title: null, description: null, });
     }
+    manageSets() {
+        this.setState({showIntro: false, showInputBoxes: false, showQsetDetails: false, showFinished: false,
+         showAllDeleted: false, showAskFormQuestion: false, showManage: true });
+    }
+
 
     toggleEditInputBoxes() {
         this.setState({showInputBoxes: true});
@@ -154,6 +152,9 @@ class AskFormQset extends React.Component {
         this.setState({showAllDeleted: true});
         }
     }
+    inviteToScore() {
+        this.setState({showInviteToScore: true,});
+    }
 
     deleteAllQuestions() {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
@@ -172,15 +173,6 @@ class AskFormQset extends React.Component {
                });
     }
 
-    manageSets() {
-        this.setState({showIntro: false});
-        this.setState({showManage: true});
-    }
-
-    inviteToScore() {
-        this.setState({showInviteToScore: true});
-    }
-
     inviteToScoreFriends() {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
@@ -192,8 +184,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, showInvitationCompleted: true, showFinished: false, showInviteToScore: false,
-            invitationCompletedMessage: "Your friends can now see your new question set on their score page",
+        this.setState({isLoaded: true, inviteSelectionMessage: "Your friends can now see your new question set on their score page",
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -210,8 +201,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, showInvitationCompleted: true, showFinished: false, showInviteToScore: false,
-            invitationCompletedMessage: "Your colleagues can now see your new question set on their score page",
+        this.setState({isLoaded: true, inviteSelectionMessage: "Your colleagues can now see your new question set on their score page",
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -227,8 +217,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, showInvitationCompleted: true, showFinished: false, showInviteToScore: false,
-            invitationCompletedMessage: "Your 'Other' group can now see your new question set on their score page",
+        this.setState({isLoaded: true, inviteSelectionMessage: "Your 'Other' group can now see your new question set on their score page",
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -244,8 +233,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, showInvitationCompleted: true, showFinished: false, showInviteToScore: false,
-            invitationCompletedMessage: "Your connections can now see your new question set on their score page",
+        this.setState({isLoaded: true, inviteSelectionMessage: "Your connections can now see your new question set on their score page",
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -262,8 +250,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/o?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, showInvitationCompletedIndividual: true, showFinished: false, showInviteToScore: false,
-            invitationCompletedMessage: this.state.invitee + " can now see your new question set on their score page",
+        this.setState({isLoaded: true, inviteSelectionMessage: this.state.invitee + " can now see your new question set on their score page",
             invitee: "",
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
@@ -312,11 +299,10 @@ class AskFormQset extends React.Component {
             if (Number.isInteger(response.data.answer4Points)) {this.setState({answer4Points: Number(response.data.answer4Points), answer4PointsBefore: Number(response.data.answer4Points)}) } else {this.setState({ answer4PointsBefore: Number(0), answer4Points: Number(0)})} ;
             if (Number.isInteger(response.data.answer5Points)) {this.setState({answer5Points: Number(response.data.answer5Points), answer5PointsBefore: Number(response.data.answer5Points)}) } else {this.setState({ answer5PointsBefore: Number(0), answer5Points: Number(0)})} ;
             if (Number.isInteger(response.data.answer6Points)) {this.setState({answer6Points: Number(response.data.answer6Points), answer6PointsBefore: Number(response.data.answer6Points)}) } else {this.setState({ answer6PointsBefore: Number(0), answer6Points: Number(0)})} ;
-            this.setState({showFinished: true});
             this.getMaxQtyAndPoints();
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
-        this.setState({showFinished: true, showManage: false});
+        this.setState({showFinished: true, showInviteToScore: false, showManage: false});
     }
 
     // called from this.manageAset() for use during 'AskManage'
@@ -340,6 +326,23 @@ class AskFormQset extends React.Component {
                });
     }
 
+    inviteToScoreSelector(event) {
+        this.state = {invitationSelection: event.target.value};
+        this.setState({invitationSelection: this.state.invitationSelection});
+        if ( this.state.invitationSelection == "Friends") { this.setState({inviteSelectionMessage: "Invite all your friends? ",}) }
+        else if ( this.state.invitationSelection == "Colleagues") { this.setState({inviteSelectionMessage: "Invite all your colleagues? ",}) }
+        else if ( this.state.invitationSelection == "Other") { this.setState({inviteSelectionMessage: "Invite all 'Other'? ",}) }
+        else if ( this.state.invitationSelection == "Everyone") { this.setState({inviteSelectionMessage: "Invite all your contacts? ",}) }
+        else if ( this.state.invitationSelection != "" || "Friends" || "Colleagues" || "Other" || "Everyone") { this.setState({inviteSelectionMessage: "Invite " + event.target.value + "? "}) };
+     }
+    inviteToScoreSubmit() {
+        if ( this.state.invitationSelection == "Friends") { this.inviteToScoreFriends() }
+        else if ( this.state.invitationSelection == "Colleagues") { this.inviteToScoreColleagues() }
+        else if ( this.state.invitationSelection == "Other") { this.inviteToScoreOther() }
+        else if ( this.state.invitationSelection == "Everyone") { this.inviteToScoreEveryone() }
+        else if ( this.state.invitationSelection != "") { this.inviteToScoreIndividual() }
+    }
+
 
   render() {
     return (
@@ -356,7 +359,7 @@ class AskFormQset extends React.Component {
         <p></p>
         <div class="invitationForm">
         <p>Create your own set of questions and then invite your connections to answer. </p>
-        <p> 40 questions maximum. 10 sets per user maximum.</p>
+        <p> Up to 40 questions per set and 10 sets per account.</p>
         <p> Also, manage an existing set you already created. Edit or delete it. Note that deleting a
          set will also delete the set and answers in all of your connection's ego pages whom you<br></br>
          gave permission to view. Editing will not affect your connection's answers (including points).</p>
@@ -379,7 +382,7 @@ class AskFormQset extends React.Component {
 
       { this.state.showQsetDetails &&
       <div class="profilePage">
-        <p> Pose Your Network </p>
+        <p> Ask Your Network </p>
         <p></p>
         <div class="invitationForm">
         <div><p class="firstP">Title: </p><p class="secondP">{this.state.title}</p></div>
@@ -393,6 +396,7 @@ class AskFormQset extends React.Component {
       </div> }
 
       { this.state.showFinished &&
+      <div>
       <div class="profilePage">
         <p> Saved Question Set</p>
         <p></p>
@@ -404,16 +408,27 @@ class AskFormQset extends React.Component {
         <button class="deleteScoreButton" onClick={this.deleteAll}> Cancel/Delete </button>
         <button class="inviteAuditButton" onClick={this.editAgain}> Edit </button>
         <button class="titleButton" onClick={this.inviteToScore}> Invite </button><span> Invite your contacts to score too. </span>
+        </div>
+        </div>
             { this.state.showInviteToScore &&
-            <div>
-                <button class="titleButton" onClick={this.inviteToScoreFriends}> All Friends </button>
-                <button class="titleButton" onClick={this.inviteToScoreColleagues}> All Colleagues </button>
-                <button class="titleButton" onClick={this.inviteToScoreOther}> All Other </button>
-                <button class="titleButton" onClick={this.inviteToScoreEveryone}> All Connections </button>
-                <input class="askForm" type="text" size="70" maxlength="70" value={this.state.invitee} onChange={this.handleChange4} />
-                <button class="titleButton" onClick={this.inviteToScoreIndividual}> Individual Contact </button>
+            <div class="profilePage">
+            <p> Invite to Score</p>
+            <div class="invitationForm">
+                <button class="inviteAuditButton" value="Friends" onClick={e => this.inviteToScoreSelector(e)} > All Friends </button>
+                <button class="inviteAuditButton" value="Colleagues" onClick={e => this.inviteToScoreSelector(e)} > All Colleagues </button>
+                <button class="inviteAuditButton" value="Other" onClick={e => this.inviteToScoreSelector(e)} > All Other </button>
+                <button class="inviteAuditButton" value="Everyone" onClick={e => this.inviteToScoreSelector(e)} > All Connections </button>
+                <div id="submitQsetInviteDiv">
+                <input class="askForm1" placeholder=" (connection username)" autocomplete="off" type="text" maxlength="40" value={this.state.invitee} onChange={this.handleChange4} />
+                <button class="inviteAuditButton" value={this.state.invitee} onClick={e => this.inviteToScoreSelector(e)} > Individual </button>
+                </div>
+                <div id="submitQsetInviteDiv">
+                    <p id="submitQsetButtonSelectionP"> {this.state.inviteSelectionMessage} </p>
+                    <button id="submitInviteQsetButton" onClick={this.inviteToScoreSubmit}> Submit</button>
+                </div>
+            </div>
             </div> }
-      </div>
+
       </div> }
 
       { this.state.showAllDeleted &&
@@ -431,21 +446,6 @@ class AskFormQset extends React.Component {
       answer1={this.state.answer1} answer2={this.state.answer2} answer3={this.state.answer3} answer4={this.state.answer4} answer5={this.state.answer5} answer6={this.state.answer6}
        answer1Points={this.state.answer1Points} answer2Points={this.state.answer2Points} answer3Points={this.state.answer3Points} answer4Points={this.state.answer4Points} answer5Points={this.state.answer5Points} answer6Points={this.state.answer6Points} />
       }
-
-      { this.state.showInvitationCompleted &&
-      <div id="QsetInputBoxes">
-        <p>&nbsp; &nbsp; &nbsp; Title &nbsp; > &nbsp; {this.state.title} </p>
-        <p>{this.state.invitationCompletedMessage}</p>
-      </div> }
-
-      { this.state.showInvitationCompletedIndividual &&
-      <div id="QsetInputBoxes">
-        <p>&nbsp; &nbsp; &nbsp; Title &nbsp; > &nbsp; {this.state.title} </p>
-        <p>{this.state.invitationCompletedMessage}</p>
-        <p> Add another contact: </p>
-        <input class="askForm" type="text" size="70" maxlength="70" value={this.state.invitee} onChange={this.handleChange4} />
-        <button onClick={this.inviteToScoreIndividual}> Individual Contact </button>
-      </div> }
 
       { this.state.showManage &&
       <div>
