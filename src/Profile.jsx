@@ -135,7 +135,7 @@ class Profile extends React.Component {
 
               { this.state.showSettingsButton &&
               <div class="settingsButtionDiv">
-                <button class="settingsButton" onClick={this.goToPrivateProfile}> Me </button>
+                <button class="settingsButton" onClick={this.goToPrivateProfile}> My Good Stuff </button>
                 <button class="settingsButton" onClick={this.goToUserSettings}> Settings </button>
               </div> }
 
@@ -148,7 +148,7 @@ class Profile extends React.Component {
 
               { this.state.showLists &&
               <div class="profilePage">
-                <p> Me </p>
+                <p> My Good Stuff </p>
                 <ScoresList manageAudit={this.manageAudit} viewAudits={this.viewAudits}/>
                 <QuestionSetsPrivateProfile />
               </div> }

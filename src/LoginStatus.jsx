@@ -1,7 +1,4 @@
 import React from "react";
-import { AuthContext } from "./context/auth";
-import { useAuth } from "./context/auth";
-import Introduction from "./Introduction";
 import { Redirect } from "react-router-dom";
 
 class LoginStatus extends React.Component {

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import ManageMyContacts from "./ManageMyContacts";
 
 class ScoresNetworkContactPages extends React.Component {
     constructor(props) {
@@ -9,6 +10,8 @@ class ScoresNetworkContactPages extends React.Component {
             showList: false,
             id: null,
             friendId: this.props.friendId,
+            showSettings: false,
+            renderContactScores: false,
         };
     }
 
@@ -23,15 +26,16 @@ class ScoresNetworkContactPages extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/prm/sc/df?ctc=" + this.state.friendId,
+        axios.get("http://localhost:8080/prm/sc/df?ctc=" + this.props.friendId,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
             isLoaded: true,
             list: response.data,
+            friend: response.data[0].userName,
           });
           this.renderTableData();
-          this.setState({showList: true});
+          this.setState({renderContactScores: true});
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -58,8 +62,9 @@ class ScoresNetworkContactPages extends React.Component {
     render() {
         return (
         <React.Fragment>
-        { this.state.showList &&
-         <div id="scoresNetworkContactPages">
+
+         {this.state.renderContactScores &&
+         <div class="profilePage">
             <table>
                <tbody>
                <tr>{this.renderTableHeader()}</tr>
@@ -67,6 +72,10 @@ class ScoresNetworkContactPages extends React.Component {
                </tbody>
             </table>
          </div> }
+
+        { this.state.showSettings &&
+        <ManageMyContacts friendId={this.state.friendId}/> }
+
         </React.Fragment>
         )
     }

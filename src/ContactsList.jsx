@@ -1,5 +1,4 @@
 import React from 'react';
-import InvitationForm from "./InvitationForm";
 
 class ContactsList extends React.Component {
     constructor(props) {

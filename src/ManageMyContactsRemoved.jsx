@@ -16,6 +16,7 @@ class ManageMyContactsRemoved extends React.Component {
           hasPendingInvitations: false,
           friendBeingManaged: null,
           showUpdatedMessage: false,
+          showUnhideButton: true,
         };
   }
 
@@ -36,7 +37,7 @@ class ManageMyContactsRemoved extends React.Component {
         .then((response) => {
         this.setState({isLoaded: true,
                   });
-                  this.setState({ showUpdatedMessage: true});
+                  this.setState({ showUpdatedMessage: true, showUnhideButton: false});
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
     }
@@ -80,11 +81,14 @@ class ManageMyContactsRemoved extends React.Component {
     return (
     <React.Fragment>
     <div class="profilePage">
-    <p> Reinstate Contact </p>
+    <p> Unhide Contact </p>
     <div id="manageContacts">
+            <p> {this.state.friend} </p>
             <form onSubmit={this.handleSubmit5}>
-            <p> This will return contact to your network with a 'Connected' status.</p>
-             <button className="qbutton" type="submit">Add to contacts list</button>
+            <p> This will return a removed contact to your network. If this was a pending invitation from you, it will
+             remain as pending. If it was a pending invitation from your contact, you will now be connected.</p>
+             {this.state.showUnhideButton &&
+             <button className="titleButton" type="submit"> Unhide </button> }
             </form>
 
       { this.state.showUpdatedMessage &&

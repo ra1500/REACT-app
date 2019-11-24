@@ -16,6 +16,7 @@ class InvitationForm extends React.Component {
           visibilityPermission: "Yes",
           invitationSentMessage: null,
           friendInvited: null,
+          showInviteButton: true,
         };
   }
 
@@ -58,7 +59,7 @@ class InvitationForm extends React.Component {
         if (response.status === 204) {
         this.setState({invitationSentMessage: " user not found" });}
         else {
-        this.setState({isLoaded: true, friendInvited: this.state.friend, invitationSentMessage: " invitation has been sent to" + this.state.friend,
+        this.setState({isLoaded: true, friendInvited: this.state.friend, showInviteButton: true, invitationSentMessage: this.state.friend + " has been invited to join your network.",
                   }); }
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -69,7 +70,7 @@ class InvitationForm extends React.Component {
     <React.Fragment>
       <div class="profilePage">
         <p> Network Invitation </p>
-        <div id="invitationForm">
+        <div class="invitationForm">
         <input id="invitationBox" type="text" value={this.state.friend} onChange={this.handleChange} placeholder=" username of contact" />
         <form id="inviteRadio1">
             <div>
@@ -91,7 +92,8 @@ class InvitationForm extends React.Component {
             </div>
         </form>
         <p></p>
-        <button type="submit" onClick={this.handleSubmit} className="inviteAuditButton"> Invite </button>
+        { this.state.showInviteButton &&
+        <button type="submit" onClick={this.handleSubmit} className="inviteAuditButton"> Invite </button> }
         <span id="userName"> {this.state.invitationSentMessage} </span>
         </div>
       </div>

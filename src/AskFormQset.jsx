@@ -344,17 +344,21 @@ class AskFormQset extends React.Component {
   render() {
     return (
     <React.Fragment>
+
+      <div class="settingsButtionDiv">
+        <button class="settingsButton" onClick={this.startAnewQset}> Create </button>
+        <button class="settingsButton" onClick={this.manageSets}> Manage </button>
+      </div>
+
       { this.state.showIntro &&
-      <div id="QsetInputBoxes">
+      <div class="profilePage">
         <p></p>
         <p> Welcome to Pose. Create your own set of questions and then invite your connections to answer. </p><br></br>
         <p> (Maximum of 40 questions per set. Maximum of 10 user created inquiries)</p>
-        <button onClick={this.startAnewQset}> Create  </button>
         <p></p>
         <p> Manage an existing set. Edit or delete.<br></br> Note that deleting a
          set will also delete the set and answers in all of your connection's ego pages whom you<br></br>
          gave permission to view. Editing will not affect your connection's answers (including points)</p>
-        <button onClick={this.manageSets}> Manage  </button>
       </div> }
 
       { this.state.showInputBoxes &&
