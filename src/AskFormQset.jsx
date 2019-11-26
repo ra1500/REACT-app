@@ -117,7 +117,10 @@ class AskFormQset extends React.Component {
    }
 
     startAnewQset() {
-        this.setState({ questionSetVersion: 0, question: null, sequenceNumber: 1, showIntro: false, showInputBoxes: true, showQsetDetails: false, showFinished: false,
+        this.setState({ questionSetVersion: 0, question: null, sequenceNumber: 1, answer1: null, answer2: null,
+         answer3: null, answer4: null, answer5: null, answer6: null, answer1Points: null, answer2Points: null,
+          answer3Points: null, answer4Points: null, answer5Points: null, answer6Points: null, showIntro: false,
+           showInputBoxes: true, showQsetDetails: false, showFinished: false,
          showAllDeleted: false, showAskFormQuestion: false, showManage: false, title: null, description: null, });
     }
     manageSets() {

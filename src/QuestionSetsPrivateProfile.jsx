@@ -5,7 +5,7 @@ class QuestionSetsPrivateProfile extends React.Component {
   constructor(props) {
     super(props);
     //this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    //this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
           error: null,
           isLoaded: false,
@@ -13,8 +13,6 @@ class QuestionSetsPrivateProfile extends React.Component {
   }
 
     componentDidMount() {
-        const auditeeName = (JSON.parse(sessionStorage.getItem('tokens'))).userName;
-        this.setState({auditee: auditeeName}); // TODO this needs to come from props.
         this.getQsets();
     }
 

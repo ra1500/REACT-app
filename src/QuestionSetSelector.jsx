@@ -7,6 +7,7 @@ class QuestionSetSelector extends React.Component {
     super(props);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
     this.addToProfile = this.addToProfile.bind(this); // Binded since this is called from child!!!
+    this.renderSets = this.renderSets.bind(this);
     this.state = {
           questionSetSize: 500,
           questionToGoTo: 1, // initialized at first question sequence of the set.
@@ -26,7 +27,7 @@ class QuestionSetSelector extends React.Component {
 
   componentDidMount() {
         const auditeeName = (JSON.parse(sessionStorage.getItem('tokens'))).userName;
-        this.setState({auditee: auditeeName}); // TODO this needs to come from props.
+        this.setState({auditee: auditeeName}); // TODO
         this.getQsets();
   }
 
@@ -105,9 +106,12 @@ class QuestionSetSelector extends React.Component {
         this.setState({renderQuestions: false});
      } // end if
      else {
-        this.setState({renderQuestions: true});
+        this.setState({renderQuestions: true, showList: false,});
      }
   }
+    renderSets() {
+        this.setState({renderQuestions: false, showList: true,});
+    }
 
   // since this is called from child, MUST bind it above
   addToProfile() {
@@ -147,6 +151,11 @@ class QuestionSetSelector extends React.Component {
    render() {
     return (
         <React.Fragment>
+
+          <div class="settingsButtionDiv">
+            <button class="settingsButton" onClick={this.renderSets}> Score Sets </button>
+          </div>
+
 
         <div id="chooseSet">
         { this.state.showList &&

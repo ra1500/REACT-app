@@ -22,7 +22,6 @@ class Profile extends React.Component {
     this.goToPrivateProfile = this.goToPrivateProfile.bind(this);
     this.state = {
         showLists: true,
-        showManageAudit: false,
         showInviteToAudit: false,
         title: null,
         description: null,
@@ -54,7 +53,7 @@ class Profile extends React.Component {
             score: response.data.score,
             questionSetVersionEntityId: response.data.questionSetVersionEntity.id,
           });
-        this.setState({showLists: false, showManageAudit: true, showInviteToAudit: true,});
+        this.setState({showLists: false, showInviteToAudit: true,});
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -99,24 +98,34 @@ class Profile extends React.Component {
         this.setState({friend: event.target.value});
     }
     inviteToAuditFriends() {
+        if (window.confirm('Please confirm audit invitation to\n your friends.')) {
         this.inviteToAudit("f");
-        this.setState({auditorsAddedMessage:  "All your friends have been added as auditors"});
+        this.setState({auditorsAddedMessage:  "Your friends have been invited to audit your answers"});
+        }
     }
     inviteToAuditColleagues() {
+        if (window.confirm('Please confirm audit invitation to\n your colleagues.')) {
         this.inviteToAudit("c");
-        this.setState({auditorsAddedMessage:  "All your Colleagues have been added as auditors"});
+        this.setState({auditorsAddedMessage:  "Your colleagues have been invited to audit your answers"});
+        }
     }
     inviteToAuditOther() {
+        if (window.confirm('Please confirm audit invitation to\n your Other group.')) {
         this.inviteToAudit("o");
-        this.setState({auditorsAddedMessage:  "All your 'other' contacts have been added as auditors"});
+        this.setState({auditorsAddedMessage:  "Your 'Other' group has been invited to audit your answers"});
+        }
     }
     inviteToAuditEveryone() {
+        if (window.confirm('Please confirm audit invitation to\n your network.')) {
         this.inviteToAudit("e");
-        this.setState({auditorsAddedMessage:  "All your contacts have been added as auditors"});
+        this.setState({auditorsAddedMessage:  "Your network has been invited to audit your answers"});
+        }
     }
     inviteToAuditIndividual() {
+        if (window.confirm('Please confirm audit invitation to\n single connection.')) {
         this.inviteToAuditIndividualFriend();
-        this.setState({auditorsAddedMessage: this.state.friend + " has been added as an auditor"});
+        this.setState({auditorsAddedMessage: this.state.friend + " has been invited to audit your answers"});
+        }
     }
     viewAudits(event) {
         this.setState({questionSetVersionEntityId: event.target.value});
@@ -158,22 +167,33 @@ class Profile extends React.Component {
               </div>
               </div> }
 
-              { this.state.showManageAudit &&
+              { this.state.showInviteToAudit &&
               <div class="profilePage">
-                <p> Audits! Invite your contacts to audit your scores </p>
-                <p> {this.state.title} {this.state.description} {this.state.score}</p>
-              </div> }
+                <p> Invite Auditors </p>
+                <p></p>
 
-            { this.state.showInviteToAudit &&
-            <div class="profilePage">
-                <button onClick={this.inviteToAuditFriends}> Friends </button>
-                <button onClick={this.inviteToAuditColleagues}> Colleagues </button>
-                <button onClick={this.inviteToAuditOther}> Other </button>
-                <button onClick={this.inviteToAuditEveryone}> All Connections </button>
-                <input class="askForm" type="text" size="20" maxlength="20" value={this.state.invitee} onChange={this.handleChange} />
-                <button onClick={this.inviteToAuditIndividual}> Individual Contact </button>
-                <p> {this.state.auditorsAddedMessage} </p>
-            </div> }
+
+              <div class="invitationForm">
+                    <div>
+                    <p class="questionsParagraph"> Title: &nbsp;{this.state.title} </p>
+                    <p class="questionsParagraph"> Description: &nbsp;{this.state.description}</p>
+                    <p class="questionsParagraph">Score: &nbsp;{this.state.score}</p>
+                    </div>
+
+                    <div>
+                    <br></br>
+                    <button class="inviteAuditButton" onClick={this.inviteToAuditFriends}> Friends </button>
+                    <button class="inviteAuditButton" onClick={this.inviteToAuditColleagues}> Colleagues </button>
+                    <button class="inviteAuditButton" onClick={this.inviteToAuditOther}> Other </button>
+                    <button class="inviteAuditButton" onClick={this.inviteToAuditEveryone}> Network </button>
+                    <div>
+                    <input class="askForm" placeholder="username of contact" type="text" size="20" maxlength="20" value={this.state.invitee} onChange={this.handleChange} />
+                    <button class="inviteAuditButton" onClick={this.inviteToAuditIndividual}> Individual </button>
+                    </div>
+                    <p> {this.state.auditorsAddedMessage} </p>
+                    </div>
+              </div>
+              </div> }
 
             { this.state.showCompletedAudits &&
             <div class="profilePage">

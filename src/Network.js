@@ -103,21 +103,19 @@ class Network extends React.Component {
     }
 
     auditMe(event) {
-        this.setState({showSingleContact: false});
-        this.setState({showQuestionSetAuditing: true});
         this.setState({questionSetVersionEntityId: event.target.value});
     }
 
     goToNetwork() {
-        this.setState({showSingleContact: false, showQuestionSetAuditing: false, showRemovedList: false, showSingleContactRemoved: false, showInviteFriends: false});
+        this.setState({showSingleContact: false, showRemovedList: false, showSingleContactRemoved: false, showInviteFriends: false});
         this.setState({showNetworkList: false}); // set to true after this in getFriendships()
         this.getFriendships();
     }
     goToInvite() {
-        this.setState({showInviteFriends: true, showNetworkList: false, showSingleContact: false, showQuestionSetAuditing: false, showRemovedList: false, showSingleContactRemoved: false});
+        this.setState({showInviteFriends: true, showNetworkList: false, showSingleContact: false, showRemovedList: false, showSingleContactRemoved: false});
     }
     goToRemovedContacts() {
-        this.setState({showInviteFriends: false, showNetworkList: false, showSingleContact: false, showQuestionSetAuditing: false, showRemovedList: false, showSingleContactRemoved: false});
+        this.setState({showInviteFriends: false, showNetworkList: false, showSingleContact: false, showRemovedList: false, showSingleContactRemoved: false});
         this.getRemovedFriendships();
     }
 

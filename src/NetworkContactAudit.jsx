@@ -11,6 +11,7 @@ class NetworkContactAudit extends React.Component {
           friend: null,
           title: null,
           description: null,
+          auditInvitesExist: false,
         };
   }
 
@@ -18,6 +19,7 @@ class NetworkContactAudit extends React.Component {
         this.getUserAnswer();
     }
 
+    // TODO change this to pull a List of sets to audit instead of just one. add a method to the back-end.
     getUserAnswer() {
        const name = JSON.parse(sessionStorage.getItem('tokens'));
        const u = name.userName;
@@ -28,13 +30,17 @@ class NetworkContactAudit extends React.Component {
        axios.get("http://localhost:8080/a/au/" + this.state.friendId,
        {headers : { 'Authorization' : Basic }})
        .then((response) => {
+         if (response.status === 200) {
          this.setState({
            isLoaded: true,
            title: response.data.questionSetVersionEntity.title,
            description: response.data.questionSetVersionEntity.title,
            questionSetVersionEntityId: response.data.questionSetVersionEntity.id,
            friend: response.data.auditee,
+           auditInvitesExist: true,
          });
+         } // end if
+         else { this.setState({auditInvitesExist: false}); }
               }).catch(error => {this.setState({ isLoaded: true, error,});
               });
     }
@@ -42,11 +48,14 @@ class NetworkContactAudit extends React.Component {
   render() {
     return (
     <React.Fragment>
+
+        { this.state.auditInvitesExist &&
         <div id="networkContactAudit">
-        {this.state.friend} has invited you to audit one of their quizes. Select to audit.
         <button className="qsbutton" value={this.state.questionSetVersionEntityId} onClick={e => this.props.auditMe(e)}> {this.state.title} </button>
         <p> {this.state.description} </p>
-        </div>
+        </div> }
+
+
     </React.Fragment>
     );
   }

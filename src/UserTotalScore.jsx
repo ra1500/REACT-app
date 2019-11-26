@@ -21,9 +21,7 @@ class UserTotalScore extends React.Component {
 
     return (
         <React.Fragment>
-            <div id="totalscore">
-            <p id="tscore">score: {this.props.userScore}</p>
-            </div>
+            {this.props.userScore}
         </React.Fragment>
     ); // end return
     } //end if
@@ -31,9 +29,7 @@ class UserTotalScore extends React.Component {
     else {
     return (
         <React.Fragment>
-            <div id="totalscore">
-            <p id="tscore">score: 0</p>
-            </div>
+            0
         </React.Fragment>
     ); // end return
     } // end else

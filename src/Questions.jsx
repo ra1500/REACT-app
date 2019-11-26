@@ -181,7 +181,7 @@ class Questions extends React.Component {
     }
 //////////////////////////////////////////////////////////////////////////////
   goToNextQuestion(){
-    this.setState({currentQuestion: ++this.state.currentQuestion});
+    this.setState({currentQuestion: ++this.state.currentQuestion, allDeletedMessage: null});
     this.getQuestion();
   }
 
@@ -191,7 +191,7 @@ class Questions extends React.Component {
   handleSubmit(event) {
     let lock = this.state.jumpQuestion; // this is magic #1
     if (lock != null ) {
-    this.setState({currentQuestion: lock}); // this is magic #2
+    this.setState({currentQuestion: lock, allDeletedMessage: null}); // this is magic #2
     this.getQuestion2(); // magic #3: needs a separate method in order to use jumpQuestion immediately instead of waiting to listen for it in setState. if i setState of currentQuestion be equal to the jumpQuestion in the input text box itself, you'd have immediate re-rendering for every typed number in the box.
     event.preventDefault();
     }
@@ -200,7 +200,7 @@ class Questions extends React.Component {
    verifyDelete() {
     if (window.confirm('Are you sure you want to delete all\nyour answers to this question set?')) {
     this.deleteAllAnswers();
-    this.setState({allDeletedMessage: "answers deleted"});
+    this.setState({allDeletedMessage: "All your answers have been deleted."});
     }
    }
 
@@ -216,18 +216,17 @@ class Questions extends React.Component {
     data,
     {headers : { 'Authorization' : Basic }})
     .then((response) => {
-    this.getUserScore();
-    this.setState({currentQuestion: 1}); // qc this
-    this.getQuestion();     // qc this
+    this.setState({currentQuestion: 1, userScore: 0});
+    this.getQuestion();
     this.setState({isLoaded: true,
       });
            }).catch(error => {this.setState({ isLoaded: true, error});
            });
-   } // end of deleteAllAnswers
+   }
 
   previous(){
     if (this.state.currentQuestion > 1) {
-    this.setState({currentQuestion: --this.state.currentQuestion});
+    this.setState({currentQuestion: --this.state.currentQuestion, allDeletedMessage: null});
     this.getQuestion();
     }
   }
@@ -251,9 +250,30 @@ class Questions extends React.Component {
     if (this.state.currentQuestion <= this.props.questionSetSize) {
       return (
         <React.Fragment >
-            <div id="question">
-            <p id="questionHeader"> {this.props.title}. {this.props.description}</p>
-            <p id="qText1"> #{this.state.currentQuestion} of {this.props.questionSetSize}</p><p id="qText2"> {this.props.maxPoints} points maximum</p>
+
+            <div id="questionsDiv1">
+            <p class="questionsParagraph"> Title: &nbsp;{this.props.title} </p>
+            <p class="questionsParagraph"> Description: &nbsp;{this.props.description}</p>
+            <p class="questionsParagraph">Question: &nbsp;#{this.state.currentQuestion} of {this.props.questionSetSize}</p>
+            </div>
+
+            <div id="questionsDiv2">
+                <div id="questionsDiv3">
+                <p id="questionsParagraphScore">Score: <UserTotalScore userScore={userScore}/>/{this.props.maxPoints} </p>
+                </div>
+                <button className="qsbutton" onClick={() => this.verifyDelete()}>Delete all</button>
+                <div>
+                <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
+                  <input className="qsbutton" type="submit" value="Go to" />
+                  <input id="questionsGoToInput" placeholder="#" type="number" type="text" onChange={this.handleChange} max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
+                </form>
+                </div>
+                <button className="qsbutton" onClick={this.previous}>  Back </button>
+                <button id="submitAnswerButton" onClick={this.postAnswer}>  Submit </button>
+            </div>
+
+
+
             <p className="qtext"> {question} </p>
             <AnswerSelection answer={answer1} onClick={() => this.setState({selection: this.state.answer1, answerPoints: answer1Points})}> {answer1} </AnswerSelection>
             <AnswerSelection answer={answer2} onClick={() => this.setState({selection: this.state.answer2, answerPoints: answer2Points})}> {answer2} </AnswerSelection>
@@ -264,16 +284,9 @@ class Questions extends React.Component {
             <button id="noAnswerButton" onClick={() => this.noAnswer()}>No Answer</button>
             <p id="qtext2"> Answer: {selection} </p>
             <p className="qtext"> Points: {answerPoints} </p>
-            <button className="qsbutton" onClick={() => this.verifyDelete()}>Delete all my answers</button>
-            <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
-              <input className="qsbutton" type="submit" value="Go to question #" />
-              <input id="inputQuestionNumberBox" type="number" onChange={this.handleChange} max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
-            </form>
-            <button className="qsbutton" onClick={this.previous}>  Previous </button>
-            <button className="qsbutton" onClick={this.postAnswer}>  Submit </button>
+
             <p id="deletedAnswersMessage">{this.state.allDeletedMessage}</p>
-            </div>
-            <UserTotalScore userScore={userScore}/>
+
         </React.Fragment>
       );
      } else {

@@ -248,7 +248,7 @@ class AuditQuestions extends React.Component {
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, auditPostedMessage: "Your audit has been posted to your contacts account"
+        this.setState({isLoaded: true, auditPostedMessage: "Your audit has been posted to " + this.state.friend + "s account"
           });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -261,19 +261,17 @@ class AuditQuestions extends React.Component {
     const token = u + ':' + p;
     const hash = btoa(token);
     const Basic = 'Basic ' + hash;
-    const data = {auditee: this.props.auditee};
+    const data = {auditee: this.props.friend};
     axios.post("http://localhost:8080/a/del/" + this.state.questionSetVersionEntityId,
     data,
     {headers : { 'Authorization' : Basic }})
     .then((response) => {
-    this.getUserScore();
-    this.setState({currentQuestion: 1}); // qc this
-    this.getQuestion();     // qc this
+    this.props.goToAudit();
     this.setState({isLoaded: true,
       });
            }).catch(error => {this.setState({ isLoaded: true, error});
            });
-   } // end of deleteAllAnswers
+   }
 
   goToNextQuestion(){
     this.setState({currentQuestion: ++this.state.currentQuestion});
@@ -296,7 +294,6 @@ class AuditQuestions extends React.Component {
    verifyDelete() {
     if (window.confirm('Are you sure you want to delete all\nyour answers and delete the audit?')) {
     this.deleteAllAnswers();
-    this.setState({allDeletedMessage: "answers and audit deleted"});
     }
    }
   previous() {
@@ -315,7 +312,6 @@ class AuditQuestions extends React.Component {
     if (this.state.currentQuestion <= this.state.questionSetSize) {
       return (
         <React.Fragment >
-            <p> Auditing your contact: {this.state.friend}</p>
             <div id="question">
             <p> {this.state.title}. {this.state.description}</p>
             <p id="qText1"> #{this.state.currentQuestion} of {this.state.questionSetSize}</p><p id="qText2"> {this.state.maxPoints} points maximum</p>
@@ -329,7 +325,7 @@ class AuditQuestions extends React.Component {
             <button id="noAnswerButton" onClick={() => this.noAnswer()}>No Answer</button>
             <p id="qtext2"> Answer: {this.state.selection} </p>
             <p className="qtext"> Points: {this.state.answerPoints} </p>
-              <input value={this.state.comments} type="text" onChange={this.handleChange2} length="100" autoComplete="off" />
+              <input value={this.state.comments} placeholder="comments" type="text" onChange={this.handleChange2} length="100" autoComplete="off" />
             <button className="qsbutton" onClick={() => this.verifyDelete()}>Delete all my answers</button>
             <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
               <input className="qsbutton" type="submit" value="Go to question #" />
@@ -337,7 +333,6 @@ class AuditQuestions extends React.Component {
             </form>
             <button className="qsbutton" onClick={this.previous}>  Previous </button>
             <button className="qsbutton" onClick={this.postAnswer}>  Submit </button>
-            <p id="deletedAnswersMessage">{this.state.allDeletedMessage}</p>
             </div>
             <UserTotalScore userScore={this.state.userScore}/>
         </React.Fragment>
@@ -345,8 +340,7 @@ class AuditQuestions extends React.Component {
      } else {
        return (
          <React.Fragment>
-             <p> Auditing your contact: {this.state.friend}</p>
-             <p> {this.state.title}. {this.state.description}</p>
+             <p> {this.state.title} {this.state.description}</p>
              <p className="qtext">  AUDIT COMPLETED </p>
              <button id="addToProfileButton" onClick={() => this.sendAuditToAuditee()}>  Submit audited results to your contact </button>
             <button className="qsbutton" onClick={() => this.verifyDelete()}>Delete all my answers</button>
@@ -355,7 +349,6 @@ class AuditQuestions extends React.Component {
               <input id="inputQuestionNumberBox" type="number" onChange={this.handleChange} max={this.state.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
             </form>
             <button className="qsbutton" onClick={this.previous}>  Previous </button>
-            <p id="deletedAnswersMessage">{this.state.allDeletedMessage}</p>
             <p id="deletedAnswersMessage">{this.state.auditPostedMessage}</p>
              <UserTotalScore userScore={this.state.userScore}/>
          </React.Fragment>

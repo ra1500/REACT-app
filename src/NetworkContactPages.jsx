@@ -3,6 +3,7 @@ import axios from 'axios';
 import ScoresNetworkContactPages from "./ScoresNetworkContactPages";
 import AuditQuestions from "./AuditQuestions";
 import ManageMyContacts from "./ManageMyContacts";
+import NetworkContactAudit from "./NetworkContactAudit";
 
 class NetworkContactPages extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class NetworkContactPages extends React.Component {
         this.goToAudit = this.goToAudit.bind(this);
         this.goToContactSettings = this.goToContactSettings.bind(this);
         this.goToGoodStuff = this.goToGoodStuff.bind(this);
+        this.auditMe = this.auditMe.bind(this);
         this.state = {
           error: null,
           isLoaded: false,
@@ -24,6 +26,7 @@ class NetworkContactPages extends React.Component {
           isAfriend: false,
           hasPendingInvitations: false,
           showQuestionSetAuditing: false,
+          showAuditQuestions: false,
           showContactScores: false,
           invitationStatusMessage: null,
           showUpdateButton: false,
@@ -75,14 +78,18 @@ class NetworkContactPages extends React.Component {
   }
 
     goToContactSettings() {
-        this.setState({isAfriend: false, hasPendingInvitations: false, showSettings: true,});
+        this.setState({showQuestionSetAuditing: false, isAfriend: false, hasPendingInvitations: false, showSettings: true, showAuditQuestions: false,});
     }
     goToAudit() {
-        this.setState({ showQuestionSetAuditing: true, showSettings: false, showContactScores: false});
+        this.setState({ showQuestionSetAuditing: true, isAfriend: true, showSettings: false, showContactScores: false, showAuditQuestions: false,});
     }
     goToGoodStuff() {
-        this.setState({showQuestionSetAuditing: false, showSettings: false, showQuestionSetAuditing: false});
+        this.setState({showQuestionSetAuditing: false, isAfriend: false, showSettings: false, showAuditQuestions: false,});
         this.isAFriendOrInvitation();
+    }
+    auditMe(event) {
+        this.setState({showQuestionSetAuditing: false, showAuditQuestions: true,});
+        this.setState({questionSetVersionEntityId: event.target.value});
     }
 
 
@@ -92,7 +99,6 @@ class NetworkContactPages extends React.Component {
   handleSubmit(event) {
     this.patchFriendship();
     event.preventDefault();
-
   }
 
     // accept/decline friendship // TODO back-end not vetting inviter! fix.
@@ -124,7 +130,7 @@ class NetworkContactPages extends React.Component {
     <React.Fragment>
 
         <div id="NetworkSingleContactDiv">
-            <span id="singleNetworkContactButtonP"> {this.state.friend}'s good stuff </span>
+            <span id="singleNetworkContactButtonP"> {this.state.friend} </span>
             <button id="singleNetworkContactButton1" onClick={this.goToContactSettings}> Settings </button>
             <button id="singleNetworkContactButton2" onClick={this.goToAudit}> Audit Them </button>
             <button id="singleNetworkContactButton2" onClick={this.goToGoodStuff}> Good Stuff </button>
@@ -136,22 +142,33 @@ class NetworkContactPages extends React.Component {
                 connectionType={this.state.connectionType} friendId={this.state.friendId} friend={this.state.friend} userName={this.state.userName}/>
            </div> }
 
-
-
           { this.state.isAfriend &&
           <div class="profilePage">
 
-            { this.state.showContactScores &&
-            <ScoresNetworkContactPages friendId={this.props.friendId} /> }
+                { this.state.showContactScores &&
+                <div>
+                <p> Good Stuff </p>
+                <ScoresNetworkContactPages friendId={this.props.friendId} />
+                </div> }
 
-            {this.state.showQuestionSetAuditing &&
-            <div>
-                <p> Audit your contacts answers. You can choose and submit different answers and also add comments.<br></br>
-                  Your contact can then review how you scored them and read your coments.<br></br>
-                  (Note that once you have submited your own answer, you will not be able to again see your contacts original answer)</p>
-                <AuditQuestions questionSetVersionEntityId={this.state.questionSetVersionEntityId} friendId={this.state.friendId}/>
-            </div> }
+                {this.state.showQuestionSetAuditing &&
+                <div>
+                  <p> Audit </p>
+                  <p> Audit your contacts answers. You can choose and submit different answers and also add comments.
+                  Your contact can then review how you scored them and read your coments.
+                  (Note that once you have submited your own answer to a question it will be saved and you will not be able to see
+                  your contacts original answer again.)</p>
+                  <p> The following were selected by {this.state.friend} for you to audit:</p>
+                  <NetworkContactAudit auditMe={this.auditMe} friendId={this.state.friendId}/>
+                </div> }
+
+                {this.state.showAuditQuestions &&
+                <div>
+                <AuditQuestions questionSetVersionEntityId={this.state.questionSetVersionEntityId} friend={this.state.friend} friendId={this.state.friendId} goToAudit={this.goToAudit}/>
+                </div> }
+
           </div> }
+
 
 
 
