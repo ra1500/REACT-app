@@ -325,11 +325,6 @@ class AskFormQuestion extends React.Component {
           <span class="askText">Points &nbsp;</span>
           <input type="number" type="text" maxlength="3" class="newAnswerPoints" value={this.state.answer5Points} onChange={this.handleChange10} /></div>
 
-          <div class="askDiv"><span class="askText">Answer 6 &nbsp;</span>
-          <input class="newAnswer" type="text" maxlength="50" value={this.state.answer6} onChange={this.handleChange11} />
-          <span class="askText">Points &nbsp;</span>
-          <input type="number" type="text" maxlength="3" class="newAnswerPoints" value={this.state.answer6Points} onChange={this.handleChange12} /></div>
-
           <div id="floatRightSubmitQuestionButton">
           <button className="titleButton" type="submit">Add</button>
           </div>

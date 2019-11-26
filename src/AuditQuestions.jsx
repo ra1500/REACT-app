@@ -243,7 +243,7 @@ class AuditQuestions extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { auditee: this.state.friend, typeNumber: "16"};
+        let data = { auditee: this.state.friend, typeNumber: "16", score: this.state.userScore, type: "Audit Score", };
         axios.post("http://localhost:8080/prm/sc/d?qsId=" + this.state.questionSetVersionEntityId,
         data,
         {headers : { 'Authorization' : Basic }})
@@ -325,7 +325,7 @@ class AuditQuestions extends React.Component {
             <button id="noAnswerButton" onClick={() => this.noAnswer()}>No Answer</button>
             <p id="qtext2"> Answer: {this.state.selection} </p>
             <p className="qtext"> Points: {this.state.answerPoints} </p>
-              <input value={this.state.comments} placeholder="comments" type="text" onChange={this.handleChange2} length="100" autoComplete="off" />
+              <input value={this.state.comments} placeholder="comments" type="text" onChange={this.handleChange2} maxlength="100" autoComplete="off" />
             <button className="qsbutton" onClick={() => this.verifyDelete()}>Delete all my answers</button>
             <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
               <input className="qsbutton" type="submit" value="Go to question #" />

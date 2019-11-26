@@ -132,10 +132,10 @@ class Profile extends React.Component {
         this.setState({showLists: false, showCompletedAudits: true });
     }
     goToUserSettings() {
-        this.setState({showSettingsSection: true, showLists: false,});
+        this.setState({showSettingsSection: true, showLists: false, showCompletedAudits: false, showInviteToAudit: false,});
     }
     goToPrivateProfile() {
-        this.setState({showSettingsSection: false, showLists: true,});
+        this.setState({showSettingsSection: false, showLists: true, showCompletedAudits: false, showInviteToAudit: false,});
     }
 
    render() {
@@ -172,11 +172,10 @@ class Profile extends React.Component {
                 <p> Invite Auditors </p>
                 <p></p>
 
-
               <div class="invitationForm">
                     <div>
                     <p class="questionsParagraph"> Title: &nbsp;{this.state.title} </p>
-                    <p class="questionsParagraph"> Description: &nbsp;{this.state.description}</p>
+                    <p class="questionsDescriptionParagraph"> Description: &nbsp;{this.state.description}</p>
                     <p class="questionsParagraph">Score: &nbsp;{this.state.score}</p>
                     </div>
 

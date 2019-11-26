@@ -75,7 +75,7 @@ class ScoreUrl extends React.Component {
   render() {
     return (
     <div id="scoreurl">
-        <p>Profile View Permission<br></br>
+        <p>Profile View Status for {this.state.userName}<br></br>
          Curent Status: {this.state.publicProfile} <span id="userName">{this.state.privacyUpdatedMessage}</span></p>
 
         <form onSubmit={this.handleSubmit1}>

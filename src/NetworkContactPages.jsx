@@ -81,7 +81,7 @@ class NetworkContactPages extends React.Component {
         this.setState({showQuestionSetAuditing: false, isAfriend: false, hasPendingInvitations: false, showSettings: true, showAuditQuestions: false,});
     }
     goToAudit() {
-        this.setState({ showQuestionSetAuditing: true, isAfriend: true, showSettings: false, showContactScores: false, showAuditQuestions: false,});
+        this.setState({ showQuestionSetAuditing: true, isAfriend: true, hasPendingInvitations: false, showSettings: false, showContactScores: false, showAuditQuestions: false,});
     }
     goToGoodStuff() {
         this.setState({showQuestionSetAuditing: false, isAfriend: false, showSettings: false, showAuditQuestions: false,});

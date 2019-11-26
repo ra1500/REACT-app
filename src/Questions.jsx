@@ -253,7 +253,7 @@ class Questions extends React.Component {
 
             <div id="questionsDiv1">
             <p class="questionsParagraph"> Title: &nbsp;{this.props.title} </p>
-            <p class="questionsParagraph"> Description: &nbsp;{this.props.description}</p>
+            <p class="questionsDescriptionParagraph"> Description: &nbsp;{this.props.description}</p>
             <p class="questionsParagraph">Question: &nbsp;#{this.state.currentQuestion} of {this.props.questionSetSize}</p>
             </div>
 
@@ -272,15 +272,12 @@ class Questions extends React.Component {
                 <button id="submitAnswerButton" onClick={this.postAnswer}>  Submit </button>
             </div>
 
-
-
             <p className="qtext"> {question} </p>
             <AnswerSelection answer={answer1} onClick={() => this.setState({selection: this.state.answer1, answerPoints: answer1Points})}> {answer1} </AnswerSelection>
             <AnswerSelection answer={answer2} onClick={() => this.setState({selection: this.state.answer2, answerPoints: answer2Points})}> {answer2} </AnswerSelection>
             <AnswerSelection answer={answer3} onClick={() => this.setState({selection: this.state.answer3, answerPoints: answer3Points})}> {answer3} </AnswerSelection>
             <AnswerSelection answer={answer4} onClick={() => this.setState({selection: this.state.answer4, answerPoints: answer4Points})}> {answer4} </AnswerSelection>
             <AnswerSelection answer={answer5} onClick={() => this.setState({selection: this.state.answer5, answerPoints: answer5Points})}> {answer5} </AnswerSelection>
-            <AnswerSelection answer={answer6} onClick={() => this.setState({selection: this.state.answer6, answerPoints: answer6Points})}> {answer6} </AnswerSelection>
             <button id="noAnswerButton" onClick={() => this.noAnswer()}>No Answer</button>
             <p id="qtext2"> Answer: {selection} </p>
             <p className="qtext"> Points: {answerPoints} </p>

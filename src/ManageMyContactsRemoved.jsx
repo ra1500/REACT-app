@@ -72,8 +72,7 @@ class ManageMyContactsRemoved extends React.Component {
 
     updatedMessage() {
     return (
-        <p> {this.state.friendBeingManaged} has been changed to 'Connected'. If this was a pending invitation
-        from your contact, they will also now be Connected</p>
+        <p> {this.state.friendBeingManaged} has been returned to your Network.</p>
     )
     }
 
@@ -85,8 +84,8 @@ class ManageMyContactsRemoved extends React.Component {
     <div id="manageContacts">
             <p> {this.state.friend} </p>
             <form onSubmit={this.handleSubmit5}>
-            <p> This will return a removed contact to your network. If this was a pending invitation from you, it will
-             remain as pending. If it was a pending invitation from your contact, you will now be connected.</p>
+            <p> This will return a removed contact to your network. If the status was a pending invitation from you, it will
+             remain as pending. If the status was a pending invitation from your contact, you will now be connected.</p>
              {this.state.showUnhideButton &&
              <button className="titleButton" type="submit"> Unhide </button> }
             </form>

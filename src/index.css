@@ -14,13 +14,13 @@ code {font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", mono
 p {font-family: "Geneva"}
 .paragraphInline {font-family: "Geneva"; display: inline}
 
-.qbutton { font-family: "Geneva"; font-size: 14px; padding: 5px 15px; background-color: #e6e6e6; color: black; border: none; margin: 4px;}
+.qbutton { width: 380px; display: block; font-family: "Geneva"; font-size: 14px; padding: 5px 15px; background-color: #e6e6e6; color: black; border: none; margin-bottom: 5px; margin-left: 10px;}
 .qbutton:hover {background-color: #e6e6e6}
 
 .qsbutton {border: none; font-family: "Geneva"; font-size: 14px; padding: 3px 15px; background-color: #ffff00; color: black; margin: 4px;}
 .qsbutton:hover {background-color: #ffff00}
 
-#noAnswerButton {color: white; font-family: "Geneva"; font-size: 14px; padding: 0px 5px; background-color: #ff0066; border: none; margin: 4px;}
+#noAnswerButton {color: white; font-family: "Geneva"; font-size: 14px; padding: 0px 5px; background-color: #ff0066; border: none; margin-bottom: 5px; margin-left: 10px;}
 #noAnswerButton:hover {background-color: #ff1a75}
 
 #submitAnswerButton {font-weight: bold; border: none; font-family: "Geneva"; font-size: 14px; padding: 6px 15px; background-color: #00e600; color: black; margin: 4px;}
@@ -33,15 +33,16 @@ p {font-family: "Geneva"}
 .qtext {margin-left: 10px; margin-top: 15px;}
 #qtext2 {margin-left: 10px; margin-bottom: 1px;}
 #tscore {margin-left: 10px; margin-top: 15px;}
-.titleButton {height: 23px; margin-right: 5px; width: 130px;border: 1px solid; background-color: white; color: #00b300; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
+.titleButton {height: 23px; margin-right: 5px; width: 150px;border: 1px solid; background-color: white; color: #00b300; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
 .titleButton:hover {}
 .removedContactButton {margin-right: 5px; width: 80px;border: 1px solid; background-color: white; color: #ff8000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
 .removedContactButton:hover {background-color: #ffff00}
 #titleBar {border-bottom: 0px solid black; padding-bottom: 15px; padding-top: 15px; background-color: #f2f2f2}
 #NJ {margin-left: 15px; margin-top: 5px; margin-right: 0px; font-family: "Arial";font-size: 20px; color: #0000ff; font-weight: bold; display: inline;text-decoration: none;}
-.menuLinks {display: inline; margin-left: 20px; text-decoration: none; font-family: "Geneva"}
+.menuLinks {font-weight: bold; display: inline; margin-left: 20px; text-decoration: none; font-family: "Geneva"}
+
 .menuLinks:link, .menuLinks:visited {color: #000000; text-decoration: none;}
-.menuLinks:hover {color: #e64d00; text-decoration: none;}
+.menuLinks:hover { text-decoration: none;}
 #LoginStatus {display: inline-block; margin-left: 20px; margin-right: 40px; float: right;}
 #userName {display: inline; color: #e6004c; font-weight: bold;}
 #easySignUpButton {border: none; background-color: #f2f2f2; color: #e6004c; text-decoration: none; font-weight: bold; font-size: 14px; font-family: "Geneva"}
@@ -70,7 +71,7 @@ p {font-family: "Geneva"}
 .secondP {height: 9px; display: inline-block;}
 .inviteAuditButton {height: 23px; width: 130px; margin-bottom: 0px; border: 1px solid; background-color: white; color: #ff8000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold; margin-left: 5px;margin-right: 5px;}
 .deleteScoreButton {height: 23px; width: 130px; border: 1px solid; background-color: white; color: #ff0000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold; margin-left: 5px; margin-right: 5px;}
-.profilePage {padding-top: 15px; padding-bottom: 15px; margin-left: 25%; margin-right: 25%;}
+.profilePage { padding-top: 15px; padding-bottom: 15px; margin-left: 25%; margin-right: 25%;}
 #inviteRadio1 { padding-top: 10px; display: inline-block; width: 120px}
 #inviteRadio2 { display: inline-block}
 .settingsButtionDiv { padding-top: 15px; margin-left: 35%;}
@@ -85,7 +86,7 @@ p {font-family: "Geneva"}
 #singleNetworkContactButton3:hover {background-color: #e6e6e6}
 #NetworkSingleContactDiv {border-bottom-style: double; border-color: #0000ff; padding-top: 15px; padding-bottom: 15px; margin-left: 25%; margin-right: 25%;}
 #chooseSet {border: none; padding-top: 15px; padding-left: 25%;}
-#questionsComponent {border-style: solid; border-width: 2px; margin-top: 20px; padding-top: 15px; margin-left: 20%; margin-right: 20%; padding-left: 15px;}
+#questionsComponent {height: 500px; border-style: solid; border-width: 2px; margin-top: 20px; padding-top: 15px; margin-left: 20%; margin-right: 20%; padding-left: 15px;}
 #questionHeader {margin-left: 10px; margin-top: 5px; display: inline;}
 #selectQuestionSet {font-family: "Arial";font-size: 15px; color: #0052cc; font-weight: bold;}
 #selectQuestionSet:hover {cursor: pointer;}
@@ -99,7 +100,7 @@ p {font-family: "Geneva"}
 .newAnswerPoints {display: inline-block; width: 10%;}
 #submitQsetInviteDiv {margin-top: 10px; }
 #submitQsetButtonSelectionP {display: inline-block; width: 60%;text-align: right; margin-right: 10px; }
-#submitInviteQsetButton {display: inline-block; height: 23px; margin-right: 5px; width: 130px;border: 1px solid; background-color: white; color: #00b300; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
+#submitInviteQsetButton {display: inline-block; height: 23px; margin-right: 5px; width: 130px; border: 1px solid; background-color: white; color: #00b300; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
 .askText {margin-left: 10px; display: inline; width: 50%;}
 .askDiv {}
 #signupForm { margin-left: 25%; padding-top: 20px; }
@@ -110,10 +111,11 @@ p {font-family: "Geneva"}
 #networkContactAudit {padding-top: 15px; padding-bottom: 15px; margin-left: 30%;}
 #manageMyContacts {padding-top: 15px; padding-bottom: 15px; margin-left: 30%;}
 
-#questionsDiv1 { display: inline-block; width: 70%}
+#questionsDiv1 { display: inline-block; width: 70%; }
 #questionsDiv2 { display: inline-block; width: 170px;float: right; margin-right: 15px; }
 #questionsDiv3 { border: 2px solid; border-color: red; padding: 5px; }
 .questionsParagraph {height: 9px;}
+.questionsDescriptionParagraph {display: inline-block; height: 9px;}
 #questionsParagraphScore {height: 9px; border-color: red}
 #nextQuestionForm {}
 #inputQuestionNumberBox {width: 20px;}
