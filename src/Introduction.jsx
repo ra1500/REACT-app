@@ -9,6 +9,7 @@ class Introduction extends React.Component {
     super(props);
     this.showSignIn = this.showSignIn.bind(this);
     this.signUpCreate = this.signUpCreate.bind(this);
+    this.viewSample = this.viewSample.bind(this);
         this.state = {
           error: null,
           isLoaded: false,
@@ -30,6 +31,10 @@ class Introduction extends React.Component {
         this.setState({showSignIn: false, showEmptySignInSpace: false, showIntro: false, showSignUpForm: true,});
     }
 
+    viewSample() {
+
+    }
+
   render() {
 
     return (
@@ -46,18 +51,20 @@ class Introduction extends React.Component {
     <Signup /> }
 
     {this.state.showIntro &&
-    <div id="introduction">
-         <span> Life Scores. Who are you. How do you compare. </span><br></br>
-         <span> Decisions to be made. Ask your network. </span><br></br>
-         <span> Destiny. Find out what it may be. </span><br></br>
-         <span> Sports games. Who will win. Ask your friends. </span><br></br>
-         <span> Science problem. Your colleagues might know the right solution. </span><br></br>  <br></br>
 
-         <span>&nbsp; &nbsp; Score &nbsp;  &nbsp; Choose your answers carefully</span><br></br>
-         <span>&nbsp; &nbsp; &nbsp; Pose &nbsp;  &nbsp; Inquire to understand</span><br></br>
-         <span>Connect &nbsp;  &nbsp; Network with your invited friends</span><br></br>
-         <span>&nbsp; &nbsp; &nbsp; &nbsp; Ego &nbsp;  &nbsp; View your outcomes. Share with your network or the world</span><br></br>
+    <div class="profilePage">
+    <p> Home </p>
+    <p></p>
+    <div class="invitationForm">
+
+
+         <p> Answer quick questions with SCORE to disover how you rate in areas such as your destiny, life value or trivia etc.  </p>
+         <p> Create your own question sets and ask your network in POSE.  </p>
+         <p> Connect with friends and colleagues in NETWORK to see how they scored, and even audit their answers and make comments.  </p>
+         <p> Post your scores to your EGO profile page. Share it with your network or on the internet. </p>
          <br></br>
+         <button id="noAnswerButton" onClick={() => this.viewSample()}>Sample</button>
+    </div>
     </div> }
 
     </React.Fragment>

@@ -14,16 +14,16 @@ code {font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", mono
 p {font-family: "Geneva"}
 .paragraphInline {font-family: "Geneva"; display: inline}
 
-.qbutton { width: 380px; display: block; font-family: "Geneva"; font-size: 14px; padding: 5px 15px; background-color: #e6e6e6; color: black; border: none; margin-bottom: 5px; margin-left: 10px;}
+.qbutton { border-radius: 14px; width: 380px; display: block; font-family: "Geneva"; font-size: 14px; padding: 5px 15px; background-color: #e6e6e6; color: black; border: none; margin-bottom: 7px; margin-left: 10px;}
 .qbutton:hover {background-color: #e6e6e6}
 
-.qsbutton {border: none; font-family: "Geneva"; font-size: 14px; padding: 3px 15px; background-color: #ffff00; color: black; margin: 4px;}
+.qsbutton {border-radius: 14px; border: none; font-family: "Geneva"; font-size: 14px; padding: 3px 15px; background-color: #ffff00; color: black; margin: 4px;}
 .qsbutton:hover {background-color: #ffff00}
 
-#noAnswerButton {color: white; font-family: "Geneva"; font-size: 14px; padding: 0px 5px; background-color: #ff0066; border: none; margin-bottom: 5px; margin-left: 10px;}
+#noAnswerButton {border-radius: 10px; color: white; font-family: "Geneva"; font-size: 14px; padding: 0px 10px; background-color: #ff0066; border: none; margin-bottom: 5px; margin-left: 10px;}
 #noAnswerButton:hover {background-color: #ff1a75}
 
-#submitAnswerButton {font-weight: bold; border: none; font-family: "Geneva"; font-size: 14px; padding: 6px 15px; background-color: #00e600; color: black; margin: 4px;}
+#submitAnswerButton {border-radius: 14px; font-weight: bold; border: none; font-family: "Geneva"; font-size: 14px; padding: 6px 15px; background-color: #00e600; color: black; margin: 4px;}
 #submitAnswerButton:hover {background-color: #00e600}
 
 #question {border-bottom: solid; border-width: 1px; margin-bottom: 10px; padding-bottom: 10px; margin-top: 10px;}
@@ -35,16 +35,14 @@ p {font-family: "Geneva"}
 #tscore {margin-left: 10px; margin-top: 15px;}
 .titleButton {height: 23px; margin-right: 5px; width: 150px;border: 1px solid; background-color: white; color: #00b300; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
 .titleButton:hover {}
-.removedContactButton {margin-right: 5px; width: 80px;border: 1px solid; background-color: white; color: #ff8000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
-.removedContactButton:hover {background-color: #ffff00}
 #titleBar {border-bottom: 0px solid black; padding-bottom: 15px; padding-top: 15px; background-color: #f2f2f2}
 #NJ {margin-left: 15px; margin-top: 5px; margin-right: 0px; font-family: "Arial";font-size: 20px; color: #0000ff; font-weight: bold; display: inline;text-decoration: none;}
-.menuLinks {font-weight: bold; display: inline; margin-left: 20px; text-decoration: none; font-family: "Geneva"}
 
-.menuLinks:link, .menuLinks:visited {color: #000000; text-decoration: none;}
+.menuLinks {font-size: 14px; font-weight: bold; display: inline; margin-left: 20px; text-decoration: none; font-family: "Geneva"}
+.menuLinks:link, .menuLinks:visited {color: #e6005c; text-decoration: none;}
 .menuLinks:hover { text-decoration: none;}
 #LoginStatus {display: inline-block; margin-left: 20px; margin-right: 40px; float: right;}
-#userName {display: inline; color: #e6004c; font-weight: bold;}
+#userName {display: inline; color: #ff8000; font-weight: bold;}
 #easySignUpButton {border: none; background-color: #f2f2f2; color: #e6004c; text-decoration: none; font-weight: bold; font-size: 14px; font-family: "Geneva"}
 #titleLinks {display: inline; margin-left: 20%;}
 #contactsList {padding-top: 15px; padding-bottom: 15px; margin-left: 25%;}
@@ -74,6 +72,11 @@ p {font-family: "Geneva"}
 .profilePage { padding-top: 15px; padding-bottom: 15px; margin-left: 25%; margin-right: 25%;}
 #inviteRadio1 { padding-top: 10px; display: inline-block; width: 120px}
 #inviteRadio2 { display: inline-block}
+#settingsButtionDivWelcome { padding-top: 15px; margin-left: 34%;}
+#settingsButtionDivScores { padding-top: 15px; margin-left: 29%;}
+#settingsButtionDivNetwork { padding-top: 15px; margin-left: 29%;}
+#settingsButtionDivPose { padding-top: 15px; margin-left: 34%;}
+#settingsButtionDivEgo { padding-top: 15px; margin-left: 34%;}
 .settingsButtionDiv { padding-top: 15px; margin-left: 35%;}
 .settingsButton { margin-right: 10px; width: 130px; display: inline; background-color: white; border: 1px solid; text-decoration: none; font-size: 14px; font-family: "Geneva";}
 .settingsButton:hover {background-color: #e6e6e6}

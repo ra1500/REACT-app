@@ -5,28 +5,55 @@ import TitleBar from "./TitleBar";
 class Start extends React.Component {
   constructor(props) {
     super(props);
-    //this.handleChange = this.handleChange.bind(this);
-    //this.handleSubmit = this.handleSubmit.bind(this);
+    this.showAlerts = this.showAlerts.bind(this);
+    this.showFeatures = this.showFeatures.bind(this);
         this.state = {
           error: null,
           isLoaded: false,
+          showAlerts: true,
+          showFeatures: false,
         };
   }
 
     componentDidMount() {
     }
 
+    showAlerts() {
+        this.setState({showAlerts: true, showFeatures: false,});
+    }
+    showFeatures() {
+        this.setState({showAlerts: false, showFeatures: true,});
+    }
+
   render() {
     return (
     <React.Fragment>
       <TitleBar />
+
+          <div id="settingsButtionDivWelcome">
+            <button class="settingsButton" onClick={this.showAlerts}> Alerts  </button>
+            <button class="settingsButton" onClick={this.showFeatures}> NJ's Features </button>
+          </div>
+
+
+       { this.state.showAlerts &&
       <div class="profilePage">
-        <p> Let's begin </p>
+        <p> Welcome. Let's begin </p>
         <p></p>
         <div class="invitationForm">
-            <p> Let's begin </p>
+            <p> Alerts </p>
         </div>
+        </div> }
+
+       { this.state.showFeatures &&
+      <div class="profilePage">
+        <p> NeuralJuice Features Guide </p>
+        <p></p>
+        <div class="invitationForm">
+            <p> Feature explanation </p>
         </div>
+        </div> }
+
     </React.Fragment>
     );
   }

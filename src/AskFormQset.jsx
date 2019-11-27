@@ -351,7 +351,7 @@ class AskFormQset extends React.Component {
     return (
     <React.Fragment>
 
-      <div class="settingsButtionDiv">
+      <div id="settingsButtionDivPose">
         <button class="settingsButton" onClick={this.startAnewQset}> Create </button>
         <button class="settingsButton" onClick={this.manageSets}> Manage </button>
       </div>

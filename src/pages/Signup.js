@@ -35,13 +35,19 @@ function Signup(props) {
 
   return (
     <React.Fragment>
-      <div id="signupForm">
-      <Form>
-        <input class="loginInput" type="username" value={userName} onChange={e => {setUserName(e.target.value);}}placeholder="username" />
-        <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}}placeholder="password" />
-        <button class="titleButton" onClick={postSignup}>Sign Up</button>
-      </Form>
+
+      <div class="profilePage">
+        <p> Sign up </p>
+        <p></p>
+        <div class="invitationForm">
+          <Form>
+            <input class="loginInput" type="username" value={userName} onChange={e => {setUserName(e.target.value);}}placeholder="username" />
+            <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}}placeholder="password" />
+            <button class="titleButton" onClick={postSignup}>Sign Up</button>
+          </Form>
+        </div>
       </div>
+      
     </React.Fragment>
   );
 }

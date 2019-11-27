@@ -142,15 +142,15 @@ class ManageMyContacts extends React.Component {
                 </div>
             </form>
             <p></p>
-                { this.state.showUpdatedMessage &&
-                <p id="userName"> {this.state.updatedMessage} </p> }
-                { this.state.showUpdateButton &&
-                <button type="submit" onClick={this.handleSubmit1} className="inviteAuditButton"> Update </button> }
-
                 { this.state.showDeletedMessage &&
                 <p id="userName"> {this.state.deletedMessage} </p> }
                 { this.state.showRemoveButton &&
                 <button type="submit" onClick={this.handleSubmit2} className="deleteScoreButton"> Remove </button> }
+
+                { this.state.showUpdatedMessage &&
+                <p id="userName"> {this.state.updatedMessage} </p> }
+                { this.state.showUpdateButton &&
+                <button type="submit" onClick={this.handleSubmit1} className="inviteAuditButton"> Update </button> }
             </div>
       </div> }
 
