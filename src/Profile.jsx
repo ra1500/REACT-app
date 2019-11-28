@@ -146,7 +146,7 @@ class Profile extends React.Component {
               { this.state.showSettingsButton &&
               <div id="settingsButtionDivEgo">
                 <button class="settingsButton" onClick={this.goToPrivateProfile}> My Good Stuff </button>
-                <button class="settingsButton" onClick={this.goToUserSettings}> Settings </button>
+                <button class="settingsButton" onClick={this.goToUserSettings}> My Settings </button>
               </div> }
 
               { this.state.showSettingsSection &&

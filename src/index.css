@@ -33,12 +33,13 @@ p {font-family: "Geneva"}
 .qtext {margin-left: 10px; margin-top: 15px;}
 #qtext2 {margin-left: 10px; margin-bottom: 1px;}
 #tscore {margin-left: 10px; margin-top: 15px;}
+
 .titleButton {height: 23px; margin-right: 5px; width: 150px;border: 1px solid; background-color: white; color: #00b300; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
 .titleButton:hover {}
 #titleBar {border-bottom: 0px solid black; padding-bottom: 15px; padding-top: 15px; background-color: #f2f2f2}
 #NJ {margin-left: 15px; margin-top: 5px; margin-right: 0px; font-family: "Arial";font-size: 20px; color: #0000ff; font-weight: bold; display: inline;text-decoration: none;}
 
-.menuLinks {font-size: 14px; font-weight: bold; display: inline; margin-left: 20px; text-decoration: none; font-family: "Geneva"}
+.menuLinks {font-size: 14px; font-weight: bold; display: inline; margin-left: 30px; text-decoration: none; font-family: "Arial"}
 .menuLinks:link, .menuLinks:visited {color: #e6005c; text-decoration: none;}
 .menuLinks:hover { text-decoration: none;}
 #LoginStatus {display: inline-block; margin-left: 20px; margin-right: 40px; float: right;}
@@ -52,7 +53,6 @@ p {font-family: "Geneva"}
 #loginBox {float: right; padding-top: 5px; margin-right: 20px;}
 .urltext {margin-left: 10px; margin-top: 0px; display: inline;}
 #getfriends {font-family: "Geneva"; font-size: 14px; padding: 10px 24px; background-color: #e7e7e7; color: black; margin: 4px;}
-
 #publicProfileURLhref {font-family: "Geneva"; color: #0000ff}
 #scoreurl { border-style: solid; border-width: 1px; margin-top: 5px; margin-bottom: 5px; padding: 5px;}
 #linkToNetwork {display: inline; margin-left: 10px;}
@@ -67,8 +67,9 @@ p {font-family: "Geneva"}
 #auditContacts {border-style: solid; border-width: 1px;}
 .firstP {height: 9px; display: inline-block; width: 140px;}
 .secondP {height: 9px; display: inline-block;}
-.inviteAuditButton {height: 23px; width: 130px; margin-bottom: 0px; border: 1px solid; background-color: white; color: #ff8000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold; margin-left: 5px;margin-right: 5px;}
-.deleteScoreButton {height: 23px; width: 130px; border: 1px solid; background-color: white; color: #ff0000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold; margin-left: 5px; margin-right: 5px;}
+
+.inviteAuditButton {height: 23px; width: 150px; margin-bottom: 0px; border: 1px solid; background-color: white; color: #ff8000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold; margin-left: 5px;margin-right: 5px;}
+.deleteScoreButton {height: 23px; width: 150px; border: 1px solid; background-color: white; color: #ff0000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold; margin-left: 5px; margin-right: 5px;}
 .profilePage { padding-top: 15px; padding-bottom: 15px; margin-left: 25%; margin-right: 25%;}
 #inviteRadio1 { padding-top: 10px; display: inline-block; width: 120px}
 #inviteRadio2 { display: inline-block}
@@ -114,7 +115,7 @@ p {font-family: "Geneva"}
 #networkContactAudit {padding-top: 15px; padding-bottom: 15px; margin-left: 30%;}
 #manageMyContacts {padding-top: 15px; padding-bottom: 15px; margin-left: 30%;}
 
-#questionsDiv1 { display: inline-block; width: 70%; }
+#questionsDiv1 { display: inline-block; width: 70%; border-bottom-style: double }
 #questionsDiv2 { display: inline-block; width: 170px;float: right; margin-right: 15px; }
 #questionsDiv3 { border: 2px solid; border-color: red; padding: 5px; }
 .questionsParagraph {height: 9px;}
@@ -125,4 +126,6 @@ p {font-family: "Geneva"}
 #deletedAnswersMessage {display: inline; margin-left: 10px; color: red}
 #goToQuestionform {display: inline; margin-left: 10px;}
 #questionsGoToInput { width: 150px; }
+.scoresListTD { display: block;  }
 
+tr:nth-child(even) { background-color: #e6f2ff; }

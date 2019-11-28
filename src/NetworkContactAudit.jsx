@@ -33,10 +33,7 @@ class NetworkContactAudit extends React.Component {
          if (response.status === 200) {
          this.setState({
            isLoaded: true,
-           title: response.data.questionSetVersionEntity.title,
-           description: response.data.questionSetVersionEntity.title,
-           questionSetVersionEntityId: response.data.questionSetVersionEntity.id,
-           friend: response.data.auditee,
+           list: response.data,
            auditInvitesExist: true,
          });
          } // end if
@@ -45,15 +42,39 @@ class NetworkContactAudit extends React.Component {
               });
     }
 
+   renderTableData() {
+      return this.state.list.map((data, index) => {
+         return (
+            <tr key={data.index}>
+                <td> <button className="inviteAuditButton" value={data.questionSetVersionEntity.id} onClick={e => this.props.auditMe(e)}> {data.questionSetVersionEntity.title} </button> </td>
+                <td> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
+            </tr>
+         )
+      })
+   }
+
+   renderTableHeader() {
+      let header = ["Title", "Description",]
+      return header.map((key, index) => {
+         return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
+      })
+   }
+
+
+
   render() {
     return (
     <React.Fragment>
 
         { this.state.auditInvitesExist &&
-        <div id="networkContactAudit">
-        <button className="qsbutton" value={this.state.questionSetVersionEntityId} onClick={e => this.props.auditMe(e)}> {this.state.title} </button>
-        <p> {this.state.description} </p>
-        </div> }
+         <div>
+            <table>
+               <tbody>
+               <tr>{this.renderTableHeader()}</tr>
+                {this.renderTableData()}
+               </tbody>
+            </table>
+         </div> }
 
 
     </React.Fragment>

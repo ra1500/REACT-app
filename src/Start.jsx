@@ -51,6 +51,7 @@ class Start extends React.Component {
         <p></p>
         <div class="invitationForm">
             <p> Feature explanation </p>
+            <p> Public Profile Internet Page: only NJ sets will appear on public page. </p>
         </div>
         </div> }
 

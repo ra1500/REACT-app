@@ -20,8 +20,6 @@ class QuestionSetSelector extends React.Component {
           title: null,
           version: null,
           renderQuestions: false,
-          typeNumber: 9, // indicating permission index
-          auditee: null,
           scorePostedMessage: null,
           showList: false,
           showListNetwork: false,
@@ -29,8 +27,6 @@ class QuestionSetSelector extends React.Component {
     };
 
   componentDidMount() {
-        const auditeeName = (JSON.parse(sessionStorage.getItem('tokens'))).userName;
-        this.setState({auditee: auditeeName}); // TODO
         this.getNJQsets();
   }
 
@@ -163,7 +159,7 @@ class QuestionSetSelector extends React.Component {
         this.getMyQsets();
     }
 
-  // since this is called from child, MUST bind it above
+  // called from child, 'Questions'
   addToProfile() {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
@@ -171,7 +167,7 @@ class QuestionSetSelector extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { auditee: this.state.auditee, typeNumber: this.state.typeNumber};
+        let data = { auditee: u, };  // sending over auditee since this method also in 'AuditQuestions' where it is set to friend.
         axios.post("http://localhost:8080/prm/sc/d?qsId=" + this.state.questionSetVersion,
         data,
         {headers : { 'Authorization' : Basic }})
@@ -257,7 +253,7 @@ class QuestionSetSelector extends React.Component {
         <div id="questionsComponent">
         <Questions questionSetVersion={this.state.questionSetVersion} questionSetSize={this.state.questionSetSize} questionToGoTo={this.state.questionToGoTo}
         maxPoints={this.state.maxPoints} title={this.state.title} description={this.state.description}
-        addToProfile={this.addToProfile} auditee={this.state.auditee} scorePostedMessage={this.state.scorePostedMessage}/>
+        addToProfile={this.addToProfile} scorePostedMessage={this.state.scorePostedMessage}/>
         </div> }
 
         </React.Fragment>

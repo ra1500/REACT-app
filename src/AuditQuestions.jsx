@@ -236,15 +236,14 @@ class AuditQuestions extends React.Component {
     }
 
   sendAuditToAuditee() {
-        console.log(" hellooooo");
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
         const p = name.password;
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { auditee: this.state.friend, typeNumber: "16", score: this.state.userScore, type: "Audit Score", };
-        axios.post("http://localhost:8080/prm/sc/d?qsId=" + this.state.questionSetVersionEntityId,
+        let data = { auditee: this.state.friend, score: this.state.userScore, };
+        axios.post("http://localhost:8080/prm/sc/q?qsId=" + this.state.questionSetVersionEntityId,
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {

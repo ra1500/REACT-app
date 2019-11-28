@@ -44,10 +44,12 @@ function Signup(props) {
             <input class="loginInput" type="username" value={userName} onChange={e => {setUserName(e.target.value);}}placeholder="username" />
             <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}}placeholder="password" />
             <button class="titleButton" onClick={postSignup}>Sign Up</button>
+            <p></p><br></br>
+            <p>We don't use cookies. We also don't use local storage.</p>
           </Form>
         </div>
       </div>
-      
+
     </React.Fragment>
   );
 }

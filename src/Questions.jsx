@@ -128,7 +128,7 @@ class Questions extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { answer: this.state.selection,answerPoints: this.state.answerPoints, auditee: this.props.auditee };
+        let data = { answer: this.state.selection,answerPoints: this.state.answerPoints, auditee: u };
         axios.post("http://localhost:8080/a/r/" + this.state.questionsEntityId,
         data,
         {headers : { 'Authorization' : Basic }})
@@ -211,7 +211,7 @@ class Questions extends React.Component {
     const token = u + ':' + p;
     const hash = btoa(token);
     const Basic = 'Basic ' + hash;
-    const data = {auditee: this.props.auditee};
+    const data = {auditee: u};
     axios.post("http://localhost:8080/a/del/" + this.props.questionSetVersion,
     data,
     {headers : { 'Authorization' : Basic }})
