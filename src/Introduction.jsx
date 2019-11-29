@@ -2,6 +2,7 @@ import React from "react";
 import axios from 'axios';
 import Login from './pages/Login';
 import TitleBar from './TitleBar';
+import SampleQuestions from './SampleQuestions';
 import Signup from './pages/Signup';
 
 class Introduction extends React.Component {
@@ -13,10 +14,10 @@ class Introduction extends React.Component {
         this.state = {
           error: null,
           isLoaded: false,
-          showEmptySignInSpace: true,
           showSignIn: false,
           showIntro: true,
           showSignUpForm: false,
+          showSample: false,
         };
   }
 
@@ -24,15 +25,20 @@ class Introduction extends React.Component {
     }
 
     showSignIn() {
-        this.setState({showSignIn: true, showEmptySignInSpace: false, showSignUpForm: false, showIntro: true,});
+        this.setState({showSignIn: true, showSignUpForm: false, showIntro: false, showSample: false});
     }
 
     signUpCreate() {
-        this.setState({showSignIn: false, showEmptySignInSpace: false, showIntro: false, showSignUpForm: true,});
+        this.setState({showSignIn: false, showIntro: false, showSignUpForm: true, showSample: false});
     }
 
     viewSample() {
-
+        if (!this.state.showSample) {
+            this.setState({showSignIn: false, showIntro: true, showSignUpForm: false, showSample: true});
+        }
+        else {
+            this.setState({showSignIn: false, showIntro: true, showSignUpForm: false, showSample: false});
+        }
     }
 
   render() {
@@ -44,29 +50,30 @@ class Introduction extends React.Component {
 
     {this.state.showSignIn &&
     <Login /> }
-    {this.state.showEmptySignInSpace &&
-    <div id="emptySignInSpace"></div> }
 
     {this.state.showSignUpForm &&
     <Signup /> }
 
     {this.state.showIntro &&
-
     <div class="profilePage">
     <p> Home </p>
     <p></p>
     <div class="invitationForm">
-
-
-         <p> Answer quick questions with SCORE to disover how you rate in areas such as your destiny, life value or trivia etc.  </p>
-         <p> Create your own question sets and ask your network in POSE.  </p>
-         <p> Connect with friends and colleagues in NETWORK to see how they scored, and even audit their answers and make comments.  </p>
-         <p> Post your scores to your EGO profile page. Share it with your network or on the internet. </p>
+         <p> Answer trivia, life quizzes, evaluations and more in ANSWER.  </p>
+         <p> Create your own question sets with ASK and invite your network to answer.  </p>
+         <p> Connect with friends and colleagues in NETWORK. Audit their results and tell them your opinion. </p>
+         <p> Post your own results to your ME page. Share with your network or the internet with a profile page. </p>
          <br></br>
          <button id="noAnswerButton" onClick={() => this.viewSample()}>Sample</button>
     </div>
     </div> }
 
+    {this.state.showSample &&
+    <div id="questionsComponent">
+        <SampleQuestions />
+    </div> }
+
+    <div id="introPadding"></div>
     </React.Fragment>
     );
   }

@@ -32,7 +32,7 @@ class Start extends React.Component {
 
           <div id="settingsButtionDivWelcome">
             <button class="settingsButton" onClick={this.showAlerts}> Alerts  </button>
-            <button class="settingsButton" onClick={this.showFeatures}> NJ's Features </button>
+            <button class="settingsButton" onClick={this.showFeatures}> About NJ </button>
           </div>
 
 

@@ -37,7 +37,10 @@ function Login(props) {
 // TODO why must this be <Form> instead of <form>?
   return (
     <React.Fragment>
-      <div id="loginBox">
+      <div class="profilePage">
+        <p> Sign in </p>
+        <p></p>
+        <div class="invitationForm">
       <Form>
         <input class="loginInput" type="username" value={userName} onChange={e => {setUserName(e.target.value);}} placeholder="username"/>
         <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}} placeholder="password"/>
@@ -46,6 +49,8 @@ function Login(props) {
         { isError &&
         <p>The username or password provided were incorrect</p> }
         </div>
+      </div>
+
     </React.Fragment>
   );
 }

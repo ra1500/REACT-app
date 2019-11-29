@@ -13,10 +13,10 @@ class TitleBar extends React.Component {
         <a id="NJ" href="/"> NeuralJuice </a>
         <div id="titleLinks">
         <a className="menuLinks" href="/welcome"> WELCOME </a>
-        <a className="menuLinks" href="/score"> SCORE </a>
-        <a className="menuLinks" href="/askanswer"> POSE </a>
+        <a className="menuLinks" href="/score"> ANSWER </a>
+        <a className="menuLinks" href="/askanswer"> ASK </a>
         <a className="menuLinks" href="/network"> NETWORK </a>
-        <a className="menuLinks" href="/profile"> EGO </a>
+        <a className="menuLinks" href="/profile"> ME </a>
         </div>
 
         <div id="LoginStatus">

@@ -279,7 +279,7 @@ class Questions extends React.Component {
             <AnswerSelection answer={answer4} onClick={() => this.setState({selection: this.state.answer4, answerPoints: answer4Points})}> {answer4} </AnswerSelection>
             <AnswerSelection answer={answer5} onClick={() => this.setState({selection: this.state.answer5, answerPoints: answer5Points})}> {answer5} </AnswerSelection>
             <button id="noAnswerButton" onClick={() => this.noAnswer()}>No Answer</button>
-            <p id="qtext2"> Answer: {selection} </p>
+            <p id="qtext2"> Your Answer: {selection} </p>
             <p className="qtext"> Points: {answerPoints} </p>
 
             <p id="deletedAnswersMessage">{this.state.allDeletedMessage}</p>
