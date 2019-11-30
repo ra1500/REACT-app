@@ -75,7 +75,21 @@ class QuestionSetSelector extends React.Component {
             description: response.data.description,
             title: response.data.title,
             version: response.data.version,
+            showScoring: response.data.showScoring,
+            result1: response.data.result1,
+            result2: response.data.result2,
+            result3: response.data.result3,
+            result4: response.data.result4,
+            result1start: response.data.result1start,
+            result2start: response.data.result2start,
+            result3start: response.data.result3start,
           });
+          if (response.data.scoringStyle === 1) {
+            this.setState({showScoring: false});
+          }
+          else {
+            this.setState({showScoring: true});
+          }
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -252,8 +266,10 @@ class QuestionSetSelector extends React.Component {
         { this.state.renderQuestions &&
         <div id="questionsComponent">
         <Questions questionSetVersion={this.state.questionSetVersion} questionSetSize={this.state.questionSetSize} questionToGoTo={this.state.questionToGoTo}
-        maxPoints={this.state.maxPoints} title={this.state.title} description={this.state.description}
-        addToProfile={this.addToProfile} scorePostedMessage={this.state.scorePostedMessage}/>
+        maxPoints={this.state.maxPoints} title={this.state.title} description={this.state.description} showScoring={this.state.showScoring}
+        addToProfile={this.addToProfile} scorePostedMessage={this.state.scorePostedMessage} result1={this.state.result1}
+         result2={this.state.result2} result3={this.state.result3} result4={this.state.result4} result1start={this.state.result1start}
+         result2start={this.state.result2start} result3start={this.state.result3start} />
         </div> }
 
         </React.Fragment>

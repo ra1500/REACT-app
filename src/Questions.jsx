@@ -35,6 +35,7 @@ class Questions extends React.Component {
       jumpQuestion: null, // used for separate get for jumpTo
       questionsEntityId: null, // used to GET an answer.
       allDeletedMessage: null,
+      //showScoring: false,
     };
   }
 
@@ -78,7 +79,7 @@ class Questions extends React.Component {
                });
 
     } else {
-          //this.setState({answer1: null, selection: null}); //TODO: make all state variables null
+          //
             };
     }
 
@@ -236,10 +237,13 @@ class Questions extends React.Component {
     this.setState({selection: "no answer", answerPoints: 0});
   }
 
+    scoringCompletedMessage() {
+        return "math result and badge";
+    }
 
 
   render() {
-    let { error, isLoaded, question, userScore, selection, answerPoints, answer1, answer2, answer3, answer4, answer5,
+    let { error, isLoaded, question, selection, answerPoints, answer1, answer2, answer3, answer4, answer5,
      answer6, answer1Points, answer2Points, answer3Points, answer4Points, answer5Points, answer6Points} = this.state;
 
     if (error) {
@@ -259,13 +263,27 @@ class Questions extends React.Component {
 
             <div id="questionsDiv2">
                 <div id="questionsDiv3">
-                <p id="questionsParagraphScore">Score: <UserTotalScore userScore={userScore}/>/{this.props.maxPoints} </p>
+                    {!this.props.showScoring &&
+                    <p>Score: (wait for it) </p>}
+                    {this.props.showScoring &&
+                    <p id="questionsParagraphScore">Score: <UserTotalScore userScore={this.state.userScore}/> /{this.props.maxPoints} </p> }
                 </div>
+
+                {this.props.showScoring &&
+                <div>
+                    <p class="questionsDescriptionParagraph"> {this.props.result1} &nbsp; {this.props.result1start} &nbsp; to Max Points</p>
+                    <p class="questionsDescriptionParagraph"> {this.props.result2} &nbsp; {this.props.result2start} &nbsp; to {+this.props.result1start-1}</p>
+                    <p class="questionsDescriptionParagraph"> {this.props.result3} &nbsp; {this.props.result3start} &nbsp; to {+this.props.result2start-1}</p>
+                    <p class="questionsDescriptionParagraph"> {this.props.result4} &nbsp; 0 &nbsp; to {+this.props.result3start-1}</p>
+                </div> }
+
+
                 <button className="qsbutton" onClick={() => this.verifyDelete()}>Delete all</button>
                 <div>
                 <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
                   <input className="qsbutton" type="submit" value="Go to" />
-                  <input id="questionsGoToInput" placeholder="#" type="number" type="text" onChange={this.handleChange} max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
+                  <input id="questionsGoToInput" placeholder="#" type="number" type="text" onChange={this.handleChange}
+                  max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
                 </form>
                 </div>
                 <button className="qsbutton" onClick={this.previous}>  Back </button>
@@ -280,7 +298,7 @@ class Questions extends React.Component {
             <AnswerSelection answer={answer5} onClick={() => this.setState({selection: this.state.answer5, answerPoints: answer5Points})}> {answer5} </AnswerSelection>
             <button id="noAnswerButton" onClick={() => this.noAnswer()}>No Answer</button>
             <p id="qtext2"> Your Answer: {selection} </p>
-            <p className="qtext"> Points: {answerPoints} </p>
+            {this.props.showScoring && <p className="qtext">Points: {this.state.answerPoints}</p> }
 
             <p id="deletedAnswersMessage">{this.state.allDeletedMessage}</p>
 
@@ -290,8 +308,8 @@ class Questions extends React.Component {
        return (
          <React.Fragment>
              <p> {this.props.title}. {this.props.description}</p>
-             <p className="qtext">  SCORING COMPLETED </p>
-             <button id="addToProfileButton" onClick={this.props.addToProfile}>  Post this score to my profile </button>
+             <p className="qtext">  Finished! </p>
+             <button id="noAnswerButton" onClick={this.props.addToProfile}>  Post this score to my profile </button>
             <button className="qsbutton" onClick={() => this.verifyDelete()}>Delete all my answers</button>
             <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
               <input className="qsbutton" type="submit" value="Go to question #" />
@@ -300,7 +318,11 @@ class Questions extends React.Component {
             <button className="qsbutton" onClick={this.previous}>  Previous </button>
             <p id="deletedAnswersMessage">{this.state.allDeletedMessage}</p>
             <p id="deletedAnswersMessage">{this.props.scorePostedMessage}</p>
-             <UserTotalScore userScore={userScore}/>
+             <p id="questionsParagraphScore">Score: <UserTotalScore userScore={this.state.userScore}/> /{this.props.maxPoints} </p>
+
+             <div>
+              {this.scoringCompletedMessage()}
+             </div>
          </React.Fragment>
        );
             }; //end else statement

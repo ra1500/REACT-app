@@ -10,6 +10,14 @@ class AskFormQset extends React.Component {
     this.handleChange2 = this.handleChange2.bind(this);
     this.handleChange3 = this.handleChange3.bind(this);
     this.handleChange4 = this.handleChange4.bind(this);
+    this.handleChange5 = this.handleChange5.bind(this);
+    this.handleChange6 = this.handleChange6.bind(this);
+    this.handleChange7 = this.handleChange7.bind(this);
+    this.handleChange8 = this.handleChange8.bind(this);
+    this.handleChange9 = this.handleChange9.bind(this);
+    this.handleChange10 = this.handleChange10.bind(this);
+    this.handleChange11 = this.handleChange11.bind(this);
+    this.handleChange12 = this.handleChange12.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
     this.toggleEditInputBoxes = this.toggleEditInputBoxes.bind(this);
     this.finishedEntry = this.finishedEntry.bind(this);
@@ -60,6 +68,15 @@ class AskFormQset extends React.Component {
           answer6Points: null,
           inviteSelectionMessage: null,
           ivitationSelection: null,
+          scoringStyle: 1,
+          showCheckMathMessage: false,
+          result1: null,
+          result2: null,
+          result3: null,
+          result4: null,
+          result1start: 0,
+          result2start: 0,
+          result3start: 0,
         };
   }
 
@@ -75,12 +92,44 @@ class AskFormQset extends React.Component {
     handleChange4(event) {
       this.setState({invitee: event.target.value});
     }
+    handleChange5(event) {
+      this.setState({scoringStyle: event.target.value});
+    }
+
+    handleChange6(event) {
+      this.setState({result1: event.target.value});
+    }
+    handleChange7(event) {
+      this.setState({result2: event.target.value});
+    }
+    handleChange8(event) {
+      this.setState({result3: event.target.value});
+    }
+    handleChange9(event) {
+      this.setState({result4: event.target.value});
+    }
+    handleChange10(event) {
+      this.setState({result1start: event.target.value});
+    }
+    handleChange11(event) {
+      this.setState({result2start: event.target.value});
+    }
+    handleChange12(event) {
+      this.setState({result3start: event.target.value});
+    }
+
 
   handleSubmit1(event) {
     event.preventDefault();
+    this.setState({showCheckMathMessage: false,});
+    if (this.state.result1start >= this.state.result2start && this.state.result2start >= this.state.result3start ) {
     this.postNewQset();
     this.setState({showInputBoxes: false, showQsetDetails: true, showAskFormQuestion: true});
     }
+    else {
+        this.setState({showCheckMathMessage: true,});
+    }
+  }
 
   manageSequenceNumber() {
     this.state = {sequenceNumber: ++this.state.sequenceNumber};
@@ -106,7 +155,9 @@ class AskFormQset extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { title: this.state.title, category: this.state.category, description: this.state.description, };
+        let data = { title: this.state.title, category: this.state.category, description: this.state.description,
+         scoringStyle: this.state.scoringStyle, result1: this.state.result1, result2: this.state.result2, result3: this.state.result3, result4: this.state.result4,
+          result1start: this.state.result1start, result2start: this.state.result2start, result3start: this.state.result3start,};
         axios.post("http://localhost:8080/qs/p?qsid=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
@@ -283,6 +334,13 @@ class AskFormQset extends React.Component {
             title: response.data.questionSetVersionEntity.title,
             category: response.data.questionSetVersionEntity.category,
             description: response.data.questionSetVersionEntity.description,
+            result1: response.data.questionSetVersionEntity.result1,
+            result2: response.data.questionSetVersionEntity.result2,
+            result3: response.data.questionSetVersionEntity.result3,
+            result4: response.data.questionSetVersionEntity.result4,
+            result1start: response.data.questionSetVersionEntity.result1start,
+            result2start: response.data.questionSetVersionEntity.result2start,
+            result3start: response.data.questionSetVersionEntity.result3start,
             answer1: response.data.answer1,
             answer2: response.data.answer2,
             answer3: response.data.answer3,
@@ -377,9 +435,40 @@ class AskFormQset extends React.Component {
       <form onSubmit={this.handleSubmit1}>
           <div class="askDiv"><span class="askText">Title &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span> <input id="askForm1" type="text" maxlength="20" value={this.state.title} onChange={this.handleChange1} /> </div>
           <div class="askDiv"><span class="askText">Description &nbsp;</span> <input id="askForm2" type="text" maxlength="70" value={this.state.description} onChange={this.handleChange3} /></div>
+          <div>
+                  <div>
+                    <label><input value="1" onChange={this.handleChange5} type="radio" name="optradio" /> Score at Completion (default) </label>
+                  </div>
+                  <div>
+                    <label><input value="2" onChange={this.handleChange5} type="radio" name="optradio" /> Continuous Scoring </label>
+                  </div>
+          </div>
           <br></br>
+          <div><p>Optional: Scoring levels (you can have 0, 1, 2, 3 or 4 levels)</p></div>
+          <div>
+          <input id="questionsGoToInput" value={this.state.result1} placeholder="Best/Top level description" type="text" onChange={this.handleChange6} Length="20" autoComplete="off" />
+          <input id="questionsGoToInput" value={this.state.result1start} placeholder="1st level score start" type="number" type="text" onChange={this.handleChange10} max="1000" maxLength="4" step="1" autoComplete="off" />
+          <p class="questionsDescriptionParagraph"> &nbsp; to Maximum Points </p>
+          </div>
+          <div>
+          <input id="questionsGoToInput" value={this.state.result2} placeholder="2nd level description" type="text" onChange={this.handleChange7} Length="20" autoComplete="off" />
+          <input id="questionsGoToInput" value={this.state.result2start} placeholder="2nd level start" type="number" type="text" onChange={this.handleChange11} max="999" maxLength="3" step="1" autoComplete="off" />
+          <p class="questionsDescriptionParagraph"> &nbsp; to {+this.state.result1start-1} points </p>
+          </div>
+          <div>
+          <input id="questionsGoToInput" value={this.state.result3} placeholder="3rd level description" type="text" onChange={this.handleChange8} Length="20" autoComplete="off" />
+          <input id="questionsGoToInput" value={this.state.result3start} placeholder="3rd level start" type="number" type="text" onChange={this.handleChange12} max="999" maxLength="3" step="1" autoComplete="off" />
+          <p class="questionsDescriptionParagraph"> &nbsp; to {+this.state.result2start-1} points </p>
+          </div>
+          <div>
+          <input id="questionsGoToInput" value={this.state.result4} placeholder="4th level description" type="text" onChange={this.handleChange9} Length="20" autoComplete="off" />
+          <p class="questionsDescriptionParagraph"> 0 &nbsp;</p>
+          <p class="questionsDescriptionParagraph"> &nbsp; to {+this.state.result3start-1} points </p>
+          </div>
           <button className="titleButton" type="submit" > Save </button><span> Next, Add/Edit questions. </span>
       </form>
+        { this.state.showCheckMathMessage &&
+        <p> Please check your input levels math. </p> }
         </div>
       </div> }
 
