@@ -66,6 +66,12 @@ class Introduction extends React.Component {
          <br></br>
          <button id="noAnswerButton" onClick={() => this.viewSample()}>Sample</button>
     </div>
+
+
+
+
+
+
     </div> }
 
     {this.state.showSample &&

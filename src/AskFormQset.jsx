@@ -53,6 +53,7 @@ class AskFormQset extends React.Component {
           invitee: null,
           maxQtyQuestions: 0,
           maxPointsTotal: 0,
+          maximumPointsBefore: null, // sent to AskFormQuestion to calculate maxPoints during 'manage'
           showManage: false,
           question: null, // used during 'AskManage'
           answer1: null, // used during 'AskManage'
@@ -173,11 +174,12 @@ class AskFormQset extends React.Component {
    }
 
     startAnewQset() {
-        this.setState({ questionSetVersion: 0, question: null, sequenceNumber: 1, answer1: null, answer2: null,
+        this.setState({ maxQtyQuestions: 0, maxPointsTotal: 0, maximumPointsBefore: 0, questionSetVersion: 0, question: null, sequenceNumber: 1, answer1: null, answer2: null,
          answer3: null, answer4: null, answer5: null, answer6: null, answer1Points: null, answer2Points: null,
           answer3Points: null, answer4Points: null, answer5Points: null, answer6Points: null, title: "", description: "", result1: "",
           result2: "", result3: "", result4: "", result1start: "", result2start: "", result3start: "",
           scoringStyle: 1, displayAnswers: 1,});
+
           this.setState({ showIntro: false, showInputBoxes: true, showQsetDetails: false, showFinished: false,
                           showAllDeleted: false, showAskFormQuestion: false, showManage: false,});
     }
@@ -343,6 +345,8 @@ class AskFormQset extends React.Component {
             description: response.data.questionSetVersionEntity.description,
             //scoringStyle: response.data.questionSetVersion.scoringStyle, // not allowed. has a listener
             //displayAnswers: response.data.questionSetVersion.displayAnswers, // not allowed. has a listener
+            maximumPointsBefore: response.data.maxPoints, // send to child AskFormQuestion so that maxPoints calculation correct.
+            sequenceNumber: response.data.sequenceNumber,
             result1: response.data.questionSetVersionEntity.result1,
             result2: response.data.questionSetVersionEntity.result2,
             result3: response.data.questionSetVersionEntity.result3,
@@ -553,7 +557,9 @@ class AskFormQset extends React.Component {
       { this.state.showAskFormQuestion &&
       <AskFormQuestion sequenceNumber={this.state.sequenceNumber} questionSetVersion={this.state.questionSetVersion} manageSequenceNumber={this.manageSequenceNumber} previousSequenceNumber={this.previousSequenceNumber} jumpToSequenceNumber={this.jumpToSequenceNumber} finalMax={this.finalMax} question={this.state.question}
       answer1={this.state.answer1} answer2={this.state.answer2} answer3={this.state.answer3} answer4={this.state.answer4} answer5={this.state.answer5} answer6={this.state.answer6}
-       answer1Points={this.state.answer1Points} answer2Points={this.state.answer2Points} answer3Points={this.state.answer3Points} answer4Points={this.state.answer4Points} answer5Points={this.state.answer5Points} answer6Points={this.state.answer6Points} />
+       answer1Points={this.state.answer1Points} answer2Points={this.state.answer2Points} answer3Points={this.state.answer3Points} answer4Points={this.state.answer4Points} answer5Points={this.state.answer5Points} answer6Points={this.state.answer6Points}
+        maxPointsTotal={this.state.maxPointsTotal} maximumPointsBefore={this.state.maximumPointsBefore} maxQtyQuestions={this.state.maxQtyQuestions}
+        previousSequenceNumber={this.previousSequenceNumber}/>
       }
 
       { this.state.showManage &&

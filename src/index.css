@@ -14,8 +14,10 @@ code {font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", mono
 p {font-family: "Geneva"}
 .paragraphInline {font-family: "Geneva"; display: inline}
 
-.qbutton { text-align: left ; border-radius: 14px; width: 380px; display: block; font-family: "Geneva"; font-size: 14px; padding: 5px 15px; background-color: #e6e6e6; color: black; border: none; margin-bottom: 12px; margin-left: 10px;}
-.qbutton:hover {background-color: #e6e6e6}
+.qbutton { text-align: left ; border-radius: 14px; width: 380px; display: block; font-family: "Geneva"; font-size: 14px; padding: 5px 15px; background-color: #e6e6e6; color: black; border: solid 1px white; margin-bottom: 12px; margin-left: 10px;}
+.qbutton:active {border: solid 1px #0000ff; }
+.qbutton:focus { border: solid 2px #0000ff; outline: none }
+
 
 .qsbutton { border-radius: 14px; border: none; font-family: "Geneva"; font-size: 14px; padding: 3px 15px; background-color: #ffff00; color: black; margin: 4px;}
 .qsbutton:hover {background-color: #ffff00}

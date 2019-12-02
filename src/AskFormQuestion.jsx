@@ -21,13 +21,14 @@ class AskFormQuestion extends React.Component {
     this.handleSubmit1 = this.handleSubmit1.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.handleSubmit3 = this.handleSubmit3.bind(this);
+    this.deleteQuestion = this.deleteQuestion.bind(this);
         this.state = {
           error: null,
           isLoaded: false,
           questionSetVersion: this.props.questionSetVersion,
           sequenceNumber: this.props.sequenceNumber,
-          maxQtyQuestions: 1,
-          maxPoints: 0,
+          maxQtyQuestions: this.props.maxQtyQuestions,
+          maxPoints: this.props.maxPointsTotal,
           question: this.props.question,
           jumpToQuestionNumber: 1,
           answer1: this.props.answer1,
@@ -42,7 +43,7 @@ class AskFormQuestion extends React.Component {
           answer4Points: this.props.answer4Points,
           answer5Points: this.props.answer5Points,
           answer6Points: this.props.answer6Points,
-          answer1PointsBefore: "", // used to calculate running maxPoints
+          answer1PointsBefore: this.props.maximumPointsBefore, // plugging into answer1PointsBefore so that during 'manage' a set the math works.
           answer2PointsBefore: "",
           answer3PointsBefore: "",
           answer4PointsBefore: "",
@@ -105,14 +106,8 @@ class AskFormQuestion extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-
         let maximumPoints = Math.max(this.state.answer1Points, this.state.answer2Points, this.state.answer3Points, this.state.answer4Points, this.state.answer5Points, this.state.answer6Points);
         let maximumPointsBefore = Math.max(this.state.answer1PointsBefore, this.state.answer2PointsBefore, this.state.answer3PointsBefore, this.state.answer4PointsBefore, this.state.answer5PointsBefore, this.state.answer6PointsBefore, );
-
-        console.log(maximumPoints + " maximumPoints");
-        console.log(maximumPointsBefore + " maximumPointsBefore");
-        console.log(this.state.maxPoints + " this.state.maxPoints");
-
         let data = { maxPoints: maximumPoints, question: this.state.question,
          sequenceNumber: this.props.sequenceNumber, answer1: this.state.answer1, answer1Points: this.state.answer1Points,
          answer2: this.state.answer2, answer2Points: Number(this.state.answer2Points),
@@ -122,7 +117,6 @@ class AskFormQuestion extends React.Component {
          answer6: this.state.answer6, answer6Points: Number(this.state.answer6Points),};
 
         this.setState({maxPoints: +Number(this.state.maxPoints) +Number(maximumPoints) -Number(maximumPointsBefore) })  ;
-        console.log(this.state.maxPoints + " 2nd this.state.maxPoints");
 
         axios.post("http://localhost:8080/q/p?qsid=" + this.props.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
@@ -159,7 +153,7 @@ class AskFormQuestion extends React.Component {
             answer5Points: "",
             answer6Points: "",
           });
-    this.getCurrentQuestion();
+    //this.getCurrentQuestion();
     }
 
   handleSubmit2(event) {
@@ -173,6 +167,30 @@ class AskFormQuestion extends React.Component {
     event.preventDefault();
     this.props.previousSequenceNumber();
     this.getPreviousQuestion();
+    }
+
+    deleteQuestion() {
+        if (window.confirm('Are you sure you want to delete \n this question?')) {
+        let deletedQuestionMaxPoints = Math.max(this.state.answer1Points, this.state.answer2Points, this.state.answer3Points, this.state.answer4Points, this.state.answer5Points, this.state.answer6Points);
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u + ':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        let data = { id: this.state.questionsEntityId, }
+        axios.post("http://localhost:8080/q/del",
+        data,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+        this.setState({isLoaded: true,
+          });
+          this.getPreviousQuestion();
+          this.props.previousSequenceNumber()
+          this.props.finalMax(this.state.maxQtyQuestions-1, this.state.maxPoints-deletedQuestionMaxPoints);
+               }).catch(error => {this.setState({ isLoaded: true, error});
+               });
+        }
     }
 
   getPreviousQuestion() {
@@ -326,7 +344,7 @@ class AskFormQuestion extends React.Component {
           <input type="number" type="text" maxlength="3" class="newAnswerPoints" value={this.state.answer5Points} onChange={this.handleChange10} /></div>
 
           <div id="floatRightSubmitQuestionButton">
-          <button className="titleButton" type="submit">Add</button>
+          <button className="titleButton" type="submit">Next</button>
           </div>
       </form>
 
@@ -338,6 +356,8 @@ class AskFormQuestion extends React.Component {
           <form onSubmit={this.handleSubmit3}>
           <button className="inviteAuditButton" type="submit"> Previous </button>
           </form>
+
+          <button className="deleteScoreButton" onClick={this.deleteQuestion}>Delete Question</button>
 
       </div>
       </div>
