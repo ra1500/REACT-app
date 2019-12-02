@@ -1,6 +1,7 @@
 import React from "react";
 import Questions from "./Questions";
 import axios from 'axios';
+import ShowAnswers from "./ShowAnswers";
 
 class QuestionSetSelector extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class QuestionSetSelector extends React.Component {
     this.renderNJSets = this.renderNJSets.bind(this);
     this.renderNetworkSets = this.renderNetworkSets.bind(this);
     this.renderMySets = this.renderMySets.bind(this);
+    this.seeAnswers = this.seeAnswers.bind(this);
     this.state = {
           questionSetSize: 500,
           questionToGoTo: 1, // initialized at first question sequence of the set.
@@ -23,6 +25,8 @@ class QuestionSetSelector extends React.Component {
           scorePostedMessage: null,
           showList: false,
           showListNetwork: false,
+          showAnswers: false,
+          showAnswersButton: true,
         };
     };
 
@@ -75,7 +79,8 @@ class QuestionSetSelector extends React.Component {
             description: response.data.description,
             title: response.data.title,
             version: response.data.version,
-            showScoring: response.data.showScoring,
+            showScoring: response.data.scoringStyle,
+            displayAnswers: response.data.displayAnswers,
             result1: response.data.result1,
             result2: response.data.result2,
             result3: response.data.result3,
@@ -84,12 +89,10 @@ class QuestionSetSelector extends React.Component {
             result2start: response.data.result2start,
             result3start: response.data.result3start,
           });
-          if (response.data.scoringStyle === 1) {
-            this.setState({showScoring: false});
-          }
-          else {
-            this.setState({showScoring: true});
-          }
+          if      (response.data.scoringStyle === 1) {this.setState({showScoring: true,});}
+          else                                       {this.setState({showScoring: false,});}
+          if      (response.data.displayAnswers === 1) {this.setState({showAnswersButton: true});}
+          else                                         {this.setState({showAnswersButton: false});}
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -171,6 +174,10 @@ class QuestionSetSelector extends React.Component {
     }
     renderMySets() {
         this.getMyQsets();
+    }
+
+    seeAnswers() {
+        this.setState({showAnswers: true,});
     }
 
   // called from child, 'Questions'
@@ -269,8 +276,11 @@ class QuestionSetSelector extends React.Component {
         maxPoints={this.state.maxPoints} title={this.state.title} description={this.state.description} showScoring={this.state.showScoring}
         addToProfile={this.addToProfile} scorePostedMessage={this.state.scorePostedMessage} result1={this.state.result1}
          result2={this.state.result2} result3={this.state.result3} result4={this.state.result4} result1start={this.state.result1start}
-         result2start={this.state.result2start} result3start={this.state.result3start} />
+         result2start={this.state.result2start} result3start={this.state.result3start} seeAnswers={this.seeAnswers} showAnswersButton={this.state.showAnswersButton}/>
         </div> }
+
+         {this.state.showAnswers &&
+         <ShowAnswers questionSetVersionEntityId={this.props.questionSetVersion} questionSetVersionEntityId={this.state.questionSetVersion} /> }
 
         </React.Fragment>
     ); // end return

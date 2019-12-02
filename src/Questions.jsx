@@ -3,7 +3,6 @@ import UserTotalScore from "./UserTotalScore";
 import axios from 'axios';
 import AnswerSelection from "./AnswerSelection";
 
-
 class Questions extends React.Component {
   constructor(props) {
     super(props);
@@ -35,7 +34,7 @@ class Questions extends React.Component {
       jumpQuestion: null, // used for separate get for jumpTo
       questionsEntityId: null, // used to GET an answer.
       allDeletedMessage: null,
-      //showScoring: false,
+      showAnswersButton: this.props.showAnswersButton,
     };
   }
 
@@ -52,7 +51,7 @@ class Questions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/" + this.props.questionSetVersion + "/" + this.state.currentQuestion,
+        axios.get("http://localhost:8080/q/e/" + this.props.questionSetVersion + "/" + this.state.currentQuestion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -91,7 +90,7 @@ class Questions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/" + this.props.questionSetVersion + "/" + this.state.jumpQuestion,
+        axios.get("http://localhost:8080/q/e/" + this.props.questionSetVersion + "/" + this.state.jumpQuestion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -320,9 +319,15 @@ class Questions extends React.Component {
             <p id="deletedAnswersMessage">{this.props.scorePostedMessage}</p>
              <p id="questionsParagraphScore">Score: <UserTotalScore userScore={this.state.userScore}/> /{this.props.maxPoints} </p>
 
+             { this.props.showAnswersButton &&
+             <button id="noAnswerButton" onClick={this.props.seeAnswers}>  See Answers </button> }
+             { !this.props.showAnswersButton &&
+             <p> (answers not available)</p> }
+
              <div>
               {this.scoringCompletedMessage()}
              </div>
+
          </React.Fragment>
        );
             }; //end else statement

@@ -83,7 +83,7 @@ class AuditQuestions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/" + this.state.questionSetVersionEntityId + "/" + this.state.currentQuestion,
+        axios.get("http://localhost:8080/q/e/" + this.state.questionSetVersionEntityId + "/" + this.state.currentQuestion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -121,7 +121,7 @@ class AuditQuestions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/" + this.state.questionSetVersionEntityId + "/" + this.state.jumpQuestion,
+        axios.get("http://localhost:8080/q/e/" + this.state.questionSetVersionEntityId + "/" + this.state.jumpQuestion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({

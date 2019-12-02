@@ -18,6 +18,7 @@ class AskFormQset extends React.Component {
     this.handleChange10 = this.handleChange10.bind(this);
     this.handleChange11 = this.handleChange11.bind(this);
     this.handleChange12 = this.handleChange12.bind(this);
+    this.handleChange13 = this.handleChange13.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
     this.toggleEditInputBoxes = this.toggleEditInputBoxes.bind(this);
     this.finishedEntry = this.finishedEntry.bind(this);
@@ -68,7 +69,8 @@ class AskFormQset extends React.Component {
           answer6Points: null,
           inviteSelectionMessage: null,
           ivitationSelection: null,
-          scoringStyle: 1,
+          scoringStyle: 1, // default value. radio1
+          displayAnswers: 1, // default value. radio2
           showCheckMathMessage: false,
           result1: null,
           result2: null,
@@ -94,6 +96,9 @@ class AskFormQset extends React.Component {
     }
     handleChange5(event) {
       this.setState({scoringStyle: event.target.value});
+    }
+    handleChange13(event) {
+      this.setState({displayAnswers: event.target.value});
     }
 
     handleChange6(event) {
@@ -156,7 +161,7 @@ class AskFormQset extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { title: this.state.title, category: this.state.category, description: this.state.description,
-         scoringStyle: this.state.scoringStyle, result1: this.state.result1, result2: this.state.result2, result3: this.state.result3, result4: this.state.result4,
+         scoringStyle: this.state.scoringStyle, displayAnswers: this.state.displayAnswers,result1: this.state.result1, result2: this.state.result2, result3: this.state.result3, result4: this.state.result4,
           result1start: this.state.result1start, result2start: this.state.result2start, result3start: this.state.result3start,};
         axios.post("http://localhost:8080/qs/p?qsid=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
@@ -170,9 +175,11 @@ class AskFormQset extends React.Component {
     startAnewQset() {
         this.setState({ questionSetVersion: 0, question: null, sequenceNumber: 1, answer1: null, answer2: null,
          answer3: null, answer4: null, answer5: null, answer6: null, answer1Points: null, answer2Points: null,
-          answer3Points: null, answer4Points: null, answer5Points: null, answer6Points: null, showIntro: false,
-           showInputBoxes: true, showQsetDetails: false, showFinished: false,
-         showAllDeleted: false, showAskFormQuestion: false, showManage: false, title: null, description: null, });
+          answer3Points: null, answer4Points: null, answer5Points: null, answer6Points: null, title: "", description: "", result1: "",
+          result2: "", result3: "", result4: "", result1start: "", result2start: "", result3start: "",
+          scoringStyle: 1, displayAnswers: 1,});
+          this.setState({ showIntro: false, showInputBoxes: true, showQsetDetails: false, showFinished: false,
+                          showAllDeleted: false, showAskFormQuestion: false, showManage: false,});
     }
     manageSets() {
         this.setState({showIntro: false, showInputBoxes: false, showQsetDetails: false, showFinished: false,
@@ -334,6 +341,8 @@ class AskFormQset extends React.Component {
             title: response.data.questionSetVersionEntity.title,
             category: response.data.questionSetVersionEntity.category,
             description: response.data.questionSetVersionEntity.description,
+            //scoringStyle: response.data.questionSetVersion.scoringStyle, // not allowed. has a listener
+            //displayAnswers: response.data.questionSetVersion.displayAnswers, // not allowed. has a listener
             result1: response.data.questionSetVersionEntity.result1,
             result2: response.data.questionSetVersionEntity.result2,
             result3: response.data.questionSetVersionEntity.result3,
@@ -382,7 +391,6 @@ class AskFormQset extends React.Component {
             maxQtyQuestions: response.data.maxQtyQuestions,
             maxPointsTotal: response.data.maxPoints,
           });
-          this.renderQuestions(); // ********
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -435,14 +443,23 @@ class AskFormQset extends React.Component {
       <form onSubmit={this.handleSubmit1}>
           <div class="askDiv"><span class="askText">Title &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span> <input id="askForm1" type="text" maxlength="20" value={this.state.title} onChange={this.handleChange1} /> </div>
           <div class="askDiv"><span class="askText">Description &nbsp;</span> <input id="askForm2" type="text" maxlength="70" value={this.state.description} onChange={this.handleChange3} /></div>
-          <div>
+          <form id="inviteRadio2">
                   <div>
                     <label><input value="1" onChange={this.handleChange5} type="radio" name="optradio" /> Score at Completion (default) </label>
                   </div>
                   <div>
                     <label><input value="2" onChange={this.handleChange5} type="radio" name="optradio" /> Continuous Scoring </label>
                   </div>
-          </div>
+          </form>
+          <form id="inviteRadio2">
+                  <div>
+                    <label><input value="1" onChange={this.handleChange13} type="radio" name="optradio" /> Allow display of answers/highest score choice for each question at completion. </label>
+                  </div>
+                  <div>
+                    <label><input value="2" onChange={this.handleChange13} type="radio" name="optradio" /> Do not allow display of answers. </label>
+                  </div>
+          </form>
+
           <br></br>
           <div><p>Optional: Scoring levels (you can have 0, 1, 2, 3 or 4 levels)</p></div>
           <div>

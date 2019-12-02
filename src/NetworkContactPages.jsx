@@ -154,7 +154,7 @@ class NetworkContactPages extends React.Component {
                 {this.state.showQuestionSetAuditing &&
                 <div>
                   <p> Audit </p>
-                  <p> Audit your contacts answers. You can choose and submit different answers and also add comments.
+                  <p> Audit your contact's answers. You can choose and submit different answers and also add comments.
                   Your contact can then review how you scored them and read your coments.
                   (Note that once you have submited your own answer to a question it will be saved and you will not be able to see
                   your contacts original answer again.)</p>

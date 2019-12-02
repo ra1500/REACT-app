@@ -1,6 +1,8 @@
 import React from "react";
 import axios from 'axios';
 import TitleBar from "./TitleBar";
+import AlertsNewContactsList from "./AlertsNewContactsList";
+import AlertsNewAuditInviteList from "./AlertsNewAuditInviteList";
 
 class Start extends React.Component {
   constructor(props) {
@@ -38,10 +40,14 @@ class Start extends React.Component {
 
        { this.state.showAlerts &&
       <div class="profilePage">
-        <p> Welcome. Let's begin </p>
+        <p> Welcome. </p>
         <p></p>
         <div class="invitationForm">
             <p> Alerts </p>
+            <p> New Network Invitations (recent two weeks) </p>
+            <AlertsNewContactsList />
+            <p> New Audit Invitations (recent two weeks) </p>
+            <AlertsNewAuditInviteList />
         </div>
         </div> }
 

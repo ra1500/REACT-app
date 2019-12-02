@@ -183,7 +183,7 @@ class AskFormQuestion extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/" + this.props.questionSetVersion + "/" + (this.props.sequenceNumber-1),
+        axios.get("http://localhost:8080/q/e/" + this.props.questionSetVersion + "/" + (this.props.sequenceNumber-1),
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -221,7 +221,7 @@ class AskFormQuestion extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/" + this.props.questionSetVersion + "/" + (+this.props.sequenceNumber+1),
+        axios.get("http://localhost:8080/q/e/" + this.props.questionSetVersion + "/" + (+this.props.sequenceNumber+1),
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -259,7 +259,7 @@ class AskFormQuestion extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/" + this.props.questionSetVersion + "/" + (this.state.jumpToQuestionNumber),
+        axios.get("http://localhost:8080/q/e/" + this.props.questionSetVersion + "/" + (this.state.jumpToQuestionNumber),
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
