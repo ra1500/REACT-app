@@ -63,21 +63,19 @@ class ScoresList extends React.Component {
    renderTableData() {
       return this.state.list.map((data, index) => {
          return (
+            <div>
             <tr key={data.index}>
-                <td> {data.questionSetVersionEntity.title} &nbsp; &nbsp;</td>
+                <td> <button class="titleButton" value={data.questionSetVersionEntity.id} onClick={e => this.props.renderSingleScore(e)}> {data.questionSetVersionEntity.title} </button> </td>
                 <td> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
-               <td> &nbsp;{data.score} </td>
-               <td class="scoresListTD"> <button className="deleteScoreButton" value={data.id} onClick={e => this.deleteScore(e)}> Delete </button> </td>
-               <td class="scoresListTD"> <button className="inviteAuditButton" value={data.id} onClick={e => this.props.manageAudit(e)}> Invite Auditors </button> </td>
-               <td class="scoresListTD"> <button className="titleButton" value={data.questionSetVersionEntity.id} onClick={e => this.props.viewAudits(e)}> View Audits </button> </td>
-
+                <td> &nbsp;{data.score} </td>
             </tr>
+            </div>
          )
       })
    }
 
    renderTableHeader() {
-      let header = ["Title", "Description","Score"]
+      let header = ["Title", ]
       return header.map((key, index) => {
          return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
       })
@@ -88,7 +86,7 @@ class ScoresList extends React.Component {
         <React.Fragment>
 
         { this.state.showList &&
-         <div>
+         <div id="meSettingsDiv">
             <table>
                <tbody>
                <tr>{this.renderTableHeader()}</tr>

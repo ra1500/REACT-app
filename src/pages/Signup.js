@@ -43,10 +43,10 @@ function Signup(props) {
   return (
     <React.Fragment>
 
-      <div class="profilePage">
+      <div class="topParentDiv">
         <p> Sign up </p>
         <p></p>
-        <div class="invitationForm">
+        <div class="secondParentDiv">
           <Form>
             <input class="loginInput" type="username" value={userName} onChange={e => {setUserName(e.target.value);}}placeholder="username" />
             <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}}placeholder="password" />

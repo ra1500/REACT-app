@@ -45,14 +45,13 @@ class LoginStatus extends React.Component {
 
     return (
     <React.Fragment>
-        <div>
+           <div id="loginStatusDiv">
             <button id="logoutButton" onClick={() => this.logOut()}>{this.state.logStatus}</button>
             {this.state.showUserName &&
             <p id="userName"> {this.state.userName}  </p> }
             {this.state.showSignUpLink &&
             <button id="easySignUpButton" onClick={() => this.props.signUpCreate()}>(easy sign up)</button> }
-        </div>
-
+           </div>
     {this.state.redirect &&
     <Redirect to={this.state.goHome} /> }
 

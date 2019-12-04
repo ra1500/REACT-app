@@ -55,22 +55,17 @@ class Introduction extends React.Component {
     <Signup /> }
 
     {this.state.showIntro &&
-    <div class="profilePage">
-    <p> Home </p>
+    <div class="topParentDiv">
+    <p> NeuralJuice </p>
     <p></p>
-    <div class="invitationForm">
+    <div class="secondParentDiv">
          <p> Answer trivia, life quizzes, evaluations and more in ANSWER.  </p>
          <p> Create your own question sets with ASK and invite your network to answer.  </p>
          <p> Connect with friends and colleagues in NETWORK. Audit their results and tell them your opinion. </p>
-         <p> Post your own results to your ME page. Share with your network or the internet with a profile page. </p>
+         <p> Post your own results to your ME page. Share with your network or the internet with your profile page. </p>
          <br></br>
-         <button id="noAnswerButton" onClick={() => this.viewSample()}>Sample</button>
+         <button id="sampleButton" onClick={() => this.viewSample()}>Sample</button>
     </div>
-
-
-
-
-
 
     </div> }
 
@@ -79,7 +74,7 @@ class Introduction extends React.Component {
         <SampleQuestions />
     </div> }
 
-    <div id="introPadding"></div>
+    <div class="introPadding"></div>
     </React.Fragment>
     );
   }

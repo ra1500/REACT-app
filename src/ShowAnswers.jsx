@@ -59,8 +59,9 @@ class ShowAnswers extends React.Component {
         <React.Fragment>
 
         { this.state.showList &&
-        <div class="profilePage">
-         <div class="invitationForm">
+        <div class="topParentDiv">
+         <p>Highest Score Answers/Correct Answers </p>
+         <div class="secondParentDiv">
             <table>
                <tbody>
                <tr>{this.renderTableHeader()}</tr>

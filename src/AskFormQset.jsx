@@ -421,16 +421,16 @@ class AskFormQset extends React.Component {
     return (
     <React.Fragment>
 
-      <div id="settingsButtionDivPose">
+      <div class="settings2ButtonsDiv">
         <button class="settingsButton" onClick={this.startAnewQset}> Create </button>
         <button class="settingsButton" onClick={this.manageSets}> Manage </button>
       </div>
 
       { this.state.showIntro &&
-      <div class="profilePage">
-        <p> Ask Your Network </p>
+      <div class="topParentDiv">
+        <p> Ask - Create </p>
         <p></p>
-        <div class="invitationForm">
+        <div class="secondParentDiv">
         <p>Create your own set of questions and then invite your connections to answer. </p>
         <p> Up to 40 questions per set and 10 sets per account.</p>
         <p> Also, manage an existing set you already created. Edit or delete it. Note that deleting a
@@ -440,10 +440,10 @@ class AskFormQset extends React.Component {
       </div> }
 
       { this.state.showInputBoxes &&
-      <div class="profilePage">
-        <p> Ask Your Network </p>
+      <div class="topParentDiv">
+        <p> Ask - Create </p>
         <p></p>
-        <div class="invitationForm">
+        <div class="secondParentDiv">
       <form onSubmit={this.handleSubmit1}>
           <div class="askDiv"><span class="askText">Title &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span> <input id="askForm1" type="text" maxlength="20" value={this.state.title} onChange={this.handleChange1} /> </div>
           <div class="askDiv"><span class="askText">Description &nbsp;</span> <input id="askForm2" type="text" maxlength="70" value={this.state.description} onChange={this.handleChange3} /></div>
@@ -457,7 +457,7 @@ class AskFormQset extends React.Component {
           </form>
           <form id="inviteRadio2">
                   <div>
-                    <label><input value="1" onChange={this.handleChange13} type="radio" name="optradio" /> Allow display of answers/highest score choice for each question at completion. </label>
+                    <label><input value="1" onChange={this.handleChange13} type="radio" name="optradio" /> Allow display of correct answers/highest score answer for each question at completion. </label>
                   </div>
                   <div>
                     <label><input value="2" onChange={this.handleChange13} type="radio" name="optradio" /> Do not allow display of answers. </label>
@@ -494,10 +494,10 @@ class AskFormQset extends React.Component {
       </div> }
 
       { this.state.showQsetDetails &&
-      <div class="profilePage">
-        <p> Ask Your Network </p>
+      <div class="topParentDiv">
+        <p> Ask - Create </p>
         <p></p>
-        <div class="invitationForm">
+        <div class="secondParentDiv">
         <div><p class="firstP">Title: </p><p class="secondP">{this.state.title}</p></div>
         <div><p class="firstP">Description: </p><p class="secondP">{this.state.description}</p></div>
         <div><p class="firstP">Question Count: </p><p class="secondP">{this.state.maxQtyQuestions}</p></div>
@@ -510,10 +510,10 @@ class AskFormQset extends React.Component {
 
       { this.state.showFinished &&
       <div>
-      <div class="profilePage">
-        <p> Saved Question Set</p>
+      <div class="topParentDiv">
+        <p> Ask - Create/Manage - Saved Question Set</p>
         <p></p>
-        <div class="invitationForm">
+        <div class="secondParentDiv">
         <div><p class="firstP">Title: </p><p class="secondP">{this.state.title}</p></div>
         <div><p class="firstP">Description: </p><p class="secondP">{this.state.description}</p></div>
         <div><p class="firstP">Question Count: </p><p class="secondP">{this.state.maxQtyQuestions}</p></div>
@@ -524,15 +524,15 @@ class AskFormQset extends React.Component {
         </div>
         </div>
             { this.state.showInviteToScore &&
-            <div class="profilePage">
+            <div class="topParentDiv">
             <p> Invite to Score</p>
-            <div class="invitationForm">
+            <div class="secondParentDiv">
                 <button class="inviteAuditButton" value="Friends" onClick={e => this.inviteToScoreSelector(e)} > All Friends </button>
                 <button class="inviteAuditButton" value="Colleagues" onClick={e => this.inviteToScoreSelector(e)} > All Colleagues </button>
                 <button class="inviteAuditButton" value="Other" onClick={e => this.inviteToScoreSelector(e)} > All Other </button>
                 <button class="inviteAuditButton" value="Everyone" onClick={e => this.inviteToScoreSelector(e)} > All Connections </button>
                 <div id="submitQsetInviteDiv">
-                <input class="askForm1" placeholder=" (connection username)" autocomplete="off" type="text" maxlength="40" value={this.state.invitee} onChange={this.handleChange4} />
+                <input id="askForm1" placeholder=" (connection username)" autocomplete="off" type="text" maxlength="40" value={this.state.invitee} onChange={this.handleChange4} />
                 <button class="inviteAuditButton" value={this.state.invitee} onClick={e => this.inviteToScoreSelector(e)} > Individual </button>
                 </div>
                 <div id="submitQsetInviteDiv">
@@ -545,10 +545,10 @@ class AskFormQset extends React.Component {
       </div> }
 
       { this.state.showAllDeleted &&
-      <div class="profilePage">
-        <p> Deleted Question Set </p>
+      <div class="topParentDiv">
+        <p> Ask - Deleted Question Set </p>
         <p></p>
-        <div class="invitationForm">
+        <div class="secondParentDiv">
         <div><p class="firstP">Title: </p><p class="secondP">{this.state.title}</p></div>
         <p>All questions and answers, including any of your contact's answers, have been deleted. </p>
         </div>

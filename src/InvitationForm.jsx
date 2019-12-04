@@ -68,9 +68,10 @@ class InvitationForm extends React.Component {
   render() {
     return (
     <React.Fragment>
-      <div class="profilePage">
-        <p> Network Invitation </p>
-        <div class="invitationForm">
+      <div class="topParentDiv">
+        <p> Network - Invite </p>
+        <p></p>
+        <div class="secondParentDiv">
         <input id="invitationBox" type="text" value={this.state.friend} onChange={this.handleChange} placeholder=" username of contact" />
         <form id="inviteRadio1">
             <div>

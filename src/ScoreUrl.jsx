@@ -74,7 +74,7 @@ class ScoreUrl extends React.Component {
 
   render() {
     return (
-    <div id="scoreurl">
+    <div id="meSettingsDiv">
         <p>Profile View Status for {this.state.userName}<br></br>
          Curent Status: {this.state.publicProfile} <span id="userName">{this.state.privacyUpdatedMessage}</span></p>
 

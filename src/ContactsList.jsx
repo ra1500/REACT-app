@@ -35,13 +35,16 @@ class ContactsList extends React.Component {
     render() {
         return (
         <React.Fragment>
-         <div id="contactsList">
-         <p> Network Contacts </p>
+         <div class="topParentDiv">
+         <p> Network - Contacts </p>
+        <p></p>
+        <div class="secondParentDiv">
             <table>
                <tbody>
                   {this.renderTableData()}
                </tbody>
             </table>
+         </div>
          </div>
         </React.Fragment>
         )

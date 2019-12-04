@@ -53,7 +53,7 @@ class SampleQuestions extends React.Component {
           this.setState({
             question: "What is the only flying mammal?",
             answer1: "Pigs",
-            answer2: "Flying Squirrel",
+            answer2: "Flying squirrel",
             answer3: "Bats",
             answer4: "Flying fish",
             answer5: null,
@@ -254,6 +254,12 @@ class SampleQuestions extends React.Component {
     this.setState({selection: "no answer", answerPoints: 0});
   }
 
+    scoringCompletedMessage() {
+        if      (this.state.userScore >= 99 ) { return <p class="resultMessageP">Your result is 'Perfection'</p>}
+        else if (this.state.userScore >= 60 ) { return <p class="resultMessageP">Your result is: 'Good Job'</p> }
+        else if (this.state.userScore >= 10 ) { return <p class="resultMessageP">Your result is: 'hmmmm....'</p> }
+        else { return <p class="resultMessageP"> Time to watch some more nature documentaries. </p> }
+    }
 
   render() {
     let { error, isLoaded, question, userScore, selection, answerPoints, answer1, answer2, answer3, answer4, answer5,
@@ -264,43 +270,98 @@ class SampleQuestions extends React.Component {
         <React.Fragment >
 
             <div id="questionsDiv1">
+                <div id="questionsDiv2">
+                    <div id="questionsDiv3">
+                        <p>Score:&nbsp; <UserTotalScore userScore={this.state.userScore}/>/100 </p>
+                    </div>
+                </div>
             <p class="questionsParagraph"> Title: &nbsp;{this.state.title} </p>
             <p class="questionsDescriptionParagraph"> Description: &nbsp;{this.state.description}</p>
             <p class="questionsParagraph">Question: &nbsp;#{this.state.currentQuestion} of 3</p>
             </div>
 
-            <div id="questionsDiv2">
-                <div id="questionsDiv3">
-                <p id="questionsParagraphScore">Score: <UserTotalScore userScore={userScore}/>/100 </p>
-                </div>
-                <button className="qsbutton" onClick={() => this.verifyDelete()}>Delete all</button>
-                <button className="qsbutton" onClick={this.previous}>  Back </button>
-                <button id="submitAnswerButton" onClick={this.postAnswer}>  Submit </button>
+            <div id="questionsDivQuestion">
+            <p class="qtext"> {question} </p>
             </div>
 
-            <p className="qtext"> {question} </p>
+            <div id="questionsDiv4answerSelection">
             <AnswerSelection answer={answer1} onClick={() => this.setState({selection: this.state.answer1, answerPoints: answer1Points})}> {answer1} </AnswerSelection>
             <AnswerSelection answer={answer2} onClick={() => this.setState({selection: this.state.answer2, answerPoints: answer2Points})}> {answer2} </AnswerSelection>
             <AnswerSelection answer={answer3} onClick={() => this.setState({selection: this.state.answer3, answerPoints: answer3Points})}> {answer3} </AnswerSelection>
             <AnswerSelection answer={answer4} onClick={() => this.setState({selection: this.state.answer4, answerPoints: answer4Points})}> {answer4} </AnswerSelection>
+            <AnswerSelection answer={answer5} onClick={() => this.setState({selection: this.state.answer5, answerPoints: answer5Points})}> {answer5} </AnswerSelection>
             <button id="noAnswerButton" onClick={() => this.noAnswer()}>No Answer</button>
-            <p id="qtext2"> Your Answer: {selection} </p>
-            <p className="qtext"> Points: {answerPoints} </p>
+            <p class="qtext2"> Your Answer: {selection} </p>
+            <p class="qtext2">Points: {this.state.answerPoints}</p>
+            </div>
 
-            <p id="deletedAnswersMessage">{this.state.allDeletedMessage}</p>
+            <div id="questionsNavigationDiv">
+                <button id="deleteAnswerSubmits" onClick={() => this.verifyDelete()}>Delete all</button>
+                <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
+                  <input id="navigateQuestionsButton" type="submit" value="Go to" />
+                  <input id="questionsGoToInput" placeholder="#" type="number" type="text" onChange={this.handleChange}
+                  max="3" min="1" maxLength="2" step="1" autoComplete="off" />
+                </form>
+                <button id="navigateQuestionsButton"  onClick={this.previous}>  Back </button>
+                <button id="answerSubmitButton" onClick={this.postAnswer}>  Submit </button>
+                <p id="deletedAnswersMessage">{this.state.allDeletedMessage}</p>
+            </div>
+
+
 
         </React.Fragment>
       );
      } else {
        return (
          <React.Fragment>
-             <p> {this.state.title}. {this.state.description}</p>
-             <p className="qtext">  Scoring Completed </p>
-             <button id="addToProfileButton">  Post this score to my profile </button>
-            <button className="qsbutton" onClick={() => this.verifyDelete()}>Delete all my answers</button>
-            <button className="qsbutton" onClick={this.previous}>  Previous </button>
+            <div id="questionsDiv1">
+                <div id="questionsDiv2">
+                    <div id="questionsDiv3">
+                        <p>Score:&nbsp; <UserTotalScore userScore={this.state.userScore}/>/100 </p>
+                    </div>
+                </div>
+            <p class="questionsParagraph"> Title: &nbsp;{this.state.title} </p>
+            <p class="questionsDescriptionParagraph"> Description: &nbsp;{this.state.description}</p>
+            <p class="questionsParagraph">Finished </p>
+            </div>
+
+
+          <div id="questionsDiv5answerSelection">
+
+            <div>
+              {this.scoringCompletedMessage()}
+            </div>
+
+
+            <div>
+                <table>
+                <tr>
+                <th>Level</th><th>&nbsp;From</th><th>&nbsp;&nbsp;</th><th>To</th>
+                </tr>
+                <tr>
+                <td>Perfection</td><td>&nbsp;100</td><td>&nbsp;to&nbsp;</td><td>Max Points</td>
+                </tr>
+                <tr>
+                <td>Good Job</td><td>&nbsp;70</td><td>&nbsp;to&nbsp;</td><td>99</td>
+                </tr>
+                <tr>
+                <td>hmmmm....</td><td>&nbsp;0</td><td>&nbsp;to&nbsp;</td><td>69</td>
+                </tr>
+                </table>
+            </div>
+
+           </div>
+
+            <div id="questionsNavigationDiv">
+                <button id="deleteAnswerSubmits" onClick={() => this.verifyDelete()}>Delete all</button>
+                <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
+                  <input id="navigateQuestionsButton" type="submit" value="Go to" />
+                  <input id="questionsGoToInput" placeholder="#" type="number" type="text" onChange={this.handleChange}
+                  max="3" min="1" maxLength="2" step="1" autoComplete="off" />
+                </form>
+                <button id="navigateQuestionsButton"  onClick={this.previous}>  Back </button>
+            </div>
             <p id="deletedAnswersMessage">{this.state.allDeletedMessage}</p>
-             <UserTotalScore userScore={userScore}/>
          </React.Fragment>
        );
             }; //end else statement

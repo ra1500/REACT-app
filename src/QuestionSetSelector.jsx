@@ -167,12 +167,15 @@ class QuestionSetSelector extends React.Component {
   }
 
     renderNJSets() {
+        this.setState({showAnswers: false,});
         this.getNJQsets();
     }
     renderNetworkSets() {
+        this.setState({showAnswers: false,});
         this.getNetworkQsets();
     }
     renderMySets() {
+        this.setState({showAnswers: false,});
         this.getMyQsets();
     }
 
@@ -239,45 +242,53 @@ class QuestionSetSelector extends React.Component {
     return (
         <React.Fragment>
 
-          <div id="settingsButtionDivScores">
+          <div class="settings3ButtonsDiv">
             <button class="settingsButton" onClick={this.renderNJSets}> NJ Sets  </button>
             <button class="settingsButton" onClick={this.renderNetworkSets}> Network Sets </button>
             <button class="settingsButton" onClick={this.renderMySets}> My Created Sets </button>
           </div>
 
-        <div id="chooseSet">
         { this.state.showListNetwork &&
-         <div>
+         <div class="topParentDiv">
+        <p> Answer - Network Sets </p>
+        <p></p>
+        <div class="secondParentDiv">
             <table>
                <tbody>
                <tr>{this.renderTableHeaderNetwork()}</tr>
                 {this.renderTableDataNetwork()}
                </tbody>
             </table>
+         </div>
          </div> }
-        </div>
 
 
-        <div id="chooseSet">
         { this.state.showList &&
-         <div>
+         <div class="topParentDiv">
+        <p> Answer - NJ Sets </p>
+        <p></p>
+        <div class="secondParentDiv">
             <table>
                <tbody>
                <tr>{this.renderTableHeader()}</tr>
                 {this.renderTableData()}
                </tbody>
             </table>
+         </div>
          </div> }
-        </div>
 
         { this.state.renderQuestions &&
+         <div class="topParentDiv">
+        <p> Answer </p>
         <div id="questionsComponent">
         <Questions questionSetVersion={this.state.questionSetVersion} questionSetSize={this.state.questionSetSize} questionToGoTo={this.state.questionToGoTo}
         maxPoints={this.state.maxPoints} title={this.state.title} description={this.state.description} showScoring={this.state.showScoring}
         addToProfile={this.addToProfile} scorePostedMessage={this.state.scorePostedMessage} result1={this.state.result1}
          result2={this.state.result2} result3={this.state.result3} result4={this.state.result4} result1start={this.state.result1start}
          result2start={this.state.result2start} result3start={this.state.result3start} seeAnswers={this.seeAnswers} showAnswersButton={this.state.showAnswersButton}/>
+        </div>
         </div> }
+
 
          {this.state.showAnswers &&
          <ShowAnswers questionSetVersionEntityId={this.props.questionSetVersion} questionSetVersionEntityId={this.state.questionSetVersion} /> }

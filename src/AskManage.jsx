@@ -55,10 +55,10 @@ class AskManage extends React.Component {
    render() {
     return (
         <React.Fragment>
-      <div class="profilePage">
-        <p> Question Sets Manager</p>
+      <div class="topParentDiv">
+        <p> Ask - Manage</p>
         <p></p>
-        <div class="invitationForm">
+        <div class="secondParentDiv">
 
         { this.state.showList &&
          <div>

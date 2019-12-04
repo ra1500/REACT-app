@@ -129,8 +129,8 @@ class Network extends React.Component {
     <React.Fragment>
         <TitleBar />
 
-          <div id="settingsButtionDivNetwork">
-            <button class="settingsButton" onClick={this.goToNetwork}> Network </button>
+          <div class="settings3ButtonsDiv">
+            <button class="settingsButton" onClick={this.goToNetwork}> Contacts </button>
             <button class="settingsButton" onClick={this.goToInvite}> Invite </button>
             <button class="settingsButton" onClick={this.goToRemovedContacts}> Removed List </button>
           </div>

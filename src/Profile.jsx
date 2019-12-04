@@ -20,6 +20,7 @@ class Profile extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.goToUserSettings = this.goToUserSettings.bind(this);
     this.goToPrivateProfile = this.goToPrivateProfile.bind(this);
+    this.renderSingleScore = this.renderSingleScore.bind(this);
     this.state = {
         showLists: true,
         showInviteToAudit: false,
@@ -32,6 +33,7 @@ class Profile extends React.Component {
         showCompletedAudits: false,
         showSettingsButton: true,
         showSettingsSection: false,
+        showIndividualScore: false,
         userName: JSON.parse(sessionStorage.getItem('tokens')).userName, // used in header only
         };
     };
@@ -132,10 +134,13 @@ class Profile extends React.Component {
         this.setState({showLists: false, showCompletedAudits: true });
     }
     goToUserSettings() {
-        this.setState({showSettingsSection: true, showLists: false, showCompletedAudits: false, showInviteToAudit: false,});
+        this.setState({showSettingsSection: true, showLists: false, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: false,});
     }
     goToPrivateProfile() {
-        this.setState({showSettingsSection: false, showLists: true, showCompletedAudits: false, showInviteToAudit: false,});
+        this.setState({showSettingsSection: false, showLists: true, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: false,});
+    }
+    renderSingleScore() {
+        this.setState({showSettingsSection: false, showLists: false, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: true,});
     }
 
    render() {
@@ -144,35 +149,55 @@ class Profile extends React.Component {
               <TitleBar />
 
               { this.state.showSettingsButton &&
-              <div id="settingsButtionDivEgo">
+              <div class="settings2ButtonsDiv">
                 <button class="settingsButton" onClick={this.goToPrivateProfile}> My Good Stuff </button>
                 <button class="settingsButton" onClick={this.goToUserSettings}> My Settings </button>
               </div> }
 
               { this.state.showSettingsSection &&
-              <div class="profilePage">
-                <p> Settings </p>
+              <div class="topParentDiv">
+                <p> Me - My Settings </p>
                 <ScoreUrl />
                 <UpdateUserInfo />
               </div> }
 
               { this.state.showLists &&
               <div>
-              <div id="NetworkSingleContactDiv">
-              <span id="singleNetworkContactButtonP"> {this.state.userName}'s good stuff</span>
+              <div class="NetworkSingleContactDiv">
+              <p> Me - My Good Stuff - {this.state.userName}</p>
               </div>
-              <div class="profilePage">
-                <ScoresList manageAudit={this.manageAudit} viewAudits={this.viewAudits}/>
+              <div class="topParentDiv">
+                <ScoresList renderSingleScore={this.renderSingleScore} />
                 <QuestionSetsPrivateProfile />
               </div>
               </div> }
 
-              { this.state.showInviteToAudit &&
-              <div class="profilePage">
-                <p> Invite Auditors </p>
-                <p></p>
+              { this.state.showIndividualScore &&
+              <div>
+              <div class="NetworkSingleContactDiv">
+              <p> Me - My Good Stuff - {this.state.userName} - {this.state.title}</p>
+              </div>
+              <div class="topParentDiv">
+                <button class="singleNetworkContactButton" onClick={e => this.deleteScore(e)}> Delete </button>
+                <button class="singleNetworkContactButton" onClick={e => this.props.manageAudit(e)}> Invite Auditors </button>
+                <button class="singleNetworkContactButton" onClick={e => this.props.viewAudits(e)}> View Audits </button>
+              </div>
+              <div class="topParentDiv">
+              <div class="secondParentDiv">
+              test
+              </div>
+              </div>
+              </div> }
 
-              <div class="invitationForm">
+              { this.state.showInviteToAudit &&
+              <div>
+              <div class="NetworkSingleContactDiv">
+              <p> Me - My Good Stuff - {this.state.userName}</p>
+              </div>
+
+              <div class="topParentDiv">
+              <div class="secondParentDiv">
+                    <p> Invite Auditors </p>
                     <div>
                     <p class="questionsParagraph"> Title: &nbsp;{this.state.title} </p>
                     <p class="questionsDescriptionParagraph"> Description: &nbsp;{this.state.description}</p>
@@ -192,11 +217,23 @@ class Profile extends React.Component {
                     <p> {this.state.auditorsAddedMessage} </p>
                     </div>
               </div>
+              </div>
               </div> }
 
             { this.state.showCompletedAudits &&
-            <div class="profilePage">
+            <div>
+              <div class="NetworkSingleContactDiv">
+              <p> Me - My Good Stuff - {this.state.userName}</p>
+              </div>
+            <div class="topParentDiv">
+              <div class="secondParentDiv">
+                <p>View Audits </p>
+                <p class="questionsParagraph"> Title: &nbsp;{this.state.title} </p>
+                <p class="questionsDescriptionParagraph"> Description: &nbsp;{this.state.description}</p>
+                <p class="questionsParagraph">Score: &nbsp;{this.state.score}</p> <br></br>
                 <ViewAudits questionSetVersionEntityId={this.state.questionSetVersionEntityId} />
+            </div>
+            </div>
             </div> }
 
         </React.Fragment>

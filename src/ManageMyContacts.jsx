@@ -106,7 +106,7 @@ class ManageMyContacts extends React.Component {
       <div>
             <p>Connection Settings  </p>
             <p></p>
-            <div class="invitationForm">
+            <div class="secondParentDiv">
                 <p> You can remove your pending contact here. You can unhide this contact in 'Removed List' under "Network". </p>
                 { this.state.showDeletedMessage &&
                 <p id="userName"> {this.state.deletedMessage} </p> }

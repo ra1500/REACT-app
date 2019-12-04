@@ -32,18 +32,17 @@ class Start extends React.Component {
     <React.Fragment>
       <TitleBar />
 
-          <div id="settingsButtionDivWelcome">
+          <div class="settings2ButtonsDiv">
             <button class="settingsButton" onClick={this.showAlerts}> Alerts  </button>
             <button class="settingsButton" onClick={this.showFeatures}> About NJ </button>
           </div>
 
 
        { this.state.showAlerts &&
-      <div class="profilePage">
-        <p> Welcome. </p>
+      <div class="topParentDiv">
+        <p> Welcome - Alerts </p>
         <p></p>
-        <div class="invitationForm">
-            <p> Alerts </p>
+        <div class="secondParentDiv">
             <p> New Network Invitations (recent two weeks) </p>
             <AlertsNewContactsList />
             <p> New Audit Invitations (recent two weeks) </p>
@@ -52,11 +51,11 @@ class Start extends React.Component {
         </div> }
 
        { this.state.showFeatures &&
-      <div class="profilePage">
-        <p> NeuralJuice Features Guide </p>
+      <div class="topParentDiv">
+        <p> Welcome - About NeuralJuice</p>
         <p></p>
-        <div class="invitationForm">
-            <p> Feature explanation </p>
+        <div class="secondParentDiv">
+            <p> Features </p>
             <p> Public Profile Internet Page: only NJ sets will appear on public page. </p>
         </div>
         </div> }

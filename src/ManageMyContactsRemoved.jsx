@@ -79,9 +79,9 @@ class ManageMyContactsRemoved extends React.Component {
   render() {
     return (
     <React.Fragment>
-    <div class="profilePage">
+    <div class="topParentDiv">
     <p> Unhide Contact </p>
-    <div id="manageContacts">
+    <div class="secondParentDiv">
             <p> {this.state.friend} </p>
             <form onSubmit={this.handleSubmit5}>
             <p> This will return a removed contact to your network. If the status was a pending invitation from you, it will

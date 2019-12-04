@@ -55,12 +55,13 @@ class QuestionSetsPrivateProfile extends React.Component {
          return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
       })
    }
+
    render() {
     return (
         <React.Fragment>
 
         { this.state.showList &&
-         <div>
+         <div id="meSettingsDiv">
             <table>
                <tbody>
                <tr>{this.renderTableHeader()}</tr>

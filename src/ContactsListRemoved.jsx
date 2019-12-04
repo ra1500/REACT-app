@@ -34,14 +34,17 @@ class ContactsListRemoved extends React.Component {
     render() {
         return (
         <React.Fragment>
-        <div class="profilePage">
-        <p> Removed Contacts </p>
+        <div class="topParentDiv">
+        <p> Network - Removed List </p>
+        <p></p>
+        <div class="secondParentDiv">
          <div>
             <table>
                <tbody>
                   {this.renderTableData()}
                </tbody>
             </table>
+         </div>
          </div>
          </div>
         </React.Fragment>

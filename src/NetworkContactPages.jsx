@@ -129,31 +129,34 @@ class NetworkContactPages extends React.Component {
     return (
     <React.Fragment>
 
-        <div id="NetworkSingleContactDiv">
-            <span id="singleNetworkContactButtonP"> {this.state.friend} </span>
-            <button id="singleNetworkContactButton1" onClick={this.goToContactSettings}> Settings </button>
-            <button id="singleNetworkContactButton2" onClick={this.goToAudit}> Audit Them </button>
-            <button id="singleNetworkContactButton2" onClick={this.goToGoodStuff}> Good Stuff </button>
+        <div class="NetworkSingleContactDiv">
+            <p> Network - Contacts - {this.state.friend} </p>
+        </div>
+
+        <div class="topParentDiv">
+            <button class="singleNetworkContactButton" onClick={this.goToGoodStuff}> Good Stuff </button>
+            <button class="singleNetworkContactButton" onClick={this.goToAudit}> Audit Them </button>
+            <button class="singleNetworkContactButton" onClick={this.goToContactSettings}> Settings </button>
         </div>
 
            { this.state.showSettings &&
-           <div class="profilePage">
+           <div class="topParentDiv">
+           <div class="secondParentDiv">
             <ManageMyContacts connectionStatus={this.state.connectionStatus} visibilityPermission={this.state.visibilityPermission} inviter={this.state.inviter}
                 connectionType={this.state.connectionType} friendId={this.state.friendId} friend={this.state.friend} userName={this.state.userName}/>
+            </div>
            </div> }
 
           { this.state.isAfriend &&
-          <div class="profilePage">
+          <div class="topParentDiv">
 
                 { this.state.showContactScores &&
                 <div>
-                <p> Good Stuff </p>
                 <ScoresNetworkContactPages friendId={this.props.friendId} />
                 </div> }
 
                 {this.state.showQuestionSetAuditing &&
-                <div>
-                  <p> Audit </p>
+                <div class="secondParentDiv">
                   <p> Audit your contact's answers. You can choose and submit different answers and also add comments.
                   Your contact can then review how you scored them and read your coments.
                   (Note that once you have submited your own answer to a question it will be saved and you will not be able to see
@@ -170,16 +173,11 @@ class NetworkContactPages extends React.Component {
           </div> }
 
 
-
-
           { this.state.hasPendingInvitations &&
-            <div class="profilePage">
+            <div class="topParentDiv">
 
               { this.state.isInvitee &&
-                    <div>
-                    <p> Invitation </p>
-                    <p></p>
-                    <div class="invitationForm">
+                    <div class="secondParentDiv">
                     <p>{this.state.inviter} has invited you to connect.</p>
 
                     <form id="inviteRadio1">
@@ -199,17 +197,12 @@ class NetworkContactPages extends React.Component {
                     <button type="submit" onClick={this.handleSubmit} className="inviteAuditButton"> Update </button> }
                     <span id="userName"> {this.state.invitationStatusMessage} </span>
                     <p>New connections can view your profile. You can change this by selecting them in 'Network' and adjusting 'Settings'.</p>
-                     </div>
                      </div> }
 
               { this.state.isInviter &&
-                    <div>
-                    <p> Invitation </p>
-                    <p></p>
-                    <div class="invitationForm">
+                    <div class="secondParentDiv">
                        <p> Your invitation to connect with {this.state.friend} is pending. </p>
-                        </div>
-                     </div> }
+                    </div> }
 
            </div> }
     </React.Fragment>

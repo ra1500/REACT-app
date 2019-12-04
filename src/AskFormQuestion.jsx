@@ -170,7 +170,7 @@ class AskFormQuestion extends React.Component {
     }
 
     deleteQuestion() {
-        if (window.confirm('Are you sure you want to delete \n this question?')) {
+        if (window.confirm('Are you sure you want to delete \n this question? It will also delete all other users answers to this question')) {
         let deletedQuestionMaxPoints = Math.max(this.state.answer1Points, this.state.answer2Points, this.state.answer3Points, this.state.answer4Points, this.state.answer5Points, this.state.answer6Points);
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
@@ -311,9 +311,9 @@ class AskFormQuestion extends React.Component {
   render() {
     return (
     <React.Fragment>
-      <div class="profilePage">
+      <div class="topParentDiv">
       <p> # {this.props.sequenceNumber}</p>
-      <div class="invitationForm">
+      <div class="secondParentDiv">
       <form onSubmit={this.handleSubmit1}>
           <div class="askDiv"><span class="askText">Question &nbsp;</span>
           <input id="newQuestion" maxlength="80" type="text" value={this.state.question} onChange={this.handleChange13}  autocomplete="off"/></div>
