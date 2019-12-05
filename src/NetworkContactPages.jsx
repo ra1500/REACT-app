@@ -166,7 +166,7 @@ class NetworkContactPages extends React.Component {
                 </div> }
 
                 {this.state.showAuditQuestions &&
-                <div>
+                <div id="AuditQuestionsComponent">
                 <AuditQuestions questionSetVersionEntityId={this.state.questionSetVersionEntityId} friend={this.state.friend} friendId={this.state.friendId} goToAudit={this.goToAudit}/>
                 </div> }
 

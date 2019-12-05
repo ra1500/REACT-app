@@ -10,7 +10,9 @@ import UpdateUserInfo from "./UpdateUserInfo";
 class Profile extends React.Component {
   constructor(props) {
     super(props);
-    this.manageAudit = this.manageAudit.bind(this);
+    //this.manageAudit = this.manageAudit.bind(this);
+    this.deleteSection = this.deleteSection.bind(this);
+    this.inviteSection = this.inviteSection.bind(this);
     this.inviteToAuditFriends = this.inviteToAuditFriends.bind(this);
     this.inviteToAuditColleagues = this.inviteToAuditColleagues.bind(this);
     this.inviteToAuditOther = this.inviteToAuditOther.bind(this);
@@ -21,6 +23,8 @@ class Profile extends React.Component {
     this.goToUserSettings = this.goToUserSettings.bind(this);
     this.goToPrivateProfile = this.goToPrivateProfile.bind(this);
     this.renderSingleScore = this.renderSingleScore.bind(this);
+    //this.showAuditListChange = this.showAuditListChange.bind(this);
+    //this.showAuditListChangeDetails = this.showAuditListChangeDetails.bind(this);
     this.state = {
         showLists: true,
         showInviteToAudit: false,
@@ -34,31 +38,14 @@ class Profile extends React.Component {
         showSettingsButton: true,
         showSettingsSection: false,
         showIndividualScore: false,
+        showAuditList: false,
+        showAuditListDetails: false,
+        showDeleted: false,
+        permissionId: null, // used to delete the score permission
+        showAuditListDetails2: false,
         userName: JSON.parse(sessionStorage.getItem('tokens')).userName, // used in header only
         };
     };
-
-    manageAudit(event) {
-        const name = JSON.parse(sessionStorage.getItem('tokens'));
-        const u = name.userName;
-        const p = name.password;
-        const token = u +':' + p;
-        const hash = btoa(token);
-        const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/prm/sc/dg?id=" + event.target.value,
-        {headers : { 'Authorization' : Basic }})
-        .then((response) => {
-          this.setState({
-            isLoaded: true,
-            title: response.data.questionSetVersionEntity.title,
-            description: response.data.questionSetVersionEntity.description,
-            score: response.data.score,
-            questionSetVersionEntityId: response.data.questionSetVersionEntity.id,
-          });
-        this.setState({showLists: false, showInviteToAudit: true,});
-               }).catch(error => {this.setState({ isLoaded: true, error,});
-               });
-    }
 
     inviteToAudit(group) {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
@@ -96,6 +83,28 @@ class Profile extends React.Component {
                });
     }
 
+    deleteScore() {
+      if (window.confirm('Are you sure you want to delete\nthis from your profile? \n(All audits will also be deleted)')) {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        const data = {id: this.state.permissionId};
+        axios.post("http://localhost:8080/prm/sc/dl", data,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+          this.setState({
+            isLoaded: true,
+            list: response.data,
+            showDeleted: true,
+          });
+               }).catch(error => {this.setState({ isLoaded: true, error,});
+               });
+      }
+    }
+
     handleChange(event) {
         this.setState({friend: event.target.value});
     }
@@ -129,19 +138,28 @@ class Profile extends React.Component {
         this.setState({auditorsAddedMessage: this.state.friend + " has been invited to audit your answers"});
         }
     }
-    viewAudits(event) {
-        this.setState({questionSetVersionEntityId: event.target.value});
-        this.setState({showLists: false, showCompletedAudits: true });
+
+    viewAudits() {
+        this.setState({showLists: false, showCompletedAudits: true, showInviteToAudit: false, showAuditListDetails2: true, });
     }
     goToUserSettings() {
         this.setState({showSettingsSection: true, showLists: false, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: false,});
     }
     goToPrivateProfile() {
-        this.setState({showSettingsSection: false, showLists: true, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: false,});
+        this.setState({showSettingsSection: false, showLists: true, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: false, showDeleted: false,});
     }
-    renderSingleScore() {
+    renderSingleScore(id ,questionSetVersionEntityId, title, description, score, e) {
+        this.setState({permissionId: id ,questionSetVersionEntityId: questionSetVersionEntityId, title: title, description: description, score: score});
         this.setState({showSettingsSection: false, showLists: false, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: true,});
     }
+    inviteSection() {
+         this.setState({showSettingsSection: false, showLists: false, showCompletedAudits: false, showInviteToAudit: true,});
+    }
+    deleteSection() {
+        this.deleteScore();
+        this.setState({showSettingsSection: false, showLists: false, showCompletedAudits: false, showInviteToAudit: false, });
+    }
+
 
    render() {
     return (
@@ -177,35 +195,34 @@ class Profile extends React.Component {
               <div class="NetworkSingleContactDiv">
               <p> Me - My Good Stuff - {this.state.userName} - {this.state.title}</p>
               </div>
+
+              { !this.state.showDeleted &&
               <div class="topParentDiv">
-                <button class="singleNetworkContactButton" onClick={e => this.deleteScore(e)}> Delete </button>
-                <button class="singleNetworkContactButton" onClick={e => this.props.manageAudit(e)}> Invite Auditors </button>
-                <button class="singleNetworkContactButton" onClick={e => this.props.viewAudits(e)}> View Audits </button>
-              </div>
+                <button class="singleNetworkContactButton" onClick={this.deleteSection}> Delete </button>
+                <button class="singleNetworkContactButton" onClick={this.inviteSection}> Invite Auditors </button>
+                <button class="singleNetworkContactButton" onClick={this.viewAudits}> View Audits </button>
+              </div> }
+
+               { this.state.showDeleted &&
+               <div class="topParentDiv">
+                <p id="deletedScorePostP"> Score Deleted </p>
+               </div> }
+
               <div class="topParentDiv">
               <div class="secondParentDiv">
-              test
+                <p class="questionsParagraph"> Title: &nbsp;{this.state.title} </p>
+                <p class="questionsDescriptionParagraph"> Description: &nbsp;{this.state.description}</p>
+                <p class="questionsParagraph">Score: &nbsp;{this.state.score}</p> <br></br>
               </div>
               </div>
               </div> }
 
               { this.state.showInviteToAudit &&
               <div>
-              <div class="NetworkSingleContactDiv">
-              <p> Me - My Good Stuff - {this.state.userName}</p>
-              </div>
-
               <div class="topParentDiv">
               <div class="secondParentDiv">
                     <p> Invite Auditors </p>
                     <div>
-                    <p class="questionsParagraph"> Title: &nbsp;{this.state.title} </p>
-                    <p class="questionsDescriptionParagraph"> Description: &nbsp;{this.state.description}</p>
-                    <p class="questionsParagraph">Score: &nbsp;{this.state.score}</p>
-                    </div>
-
-                    <div>
-                    <br></br>
                     <button class="inviteAuditButton" onClick={this.inviteToAuditFriends}> Friends </button>
                     <button class="inviteAuditButton" onClick={this.inviteToAuditColleagues}> Colleagues </button>
                     <button class="inviteAuditButton" onClick={this.inviteToAuditOther}> Other </button>
@@ -222,16 +239,10 @@ class Profile extends React.Component {
 
             { this.state.showCompletedAudits &&
             <div>
-              <div class="NetworkSingleContactDiv">
-              <p> Me - My Good Stuff - {this.state.userName}</p>
-              </div>
             <div class="topParentDiv">
               <div class="secondParentDiv">
-                <p>View Audits </p>
-                <p class="questionsParagraph"> Title: &nbsp;{this.state.title} </p>
-                <p class="questionsDescriptionParagraph"> Description: &nbsp;{this.state.description}</p>
-                <p class="questionsParagraph">Score: &nbsp;{this.state.score}</p> <br></br>
-                <ViewAudits questionSetVersionEntityId={this.state.questionSetVersionEntityId} />
+                <p>Audits </p>
+                <ViewAudits questionSetVersionEntityId={this.state.questionSetVersionEntityId}  showAuditListDetails2={this.state.showAuditListDetails2} />
             </div>
             </div>
             </div> }

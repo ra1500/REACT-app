@@ -184,14 +184,14 @@ class QuestionSetSelector extends React.Component {
     }
 
   // called from child, 'Questions'
-  addToProfile() {
+  addToProfile(event) {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
         const p = name.password;
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { auditee: u, };  // sending over auditee since this method also in 'AuditQuestions' where it is set to friend.
+        let data = { auditee: u,  };  // sending over auditee since this method also in 'AuditQuestions' where it is set to friend.
         axios.post("http://localhost:8080/prm/sc/d?qsId=" + this.state.questionSetVersion,
         data,
         {headers : { 'Authorization' : Basic }})

@@ -10,6 +10,7 @@ class Questions extends React.Component {
     this.previous = this.previous.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.postScoreToProfile = this.postScoreToProfile.bind(this);
     this.state = {
       error: null,
       isLoaded: false,
@@ -36,6 +37,7 @@ class Questions extends React.Component {
       allDeletedMessage: null,
       showAnswersButton: this.props.showAnswersButton,
       showResultLevels: false,
+      resultToPost: null,
     };
   }
 
@@ -246,6 +248,18 @@ class Questions extends React.Component {
         else { return <p class="resultMessageP"> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finished! </p> }
     }
 
+    postScoreToProfile() {
+        //console.log(this.props.result1 + " props result");
+        //if      (this.state.userScore >= this.props.result1start && this.props.result1start > 0) { this.props.addToProfile(this.props.result1) }
+        //else if (this.state.userScore >= this.props.result2start && this.props.result2start > 0) { this.props.addToProfile(this.props.result2) }
+        //else if (this.state.userScore >= this.props.result3start && this.props.result3start > 0) { this.props.addToProfile(this.props.result3) }
+        //else if (                                                   this.props.result4start > 0) { this.props.addToProfile(this.props.result4) }
+        //else { this.props.addToProfile("") };
+        this.props.addToProfile();
+    }
+
+
+
   render() {
     let { error, isLoaded, question, selection, answerPoints, answer1, answer2, answer3, answer4, answer5,
      answer6, answer1Points, answer2Points, answer3Points, answer4Points, answer5Points, answer6Points} = this.state;
@@ -325,7 +339,7 @@ class Questions extends React.Component {
             </div>
 
             { this.state.showResultLevels &&
-            <div>
+            <div id="showResultsDiv">
                 <table>
                 <tr>
                 <th>Level</th><th>&nbsp;From</th><th>&nbsp;&nbsp;</th><th>To</th>
@@ -347,12 +361,12 @@ class Questions extends React.Component {
 
              { this.props.showAnswersButton &&
              <div id="seeAnswersDiv">
-             <button id="noAnswerButton" onClick={this.props.seeAnswers}>  See Answers </button>
-             </div>}
+             <button class="showAnswersButton" onClick={this.props.seeAnswers}>  See Answers </button>
+             </div> }
              { !this.props.showAnswersButton &&
              <p id="answersNotProvidedP"> (answers not provided for this set)</p> }
 
-             <button id="noAnswerButton" onClick={this.props.addToProfile}>  Post this score to my profile </button>
+             <button class="showAnswersButton" onClick={this.postScoreToProfile}>  Post this score to my profile </button>
              <p id="deletedAnswersMessage">{this.props.scorePostedMessage}</p>
            </div>
 
