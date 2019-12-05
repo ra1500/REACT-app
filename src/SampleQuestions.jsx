@@ -156,15 +156,15 @@ class SampleQuestions extends React.Component {
     if (this.state.currentQuestion == 3 ) {
           this.setState({
             question: "How long can seals hold their breath?",
-            answer1: "6 minutes",
+            answer1: "2 hours",
             answer2: "45 minutes",
-            answer3: "2 hours",
+            answer3: "6 minutes",
             answer4: null,
             answer5: null,
             answer6: null,
-            answer1Points: 0,
+            answer1Points: 30,
             answer2Points: 1,
-            answer3Points: 30,
+            answer3Points: 0,
             answer4Points: 0,
             answer5Points: null,
             answer6Points: null,
@@ -257,7 +257,7 @@ class SampleQuestions extends React.Component {
     scoringCompletedMessage() {
         if      (this.state.userScore >= 99 ) { return <p class="resultMessageP">Your result is 'Perfection'</p>}
         else if (this.state.userScore >= 60 ) { return <p class="resultMessageP">Your result is: 'Good Job'</p> }
-        else if (this.state.userScore >= 10 ) { return <p class="resultMessageP">Your result is: 'hmmmm....'</p> }
+        else if (this.state.userScore >= 0 ) { return <p class="resultMessageP">Your result is: 'hmm...'</p> }
         else { return <p class="resultMessageP"> Time to watch some more nature documentaries. </p> }
     }
 
@@ -303,7 +303,7 @@ class SampleQuestions extends React.Component {
                   max="3" min="1" maxLength="2" step="1" autoComplete="off" />
                 </form>
                 <button id="navigateQuestionsButton"  onClick={this.previous}>  Back </button>
-                <button id="answerSubmitButton" onClick={this.postAnswer}>  Submit </button>
+                <button id="answerSubmitButton" onClick={this.postAnswer}>  Next </button>
                 <p id="deletedAnswersMessage">{this.state.allDeletedMessage}</p>
             </div>
 
@@ -345,7 +345,7 @@ class SampleQuestions extends React.Component {
                 <td>Good Job</td><td>&nbsp;70</td><td>&nbsp;to&nbsp;</td><td>99</td>
                 </tr>
                 <tr>
-                <td>hmmmm....</td><td>&nbsp;0</td><td>&nbsp;to&nbsp;</td><td>69</td>
+                <td>hmm...</td><td>&nbsp;0</td><td>&nbsp;to&nbsp;</td><td>69</td>
                 </tr>
                 </table>
             </div>

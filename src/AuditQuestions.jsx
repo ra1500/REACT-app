@@ -362,7 +362,7 @@ class AuditQuestions extends React.Component {
                   max={this.state.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
                 </form>
                 <button id="navigateQuestionsButton"  onClick={this.previous}>  Back </button>
-                <button id="answerSubmitButton" onClick={this.postAnswer}>  Submit </button>
+                <button id="answerSubmitButton" onClick={this.postAnswer}>  Next </button>
             </div>
             <p id="deletedAnswersMessage">{this.state.allDeletedMessage}</p>
 

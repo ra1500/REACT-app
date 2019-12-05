@@ -342,22 +342,17 @@ class AskFormQuestion extends React.Component {
           <input class="newAnswer" type="text" maxlength="50" value={this.state.answer5} onChange={this.handleChange9} />
           <span class="askText">Points &nbsp;</span>
           <input type="number" type="text" maxlength="3" class="newAnswerPoints" value={this.state.answer5Points} onChange={this.handleChange10} /></div>
-
-          <div id="floatRightSubmitQuestionButton">
-          <button className="titleButton" type="submit">Next</button>
-          </div>
       </form>
-
-          <form onSubmit={this.handleSubmit2}>
-          <button class="inviteAuditButton"> Go To </button>
-          <input class="newAnswerPoints" placeholder="#" type="number" type="text" size="2" maxlength="2" value={this.state.invitee} onChange={this.handleChange14} />
+        <br></br>
+        <div id="questionsNavigationDiv">
+          <button id="deleteAnswerSubmits" onClick={this.deleteQuestion}>Delete Question</button>
+          <form id="nextQuestionForm" onSubmit={this.handleSubmit2}>
+            <input id="navigateQuestionsButton" type="submit" value="Go to" />
+            <input id="questionsGoToInput" value={this.state.invitee} placeholder="#" type="number" type="text" onChange={this.handleChange14} max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
           </form>
-
-          <form onSubmit={this.handleSubmit3}>
-          <button className="inviteAuditButton" type="submit"> Previous </button>
-          </form>
-
-          <button className="deleteScoreButton" onClick={this.deleteQuestion}>Delete Question</button>
+          <button id="navigateQuestionsButton"  onClick={this.handleSubmit3}>  Back </button>
+          <button id="answerSubmitButton" onClick={this.handleSubmit1}>  Next </button>
+        </div>
 
       </div>
       </div>

@@ -53,7 +53,7 @@ class AlertsNewAuditInviteList extends React.Component {
    renderTableHeader() {
       let header = ["Contact", "Title   ",]
       return header.map((key, index) => {
-         return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
+         return <th key={index}>{key} </th>
       })
    }
 

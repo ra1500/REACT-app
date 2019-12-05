@@ -56,18 +56,22 @@ class PublicUserPages extends React.Component {
     render() {
         return (
         <React.Fragment>
-            <div id="titleBar">
+            <div id="titleBarDiv">
             <a id="NJ" href="/"> NeuralJuice </a>
+            <div id="titleLinksDiv2">
             <p id="profileUserName">{this.state.userName}</p>
+            </div>
             </ div>
         { this.state.showList &&
-         <div class="publicProfileList">
+         <div class="topParentDiv">
+         <div class="secondParentDiv">
             <table>
                <tbody>
                <tr>{this.renderTableHeader()}</tr>
                 {this.renderTableData()}
                </tbody>
             </table>
+         </div>
          </div> }
         </React.Fragment>
         )

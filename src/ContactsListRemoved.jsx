@@ -41,6 +41,7 @@ class ContactsListRemoved extends React.Component {
          <div>
             <table>
                <tbody>
+                  <tr>{this.renderTableHeader()}</tr>
                   {this.renderTableData()}
                </tbody>
             </table>

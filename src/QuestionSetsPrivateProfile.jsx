@@ -43,7 +43,7 @@ class QuestionSetsPrivateProfile extends React.Component {
       return this.state.list.map((data, index) => {
          return (
             <tr key={data.index}>
-                <td>  {data.questionSetVersionEntity.title} </td>
+                <td class="tableData">  {data.questionSetVersionEntity.title} </td>
                 <td> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
             </tr>
          )
@@ -52,7 +52,7 @@ class QuestionSetsPrivateProfile extends React.Component {
    renderTableHeader() {
       let header = ["Title", "Description"]
       return header.map((key, index) => {
-         return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
+         return <th key={index}>{key} </th>
       })
    }
 
@@ -62,6 +62,7 @@ class QuestionSetsPrivateProfile extends React.Component {
 
         { this.state.showList &&
          <div id="meSettingsDiv">
+         <p> Created Sets </p>
             <table>
                <tbody>
                <tr>{this.renderTableHeader()}</tr>

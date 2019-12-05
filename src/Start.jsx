@@ -37,7 +37,6 @@ class Start extends React.Component {
             <button class="settingsButton" onClick={this.showFeatures}> About NJ </button>
           </div>
 
-
        { this.state.showAlerts &&
       <div class="topParentDiv">
         <p> Welcome - Alerts </p>
@@ -45,6 +44,7 @@ class Start extends React.Component {
         <div class="secondParentDiv">
             <p> New Network Invitations (recent two weeks) </p>
             <AlertsNewContactsList />
+            <br></br>
             <p> New Audit Invitations (recent two weeks) </p>
             <AlertsNewAuditInviteList />
         </div>
@@ -55,8 +55,15 @@ class Start extends React.Component {
         <p> Welcome - About NeuralJuice</p>
         <p></p>
         <div class="secondParentDiv">
-            <p> Features </p>
-            <p> Public Profile Internet Page: only NJ sets will appear on public page. </p>
+            <p> NeuralJuice. The web app for fun quizzes, trivia, asking advice and more. </p>
+
+            <p> WELCOME </p>
+            <p> ANSWER </p>
+            <p> ASK </p>
+            <p> NETWORK </p>
+            <p> ME </p>
+            <p> Public Profile Page </p>
+            <p> &nbsp;Public Profile Internet Page: only NJ sets will appear on public page. </p>
         </div>
         </div> }
 

@@ -5,6 +5,7 @@ import ScoreUrl from "./ScoreUrl";
 import ScoresList from "./ScoresList";
 import QuestionSetsPrivateProfile from "./QuestionSetsPrivateProfile";
 import ViewAudits from "./ViewAudits";
+import ViewAuditsDetails from "./ViewAuditsDetails";
 import UpdateUserInfo from "./UpdateUserInfo";
 
 class Profile extends React.Component {
@@ -23,8 +24,7 @@ class Profile extends React.Component {
     this.goToUserSettings = this.goToUserSettings.bind(this);
     this.goToPrivateProfile = this.goToPrivateProfile.bind(this);
     this.renderSingleScore = this.renderSingleScore.bind(this);
-    //this.showAuditListChange = this.showAuditListChange.bind(this);
-    //this.showAuditListChangeDetails = this.showAuditListChangeDetails.bind(this);
+    this.getAuditDetails = this.getAuditDetails.bind(this);
     this.state = {
         showLists: true,
         showInviteToAudit: false,
@@ -35,6 +35,7 @@ class Profile extends React.Component {
         friend: null, // friend invited to audit. individual add.
         auditorsAddedMessage: null,
         showCompletedAudits: false,
+        showCompletedAuditsDetails: false,
         showSettingsButton: true,
         showSettingsSection: false,
         showIndividualScore: false,
@@ -42,7 +43,7 @@ class Profile extends React.Component {
         showAuditListDetails: false,
         showDeleted: false,
         permissionId: null, // used to delete the score permission
-        showAuditListDetails2: false,
+        auditorName: null,
         userName: JSON.parse(sessionStorage.getItem('tokens')).userName, // used in header only
         };
     };
@@ -140,10 +141,10 @@ class Profile extends React.Component {
     }
 
     viewAudits() {
-        this.setState({showLists: false, showCompletedAudits: true, showInviteToAudit: false, showAuditListDetails2: true, });
+        this.setState({showLists: false, showCompletedAudits: true, showInviteToAudit: false, showAuditListDetails2: true, showCompletedAuditsDetails: false, });
     }
     goToUserSettings() {
-        this.setState({showSettingsSection: true, showLists: false, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: false,});
+        this.setState({showSettingsSection: true, showLists: false, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: false, showCompletedAuditsDetails: false,});
     }
     goToPrivateProfile() {
         this.setState({showSettingsSection: false, showLists: true, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: false, showDeleted: false,});
@@ -153,13 +154,16 @@ class Profile extends React.Component {
         this.setState({showSettingsSection: false, showLists: false, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: true,});
     }
     inviteSection() {
-         this.setState({showSettingsSection: false, showLists: false, showCompletedAudits: false, showInviteToAudit: true,});
+         this.setState({showSettingsSection: false, showLists: false, showCompletedAudits: false, showInviteToAudit: true, showCompletedAuditsDetails: false,});
     }
     deleteSection() {
         this.deleteScore();
-        this.setState({showSettingsSection: false, showLists: false, showCompletedAudits: false, showInviteToAudit: false, });
+        this.setState({showSettingsSection: false, showLists: false, showCompletedAudits: false, showInviteToAudit: false, showCompletedAuditsDetails: false,});
     }
-
+    getAuditDetails(event) {
+        this.setState({auditorName: event.target.value,});
+        this.setState({showCompletedAuditsDetails: true, showSettingsSection: false, showLists: false, showCompletedAudits: false, showInviteToAudit: false, });
+    }
 
    render() {
     return (
@@ -242,10 +246,22 @@ class Profile extends React.Component {
             <div class="topParentDiv">
               <div class="secondParentDiv">
                 <p>Audits </p>
-                <ViewAudits questionSetVersionEntityId={this.state.questionSetVersionEntityId}  showAuditListDetails2={this.state.showAuditListDetails2} />
+                <ViewAudits questionSetVersionEntityId={this.state.questionSetVersionEntityId} getAuditDetails={this.getAuditDetails} />
             </div>
             </div>
             </div> }
+
+            { this.state.showCompletedAuditsDetails &&
+            <div>
+            <div class="topParentDiv">
+              <div class="secondParentDiv">
+                <p>Audit Details by {this.state.auditorName} </p>
+                <ViewAuditsDetails questionSetVersionEntityId={this.state.questionSetVersionEntityId}  auditorName={this.state.auditorName} />
+            </div>
+            </div>
+            </div> }
+
+
 
         </React.Fragment>
     ); // end return

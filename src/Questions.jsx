@@ -37,7 +37,6 @@ class Questions extends React.Component {
       allDeletedMessage: null,
       showAnswersButton: this.props.showAnswersButton,
       showResultLevels: false,
-      resultToPost: null,
     };
   }
 
@@ -82,7 +81,7 @@ class Questions extends React.Component {
                });
 
     } else {
-          //
+          if (this.props.result1start > 0) {this.setState({showResultLevels: true});}
             };
     }
 
@@ -121,7 +120,7 @@ class Questions extends React.Component {
                });
 
     } else {
-          //
+          if (this.props.result1start > 0) {this.setState({showResultLevels: true});}
             };
     }
 
@@ -249,13 +248,13 @@ class Questions extends React.Component {
     }
 
     postScoreToProfile() {
-        //console.log(this.props.result1 + " props result");
-        //if      (this.state.userScore >= this.props.result1start && this.props.result1start > 0) { this.props.addToProfile(this.props.result1) }
-        //else if (this.state.userScore >= this.props.result2start && this.props.result2start > 0) { this.props.addToProfile(this.props.result2) }
-        //else if (this.state.userScore >= this.props.result3start && this.props.result3start > 0) { this.props.addToProfile(this.props.result3) }
-        //else if (                                                   this.props.result4start > 0) { this.props.addToProfile(this.props.result4) }
+        let resultToPost = "";
+        if      (this.state.userScore >= this.props.result1start && this.props.result1start > 0) { resultToPost = this.props.result1 }
+        else if (this.state.userScore >= this.props.result2start && this.props.result2start > 0) { resultToPost = this.props.result2 }
+        else if (this.state.userScore >= this.props.result3start && this.props.result3start > 0) { resultToPost = this.props.result3 }
+        else if (                                                   this.props.result4start > 0) { resultToPost = this.props.result4 }
         //else { this.props.addToProfile("") };
-        this.props.addToProfile();
+        this.props.addToProfile(resultToPost);
     }
 
 
@@ -310,10 +309,9 @@ class Questions extends React.Component {
                   max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
                 </form>
                 <button id="navigateQuestionsButton"  onClick={this.previous}>  Back </button>
-                <button id="answerSubmitButton" onClick={this.postAnswer}>  Submit </button>
+                <button id="answerSubmitButton" onClick={this.postAnswer}>  Next </button>
             </div>
             <p id="deletedAnswersMessage">{this.state.allDeletedMessage}</p>
-
 
         </React.Fragment>
       );

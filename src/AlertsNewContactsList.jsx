@@ -61,6 +61,7 @@ class AlertsNewContactsList extends React.Component {
             { this.state.showNewContacts &&
             <table>
                <tbody>
+                  <tr>{this.renderTableHeader()}</tr>
                   {this.renderTableData()}
                </tbody>
             </table> }

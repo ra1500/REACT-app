@@ -25,6 +25,7 @@ class QuestionSetSelector extends React.Component {
           scorePostedMessage: null,
           showList: false,
           showListNetwork: false,
+          showListMySets: false,
           showAnswers: false,
           showAnswersButton: true,
         };
@@ -112,7 +113,7 @@ class QuestionSetSelector extends React.Component {
             list: response.data,
           });
           this.renderTableData();
-          this.setState({renderQuestions: false, showList: true, showListNetwork: false,});
+          this.setState({renderQuestions: false, showList: true, showListNetwork: false, showListMySets: false,});
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -132,7 +133,7 @@ class QuestionSetSelector extends React.Component {
             list: response.data,
           });
           this.renderTableDataNetwork();
-          this.setState({renderQuestions: false, showList: false, showListNetwork: true,});
+          this.setState({renderQuestions: false, showList: false, showListNetwork: true, showListMySets: false,});
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -152,7 +153,7 @@ class QuestionSetSelector extends React.Component {
             list: response.data,
           });
           this.renderTableData();
-          this.setState({renderQuestions: false, showList: true, showListNetwork: false,});
+          this.setState({renderQuestions: false, showList: false, showListNetwork: false, showListMySets: true,});
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -162,7 +163,7 @@ class QuestionSetSelector extends React.Component {
         this.setState({renderQuestions: false});
      } // end if
      else {
-        this.setState({renderQuestions: true, showList: false,});
+        this.setState({renderQuestions: true, showList: false, showListNetwork: false, showListMySets: false,});
      }
   }
 
@@ -184,14 +185,14 @@ class QuestionSetSelector extends React.Component {
     }
 
   // called from child, 'Questions'
-  addToProfile(event) {
+  addToProfile(value) {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
         const p = name.password;
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { auditee: u,  };  // sending over auditee since this method also in 'AuditQuestions' where it is set to friend.
+        let data = { auditee: u,  result: value};  // sending over auditee since this method also in 'AuditQuestions' where it is set to friend.
         axios.post("http://localhost:8080/prm/sc/d?qsId=" + this.state.questionSetVersion,
         data,
         {headers : { 'Authorization' : Basic }})
@@ -216,7 +217,7 @@ class QuestionSetSelector extends React.Component {
    renderTableHeaderNetwork() {
       let header = ["Title","Creator", "Description"]
       return header.map((key, index) => {
-         return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
+         return <th key={index}>{key}  </th>
       })
    }
 
@@ -233,7 +234,7 @@ class QuestionSetSelector extends React.Component {
    renderTableHeader() {
       let header = ["Title", "Description"]
       return header.map((key, index) => {
-         return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
+         return <th key={index}>{key} </th>
       })
    }
 
@@ -266,6 +267,20 @@ class QuestionSetSelector extends React.Component {
         { this.state.showList &&
          <div class="topParentDiv">
         <p> Answer - NJ Sets </p>
+        <p></p>
+        <div class="secondParentDiv">
+            <table>
+               <tbody>
+               <tr>{this.renderTableHeader()}</tr>
+                {this.renderTableData()}
+               </tbody>
+            </table>
+         </div>
+         </div> }
+
+        { this.state.showListMySets &&
+         <div class="topParentDiv">
+        <p> Answer - My Created Sets </p>
         <p></p>
         <div class="secondParentDiv">
             <table>

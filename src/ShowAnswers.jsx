@@ -48,9 +48,9 @@ class ShowAnswers extends React.Component {
    }
 
    renderTableHeader() {
-      let header = ["Question#", "Question","Answer", "Answer Points",]
+      let header = ["#", "Question","Answer", "Answer Points",]
       return header.map((key, index) => {
-         return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
+         return <th key={index}>{key} </th>
       })
    }
 

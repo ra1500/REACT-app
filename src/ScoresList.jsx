@@ -39,22 +39,20 @@ class ScoresList extends React.Component {
    renderTableData() {
       return this.state.list.map((data, index) => {
          return (
-            <div>
-            <tr key={data.index}>
-                <td> <button class="titleButton" value={data.questionSetVersionEntity} onClick={e => this.props.renderSingleScore(data.id ,data.questionSetVersionEntity.id, data.questionSetVersionEntity.title, data.questionSetVersionEntity.description, data.score,e)}> {data.questionSetVersionEntity.title} </button> </td>
-                <td> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
-                <td> &nbsp;{data.score} </td>
-                <td> &nbsp;{data.result} </td>
+            <tr key={index}>
+                <td class="tableData"> <button class="titleButton" value={data.questionSetVersionEntity} onClick={e => this.props.renderSingleScore(data.id ,data.questionSetVersionEntity.id, data.questionSetVersionEntity.title, data.questionSetVersionEntity.description, data.score,e)}> {data.questionSetVersionEntity.title} </button> </td>
+                <td class="tableData"> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
+                <td class="tableData"> &nbsp;{data.score} </td>
+                <td class="tableData"> &nbsp;{data.result} </td>
             </tr>
-            </div>
          )
       })
    }
 
    renderTableHeader() {
-      let header = ["Title", ]
+      let header = ["Title", "Description", "Score", "Result" ]
       return header.map((key, index) => {
-         return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
+         return <th key={index}>{key}    </th>
       })
    }
 
@@ -64,6 +62,7 @@ class ScoresList extends React.Component {
 
         { this.state.showList &&
          <div id="meSettingsDiv">
+         <p> Posted Scores </p>
             <table>
                <tbody>
                <tr>{this.renderTableHeader()}</tr>

@@ -41,6 +41,7 @@ class ContactsList extends React.Component {
         <div class="secondParentDiv">
             <table>
                <tbody>
+                  <tr>{this.renderTableHeader()}</tr>
                   {this.renderTableData()}
                </tbody>
             </table>

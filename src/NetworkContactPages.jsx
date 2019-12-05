@@ -151,12 +151,13 @@ class NetworkContactPages extends React.Component {
           <div class="topParentDiv">
 
                 { this.state.showContactScores &&
-                <div>
+                <div class="secondParentDiv">
                 <ScoresNetworkContactPages friendId={this.props.friendId} />
                 </div> }
 
                 {this.state.showQuestionSetAuditing &&
                 <div class="secondParentDiv">
+                  <p> Audit Them </p>
                   <p> Audit your contact's answers. You can choose and submit different answers and also add comments.
                   Your contact can then review how you scored them and read your coments.
                   (Note that once you have submited your own answer to a question it will be saved and you will not be able to see
