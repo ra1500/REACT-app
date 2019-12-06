@@ -42,10 +42,10 @@ class Start extends React.Component {
         <p> Welcome - Alerts </p>
         <p></p>
         <div class="secondParentDiv">
-            <p> New Network Invitations (recent two weeks) </p>
+            <p> New Network Invitations (past two weeks) </p>
             <AlertsNewContactsList />
             <br></br>
-            <p> New Audit Invitations (recent two weeks) </p>
+            <p> New Audit Invitations (past two weeks) </p>
             <AlertsNewAuditInviteList />
         </div>
         </div> }
@@ -62,6 +62,7 @@ class Start extends React.Component {
             <p> ASK </p>
             <p> NETWORK </p>
             <p> ME </p>
+            Invite Audits: Must post a score in 'ANSWER' before you can invite auditors.
             <p> Public Profile Page </p>
             <p> &nbsp;Public Profile Internet Page: only NJ sets will appear on public page. </p>
         </div>

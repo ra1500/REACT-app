@@ -28,7 +28,7 @@ class AskFormQuestion extends React.Component {
           questionSetVersion: this.props.questionSetVersion,
           sequenceNumber: this.props.sequenceNumber,
           maxQtyQuestions: this.props.maxQtyQuestions,
-          maxPoints: this.props.maxPointsTotal,
+          maxPointsTotal: this.props.maxPointsTotal,
           question: this.props.question,
           jumpToQuestionNumber: 1,
           answer1: this.props.answer1,
@@ -116,7 +116,7 @@ class AskFormQuestion extends React.Component {
          answer5: this.state.answer5, answer5Points: Number(this.state.answer5Points),
          answer6: this.state.answer6, answer6Points: Number(this.state.answer6Points),};
 
-        this.setState({maxPoints: +Number(this.state.maxPoints) +Number(maximumPoints) -Number(maximumPointsBefore) })  ;
+        this.setState({maxPointsTotal: +Number(this.state.maxPointsTotal) +Number(maximumPoints) -Number(maximumPointsBefore) })  ;
 
         axios.post("http://localhost:8080/q/p?qsid=" + this.props.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
@@ -128,7 +128,7 @@ class AskFormQuestion extends React.Component {
          if (this.props.sequenceNumber > this.state.maxQtyQuestions) {
              this.setState({maxQtyQuestions: this.props.sequenceNumber-1});
          } // end if
-         this.props.finalMax(this.state.maxQtyQuestions, this.state.maxPoints); //
+         this.props.finalMax(this.state.maxQtyQuestions, this.state.maxPointsTotal); //
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
         } // end if
@@ -186,8 +186,9 @@ class AskFormQuestion extends React.Component {
         this.setState({isLoaded: true,
           });
           this.getPreviousQuestion();
-          this.props.previousSequenceNumber()
-          this.props.finalMax(this.state.maxQtyQuestions-1, this.state.maxPoints-deletedQuestionMaxPoints);
+          this.props.previousSequenceNumber();
+          this.props.finalMax(this.state.maxQtyQuestions-1, this.state.maxPointsTotal-deletedQuestionMaxPoints);
+          this.setState({maxQtyQuestions: this.state.maxQtyQuestions-1, maxPointsTotal: +this.state.maxPointsTotal-deletedQuestionMaxPoints}); // need to manage props AND this.state.
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
         }
@@ -348,7 +349,7 @@ class AskFormQuestion extends React.Component {
           <button id="deleteAnswerSubmits" onClick={this.deleteQuestion}>Delete Question</button>
           <form id="nextQuestionForm" onSubmit={this.handleSubmit2}>
             <input id="navigateQuestionsButton" type="submit" value="Go to" />
-            <input id="questionsGoToInput" value={this.state.invitee} placeholder="#" type="number" type="text" onChange={this.handleChange14} max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
+            <input id="questionsGoToInput" placeholder="#" type="number" type="text" onChange={this.handleChange14} max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
           </form>
           <button id="navigateQuestionsButton"  onClick={this.handleSubmit3}>  Back </button>
           <button id="answerSubmitButton" onClick={this.handleSubmit1}>  Next </button>

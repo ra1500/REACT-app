@@ -62,7 +62,7 @@ class QuestionSetsPrivateProfile extends React.Component {
 
         { this.state.showList &&
          <div id="meSettingsDiv">
-         <p> Created Sets </p>
+         <p> My Created Sets </p>
             <table>
                <tbody>
                <tr>{this.renderTableHeader()}</tr>

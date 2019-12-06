@@ -232,7 +232,7 @@ class QuestionSetSelector extends React.Component {
       })
    }
    renderTableHeader() {
-      let header = ["Title", "Description"]
+      let header = [ "Title", "Description"]
       return header.map((key, index) => {
          return <th key={index}>{key} </th>
       })

@@ -59,7 +59,7 @@ class Introduction extends React.Component {
     <p> NeuralJuice </p>
     <p></p>
     <div class="secondParentDiv">
-         <p> Answer trivia, life quizzes, evaluations and more in ANSWER.  </p>
+         <p> Answer trivia, life quizzes, evaluations, truth or dare and more in ANSWER.  </p>
          <p> Create your own question sets with ASK and invite your network to answer.  </p>
          <p> Connect with friends and colleagues in NETWORK. Audit their results and tell them your opinion. </p>
          <p> Post your own results to your ME page. Share with your network or the internet with your profile page. </p>

@@ -130,7 +130,7 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 
 /** Public Profile (PublicUserPages) **/
 #titleLinksDiv2 {margin: auto; width: 100px; }
-#profileUserName {display: inline; color: #e6004c; font-weight: bold;}
+#profileUserName {display: inline; color: white; font-weight: bold;}
 
 
 

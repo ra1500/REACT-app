@@ -52,7 +52,7 @@ class ViewAuditsDetails extends React.Component {
    }
 
    renderTableHeader() {
-      let header = ["Auditor", "Score"]
+      let header = [ "#","Auditor", "Question", "Auditor's Answer","Auditor's Points", "Comments"]
       return header.map((key, index) => {
          return <th key={index}>{key} </th>
       })
@@ -66,6 +66,7 @@ class ViewAuditsDetails extends React.Component {
          <div>
             <table>
                <tbody>
+                <tr>{this.renderTableHeader()}</tr>
                 {this.renderTableData2()}
                </tbody>
             </table>

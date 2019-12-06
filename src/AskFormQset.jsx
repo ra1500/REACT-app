@@ -127,7 +127,7 @@ class AskFormQset extends React.Component {
 
   handleSubmit1(event) {
     event.preventDefault();
-    this.setState({showCheckMathMessage: false,});
+    this.setState({showCheckMathMessage: false, sequenceNumber: 1}); // need to reset sequenceNumber to '1' when toggling edit
     if (this.state.result1start >= this.state.result2start && this.state.result2start >= this.state.result3start ) {
     this.postNewQset();
     this.setState({showInputBoxes: false, showQsetDetails: true, showAskFormQuestion: true});
@@ -502,7 +502,7 @@ class AskFormQset extends React.Component {
         <div><p class="firstP">Question Count: </p><p class="secondP">{this.state.maxQtyQuestions}</p></div>
         <div><p class="firstP">Max Points: </p><p class="secondP">{this.state.maxPointsTotal}</p></div>
         <button class="deleteScoreButton" onClick={this.deleteAll}> Cancel/Delete </button>
-        <button class="inviteAuditButton" onClick={this.toggleEditInputBoxes}> Edit </button>
+        <button class="inviteAuditButton" onClick={this.toggleEditInputBoxes}> Edit Headers </button>
         <button class="titleButton" onClick={this.finishedEntry}> Finish </button>
         </div>
       </div> }
@@ -518,7 +518,7 @@ class AskFormQset extends React.Component {
         <div><p class="firstP">Question Count: </p><p class="secondP">{this.state.maxQtyQuestions}</p></div>
         <div><p class="firstP">Max Points: </p><p class="secondP">{this.state.maxPointsTotal}</p></div>
         <button class="deleteScoreButton" onClick={this.deleteAll}> Cancel/Delete </button>
-        <button class="inviteAuditButton" onClick={this.editAgain}> Edit </button>
+        <button class="inviteAuditButton" onClick={this.editAgain}> Edit This Set </button>
         <button class="titleButton" onClick={this.inviteToScore}> Invite </button><span> Invite your contacts to score too. </span>
         </div>
         </div>

@@ -41,15 +41,16 @@ class PublicUserPages extends React.Component {
                 <td> {data.questionSetVersionEntity.title} &nbsp; &nbsp;</td>
                 <td> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
                <td> &nbsp;{data.score} </td>
+               <td> &nbsp;{data.result} </td>
             </tr>
          )
       })
    }
 
    renderTableHeader() {
-      let header = ["Title", "Description","Score"]
+      let header = ["Title", "Description","Score", "Result"]
       return header.map((key, index) => {
-         return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
+         return <th key={index}>{key} </th>
       })
    }
 
@@ -62,6 +63,7 @@ class PublicUserPages extends React.Component {
             <p id="profileUserName">{this.state.userName}</p>
             </div>
             </ div>
+
         { this.state.showList &&
          <div class="topParentDiv">
          <div class="secondParentDiv">

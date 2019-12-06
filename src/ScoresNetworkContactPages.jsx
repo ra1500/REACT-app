@@ -46,16 +46,17 @@ class ScoresNetworkContactPages extends React.Component {
             <tr key={data.index}>
                 <td> {data.questionSetVersionEntity.title} &nbsp; &nbsp;</td>
                 <td> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
-               <td> &nbsp;{data.score} </td>
+                <td> &nbsp;{data.score} </td>
+                <td> {data.result} </td>
             </tr>
          )
       })
    }
 
    renderTableHeader() {
-      let header = ["Title", "Description","Score"]
+      let header = ["Title", "Description","Score", "Result"]
       return header.map((key, index) => {
-         return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
+         return <th key={index}>{key}  </th>
       })
    }
 
