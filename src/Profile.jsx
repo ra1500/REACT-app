@@ -227,14 +227,15 @@ class Profile extends React.Component {
               <div class="secondParentDiv">
                     <p> Invite Auditors </p>
                     <div>
-                    <button class="inviteAuditButton" onClick={this.inviteToAuditFriends}> Friends </button>
-                    <button class="inviteAuditButton" onClick={this.inviteToAuditColleagues}> Colleagues </button>
-                    <button class="inviteAuditButton" onClick={this.inviteToAuditOther}> Other </button>
-                    <button class="inviteAuditButton" onClick={this.inviteToAuditEveryone}> Network </button>
-                    <div>
-                    <input class="askForm" placeholder="username of contact" type="text" size="20" maxlength="20" value={this.state.invitee} onChange={this.handleChange} />
-                    <button class="inviteAuditButton" onClick={this.inviteToAuditIndividual}> Individual </button>
-                    </div>
+                      <button class="inviteAuditButton" onClick={this.inviteToAuditFriends}> Friends </button>
+                      <button class="inviteAuditButton" onClick={this.inviteToAuditColleagues}> Colleagues </button>
+                      <button class="inviteAuditButton" onClick={this.inviteToAuditOther}> Other </button>
+                      <button class="inviteAuditButton" onClick={this.inviteToAuditEveryone}> Network </button>
+                      <p></p>
+                      <div>
+                        <input class="askForm" placeholder="username of contact" type="text" maxlength="100" value={this.state.invitee} onChange={this.handleChange} />
+                        <button class="inviteAuditButton" onClick={this.inviteToAuditIndividual}> Individual </button>
+                      </div>
                     <p> {this.state.auditorsAddedMessage} </p>
                     </div>
               </div>

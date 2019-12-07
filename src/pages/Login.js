@@ -42,8 +42,8 @@ function Login(props) {
         <p></p>
         <div class="secondParentDiv">
       <Form>
-        <input class="loginInput" type="username" value={userName} onChange={e => {setUserName(e.target.value);}} placeholder="username"/>
-        <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}} placeholder="password"/>
+        <input class="loginInput" type="username" value={userName} onChange={e => {setUserName(e.target.value);}} placeholder="username"/><br></br>
+        <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}} placeholder="password"/><br></br>
         <button class="titleButton" onClick={postLogin}> Let's go </button>
       </Form>
         { isError &&

@@ -42,11 +42,11 @@ function UpdateUserInfo(props) {
       <div id="meSettingsDiv">
       <p> Password </p>
       <Form>
-        <input class="loginInput" type="password" value={oldPassword} onChange={e => {setoldPassword(e.target.value);}} placeholder=" current password" />
-        <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}} placeholder=" new password" />
-        <input class="loginInput" type="password" value={confirmPassword} onChange={e => {setConfirmPassword(e.target.value);}} placeholder=" new password again" />
+        <input class="loginInput" type="password" value={oldPassword} onChange={e => {setoldPassword(e.target.value);}} placeholder=" current password" /><br></br>
+        <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}} placeholder=" new password" /><br></br>
+        <input class="loginInput" type="password" value={confirmPassword} onChange={e => {setConfirmPassword(e.target.value);}} placeholder=" new password again" /><br></br>
         <button class="inviteAuditButton" onClick={updateSignup}>Update</button>
-        <p> {UpdateMessage} </p>
+        <p class="updateParagraph"> {UpdateMessage} </p>
       </Form>
       </div>
     </React.Fragment>

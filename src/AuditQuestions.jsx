@@ -264,7 +264,7 @@ class AuditQuestions extends React.Component {
     const hash = btoa(token);
     const Basic = 'Basic ' + hash;
     const data = {auditee: this.props.friend};
-    axios.post("http://localhost:8080/a/del/" + this.state.questionSetVersionEntityId,
+    axios.post("http://localhost:8080/a/dll/" + this.state.questionSetVersionEntityId,
     data,
     {headers : { 'Authorization' : Basic }})
     .then((response) => {

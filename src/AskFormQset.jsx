@@ -37,6 +37,7 @@ class AskFormQset extends React.Component {
         this.state = {
           error: null,
           isLoaded: false,
+          showTooManyQsetsMessage: false,
           title: null,
           category: null,
           description: null,
@@ -167,8 +168,14 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/qs/p?qsid=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
+        if (response.status === 200) {
         this.setState({isLoaded: true, questionSetVersion: response.data.id,
                   });
+         } // end if
+         else {
+                this.setState({showIntro: false, showInputBoxes: false, showQsetDetails: false, showFinished: false,
+                showAllDeleted: false, showAskFormQuestion: false, showManage: false,  showTooManyQsetsMessage: true, });
+         };
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
    }
@@ -181,23 +188,23 @@ class AskFormQset extends React.Component {
           scoringStyle: 1, displayAnswers: 1,});
 
           this.setState({ showIntro: false, showInputBoxes: true, showQsetDetails: false, showFinished: false,
-                          showAllDeleted: false, showAskFormQuestion: false, showManage: false,});
+                          showAllDeleted: false, showAskFormQuestion: false, showManage: false, showTooManyQsetsMessage: false,});
     }
     manageSets() {
         this.setState({showIntro: false, showInputBoxes: false, showQsetDetails: false, showFinished: false,
-         showAllDeleted: false, showAskFormQuestion: false, showManage: true });
+         showAllDeleted: false, showAskFormQuestion: false, showManage: true,  showTooManyQsetsMessage: false, });
     }
 
 
     toggleEditInputBoxes() {
-        this.setState({showInputBoxes: true, showQsetDetails: false, showAskFormQuestion: true, showAskFormQuestion: false,});
+        this.setState({showInputBoxes: true, showQsetDetails: false, showAskFormQuestion: true, showAskFormQuestion: false,  showTooManyQsetsMessage: false,});
     }
 
     finishedEntry() {
-        this.setState({showQsetDetails: false, showAskFormQuestion: false, showFinished: true});
+        this.setState({showQsetDetails: false, showAskFormQuestion: false, showFinished: true,  showTooManyQsetsMessage: false,});
     }
     editAgain() {
-        this.setState({showFinished: false, showQsetDetails: true, showAskFormQuestion: true});
+        this.setState({showFinished: false, showQsetDetails: true, showAskFormQuestion: true, showTooManyQsetsMessage: false,});
     }
     deleteAll() {
         if (window.confirm('Are you sure you want to delete this \n question set entirely?')) {
@@ -241,7 +248,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, inviteSelectionMessage: "Your friends can now see your new question set on their score page",
+        this.setState({isLoaded: true, inviteSelectionMessage: "Your friends can now answer your new question set",
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -258,7 +265,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, inviteSelectionMessage: "Your colleagues can now see your new question set on their score page",
+        this.setState({isLoaded: true, inviteSelectionMessage: "Your colleagues can now answer your new question set",
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -274,7 +281,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, inviteSelectionMessage: "Your 'Other' group can now see your new question set on their score page",
+        this.setState({isLoaded: true, inviteSelectionMessage: "Your 'Other' group can now answer your new question set",
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -290,7 +297,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, inviteSelectionMessage: "Your connections can now see your new question set on their score page",
+        this.setState({isLoaded: true, inviteSelectionMessage: "Your network can now answer your new question set",
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -307,7 +314,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/o?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, inviteSelectionMessage: this.state.invitee + " can now see your new question set on their score page",
+        this.setState({isLoaded: true, inviteSelectionMessage: this.state.invitee + " can now answer your new question set",
             invitee: "",
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
@@ -505,6 +512,15 @@ class AskFormQset extends React.Component {
         <button class="inviteAuditButton" onClick={this.toggleEditInputBoxes}> Edit Headers </button>
         <button class="titleButton" onClick={this.finishedEntry}> Finish </button>
         </div>
+      </div> }
+
+      { this.state.showTooManyQsetsMessage &&
+      <div class="topParentDiv">
+        <p> Ask - Create </p>
+        <p></p>
+      <div class="secondParentDiv">
+      <p> Sorry. You have already reached the 10 sets limit. You can delete one to free up space. </p>
+      </div>
       </div> }
 
       { this.state.showFinished &&

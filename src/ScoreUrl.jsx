@@ -66,7 +66,7 @@ class ScoreUrl extends React.Component {
     .then((response) => {
     this.setState({isLoaded: true,
             publicProfile: response.data.publicProfile,
-            privacyUpdatedMessage: " (updated)",
+            privacyUpdatedMessage: " (updated to " + response.data.publicProfile + ")",
               });
            }).catch(error => {this.setState({ isLoaded: true, error});
            });
@@ -76,7 +76,7 @@ class ScoreUrl extends React.Component {
     return (
     <div id="meSettingsDiv">
         <p>Profile View Status for {this.state.userName}<br></br>
-         Curent Status: {this.state.publicProfile} <span id="userName">{this.state.privacyUpdatedMessage}</span></p>
+         Curent Status: {this.state.publicProfile} </p>
 
         <form onSubmit={this.handleSubmit1}>
             <div>
@@ -89,6 +89,7 @@ class ScoreUrl extends React.Component {
               <label><input value="Private" onChange={this.handleChange1} type="radio" name="optradio" /> Private </label>
             </div>
             <button type="submit" className="inviteAuditButton"> Update </button>
+            <span class="updateParagraph">{this.state.privacyUpdatedMessage}</span>
         </form>
 
        <a id="publicProfileURLhref" href={'/flavor?id=' + this.state.userName}> www.neuraljuice.com/flavor?id={this.state.userName} </a>

@@ -29,7 +29,7 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 #easySignUpButton {border: none; background-color: #737373; color: white; text-decoration: none; font-weight: bold; font-size: 14px; font-family: "Geneva"}
 
  /** Login & Signup **/
-.loginInput {display: block; padding-bottom: 3px;}
+.loginInput {display: inline-block; margin-bottom: 7px; width: 250px;}
 
  /** Buttons First Level **/
 .settings2ButtonsDiv { margin: auto; width: 290px; padding-top: 10px;}
@@ -52,6 +52,7 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 #meSettingsDiv { border-style: solid; border-width: 1px; margin-top: 5px; margin-bottom: 10px; padding: 10px;}
 #publicProfileURLhref {font-family: "Geneva"; color: #0000ff}
 .paragraphInline {font-family: "Geneva"; display: inline}
+.updateParagraph { display: inline; color: red; font-weight: bold; }
 
  /** Ask - Create/Manage (AskFormQset) **/
 .askText {margin-left: 10px; display: inline; width: 50%;}

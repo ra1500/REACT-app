@@ -16,7 +16,10 @@ function Signup(props) {
   const { setAuthTokens } = useAuth();
 
   function postSignup() {
-    if (password === verifyPassword) {
+    if (password !== verifyPassword) { setVerifyMessage("Please check your input. Password fields did not match.");}
+    else if (userName.length < 4) { setVerifyMessage("Please ensure username is at least 4 characters in length");}
+    else if (password.length < 4) { setVerifyMessage("Please ensure password is at least 4 characters in length");}
+    else {
     axios.post("http://localhost:8080/user/signup", {
       userName,
       password
@@ -30,9 +33,6 @@ function Signup(props) {
     }).catch(e => {
       setIsError(true);
     });
-    }
-    else {
-        setVerifyMessage("Please check your input. Password fields did not match.");
     }
   }
 
@@ -48,12 +48,12 @@ function Signup(props) {
         <p></p>
         <div class="secondParentDiv">
           <Form>
-            <input class="loginInput" type="username" value={userName} onChange={e => {setUserName(e.target.value);}}placeholder="username" />
-            <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}}placeholder="password" />
-            <input class="loginInput" type="password" value={verifyPassword} onChange={e => {setVerifyPassword(e.target.value);}}placeholder="password again" />
+            <input class="loginInput" maxlength="100" type="username" value={userName} onChange={e => {setUserName(e.target.value);}}placeholder="username" /> <p class="questionsDescriptionParagraph"> (must be at least 4 characters in length) </p><br></br>
+            <input class="loginInput" maxlength="100" type="password" value={password} onChange={e => {setPassword(e.target.value);}}placeholder="password" /> <p class="questionsDescriptionParagraph"> (must be at least 4 characters in length) </p><br></br>
+            <input class="loginInput" maxlength="100" type="password" value={verifyPassword} onChange={e => {setVerifyPassword(e.target.value);}}placeholder="password again" /><br></br>
             <button class="titleButton" onClick={postSignup}>Sign Up</button>
 
-            <br></br>
+            <br></br><br></br>
             <p>We don't use cookies.</p>
             <div>
             <p>{verifyMessage}</p>
