@@ -45,8 +45,12 @@ class Profile extends React.Component {
         permissionId: null, // used to delete the score permission
         auditorName: null,
         userName: JSON.parse(sessionStorage.getItem('tokens')).userName, // used in header only
+        auditCount: null,
+        isAudited: null, // used to indicate if the single selected qset has been invited for audit
+        isAuditedMessage: null,
         };
     };
+
 
     inviteToAudit(group) {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
@@ -106,6 +110,26 @@ class Profile extends React.Component {
       }
     }
 
+    getAuditCount(value) {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/a/ac/" + value,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+          this.setState({
+            isLoaded: true,
+            auditCount: response.data.auditCount,
+            isAudited: response.data.isAudited,
+          });
+        if (response.data.isAudited === 1) (this.setState({isAuditedMessage:  "This set is under audit review by your invited network members."}));
+               }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
+               });
+    }
+
     handleChange(event) {
         this.setState({friend: event.target.value});
     }
@@ -152,9 +176,11 @@ class Profile extends React.Component {
     renderSingleScore(id ,questionSetVersionEntityId, title, description, score, e) {
         this.setState({permissionId: id ,questionSetVersionEntityId: questionSetVersionEntityId, title: title, description: description, score: score});
         this.setState({showSettingsSection: false, showLists: false, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: true,});
+        this.getAuditCount(questionSetVersionEntityId);
     }
     inviteSection() {
-         this.setState({showSettingsSection: false, showLists: false, showCompletedAudits: false, showInviteToAudit: true, showCompletedAuditsDetails: false,});
+         if (this.state.auditCount > 3) { this.setState({showSettingsSection: false, showLists: false, showCompletedAudits: false, showInviteToAudit: false, showCompletedAuditsDetails: false,}); }
+         else { this.setState({showSettingsSection: false, showLists: false, showCompletedAudits: false, showInviteToAudit: true, showCompletedAuditsDetails: false,}); }
     }
     deleteSection() {
         this.deleteScore();
@@ -217,6 +243,9 @@ class Profile extends React.Component {
                 <p class="questionsParagraph"> Title: &nbsp;{this.state.title} </p>
                 <p class="questionsDescriptionParagraph"> Description: &nbsp;{this.state.description}</p>
                 <p class="questionsParagraph">Score: &nbsp;{this.state.score}</p> <br></br>
+                <p id="deletedScorePostP"> {this.state.isAuditedMessage} </p>
+                <p class="questionsParagraph"> ({this.state.auditCount} of 4 audit sets per account used. You can free up space by deleting one of your posted scores that has audit invitations.)</p>
+                <br></br>
               </div>
               </div>
               </div> }
@@ -225,7 +254,7 @@ class Profile extends React.Component {
               <div>
               <div class="topParentDiv">
               <div class="secondParentDiv">
-                    <p> Invite Auditors </p>
+                    <p> Invite Auditors </p><br></br>
                     <div>
                       <button class="inviteAuditButton" onClick={this.inviteToAuditFriends}> Friends </button>
                       <button class="inviteAuditButton" onClick={this.inviteToAuditColleagues}> Colleagues </button>
