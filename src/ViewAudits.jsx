@@ -41,14 +41,15 @@ class ViewAudits extends React.Component {
             <tr key={data.index}>
                <td> {data.userName} &nbsp; &nbsp;</td>
                <td> &nbsp;{data.score} </td>
-               <td> <button class="titleButton" value={data.userName} onClick={e => this.props.getAuditDetails(e)}> View audit </button> </td>
+               <td> &nbsp;{data.result} </td>
+               <td> <button class="greenButton" value={data.userName} onClick={e => this.props.getAuditDetails(e)}> View audit </button> </td>
             </tr>
          )
       })
    }
 
    renderTableHeader() {
-      let header = ["Auditor", "Score"]
+      let header = ["Auditor", "Score", "Result"]
       return header.map((key, index) => {
          return <th key={index}>{key}</th>
       })

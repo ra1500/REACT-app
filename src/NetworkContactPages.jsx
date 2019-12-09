@@ -196,7 +196,7 @@ class NetworkContactPages extends React.Component {
 
                     { this.state.showUpdateButton &&
                     <button type="submit" onClick={this.handleSubmit} className="inviteAuditButton"> Update </button> }
-                    <span id="userName"> {this.state.invitationStatusMessage} </span>
+                    <span id="deletedAnswersMessage"> {this.state.invitationStatusMessage} </span>
                     <p>New connections can view your profile. You can change this by selecting them in 'Network' and adjusting 'Settings'.</p>
                      </div> }
 

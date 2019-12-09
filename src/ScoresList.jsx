@@ -65,7 +65,7 @@ class ScoresList extends React.Component {
          <p> Posted Scores </p>
             <table>
                <tbody>
-               <tr>{this.renderTableHeader()}</tr>
+               <tr><th class="thTitle">Title</th><th>Description</th><th>Score</th><th>Result</th></tr>
                 {this.renderTableData()}
                </tbody>
             </table>

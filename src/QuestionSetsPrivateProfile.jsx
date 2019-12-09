@@ -49,12 +49,7 @@ class QuestionSetsPrivateProfile extends React.Component {
          )
       })
    }
-   renderTableHeader() {
-      let header = ["Title", "Description"]
-      return header.map((key, index) => {
-         return <th key={index}>{key} </th>
-      })
-   }
+
 
    render() {
     return (
@@ -65,7 +60,7 @@ class QuestionSetsPrivateProfile extends React.Component {
          <p> My Created Sets </p>
             <table>
                <tbody>
-               <tr>{this.renderTableHeader()}</tr>
+               <tr><th class="thTitle">Title</th><th>Description</th></tr>
                 {this.renderTableData()}
                </tbody>
             </table>

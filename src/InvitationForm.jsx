@@ -59,7 +59,7 @@ class InvitationForm extends React.Component {
         if (response.status === 204) {
         this.setState({invitationSentMessage: " user not found" });}
         else {
-        this.setState({isLoaded: true, friendInvited: this.state.friend, showInviteButton: true, invitationSentMessage: this.state.friend + " has been invited to join your network.",
+        this.setState({isLoaded: true, friendInvited: this.state.friend, invitationSentMessage: this.state.friend + " has been invited to join your network.",
                   }); }
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -95,7 +95,7 @@ class InvitationForm extends React.Component {
         <p></p>
         { this.state.showInviteButton &&
         <button type="submit" onClick={this.handleSubmit} className="inviteAuditButton"> Invite </button> }
-        <span id="userName"> {this.state.invitationSentMessage} </span>
+        <span id="deletedAnswersMessage"> {this.state.invitationSentMessage} </span>
         </div>
       </div>
     </React.Fragment>

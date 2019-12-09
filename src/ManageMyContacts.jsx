@@ -109,7 +109,7 @@ class ManageMyContacts extends React.Component {
             <div>
                 <p> You can remove your pending contact here. You can unhide this contact in 'Removed List' under "Network". </p>
                 { this.state.showDeletedMessage &&
-                <p id="userName"> {this.state.deletedMessage} </p> }
+                <p id="deletedAnswersMessage"> {this.state.deletedMessage} </p> }
                 { this.state.showRemoveButton &&
                 <button type="submit" onClick={this.handleSubmit2} className="deleteScoreButton"> Remove </button> }
 
@@ -143,12 +143,12 @@ class ManageMyContacts extends React.Component {
             </form>
             <p></p>
                 { this.state.showDeletedMessage &&
-                <p id="userName"> {this.state.deletedMessage} </p> }
+                <p id="deletedAnswersMessage"> {this.state.deletedMessage} </p> }
                 { this.state.showRemoveButton &&
                 <button type="submit" onClick={this.handleSubmit2} className="deleteScoreButton"> Remove </button> }
 
                 { this.state.showUpdatedMessage &&
-                <p id="userName"> {this.state.updatedMessage} </p> }
+                <p id="deletedAnswersMessage"> {this.state.updatedMessage} </p> }
                 { this.state.showUpdateButton &&
                 <button type="submit" onClick={this.handleSubmit1} className="inviteAuditButton"> Update </button> }
             </div>

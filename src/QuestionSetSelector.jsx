@@ -90,8 +90,8 @@ class QuestionSetSelector extends React.Component {
             result2start: response.data.result2start,
             result3start: response.data.result3start,
           });
-          if      (response.data.scoringStyle === 1) {this.setState({showScoring: true,});}
-          else                                       {this.setState({showScoring: false,});}
+          if      (response.data.scoringStyle === 1) {this.setState({showScoring: false,});}
+          else                                       {this.setState({showScoring: true,});}
           if      (response.data.displayAnswers === 1) {this.setState({showAnswersButton: true});}
           else                                         {this.setState({showAnswersButton: false});}
                }).catch(error => {this.setState({ isLoaded: true, error,});
@@ -231,12 +231,6 @@ class QuestionSetSelector extends React.Component {
          )
       })
    }
-   renderTableHeader() {
-      let header = [ "Title", "Description"]
-      return header.map((key, index) => {
-         return <th key={index}>{key} </th>
-      })
-   }
 
 
    render() {
@@ -256,7 +250,7 @@ class QuestionSetSelector extends React.Component {
         <div class="secondParentDiv">
             <table>
                <tbody>
-               <tr>{this.renderTableHeaderNetwork()}</tr>
+               <tr><th class="thTitle">Title</th><th>Creator</th><th>Description</th></tr>
                 {this.renderTableDataNetwork()}
                </tbody>
             </table>
@@ -271,7 +265,7 @@ class QuestionSetSelector extends React.Component {
         <div class="secondParentDiv">
             <table>
                <tbody>
-               <tr>{this.renderTableHeader()}</tr>
+               <tr><th class="thTitle">Title</th><th>Description</th></tr>
                 {this.renderTableData()}
                </tbody>
             </table>
@@ -285,7 +279,7 @@ class QuestionSetSelector extends React.Component {
         <div class="secondParentDiv">
             <table>
                <tbody>
-               <tr>{this.renderTableHeader()}</tr>
+               <tr><th class="thTitle">Title</th><th>Description</th></tr>
                 {this.renderTableData()}
                </tbody>
             </table>

@@ -87,7 +87,7 @@ class ManageMyContactsRemoved extends React.Component {
             <p> This will return a removed contact to your network. If the status was a pending invitation from you, it will
              remain as pending. If the status was a pending invitation from your contact, you will now be connected.</p>
              {this.state.showUnhideButton &&
-             <button className="titleButton" type="submit"> Unhide </button> }
+             <button class="greenButton" type="submit"> Unhide </button> }
             </form>
 
       { this.state.showUpdatedMessage &&

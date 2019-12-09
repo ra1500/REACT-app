@@ -46,12 +46,8 @@ class AskManage extends React.Component {
          )
       })
    }
-   renderTableHeader() {
-      let header = ["Title", "Description"]
-      return header.map((key, index) => {
-         return <th key={index}>{key} </th>
-      })
-   }
+
+
    render() {
     return (
         <React.Fragment>
@@ -64,7 +60,7 @@ class AskManage extends React.Component {
          <div>
             <table>
                <tbody>
-               <tr>{this.renderTableHeader()}</tr>
+               <tr><th class="thTitle">Title</th><th>Description</th></tr>
                 {this.renderTableData()}
                </tbody>
             </table>

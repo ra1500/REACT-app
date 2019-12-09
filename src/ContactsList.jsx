@@ -24,13 +24,6 @@ class ContactsList extends React.Component {
       })
    }
 
-    // insert this below 'this.renderTableData()'  <tr>{this.renderTableHeader()}</tr>
-   renderTableHeader() {
-      let header = ["Contact", "Status", "Type", "Privacy"]
-      return header.map((key, index) => {
-         return <th key={index}>{key}</th>
-      })
-   }
 
     render() {
         return (
@@ -41,7 +34,7 @@ class ContactsList extends React.Component {
         <div class="secondParentDiv">
             <table>
                <tbody>
-                  <tr>{this.renderTableHeader()}</tr>
+                  <tr><th class="thContact">Contact</th><th>Status</th><th>Type</th><th>Privacy</th></tr>
                   {this.renderTableData()}
                </tbody>
             </table>

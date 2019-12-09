@@ -82,7 +82,7 @@ class Profile extends React.Component {
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true,
+        this.setState({isLoaded: true, auditorsAddedMessage: this.state.friend + " " + response.data.invitationMessage,
           });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -125,7 +125,7 @@ class Profile extends React.Component {
             auditCount: response.data.auditCount,
             isAudited: response.data.isAudited,
           });
-        if (response.data.isAudited === 1) (this.setState({isAuditedMessage:  "This set is under audit review by your invited network members."}));
+        if (response.data.isAudited === 1) (this.setState({isAuditedMessage:  "This set has audit invitations sent."}));
                }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
                });
     }
@@ -158,9 +158,8 @@ class Profile extends React.Component {
         }
     }
     inviteToAuditIndividual() {
-        if (window.confirm('Please confirm audit invitation to\n single connection.')) {
+        if (window.confirm('Please confirm audit invitation to\n individual contact.')) {
         this.inviteToAuditIndividualFriend();
-        this.setState({auditorsAddedMessage: this.state.friend + " has been invited to audit your answers"});
         }
     }
 
@@ -265,7 +264,7 @@ class Profile extends React.Component {
                         <input class="askForm" placeholder="username of contact" type="text" maxlength="100" value={this.state.invitee} onChange={this.handleChange} />
                         <button class="inviteAuditButton" onClick={this.inviteToAuditIndividual}> Individual </button>
                       </div>
-                    <p> {this.state.auditorsAddedMessage} </p>
+                    <p id="deletedScorePostP"> {this.state.auditorsAddedMessage} </p>
                     </div>
               </div>
               </div>

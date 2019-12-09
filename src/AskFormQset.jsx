@@ -70,6 +70,7 @@ class AskFormQset extends React.Component {
           answer5Points: null,
           answer6Points: null,
           inviteSelectionMessage: null,
+          invitationMessage: null,
           ivitationSelection: null,
           scoringStyle: 1, // default value. radio1
           displayAnswers: 1, // default value. radio2
@@ -248,7 +249,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, inviteSelectionMessage: "Your friends can now answer your new question set",
+        this.setState({isLoaded: true, inviteSelectionMessage: "Your friends" + " " + response.data.invitationMessage,
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -265,7 +266,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, inviteSelectionMessage: "Your colleagues can now answer your new question set",
+        this.setState({isLoaded: true, inviteSelectionMessage: "Your colleagues" + " " + response.data.invitationMessage,
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -281,7 +282,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, inviteSelectionMessage: "Your 'Other' group can now answer your new question set",
+        this.setState({isLoaded: true, inviteSelectionMessage: "Your Other group" + " " + response.data.invitationMessage,
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -297,7 +298,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, inviteSelectionMessage: "Your network can now answer your new question set",
+        this.setState({isLoaded: true, inviteSelectionMessage: "Your network" + " " + response.data.invitationMessage,
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -314,7 +315,7 @@ class AskFormQset extends React.Component {
         axios.post("http://localhost:8080/prm/sc/o?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
-        this.setState({isLoaded: true, inviteSelectionMessage: this.state.invitee + " can now answer your new question set",
+        this.setState({isLoaded: true, inviteSelectionMessage: this.state.invitee + " " + response.data.invitationMessage,
             invitee: "",
                   });
                }).catch(error => {this.setState({ isLoaded: true, error});
@@ -492,7 +493,7 @@ class AskFormQset extends React.Component {
           <p id="askFromZeroScoreParagraph"> 0 &nbsp;</p>
           <p class="questionsDescriptionParagraph"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to {+this.state.result3start-1} points </p>
           </div>
-          <button className="titleButton" type="submit" > Save </button><span> Next, Add/Edit questions. </span>
+          <button className="greenButton" type="submit" > Save </button><span> Next, Add/Edit questions. </span>
       </form>
         { this.state.showCheckMathMessage &&
         <p> Please check your input levels math. </p> }
@@ -510,7 +511,7 @@ class AskFormQset extends React.Component {
         <div><p class="firstP">Max Points: </p><p class="secondP">{this.state.maxPointsTotal}</p></div>
         <button class="deleteScoreButton" onClick={this.deleteAll}> Cancel/Delete </button>
         <button class="inviteAuditButton" onClick={this.toggleEditInputBoxes}> Edit Headers </button>
-        <button class="titleButton" onClick={this.finishedEntry}> Finish </button>
+        <button class="greenButton" onClick={this.finishedEntry}> Finish </button>
         </div>
       </div> }
 
@@ -535,7 +536,7 @@ class AskFormQset extends React.Component {
         <div><p class="firstP">Max Points: </p><p class="secondP">{this.state.maxPointsTotal}</p></div>
         <button class="deleteScoreButton" onClick={this.deleteAll}> Cancel/Delete </button>
         <button class="inviteAuditButton" onClick={this.editAgain}> Edit This Set </button>
-        <button class="titleButton" onClick={this.inviteToScore}> Invite </button><span> Invite your contacts to score too. </span>
+        <button class="greenButton" onClick={this.inviteToScore}> Invite </button><span> Invite your contacts to score too. </span>
         </div>
         </div>
             { this.state.showInviteToScore &&
@@ -545,14 +546,14 @@ class AskFormQset extends React.Component {
                 <button class="inviteAuditButton" value="Friends" onClick={e => this.inviteToScoreSelector(e)} > All Friends </button>
                 <button class="inviteAuditButton" value="Colleagues" onClick={e => this.inviteToScoreSelector(e)} > All Colleagues </button>
                 <button class="inviteAuditButton" value="Other" onClick={e => this.inviteToScoreSelector(e)} > All Other </button>
-                <button class="inviteAuditButton" value="Everyone" onClick={e => this.inviteToScoreSelector(e)} > All Connections </button>
+                <button class="inviteAuditButton" value="Everyone"  onClick={e => this.inviteToScoreSelector(e)} > All Connections </button>
                 <div id="submitQsetInviteDiv">
-                <input id="askForm1" placeholder=" (connection username)" autocomplete="off" type="text" maxlength="40" value={this.state.invitee} onChange={this.handleChange4} />
+                <input id="askForm1" placeholder=" (contact username)" autocomplete="off" type="text" maxlength="40" value={this.state.invitee} onChange={this.handleChange4} />
                 <button class="inviteAuditButton" value={this.state.invitee} onClick={e => this.inviteToScoreSelector(e)} > Individual </button>
                 </div>
                 <div id="submitQsetInviteDiv">
                     <p id="submitQsetButtonSelectionP"> {this.state.inviteSelectionMessage} </p>
-                    <button id="submitInviteQsetButton" onClick={this.inviteToScoreSubmit}> Submit</button>
+                    <button class="greenButton" onClick={this.inviteToScoreSubmit}> Submit</button>
                 </div>
             </div>
             </div> }
