@@ -43,13 +43,12 @@ class Start extends React.Component {
         <p> Welcome - Alerts </p>
         <p></p>
         <div class="secondParentDiv">
-            <p> New Network Invitations (past two weeks) </p>
-            <AlertsNewContactsList />
-            <br></br>
-            <p> New Audit Invitations (past two weeks) </p>
-            <AlertsNewAuditInviteList />
-            <p> New Completed Audits (past one week) </p>
-            <AlertsNewAuditPostedList />
+            <p class="questionsParagraph"> Network Invitations (past two weeks) </p>
+            <AlertsNewContactsList /><br></br>
+            <p class="questionsParagraph"> Audit Invitations (past two weeks) </p>
+            <AlertsNewAuditInviteList /><br></br>
+            <p class="questionsParagraph"> Completed Audits (past one week) </p>
+            <AlertsNewAuditPostedList /><br></br>
         </div>
         </div> }
 
@@ -69,7 +68,7 @@ class Start extends React.Component {
             <p class="questionsParagraph"> NETWORK </p>
             <p class="questionsParagraph"> View your list of contacts here. Invite new ones based on their username. If your contact has invited you to audit their answers to a set then start your audit here (select the contact and then choose 'Audit Them'). </p><br></br><br></br><br></br>
             <p class="questionsParagraph"> ME </p>
-            <p class="questionsParagraph"> View your posted results and created question sets here. Invite network contacts to audit your answers. Note that you must post a score/result before it will show here and then be available to invite auditors. Limit of 4 question sets put out for audit per account. </p><br></br><br></br><br></br>
+            <p class="questionsParagraph"> View your posted results and created question sets here. Invite network contacts to audit your answers. View those audits through here as well. Note that you must post a score/result before it will show here and then be available to invite auditors. Limit of 4 question sets can be put out for audit per account. </p><br></br><br></br><br></br><br></br>
             <p class="questionsParagraph"> Public Profile Page </p>
             <p class="questionsParagraph"> All accounts have a public internet URL available where their scores/results are displayed. You can find the URL under 'ME -> Settings'. Only NJ Sets can be displayed publicly. By default, new user accounts are set to 'Private'. Change to 'Public' for the public URL to be activated in 'ME -> Settings'. </p> <br></br><br></br><br></br>
         </div>

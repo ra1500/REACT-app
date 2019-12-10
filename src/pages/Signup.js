@@ -51,7 +51,7 @@ function Signup(props) {
             <input class="loginInput" maxlength="100" type="username" value={userName} onChange={e => {setUserName(e.target.value);}}placeholder="username" /> <p class="questionsDescriptionParagraph"> (must be at least 4 characters in length) </p><br></br>
             <input class="loginInput" maxlength="100" type="password" value={password} onChange={e => {setPassword(e.target.value);}}placeholder="password" /> <p class="questionsDescriptionParagraph"> (must be at least 4 characters in length) </p><br></br>
             <input class="loginInput" maxlength="100" type="password" value={verifyPassword} onChange={e => {setVerifyPassword(e.target.value);}}placeholder="password again" /><br></br>
-            <button class="titleButton" onClick={postSignup}>Sign Up</button>
+            <button class="greenButton" onClick={postSignup}>Sign Up</button>
 
             <br></br><br></br>
             <p>We don't use cookies.</p>

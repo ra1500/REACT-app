@@ -75,10 +75,10 @@ class AskFormQset extends React.Component {
           scoringStyle: 1, // default value. radio1
           displayAnswers: 1, // default value. radio2
           showCheckMathMessage: false,
-          result1: null,
-          result2: null,
-          result3: null,
-          result4: null,
+          result1: "",
+          result2: "",
+          result3: "",
+          result4: "",
           result1start: 0,
           result2start: 0,
           result3start: 0,
@@ -132,7 +132,7 @@ class AskFormQset extends React.Component {
     this.setState({showCheckMathMessage: false, sequenceNumber: 1}); // need to reset sequenceNumber to '1' when toggling edit
     if (this.state.result1start >= this.state.result2start && this.state.result2start >= this.state.result3start ) {
     this.postNewQset();
-    this.setState({showInputBoxes: false, showQsetDetails: true, showAskFormQuestion: true});
+    this.setState({showInputBoxes: false, showQsetDetails: true, showAskFormQuestion: true, showCheckMathMessage: false,});
     }
     else {
         this.setState({showCheckMathMessage: true,});
@@ -433,12 +433,8 @@ class AskFormQset extends React.Component {
         <p> Ask - Create </p>
         <p></p>
         <div class="secondParentDiv">
-        <p>Create your own set of questions. Invite your connections to answer. </p>
-        <p> Up to 40 questions per set and 10 sets per account.</p>
-        <p> Also, manage an existing set you already created. Edit or delete it. Note that deleting a
-         set will also delete the set and answers in all of your connection's 'ME' pages whom you<br></br>
-         gave permission to view. Editing will not affect your connection's answers (including points), though deleting
-          a question will delete the answer and question points for all users.</p>
+        <p>Create your own set of questions or manage an existing set you already created. Invite your contacts to answer. </p>
+        <p> Note that deleting a set will also delete all the answers from all of your contacts. Deleting a question will delete all the answers for that question from all your contacts.</p>
          </div>
       </div> }
 

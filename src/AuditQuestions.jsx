@@ -277,6 +277,7 @@ class AuditQuestions extends React.Component {
 
   goToNextQuestion(){
     this.setState({currentQuestion: ++this.state.currentQuestion});
+    this.setState({comments: ""});
     this.getQuestion();
   }
   handleChange(event) {
@@ -349,9 +350,12 @@ class AuditQuestions extends React.Component {
             <AnswerSelection answer={this.state.answer4} onClick={() => this.setState({selection: this.state.answer4, answerPoints: this.state.answer4Points})}> {this.state.answer4} </AnswerSelection>
             <AnswerSelection answer={this.state.answer5} onClick={() => this.setState({selection: this.state.answer5, answerPoints: this.state.answer5Points})}> {this.state.answer5} </AnswerSelection>
             <button id="noAnswerButton" onClick={() => this.noAnswer()}>No Answer</button>
-            <p class="qtext2"> Your Answer: {this.state.selection} </p>
+            <p class="qtext2"> Answer: {this.state.selection} </p>
             <p class="qtext2">Points: {this.state.answerPoints}</p>
-            <input value={this.state.comments} placeholder="comments" type="text" onChange={this.handleChange2} maxlength="100" autoComplete="off" />
+            </div>
+
+            <div>
+            <input id="auditCommentsInput" value={this.state.comments} placeholder="comments" type="text" onChange={this.handleChange2} maxlength="70" autoComplete="off" />
             </div>
 
             <div id="questionsNavigationDiv">

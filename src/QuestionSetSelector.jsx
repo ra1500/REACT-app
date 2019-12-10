@@ -90,10 +90,18 @@ class QuestionSetSelector extends React.Component {
             result2start: response.data.result2start,
             result3start: response.data.result3start,
           });
+
           if      (response.data.scoringStyle === 1) {this.setState({showScoring: false,});}
-          else                                       {this.setState({showScoring: true,});}
+          else                                       {this.setState({showScoring: true,});};
+
           if      (response.data.displayAnswers === 1) {this.setState({showAnswersButton: true});}
-          else                                         {this.setState({showAnswersButton: false});}
+          else                                         {this.setState({showAnswersButton: false});};
+
+
+          if      (response.data.result1start === undefined) {this.setState({result1start: "", result2end: "", result2start: "", result3end: "", result3start: "", result4end: "", result4start: ""});}
+          else if (response.data.result2start === undefined) {this.setState({ result2end: "", result2start: "", result3end: "", result3start: "", result4end: "", });}
+          else if (response.data.result3start === undefined) {this.setState({ result2end: +response.data.result1start-1, result3end: "", result3start: "", result4end: "", });}
+          else {this.setState({result2end: +response.data.result1start-1, result3end: +response.data.result2start-1, result4end: +response.data.result3start-1, result4start: 0});}
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -294,7 +302,9 @@ class QuestionSetSelector extends React.Component {
         maxPoints={this.state.maxPoints} title={this.state.title} description={this.state.description} showScoring={this.state.showScoring}
         addToProfile={this.addToProfile} scorePostedMessage={this.state.scorePostedMessage} result1={this.state.result1}
          result2={this.state.result2} result3={this.state.result3} result4={this.state.result4} result1start={this.state.result1start}
-         result2start={this.state.result2start} result3start={this.state.result3start} seeAnswers={this.seeAnswers} showAnswersButton={this.state.showAnswersButton}/>
+         result2start={this.state.result2start} result3start={this.state.result3start} result4start={this.state.result4start}
+          result2end={this.state.result2end} result3end={this.state.result3end} result4end={this.state.result4end} seeAnswers={this.seeAnswers}
+           showAnswersButton={this.state.showAnswersButton}/>
         </div>
         </div> }
 

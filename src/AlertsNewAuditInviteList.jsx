@@ -50,24 +50,21 @@ class AlertsNewAuditInviteList extends React.Component {
       })
    }
 
-   renderTableHeader() {
-      let header = ["Contact", "Title   ",]
-      return header.map((key, index) => {
-         return <th key={index}>{key} </th>
-      })
-   }
-
-
 
   render() {
     return (
     <React.Fragment>
 
+        { !this.state.auditInvitesExist &&
+         <div>
+         <p class="alertsSmallP"> &nbsp;(nothing new here)</p>
+         </div> }
+
         { this.state.auditInvitesExist &&
          <div>
             <table>
                <tbody>
-               <tr>{this.renderTableHeader()}</tr>
+               <tr><th>Contact</th><th>Title</th></tr>
                 {this.renderTableData()}
                </tbody>
             </table>

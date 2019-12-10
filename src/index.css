@@ -130,11 +130,15 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 #deletedScorePostP { height: 9px; color: red; font-weight: bold;}
 
 /** AuditQuestions **/
-#AuditQuestionsComponent {height: 540px; border-style: solid; border-color: red; border-width: 2px; padding: 15px; margin: auto; width: 800px;}
+#AuditQuestionsComponent {height: 570px; border-style: solid; border-color: red; border-width: 2px; padding: 15px; margin: auto; width: 800px;}
+#auditCommentsInput {margin-bottom: 15px; width: 100%;}
 
 /** Public Profile (PublicUserPages) **/
 #titleLinksDiv2 {margin: auto; width: 100px; }
 #profileUserName {display: inline; color: white; font-weight: bold;}
+
+/** AlertsNew... **/
+.alertsSmallP {font-size: 12px; height: 9px;}
 
 
 

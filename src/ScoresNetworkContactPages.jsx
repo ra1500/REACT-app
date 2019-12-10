@@ -29,11 +29,13 @@ class ScoresNetworkContactPages extends React.Component {
         axios.get("http://localhost:8080/prm/sc/df?ctc=" + this.props.friendId,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
+        if (response.status === 200) {
           this.setState({
             isLoaded: true,
             list: response.data,
             friend: response.data[0].userName,
           });
+          } // end if
           this.renderTableData();
           this.setState({renderContactScores: true});
                }).catch(error => {this.setState({ isLoaded: true, error,});
@@ -63,6 +65,11 @@ class ScoresNetworkContactPages extends React.Component {
     render() {
         return (
         <React.Fragment>
+
+        { !this.state.renderContactScores &&
+         <div>
+         <p class="alertsSmallP"> &nbsp;(nothing currently posted)</p>
+         </div> }
 
          {this.state.renderContactScores &&
          <div class="profilePage">

@@ -240,10 +240,10 @@ class Questions extends React.Component {
   }
 
     scoringCompletedMessage() {
-        if      (this.state.userScore >= this.props.result1start && this.props.result1start > 0) { return <p class="resultMessageP">Your result is '{this.props.result1}'</p>}
-        else if (this.state.userScore >= this.props.result2start && this.props.result2start > 0) { return <p class="resultMessageP">Your result is: '{this.props.result2}'</p> }
-        else if (this.state.userScore >= this.props.result3start && this.props.result3start > 0) { return <p class="resultMessageP">Your result is: '{this.props.result3}'</p> }
-        else if (                                                   this.props.result4start > 0) { return <p class="resultMessageP">Your result is: '{this.props.result4}'</p> }
+        if      (this.state.userScore >= this.props.result1start && this.props.result1start > 0) { return <p class="resultMessageP">Your result is: {this.props.result1}</p>}
+        else if (this.state.userScore >= this.props.result2start && this.props.result2start > 0) { return <p class="resultMessageP">Your result is: {this.props.result2}</p> }
+        else if (this.state.userScore >= this.props.result3start && this.props.result3start > 0) { return <p class="resultMessageP">Your result is: {this.props.result3}</p> }
+        else if (                                                   this.props.result4start > 0) { return <p class="resultMessageP">Your result is: {this.props.result4}</p> }
         else { return <p class="resultMessageP"> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finished! </p> }
     }
 
@@ -340,19 +340,19 @@ class Questions extends React.Component {
             <div id="showResultsDiv">
                 <table>
                 <tr>
-                <th>Level</th><th>&nbsp;From</th><th>&nbsp;&nbsp;</th><th>To</th>
+                <th>Level</th><th>&nbsp;From</th><th>To</th>
                 </tr>
                 <tr>
-                <td>{this.props.result1}</td><td>&nbsp;{this.props.result1start}</td><td>&nbsp;to&nbsp;</td><td>Max Points</td>
+                <td>{this.props.result1}</td><td>&nbsp;{this.props.result1start}</td><td>Max Points</td>
                 </tr>
                 <tr>
-                <td>{this.props.result2}</td><td>&nbsp;{this.props.result2start}</td><td>&nbsp;to&nbsp;</td><td>{+this.props.result1start-1}</td>
+                <td>{this.props.result2}</td><td>&nbsp;{this.props.result2start}</td><td>{this.props.result2end}</td>
                 </tr>
                 <tr>
-                <td>{this.props.result3}</td><td>&nbsp;{this.props.result3start}</td><td>&nbsp;to&nbsp;</td><td>{+this.props.result2start-1}</td>
+                <td>{this.props.result3}</td><td>&nbsp;{this.props.result3start}</td><td>{this.props.result3end}</td>
                 </tr>
                 <tr>
-                <td>{this.props.result4}</td><td>&nbsp;0</td><td>&nbsp;to&nbsp;</td><td>{+this.props.result3start-1}</td>
+                <td>{this.props.result4}</td><td>&nbsp;{this.props.result4start}</td><td>{this.props.result4end}</td>
                 </tr>
                 </table>
             </div> }

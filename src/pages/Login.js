@@ -44,7 +44,7 @@ function Login(props) {
       <Form>
         <input class="loginInput" type="username" value={userName} onChange={e => {setUserName(e.target.value);}} placeholder="username"/><br></br>
         <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}} placeholder="password"/><br></br>
-        <button class="titleButton" onClick={postLogin}> Let's go </button>
+        <button class="greenButton" onClick={postLogin}> Let's go </button>
       </Form>
         { isError &&
         <p>The username or password provided were incorrect</p> }

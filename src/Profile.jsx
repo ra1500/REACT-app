@@ -170,7 +170,7 @@ class Profile extends React.Component {
         this.setState({showSettingsSection: true, showLists: false, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: false, showCompletedAuditsDetails: false,});
     }
     goToPrivateProfile() {
-        this.setState({showSettingsSection: false, showLists: true, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: false, showDeleted: false,});
+        this.setState({showSettingsSection: false, showLists: true, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: false, showCompletedAuditsDetails: false, showDeleted: false,});
     }
     renderSingleScore(id ,questionSetVersionEntityId, title, description, score, e) {
         this.setState({permissionId: id ,questionSetVersionEntityId: questionSetVersionEntityId, title: title, description: description, score: score});

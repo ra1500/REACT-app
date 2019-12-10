@@ -25,12 +25,14 @@ class AlertsNewContactsList extends React.Component {
         axios.get("http://localhost:8080/user/al",
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
+        if (response.status === 200 && response.data.friendsList.length > 0) {
           this.setState({
             isLoaded: true,
             list2: response.data.friendsList,
             showNewContacts: true,
           });
-          //this.renderTableData();
+          } // end if!
+          else { this.setState({showNewContacts: false}); }
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -46,22 +48,23 @@ class AlertsNewContactsList extends React.Component {
       })
    }
 
-    // insert this below 'this.renderTableData()'  <tr>{this.renderTableHeader()}</tr>
-   renderTableHeader() {
-      let header = ["Contact", "Type",]
-      return header.map((key, index) => {
-         return <th key={index}>{key}</th>
-      })
-   }
+
 
     render() {
         return (
         <React.Fragment>
          <div id="contactsList">
+
+        { !this.state.showNewContacts &&
+         <div>
+         <p class="alertsSmallP"> &nbsp;(nothing new here)</p>
+         </div> }
+
+
             { this.state.showNewContacts &&
             <table>
                <tbody>
-                  <tr>{this.renderTableHeader()}</tr>
+                  <tr><th>Contact</th><th>Type</th></tr>
                   {this.renderTableData()}
                </tbody>
             </table> }

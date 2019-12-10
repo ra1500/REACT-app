@@ -25,10 +25,13 @@ class Network extends React.Component {
           inviter: null,
           userName: null,
           showNetworkList: false,
+          showNetworkListDetails: false,
           showRemovedList: false,
+          showRemovedListDetails: false,
           showSingleContact: false,
           questionSetVersionEntityId: null, // used in questionSet auditing below.
           showInviteFriends: false,
+          list: null,
         };
   }
 
@@ -43,15 +46,17 @@ class Network extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/user/",
+        axios.get("http://localhost:8080/user/n",
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
+         if (response.status === 200) {
           this.setState({
             isLoaded: true,
-            allData: response,
-
+            list: response.data.friendsList,
+            showNetworkListDetails: true,
           });
-            this.setState({showNetworkList: true});
+          } // end if
+          this.setState({showNetworkList: true});
                }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
                });
     }
@@ -63,33 +68,36 @@ class Network extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/user/",
+        axios.get("http://localhost:8080/user/r",
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
+         if (response.status === 200) {
           this.setState({
             isLoaded: true,
-            allData: response,
+            list: response.data.friendsList,
+            showRemovedListDetails: true,
           });
-            this.setState({showRemovedList: true});
+          } // end if
+          this.setState({showRemovedList: true});
                }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
                });
     }
 
    renderContactsList() {
-    return ( <ContactsList allData={this.state.allData} renderSingleContact={this.renderSingleContact}
+    return ( <ContactsList list={this.state.list} showNetworkListDetails={this.state.showNetworkListDetails} renderSingleContact={this.renderSingleContact}
       sendFriend={this.sendFriend}/> )
    }
 
    renderContactsListRemoved() {
-    return ( <ContactsListRemoved allData={this.state.allData} renderSingleContactRemoved={this.renderSingleContactRemoved}/> )
+    return ( <ContactsListRemoved list={this.state.list} showRemovedListDetails={this.state.showRemovedListDetails} renderSingleContactRemoved={this.renderSingleContactRemoved}/> )
    }
 
     renderSingleContact(event) {
         const data = {id: event.target.value};
         this.state = {friendId: data.id};
         this.setState({friendId: this.state.friendId}); // sillyness.
-        this.setState({showNetworkList: false});
-        this.setState({showRemovedList: false});
+        this.setState({showNetworkList: false, showNetworkListDetails: false,});
+        this.setState({showRemovedList: false, showRemovedListDetails: false,});
         this.setState({showSingleContact: true});
         event.preventDefault();
     }
@@ -97,8 +105,8 @@ class Network extends React.Component {
     renderSingleContactRemoved(event) {
         const data = {id: event.target.value};
         this.setState({friendId: data.id});
-        this.setState({showNetworkList: false});
-        this.setState({showRemovedList: false});
+        this.setState({showNetworkList: false, showNetworkListDetails: false,});
+        this.setState({showRemovedList: false, showRemovedListDetails: false,});
         this.setState({showSingleContactRemoved: true});
     }
 
@@ -107,15 +115,15 @@ class Network extends React.Component {
     }
 
     goToNetwork() {
-        this.setState({showSingleContact: false, showRemovedList: false, showSingleContactRemoved: false, showInviteFriends: false});
-        this.setState({showNetworkList: false}); // set to true after this in getFriendships()
+        this.setState({showSingleContact: false, showRemovedList: false, showRemovedListDetails: false, showSingleContactRemoved: false, showInviteFriends: false});
+        this.setState({showNetworkList: false, showNetworkListDetails: false,}); // set to true after this in getFriendships()
         this.getFriendships();
     }
     goToInvite() {
-        this.setState({showInviteFriends: true, showNetworkList: false, showSingleContact: false, showRemovedList: false, showSingleContactRemoved: false});
+        this.setState({showInviteFriends: true, showNetworkList: false, showNetworkListDetails: false, showSingleContact: false, showRemovedList: false, showRemovedListDetails: false, showSingleContactRemoved: false});
     }
     goToRemovedContacts() {
-        this.setState({showInviteFriends: false, showNetworkList: false, showSingleContact: false, showRemovedList: false, showSingleContactRemoved: false});
+        this.setState({showInviteFriends: false, showNetworkList: false, showNetworkListDetails: false, showSingleContact: false, showRemovedList: false, showRemovedListDetails: false, showSingleContactRemoved: false});
         this.getRemovedFriendships();
     }
 

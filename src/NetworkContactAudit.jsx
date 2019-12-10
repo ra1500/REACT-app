@@ -66,6 +66,11 @@ class NetworkContactAudit extends React.Component {
     return (
     <React.Fragment>
 
+        { !this.state.auditInvitesExist &&
+         <div>
+         <p class="alertsSmallP"> &nbsp;(none currently)</p>
+         </div> }
+
         { this.state.auditInvitesExist &&
          <div>
             <table>

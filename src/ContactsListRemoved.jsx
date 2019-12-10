@@ -4,15 +4,12 @@ class ContactsListRemoved extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            list1: props.allData.data.friendsList, //
+            list: this.props.list,
         };
     }
 
    renderTableData() {
-     let list = this.state.list1.filter(data => data.connectionStatus == 'removed');
-     this.state = {list2: list};
-
-      return this.state.list2.map((data, index) => {
+      return this.state.list.map((data, index) => {
          return (
             <tr key={data.friend}>
                <td> <button class="inviteAuditButton" value={data.id} onClick={e => this.props.renderSingleContactRemoved(e)}> {data.friend} </button> </td>
@@ -32,6 +29,13 @@ class ContactsListRemoved extends React.Component {
         <p> Network - Removed List </p>
         <p></p>
         <div class="secondParentDiv">
+
+        { !this.props.showRemovedListDetails &&
+         <div>
+         <p class="alertsSmallP"> &nbsp;(none)</p>
+         </div> }
+
+        { this.props.showRemovedListDetails &&
          <div>
             <table>
                <tbody>
@@ -39,7 +43,8 @@ class ContactsListRemoved extends React.Component {
                   {this.renderTableData()}
                </tbody>
             </table>
-         </div>
+         </div> }
+
          </div>
          </div>
         </React.Fragment>

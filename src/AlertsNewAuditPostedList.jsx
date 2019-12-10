@@ -33,7 +33,7 @@ class AlertsNewAuditPostedList extends React.Component {
            auditsPostedExist: true,
          });
          } // end if
-         else { this.setState({auditInvitesExist: false}); }
+         else { this.setState({auditsPostedExist: false}); }
               }).catch(error => {this.setState({ isLoaded: true, error,});
               });
     }
@@ -50,24 +50,21 @@ class AlertsNewAuditPostedList extends React.Component {
       })
    }
 
-   renderTableHeader() {
-      let header = ["Title", "Network Contact",]
-      return header.map((key, index) => {
-         return <th key={index}>{key} </th>
-      })
-   }
-
-
 
   render() {
     return (
     <React.Fragment>
 
+        { !this.state.auditsPostedExist &&
+         <div>
+         <p class="alertsSmallP"> &nbsp;(nothing new here)</p>
+         </div> }
+
         { this.state.auditsPostedExist &&
          <div>
             <table>
                <tbody>
-               <tr>{this.renderTableHeader()}</tr>
+               <tr><th>Title</th><th>Auditor</th></tr>
                 {this.renderTableData()}
                </tbody>
             </table>
