@@ -24,8 +24,11 @@ class QuestionSetSelector extends React.Component {
           renderQuestions: false,
           scorePostedMessage: null,
           showList: false,
+          showListNone: false,
           showListNetwork: false,
+          showListNetworkNone: false,
           showListMySets: false,
+          showListMySetsNone: false,
           showAnswers: false,
           showAnswersButton: true,
         };
@@ -116,12 +119,15 @@ class QuestionSetSelector extends React.Component {
         axios.get("http://localhost:8080/prm/sc/dw",
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
+        if (response.status === 200) {
           this.setState({
             isLoaded: true,
             list: response.data,
           });
+          this.setState({renderQuestions: false, showList: true, showListNone: false, showListNetwork: false, showListMySets: false,});
           this.renderTableData();
-          this.setState({renderQuestions: false, showList: true, showListNetwork: false, showListMySets: false,});
+          } // end if
+          else {this.setState({renderQuestions: false, showList: true, showListNone: true, showListNetwork: false, showListMySets: false,}); }
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -136,12 +142,15 @@ class QuestionSetSelector extends React.Component {
         axios.get("http://localhost:8080/prm/sc/dv",
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
+        if (response.status === 200) {
           this.setState({
             isLoaded: true,
             list: response.data,
           });
-          this.renderTableDataNetwork();
-          this.setState({renderQuestions: false, showList: false, showListNetwork: true, showListMySets: false,});
+          this.setState({renderQuestions: false, showList: false, showListNetworkNone: false, showListNetwork: true, showListMySets: false,});
+          this.renderTableData();
+          } // end if
+          else {this.setState({renderQuestions: false, showList: false, showListNetworkNone: true, showListNetwork: true, showListMySets: false,}); }
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -156,12 +165,15 @@ class QuestionSetSelector extends React.Component {
         axios.get("http://localhost:8080/prm/sc/du",
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
+        if (response.status === 200) {
           this.setState({
             isLoaded: true,
             list: response.data,
           });
+          this.setState({renderQuestions: false, showList: false, showListMySetsNone: false, showListNetwork: false, showListMySets: true,});
           this.renderTableData();
-          this.setState({renderQuestions: false, showList: false, showListNetwork: false, showListMySets: true,});
+          } // end if
+          else {this.setState({renderQuestions: false, showList: false, showListMySetsNone: true, showListNetwork: false, showListMySets: true,}); }
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -256,27 +268,40 @@ class QuestionSetSelector extends React.Component {
         <p> Answer - Network Sets </p>
         <p></p>
         <div class="secondParentDiv">
+            { this.state.showListNetworkNone &&
+            <div>
+            <p class="alertsSmallP"> &nbsp;(nothing to see here yet)</p>
+            </div> }
+            { !this.state.showListNetworkNone &&
+            <div>
             <table>
                <tbody>
                <tr><th class="thTitle">Title</th><th>Creator</th><th>Description</th></tr>
                 {this.renderTableDataNetwork()}
                </tbody>
             </table>
+            </div> }
          </div>
          </div> }
-
 
         { this.state.showList &&
          <div class="topParentDiv">
         <p> Answer - NJ Sets </p>
         <p></p>
         <div class="secondParentDiv">
+            { this.state.showListNone &&
+            <div>
+            <p class="alertsSmallP"> &nbsp;(nothing to see here yet)</p>
+            </div> }
+            { !this.state.showListNone &&
+            <div>
             <table>
                <tbody>
                <tr><th class="thTitle">Title</th><th>Description</th></tr>
                 {this.renderTableData()}
                </tbody>
             </table>
+            </div> }
          </div>
          </div> }
 
@@ -285,12 +310,19 @@ class QuestionSetSelector extends React.Component {
         <p> Answer - My Created Sets </p>
         <p></p>
         <div class="secondParentDiv">
+            { this.state.showListMySetsNone &&
+            <div>
+            <p class="alertsSmallP"> &nbsp;(nothing to see here yet)</p>
+            </div> }
+            { !this.state.showListMySetsNone &&
+            <div>
             <table>
                <tbody>
                <tr><th class="thTitle">Title</th><th>Description</th></tr>
                 {this.renderTableData()}
                </tbody>
             </table>
+            </div> }
          </div>
          </div> }
 

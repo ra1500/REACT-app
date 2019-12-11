@@ -39,7 +39,7 @@ class ContactsList extends React.Component {
          <div>
             <table>
                <tbody>
-                  <tr><th class="thContact">Contact</th><th>Status</th><th>Type</th><th>Privacy</th></tr>
+                  <tr><th class="thContact">Contact</th><th class="">Status</th><th>Type</th><th>Privacy</th></tr>
                   {this.renderTableData()}
                </tbody>
             </table>

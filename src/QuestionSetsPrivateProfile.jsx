@@ -4,8 +4,6 @@ import axios from 'axios';
 class QuestionSetsPrivateProfile extends React.Component {
   constructor(props) {
     super(props);
-    //this.handleChange = this.handleChange.bind(this);
-    //this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
           error: null,
           isLoaded: false,
@@ -29,12 +27,14 @@ class QuestionSetsPrivateProfile extends React.Component {
         axios.get("http://localhost:8080/prm/sc/du",
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
+        if (response.status === 200) {
           this.setState({
             isLoaded: true,
             list: response.data,
+            showList: true,
           });
-          this.renderTableData();
-          this.setState({showList: true});
+         } // end if
+         else { this.setState({showList: false}); }
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -43,7 +43,7 @@ class QuestionSetsPrivateProfile extends React.Component {
       return this.state.list.map((data, index) => {
          return (
             <tr key={data.index}>
-                <td class="tableData">  {data.questionSetVersionEntity.title} </td>
+                <td class="tableTitleCenteredData">  {data.questionSetVersionEntity.title} </td>
                 <td> {data.questionSetVersionEntity.description} &nbsp;&nbsp;  </td>
             </tr>
          )
@@ -54,6 +54,12 @@ class QuestionSetsPrivateProfile extends React.Component {
    render() {
     return (
         <React.Fragment>
+
+        { !this.state.showList &&
+         <div id="meSettingsDiv">
+         <p> My Created Sets </p>
+         <p class="alertsSmallP"> &nbsp;(none created)</p>
+         </div> }
 
         { this.state.showList &&
          <div id="meSettingsDiv">

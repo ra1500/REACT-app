@@ -25,12 +25,14 @@ class ScoresList extends React.Component {
         axios.get("http://localhost:8080/prm/sc/dr",
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
+        if (response.status === 200) {
           this.setState({
             isLoaded: true,
             list: response.data,
+            showList: true,
           });
-          this.renderTableData();
-          this.setState({showList: true});
+         } // end if
+         else { this.setState({showList: false}); }
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -59,6 +61,12 @@ class ScoresList extends React.Component {
     render() {
         return (
         <React.Fragment>
+
+        { !this.state.showList &&
+         <div id="meSettingsDiv">
+         <p> Posted Scores </p>
+         <p class="alertsSmallP"> &nbsp;(none posted)</p>
+         </div> }
 
         { this.state.showList &&
          <div id="meSettingsDiv">

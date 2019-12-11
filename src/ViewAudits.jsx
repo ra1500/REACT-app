@@ -25,12 +25,14 @@ class ViewAudits extends React.Component {
         axios.get("http://localhost:8080/prm/sc/de?qsId=" + this.props.questionSetVersionEntityId,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
+        if (response.status === 200) {
           this.setState({
             isLoaded: true,
             list: response.data,
+            showList: true,
           });
-          this.renderTableData();
-          this.setState({showList: true,});
+         } // end if
+         else { this.setState({showList: false}); }
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -58,6 +60,11 @@ class ViewAudits extends React.Component {
     render() {
         return (
         <React.Fragment>
+
+        { !this.state.showList &&
+         <div>
+         <p class="alertsSmallP"> &nbsp;(none)</p>
+         </div> }
 
         { this.state.showList &&
          <div>

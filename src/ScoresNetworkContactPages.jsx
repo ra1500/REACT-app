@@ -55,12 +55,6 @@ class ScoresNetworkContactPages extends React.Component {
       })
    }
 
-   renderTableHeader() {
-      let header = ["Title", "Description","Score", "Result"]
-      return header.map((key, index) => {
-         return <th key={index}>{key}  </th>
-      })
-   }
 
     render() {
         return (
@@ -72,10 +66,11 @@ class ScoresNetworkContactPages extends React.Component {
          </div> }
 
          {this.state.renderContactScores &&
-         <div class="profilePage">
+         <div id="meSettingsDiv">
+         <p> Posted Scores </p>
             <table>
                <tbody>
-               <tr>{this.renderTableHeader()}</tr>
+               <tr><th>Title</th><th>Description</th><th>Score</th><th>Result</th></tr>
                 {this.renderTableData()}
                </tbody>
             </table>

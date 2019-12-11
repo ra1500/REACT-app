@@ -2,7 +2,7 @@ import React from "react";
 import QuestionSetSelector from "./QuestionSetSelector";
 import TitleBar from "./TitleBar";
 
-function Score(props) {
+function Answer(props) {
 
   return (
     <React.Fragment>
@@ -14,4 +14,4 @@ function Score(props) {
   );
 }
 
-export default Score;
+export default Answer;

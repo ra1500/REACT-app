@@ -4,6 +4,7 @@ import ScoresNetworkContactPages from "./ScoresNetworkContactPages";
 import AuditQuestions from "./AuditQuestions";
 import ManageMyContacts from "./ManageMyContacts";
 import NetworkContactAudit from "./NetworkContactAudit";
+import QuestionSetsNetworkProfile from "./QuestionSetsNetworkProfile";
 
 class NetworkContactPages extends React.Component {
   constructor(props) {
@@ -101,7 +102,7 @@ class NetworkContactPages extends React.Component {
     event.preventDefault();
   }
 
-    // accept/decline friendship // TODO back-end not vetting inviter! fix.
+    // accept/decline friendship
     patchFriendship() {
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
@@ -117,7 +118,6 @@ class NetworkContactPages extends React.Component {
         this.setState({isLoaded: true, showUpdateButton: false,
                   });
          if (response.data.connectionStatus == "Connected") { this.setState({invitationStatusMessage: "You are now connected to " + this.state.friend}) }
-         if (response.data.connectionStatus == "Declined") { this.setState({invitationStatusMessage: "You have declined to connect to " + this.state.friend}) }
          if (response.data.connectionStatus == "Removed") { this.setState({invitationStatusMessage: "You have removed " + this.state.friend}) }
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -151,8 +151,9 @@ class NetworkContactPages extends React.Component {
           <div class="topParentDiv">
 
                 { this.state.showContactScores &&
-                <div class="secondParentDiv">
+                <div>
                 <ScoresNetworkContactPages friendId={this.props.friendId} />
+                <QuestionSetsNetworkProfile friendId={this.props.friendId} />
                 </div> }
 
                 {this.state.showQuestionSetAuditing &&
@@ -186,9 +187,6 @@ class NetworkContactPages extends React.Component {
                           <label><input value="Connected" onChange={this.handleChange} type="radio" name="optradio" /> Accept </label>
                         </div>
                         <div>
-                          <label><input value="Declined" onChange={this.handleChange} type="radio" name="optradio" /> Decline </label>
-                        </div>
-                        <div>
                           <label><input value="removed" onChange={this.handleChange} type="radio" name="optradio" /> Remove </label>
                         </div>
                     </form>
@@ -197,7 +195,7 @@ class NetworkContactPages extends React.Component {
                     { this.state.showUpdateButton &&
                     <button type="submit" onClick={this.handleSubmit} className="inviteAuditButton"> Update </button> }
                     <span id="deletedAnswersMessage"> {this.state.invitationStatusMessage} </span>
-                    <p>New connections can view your profile. You can change this by selecting them in 'Network' and adjusting 'Settings'.</p>
+                    <p>  </p>
                      </div> }
 
               { this.state.isInviter &&

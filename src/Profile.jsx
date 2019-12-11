@@ -125,7 +125,7 @@ class Profile extends React.Component {
             auditCount: response.data.auditCount,
             isAudited: response.data.isAudited,
           });
-        if (response.data.isAudited === 1) (this.setState({isAuditedMessage:  "This set has audit invitations sent."}));
+        if (response.data.isAudited === 1) (this.setState({isAuditedMessage:  "Auditors invited."}));
                }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
                });
     }
@@ -243,8 +243,7 @@ class Profile extends React.Component {
                 <p class="questionsDescriptionParagraph"> Description: &nbsp;{this.state.description}</p>
                 <p class="questionsParagraph">Score: &nbsp;{this.state.score}</p> <br></br>
                 <p id="deletedScorePostP"> {this.state.isAuditedMessage} </p>
-                <p class="questionsParagraph"> ({this.state.auditCount} of 4 audit sets per account used. You can free up space by deleting one of your posted scores that has audit invitations.)</p>
-                <br></br>
+                <p class="alertsSmallP"> ({this.state.auditCount} of 4 audit sets per account used. You can free up space by deleting one of your posted scores that has audit invitations.)</p>
               </div>
               </div>
               </div> }

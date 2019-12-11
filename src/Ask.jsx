@@ -3,7 +3,7 @@ import React from "react";
 import TitleBar from "./TitleBar";
 import AskFormQset from "./AskFormQset";
 
-class AskAnswer extends React.Component {
+class Ask extends React.Component {
   constructor(props) {
     super(props);
         this.state = {
@@ -27,4 +27,4 @@ class AskAnswer extends React.Component {
   }
 }
 
-export default AskAnswer;
+export default Ask;
