@@ -69,6 +69,7 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 .scoringLevelsInput1 { width: 320px; }
 .scoringLevelsInput2 { width: 150px; }
 #askFromZeroScoreParagraph { margin-left: 60px; display: inline-block; height: 9px; }
+.askFormQsetSmallP {display: inline; font-size: 12px; height: 9px;}
 
  /** Ask - Create/Manage (AskFormQuestion) **/
 .askDiv {}

@@ -205,7 +205,7 @@ class AskFormQset extends React.Component {
         this.setState({showQsetDetails: false, showAskFormQuestion: false, showFinished: true,  showTooManyQsetsMessage: false,});
     }
     editAgain() {
-        this.setState({showFinished: false, showQsetDetails: true, showAskFormQuestion: true, showTooManyQsetsMessage: false,});
+        this.editThisSet(this.state.questionSetVersion);
     }
     deleteAll() {
         if (window.confirm('Are you sure you want to delete this \n question set entirely?')) {
@@ -326,6 +326,61 @@ class AskFormQset extends React.Component {
         this.setState({maxQtyQuestions: value1, maxPointsTotal: value2});
     }
 
+    // Get the first question for editing
+    editThisSet(value) {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/q/f/" + value,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+          this.setState({
+            isLoaded: true,
+            question: response.data.question,
+            questionSetVersion: response.data.questionSetVersionEntity.id,
+            title: response.data.questionSetVersionEntity.title,
+            category: response.data.questionSetVersionEntity.category,
+            description: response.data.questionSetVersionEntity.description,
+            //scoringStyle: response.data.questionSetVersion.scoringStyle, // not allowed. has a listener
+            //displayAnswers: response.data.questionSetVersion.displayAnswers, // not allowed. has a listener
+            maximumPointsBefore: response.data.maxPoints, // send to child AskFormQuestion so that maxPoints calculation correct.
+            sequenceNumber: response.data.sequenceNumber,
+            result1: response.data.questionSetVersionEntity.result1,
+            result2: response.data.questionSetVersionEntity.result2,
+            result3: response.data.questionSetVersionEntity.result3,
+            result4: response.data.questionSetVersionEntity.result4,
+            result1start: response.data.questionSetVersionEntity.result1start,
+            result2start: response.data.questionSetVersionEntity.result2start,
+            result3start: response.data.questionSetVersionEntity.result3start,
+            answer1: response.data.answer1,
+            answer2: response.data.answer2,
+            answer3: response.data.answer3,
+            answer4: response.data.answer4,
+            answer5: response.data.answer5,
+            answer6: response.data.answer6,
+            answer1Points: Number(response.data.answer1Points),
+            answer2Points: Number(response.data.answer2Points),
+            answer3Points: Number(response.data.answer3Points),
+            answer4Points: Number(response.data.answer4Points),
+            answer5Points: Number(response.data.answer5Points),
+            answer6Points: Number(response.data.answer6Points),
+          });
+            if (Number.isInteger(response.data.answer1Points)) {this.setState({answer1Points: Number(response.data.answer1Points), answer1PointsBefore: Number(response.data.answer1Points)}) } else {this.setState({ answer1PointsBefore: Number(0), answer1Points: Number(0)})} ;
+            if (Number.isInteger(response.data.answer2Points)) {this.setState({answer2Points: Number(response.data.answer2Points), answer2PointsBefore: Number(response.data.answer2Points)}) } else {this.setState({ answer2PointsBefore: Number(0), answer2Points: Number(0)})} ;
+            if (Number.isInteger(response.data.answer3Points)) {this.setState({answer3Points: Number(response.data.answer3Points), answer3PointsBefore: Number(response.data.answer3Points)}) } else {this.setState({ answer3PointsBefore: Number(0), answer3Points: Number(0)})} ;
+            if (Number.isInteger(response.data.answer4Points)) {this.setState({answer4Points: Number(response.data.answer4Points), answer4PointsBefore: Number(response.data.answer4Points)}) } else {this.setState({ answer4PointsBefore: Number(0), answer4Points: Number(0)})} ;
+            if (Number.isInteger(response.data.answer5Points)) {this.setState({answer5Points: Number(response.data.answer5Points), answer5PointsBefore: Number(response.data.answer5Points)}) } else {this.setState({ answer5PointsBefore: Number(0), answer5Points: Number(0)})} ;
+            if (Number.isInteger(response.data.answer6Points)) {this.setState({answer6Points: Number(response.data.answer6Points), answer6PointsBefore: Number(response.data.answer6Points)}) } else {this.setState({ answer6PointsBefore: Number(0), answer6Points: Number(0)})} ;
+            this.getMaxQtyAndPoints();
+               }).catch(error => {this.setState({ isLoaded: true, error});
+               });
+        this.setState({showFinished: false, showQsetDetails: true, showAskFormQuestion: true, showTooManyQsetsMessage: false,});
+        //this.setState({showFinished: true, showInviteToScore: false, showManage: false});
+    }
+
     // called from child AskManage
     manageAset(event) {
         const data = {qsetId: event.target.value}; //
@@ -335,7 +390,7 @@ class AskFormQset extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/f/" + data.qsetId,
+        axios.get("http://localhost:8080/q/f/" + event.target.value,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -532,7 +587,7 @@ class AskFormQset extends React.Component {
         <div><p class="firstP">Max Points: </p><p class="secondP">{this.state.maxPointsTotal}</p></div>
         <button class="deleteScoreButton" onClick={this.deleteAll}> Cancel/Delete </button>
         <button class="inviteAuditButton" onClick={this.editAgain}> Edit This Set </button>
-        <button class="greenButton" onClick={this.inviteToScore}> Invite </button><span> Invite your contacts to score too. </span>
+        <button class="greenButton" onClick={this.inviteToScore}> Invite </button><p class="askFormQsetSmallP"> (invite your contcts to answer)</p>
         </div>
         </div>
             { this.state.showInviteToScore &&

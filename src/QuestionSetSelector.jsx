@@ -61,6 +61,7 @@ class QuestionSetSelector extends React.Component {
             questionSetSize: response.data.maxQtyQuestions,
             maxPoints: response.data.maxPoints,
           });
+          if (response.data.maxPoints === null) {this.setState({ maxPoints: 0})};
           this.renderQuestions(); // ********
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });

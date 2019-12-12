@@ -39,7 +39,7 @@ class ContactsListRemoved extends React.Component {
          <div>
             <table>
                <tbody>
-                  <tr><th class="thContact">Contact</th><th>Status</th><th>Type</th><th>Privacy</th></tr>
+                  <tr><th class="thContact">Contact</th><th>Status</th><th>Type</th><th>View Permission</th></tr>
                   {this.renderTableData()}
                </tbody>
             </table>
