@@ -542,7 +542,7 @@ class AskFormQset extends React.Component {
                 <button class="inviteAuditButton" value="Friends" onClick={e => this.inviteToScoreSelector(e)} > All Friends </button>
                 <button class="inviteAuditButton" value="Colleagues" onClick={e => this.inviteToScoreSelector(e)} > All Colleagues </button>
                 <button class="inviteAuditButton" value="Other" onClick={e => this.inviteToScoreSelector(e)} > All Other </button>
-                <button class="inviteAuditButton" value="Everyone"  onClick={e => this.inviteToScoreSelector(e)} > All Connections </button>
+                <button class="inviteAuditButton" value="Everyone"  onClick={e => this.inviteToScoreSelector(e)} > All Contacts </button>
                 <div id="submitQsetInviteDiv">
                 <input id="askForm1" placeholder=" (contact username)" autocomplete="off" type="text" maxlength="40" value={this.state.invitee} onChange={this.handleChange4} />
                 <button class="inviteAuditButton" value={this.state.invitee} onClick={e => this.inviteToScoreSelector(e)} > Individual </button>

@@ -75,7 +75,7 @@ class InvitationForm extends React.Component {
         <input id="invitationBox" type="text" value={this.state.friend} onChange={this.handleChange} placeholder=" username of contact" />
         <form id="inviteRadio1">
             <div>
-              <label><input value="Friend" onChange={this.handleChange2} type="radio" name="optradio" /> Friend </label>
+              <label><input value="Friend" onChange={this.handleChange2} type="radio" name="optradio" /> Friend (default) </label>
             </div>
             <div>
               <label><input value="Colleague" onChange={this.handleChange2} type="radio" name="optradio" /> Colleague </label>
@@ -86,15 +86,18 @@ class InvitationForm extends React.Component {
         </form>
         <form id="inviteRadio2">
             <div>
-              <label><input value="Yes" onChange={this.handleChange3} type="radio" name="optradio" /> Yes (can view your network profile) </label>
+              <label><input value="Yes" onChange={this.handleChange3} type="radio" name="optradio" /> Yes (contact can view my posts)(default) </label>
             </div>
             <div>
-              <label><input value="No" onChange={this.handleChange3} type="radio" name="optradio" /> No (cannot view your network profile) </label>
+              <label><input value="No" onChange={this.handleChange3} type="radio" name="optradio" /> No (contact cannot view my posts) </label>
             </div>
         </form>
         <p></p>
         { this.state.showInviteButton &&
-        <button type="submit" onClick={this.handleSubmit} className="inviteAuditButton"> Invite </button> }
+        <div>
+        <p class="alertsSmallP"> &nbsp;(note: if your profile is set to 'Private' in Me -> Settings it will override the above contact setting of 'Yes'.)</p>
+        <button type="submit" onClick={this.handleSubmit} className="inviteAuditButton"> Invite </button>
+         </div>}
         <span id="deletedAnswersMessage"> {this.state.invitationSentMessage} </span>
         </div>
       </div>

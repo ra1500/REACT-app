@@ -1,5 +1,4 @@
 import React from "react";
-import axios from 'axios';
 import TitleBar from "./TitleBar";
 import AlertsNewContactsList from "./AlertsNewContactsList";
 import AlertsNewAuditInviteList from "./AlertsNewAuditInviteList";

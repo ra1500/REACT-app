@@ -1,5 +1,4 @@
 import React from "react";
-import axios from 'axios';
 import Login from './pages/Login';
 import TitleBar from './TitleBar';
 import SampleQuestions from './SampleQuestions';
@@ -61,8 +60,8 @@ class Introduction extends React.Component {
     <div class="secondParentDiv">
          <p>NeuralJuice. The web app for fun quizzes, trivia, asking advice and more.</p>
          <p> See how you score in ANSWER.  </p>
-         <p> Create your own question sets. Ask your network for advice or to help you select your fantasy football team or make your own trivia quiz etc. with ASK.  </p>
-         <p> Connect with friends and colleagues in NETWORK. 'Audit' their results and give them comments with your opinion. </p>
+         <p> Create your own question sets. Ask your network for advice or make your own quizzes with ASK.  </p>
+         <p> Connect with friends and colleagues in NETWORK. 'Audit' their results and make comments. </p>
          <p> Post your results to your ME page. Share with your network or the internet. </p>
          <br></br>
          <button id="sampleButton" onClick={() => this.viewSample()}>Sample</button>

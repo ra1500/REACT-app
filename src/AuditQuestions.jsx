@@ -22,7 +22,7 @@ class AuditQuestions extends React.Component {
           friendId: this.props.friendId,
           friend: null,
           questionSetSize: null,
-          maxPoints: null,
+          maxPoints: 0,
           currentQuestion: 1,
           selection: null,
           question: null,
@@ -73,6 +73,7 @@ class AuditQuestions extends React.Component {
             questionSetSize: response.data.maxQtyQuestions,
             maxPoints: response.data.maxPoints,
           });
+          if (response.data.maxPoints === null) {this.setState({ maxPoints: 0})};
           this.getQuestion(); //
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
@@ -355,7 +356,7 @@ class AuditQuestions extends React.Component {
             </div>
 
             <div>
-            <input id="auditCommentsInput" value={this.state.comments} placeholder="comments" type="text" onChange={this.handleChange2} maxlength="70" autoComplete="off" />
+            <input id="auditCommentsInput" value={this.state.comments} placeholder="comments" type="text" onChange={this.handleChange2} maxLength="70" autoComplete="off" />
             </div>
 
             <div id="questionsNavigationDiv">

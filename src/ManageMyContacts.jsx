@@ -25,6 +25,8 @@ class ManageMyContacts extends React.Component {
           showRemoveButton: true,
           deletedMessage: "(contact has been removed)",
           updatedMessage: "(contact has been updated)",
+          currentType: this.props.connectionType,
+          currentVisibility: this.props.visibilityPermission,
         };
   }
 
@@ -58,7 +60,7 @@ class ManageMyContacts extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { id: this.props.friendId, connectionStatus: "removed", inviter: this.props.inviter,
-         connectionType: this.state.connectionType, visibilityPermission: this.state.visibilityPermission };
+         connectionType: this.state.connectionType, visibilityPermission: "No" };
         axios.post("http://localhost:8080/f/a", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
@@ -104,7 +106,7 @@ class ManageMyContacts extends React.Component {
 
       { this.state.hasPendingInvitations &&
       <div>
-            <p>Connection Settings  </p>
+            <p>Contact Settings  </p>
             <p></p>
             <div>
                 <p> You can remove your pending contact here. You can unhide this contact in 'Removed List' under "Network". </p>
@@ -118,10 +120,10 @@ class ManageMyContacts extends React.Component {
 
       { this.state.isAfriend &&
       <div>
-            <p>Connection Settings  </p>
+            <p>Contact Settings  </p>
             <p></p>
             <div class="invitationForm">
-
+            <p class="alertsSmallP"> Currently set to: {this.state.currentType} & {this.state.currentVisibility}</p>
             <form id="inviteRadio1">
                 <div>
                   <label><input value="Friend" onChange={this.handleChange3} type="radio" name="optradio" /> Friend </label>
@@ -135,10 +137,10 @@ class ManageMyContacts extends React.Component {
             </form>
             <form id="inviteRadio2">
                 <div>
-                  <label><input value="Yes" onChange={this.handleChange4} type="radio" name="optradio" /> Yes (can view your network profile) </label>
+                  <label><input value="Yes" onChange={this.handleChange4} type="radio" name="optradio" /> Yes (contact can view my posts) </label>
                 </div>
                 <div>
-                  <label><input value="No" onChange={this.handleChange4} type="radio" name="optradio" /> No (cannot view your network profile) </label>
+                  <label><input value="No" onChange={this.handleChange4} type="radio" name="optradio" /> No (contact cannot view my posts) </label>
                 </div>
             </form>
             <p></p>

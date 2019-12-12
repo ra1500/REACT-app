@@ -59,8 +59,8 @@ class QuestionSetsNetworkProfile extends React.Component {
 
         { !this.state.showList &&
          <div id="meSettingsDiv">
-         <p> My Created Sets </p>
-         <p class="alertsSmallP"> &nbsp;(none created)</p>
+         <p> Created Sets </p>
+         <p class="alertsSmallP"> &nbsp;(none)</p>
          </div> }
 
         { this.state.showList &&

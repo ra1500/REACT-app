@@ -257,7 +257,7 @@ class Profile extends React.Component {
                       <button class="inviteAuditButton" onClick={this.inviteToAuditFriends}> Friends </button>
                       <button class="inviteAuditButton" onClick={this.inviteToAuditColleagues}> Colleagues </button>
                       <button class="inviteAuditButton" onClick={this.inviteToAuditOther}> Other </button>
-                      <button class="inviteAuditButton" onClick={this.inviteToAuditEveryone}> Network </button>
+                      <button class="inviteAuditButton" onClick={this.inviteToAuditEveryone}> All Contacts </button>
                       <p></p>
                       <div>
                         <input class="askForm" placeholder="username of contact" type="text" maxlength="100" value={this.state.invitee} onChange={this.handleChange} />

@@ -24,12 +24,14 @@ class PublicUserPages extends React.Component {
         this.setState({userName: user});
         axios.get("http://localhost:8080/prm/sc/dc?id=" + user)
         .then((response) => {
+        if (response.status === 200) {
           this.setState({
             isLoaded: true,
             list: response.data,
+            showList: true,
           });
-          this.renderTableData();
-          this.setState({showList: true});
+          } // end if
+          else { this.setState({showList: false}); }
                }).catch(error => {this.setState({ isLoaded: true, error,});
                });
     }
@@ -63,6 +65,14 @@ class PublicUserPages extends React.Component {
             <p id="profileUserName">{this.state.userName}</p>
             </div>
             </ div>
+
+        { !this.state.showList &&
+         <div class="topParentDiv">
+         <div class="secondParentDiv">
+         <p class="alertsSmallP"> &nbsp;(nothing to see here)</p>
+         </div>
+         </div> }
+
 
         { this.state.showList &&
          <div class="topParentDiv">

@@ -61,8 +61,9 @@ class ScoresNetworkContactPages extends React.Component {
         <React.Fragment>
 
         { !this.state.renderContactScores &&
-         <div>
-         <p class="alertsSmallP"> &nbsp;(nothing currently posted)</p>
+         <div id="meSettingsDiv">
+         <p> Posted Scores </p>
+         <p class="alertsSmallP"> &nbsp;(none)</p>
          </div> }
 
          {this.state.renderContactScores &&

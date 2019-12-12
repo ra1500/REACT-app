@@ -53,14 +53,6 @@ class NetworkContactAudit extends React.Component {
       })
    }
 
-   renderTableHeader() {
-      let header = ["Title", "Description",]
-      return header.map((key, index) => {
-         return <th key={index}>{key} &nbsp;&nbsp;&nbsp;   </th>
-      })
-   }
-
-
 
   render() {
     return (
@@ -75,7 +67,7 @@ class NetworkContactAudit extends React.Component {
          <div>
             <table>
                <tbody>
-               <tr>{this.renderTableHeader()}</tr>
+               <tr><th class="thTitle">Title</th><th>Description</th></tr>
                 {this.renderTableData()}
                </tbody>
             </table>
