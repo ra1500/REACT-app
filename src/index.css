@@ -66,7 +66,7 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 #submitQsetButtonSelectionP {display: inline-block; width: 60%;text-align: right; margin-right: 10px; color: red; }
 .firstP {height: 9px; display: inline-block; width: 140px;}
 .secondP {height: 9px; display: inline-block;}
-.scoringLevelsInput1 { width: 320px; }
+.scoringLevelsInput1 { width: 320px; margin: 2px; }
 .scoringLevelsInput2 { width: 150px; }
 #askFromZeroScoreParagraph { margin-left: 60px; display: inline-block; height: 9px; }
 .askFormQsetSmallP {display: inline; font-size: 12px; height: 9px;}
@@ -119,12 +119,13 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 #deletedAnswersMessage {margin-left: 40px; color: red}
 #showResultsDiv { height: 150px;}
 .showAnswersButton {border-radius: 10px; color: white; font-family: "Geneva"; font-size: 14px; padding: 0px 10px; background-color: #ff0066; border: none; margin-bottom: 5px; margin-left: 30px;}
+.showAnswersButton2 {border-radius: 10px; color: white; font-family: "Geneva"; font-size: 14px; padding: 0px 10px; background-color: #ff0066; border: none; margin-bottom: 5px; margin-left: 80px;}
 #qText2 {margin-left: 10px; margin-top: 5px; display: inline;}
 
  /** ScoresList **/
 .scoresListTD { display: inline-block;  }
-.titleButton {border-radius: 14px; height: 23px; margin-right: 5px; width: 150px;border: 1px solid; background-color: white; color: #b37700; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
-.inviteAuditButton {height: 23px; width: 150px; border-radius: 14px; margin-bottom: 0px; border: 1px solid; background-color: white; color: #ff8000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold; margin-left: 5px;margin-right: 5px;}
+.titleButton {border-radius: 14px; height: 23px; margin-right: 5px; width: 160px;border: 1px solid; background-color: white; color: #b37700; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
+.inviteAuditButton {height: 23px; width: 160px; border-radius: 14px; margin-bottom: 0px; border: 1px solid; background-color: white; color: #ff8000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold; margin-left: 5px;margin-right: 5px;}
 .deleteScoreButton {height: 23px; width: 150px; border-radius: 14px; border: 1px solid; background-color: white; color: #ff0000; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold; margin-left: 5px; margin-right: 5px;}
 
  /** Profile **/

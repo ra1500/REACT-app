@@ -30,7 +30,7 @@ class ViewAuditsDetails extends React.Component {
              isLoaded: true,
              list: response.data,
            });
-           this.renderTableData2();
+           this.state.list.sort((a,b) => (a.questionsEntity.sequenceNumber > b.questionsEntity.sequenceNumber) ? 1 : ((b.questionsEntity.sequenceNumber > a.questionsEntity.sequenceNumber) ? -1 : 0));
            this.setState({showList: true,});
                 }).catch(error => {this.setState({ isLoaded: true, error,});
                 });

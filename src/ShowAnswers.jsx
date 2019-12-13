@@ -29,6 +29,7 @@ class ShowAnswers extends React.Component {
              isLoaded: true,
              list: response.data,
            });
+           this.state.list.sort((a,b) => (a.sequenceNumber > b.sequenceNumber) ? 1 : ((b.sequenceNumber > a.sequenceNumber) ? -1 : 0));
            this.setState({showList: true});
                 }).catch(error => {this.setState({ isLoaded: true, error,});
                 });

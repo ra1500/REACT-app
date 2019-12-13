@@ -109,7 +109,7 @@ class ManageMyContacts extends React.Component {
             <p>Contact Settings  </p>
             <p></p>
             <div>
-                <p> You can remove your pending contact here. You can unhide this contact in 'Removed List' under "Network". </p>
+                <p> You can remove your pending contact here. You can unhide a removed contact in 'Network -> Removed List'.</p>
                 { this.state.showDeletedMessage &&
                 <p id="deletedAnswersMessage"> {this.state.deletedMessage} </p> }
                 { this.state.showRemoveButton &&

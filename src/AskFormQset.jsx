@@ -164,7 +164,7 @@ class AskFormQset extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { title: this.state.title, category: this.state.category, description: this.state.description,
-         scoringStyle: this.state.scoringStyle, displayAnswers: this.state.displayAnswers,result1: this.state.result1, result2: this.state.result2, result3: this.state.result3, result4: this.state.result4,
+         scoringStyle: this.state.scoringStyle, displayAnswers: this.state.displayAnswers, result1: this.state.result1, result2: this.state.result2, result3: this.state.result3, result4: this.state.result4,
           result1start: this.state.result1start, result2start: this.state.result2start, result3start: this.state.result3start,};
         axios.post("http://localhost:8080/qs/p?qsid=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
@@ -185,7 +185,7 @@ class AskFormQset extends React.Component {
         this.setState({ maxQtyQuestions: 0, maxPointsTotal: 0, maximumPointsBefore: 0, questionSetVersion: 0, question: null, sequenceNumber: 1, answer1: null, answer2: null,
          answer3: null, answer4: null, answer5: null, answer6: null, answer1Points: null, answer2Points: null,
           answer3Points: null, answer4Points: null, answer5Points: null, answer6Points: null, title: "", description: "", result1: "",
-          result2: "", result3: "", result4: "", result1start: "", result2start: "", result3start: "",
+          result2: "", result3: "", result4: "", result1start: 0, result2start: 0, result3start: 0,
           scoringStyle: 1, displayAnswers: 1,});
 
           this.setState({ showIntro: false, showInputBoxes: true, showQsetDetails: false, showFinished: false,
@@ -489,7 +489,7 @@ class AskFormQset extends React.Component {
         <p></p>
         <div class="secondParentDiv">
         <p>Create your own set of questions or manage an existing set you already created. Invite your contacts to answer. </p>
-        <p> Note that deleting a set will also delete all the answers from all of your contacts. Deleting a question will delete all the answers for that question from all your contacts.</p>
+        <p> Note that deleting a set will also delete all your contacts' answers for that set. Deleting an individual question will delete all your contacts' answers for that question.</p>
          </div>
       </div> }
 
@@ -522,7 +522,7 @@ class AskFormQset extends React.Component {
                   </div>
           </form>
 
-          <br></br> <br></br> <br></br>
+          <br></br> <br></br>
           <div><p class="questionsParagraph">Optional: Scoring Levels (you can have 0, 1, 2, 3 or 4 levels)</p></div>
           <div>
           <input class="scoringLevelsInput1" value={this.state.result1} placeholder="Best/Top level description" type="text" onChange={this.handleChange6} maxLength="40" autoComplete="off" />
@@ -532,22 +532,22 @@ class AskFormQset extends React.Component {
           <div>
           <input class="scoringLevelsInput1" value={this.state.result2} placeholder="2nd level description" type="text" onChange={this.handleChange7} maxLength="40" autoComplete="off" />
           <input class="scoringLevelsInput2" value={this.state.result2start} placeholder="2nd level start" type="number" type="text" onChange={this.handleChange11} max="999" maxLength="3" step="1" autoComplete="off" />
-          <p class="questionsDescriptionParagraph"> &nbsp; to {+this.state.result1start-1} points </p>
+          <p class="questionsDescriptionParagraph"> &nbsp; to {Math.max(+this.state.result1start-1, 0)} points </p>
           </div>
           <div>
           <input class="scoringLevelsInput1" value={this.state.result3} placeholder="3rd level description" type="text" onChange={this.handleChange8} maxLength="40" autoComplete="off" />
           <input class="scoringLevelsInput2" value={this.state.result3start} placeholder="3rd level start" type="number" type="text" onChange={this.handleChange12} max="999" maxLength="3" step="1" autoComplete="off" />
-          <p class="questionsDescriptionParagraph"> &nbsp; to {+this.state.result2start-1} points </p>
+          <p class="questionsDescriptionParagraph"> &nbsp; to {Math.max(+this.state.result2start-1, 0)} points </p>
           </div>
           <div>
           <input class="scoringLevelsInput1" value={this.state.result4} placeholder="4th level description" type="text" onChange={this.handleChange9} maxLength="40" autoComplete="off" />
           <p id="askFromZeroScoreParagraph"> 0 &nbsp;</p>
-          <p class="questionsDescriptionParagraph"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to {+this.state.result3start-1} points </p>
+          <p class="questionsDescriptionParagraph"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to  {Math.max(+this.state.result3start-1, 0)} points </p>
           </div>
           <button className="greenButton" type="submit" > Save </button><span> Next, Add/Edit questions. </span>
       </form>
         { this.state.showCheckMathMessage &&
-        <p> Please check your input levels math. </p> }
+        <p> Please correct the scoring level point ranges. </p> }
         </div>
       </div> }
 

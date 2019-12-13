@@ -348,7 +348,7 @@ class AskFormQuestion extends React.Component {
         <div id="questionsNavigationDiv">
           <button id="deleteAnswerSubmits" onClick={this.deleteQuestion}>Delete Question</button>
           <form id="nextQuestionForm" onSubmit={this.handleSubmit2}>
-            <input id="navigateQuestionsButton" type="submit" value="Go to" />
+            <input id="navigateQuestionsButton" type="submit" value="Go to ->" />
             <input id="questionsGoToInput" placeholder="#" type="number" type="text" onChange={this.handleChange14} max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
           </form>
           <button id="navigateQuestionsButton"  onClick={this.handleSubmit3}>  Back </button>

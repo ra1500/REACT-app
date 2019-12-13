@@ -304,7 +304,7 @@ class Questions extends React.Component {
             <div id="questionsNavigationDiv">
                 <button id="deleteAnswerSubmits" onClick={() => this.verifyDelete()}>Delete all</button>
                 <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
-                  <input id="navigateQuestionsButton" type="submit" value="Go to" />
+                  <input id="navigateQuestionsButton" type="submit" value="Go to ->" />
                   <input id="questionsGoToInput" placeholder="#" type="number" type="text" onChange={this.handleChange}
                   max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
                 </form>
@@ -359,7 +359,7 @@ class Questions extends React.Component {
 
              { this.props.showAnswersButton &&
              <div id="seeAnswersDiv">
-             <button class="showAnswersButton" onClick={this.props.seeAnswers}>  See Answers </button>
+             <button class="showAnswersButton2" onClick={this.props.seeAnswers}> See Answers </button>
              </div> }
              { !this.props.showAnswersButton &&
              <p id="answersNotProvidedP"> (answers not provided for this set)</p> }
@@ -372,7 +372,7 @@ class Questions extends React.Component {
             <div id="questionsNavigationDiv">
                 <button id="deleteAnswerSubmits" onClick={() => this.verifyDelete()}>Delete all</button>
                 <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
-                  <input id="navigateQuestionsButton" type="submit" value="Go to" />
+                  <input id="navigateQuestionsButton" type="submit" value="Go to ->" />
                   <input id="questionsGoToInput" placeholder="#" type="number" type="text" onChange={this.handleChange}
                   max={this.props.questionSetSize} min="1" maxLength="2" step="1" autoComplete="off" />
                 </form>

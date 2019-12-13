@@ -61,7 +61,7 @@ class Introduction extends React.Component {
          <p>NeuralJuice. The web app for fun quizzes, trivia, asking advice and more.</p>
          <p> See how you score in ANSWER.  </p>
          <p> Create your own question sets. Ask your network for advice or make your own quizzes with ASK.  </p>
-         <p> Connect with friends and colleagues in NETWORK. 'Audit' their results and make comments. </p>
+         <p> Connect with friends and colleagues in NETWORK. Audit their results and provide comments. </p>
          <p> Post your results to your ME page. Share with your network or the internet. </p>
          <br></br>
          <button id="sampleButton" onClick={() => this.viewSample()}>Sample</button>

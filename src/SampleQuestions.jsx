@@ -298,7 +298,7 @@ class SampleQuestions extends React.Component {
             <div id="questionsNavigationDiv">
                 <button id="deleteAnswerSubmits" onClick={() => this.verifyDelete()}>Delete all</button>
                 <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
-                  <input id="navigateQuestionsButton" type="submit" value="Go to" />
+                  <input id="navigateQuestionsButton" type="submit" value="Go to ->" />
                   <input id="questionsGoToInput" placeholder="#" type="number" type="text" onChange={this.handleChange}
                   max="3" min="1" maxLength="2" step="1" autoComplete="off" />
                 </form>
@@ -355,7 +355,7 @@ class SampleQuestions extends React.Component {
             <div id="questionsNavigationDiv">
                 <button id="deleteAnswerSubmits" onClick={() => this.verifyDelete()}>Delete all</button>
                 <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
-                  <input id="navigateQuestionsButton" type="submit" value="Go to" />
+                  <input id="navigateQuestionsButton" type="submit" value="Go to ->" />
                   <input id="questionsGoToInput" placeholder="#" type="number" type="text" onChange={this.handleChange}
                   max="3" min="1" maxLength="2" step="1" autoComplete="off" />
                 </form>
