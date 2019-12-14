@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import axios from 'axios';
-import { Card, Form, Input, Button} from "../components/AuthForms";
+import { Form } from "../components/AuthForms";
 import { useAuth } from "../context/auth";
-import TitleBar from '../TitleBar';
 
 function Signup(props) {
   const referer = "/welcome";

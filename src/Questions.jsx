@@ -343,16 +343,16 @@ class Questions extends React.Component {
                 <th>Level</th><th>&nbsp;From</th><th>To</th>
                 </tr>
                 <tr>
-                <td>{this.props.result1}</td><td>&nbsp;{this.props.result1start}</td><td>Max Points</td>
+                <td class="nowrapTd">{this.props.result1}</td><td>&nbsp;{this.props.result1start}</td><td>Max Points</td>
                 </tr>
                 <tr>
-                <td>{this.props.result2}</td><td>&nbsp;{this.props.result2start}</td><td>{this.props.result2end}</td>
+                <td class="nowrapTd">{this.props.result2}</td><td>&nbsp;{this.props.result2start}</td><td>{ Math.max(0, this.props.result2end) }</td>
                 </tr>
                 <tr>
-                <td>{this.props.result3}</td><td>&nbsp;{this.props.result3start}</td><td>{this.props.result3end}</td>
+                <td class="nowrapTd">{this.props.result3}</td><td>&nbsp;{this.props.result3start}</td><td>{ Math.max(0, this.props.result3end) }</td>
                 </tr>
                 <tr>
-                <td>{this.props.result4}</td><td>&nbsp;{this.props.result4start}</td><td>{this.props.result4end}</td>
+                <td class="nowrapTd">{this.props.result4}</td><td>&nbsp;{this.props.result4start}</td><td>{ Math.max(0, this.props.result4end) }</td>
                 </tr>
                 </table>
             </div> }

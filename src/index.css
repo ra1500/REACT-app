@@ -11,6 +11,7 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 .tableData {  padding-right: 0px; margin-bottom: 0px; }
 .thTitle { padding-left: 58px; }
 .thContact { padding-left: 45px; }
+.nowrapTd { white-space:nowrap; }
 .greenButton {border-radius: 14px; height: 23px; margin-right: 5px; width: 150px;border: 1px solid; background-color: white; color: #29a329; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
 .tableTitleCenteredData {  width: 150px; text-align: center; }
 
@@ -89,7 +90,7 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 .singleNetworkContactButton:hover {background-color: #e6e6e6}
 
  /** Answer (AnswerSelection) - Button **/
-.qbutton { text-align: left ; border-radius: 14px; width: 380px; display: block; font-family: "Geneva"; font-size: 14px; padding: 4px 15px; background-color: #e6e6e6; color: black; border: solid 2px white; margin-bottom: 8px; margin-left: 10px;}
+.qbutton { white-space:nowrap; text-align: left ; border-radius: 14px; width: 380px; display: block; font-family: "Geneva"; font-size: 14px; padding: 4px 15px; background-color: #e6e6e6; color: black; border: solid 2px white; margin-bottom: 8px; margin-left: 10px;}
 .qbutton:active { border: solid 2px #0000ff; outline: none}
 .qbutton:focus  { border: solid 2px #0000ff; outline: none }
 
@@ -100,7 +101,7 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 #questionsDiv2 { display: inline-block; width: 25%; float: right;  }
 #questionsDiv3 { height: 34px; border: 2px solid; border-color: #0000ff; padding: 3px; text-align: center; }
 #questionsDiv4answerSelection { margin: auto; width: 54%; height: 320px;}
-#questionsDiv5answerSelection { margin: auto; width: 45%; height: 360px;}
+#questionsDiv5answerSelection { margin: auto; width: 54%; height: 360px;}
 #questionsDivQuestion {   }
 #answerSubmitButton {display: inline; border-radius: 14px; height: 23px; margin-right: 5px; width: 150px;border: 1px solid; background-color: #00b300; color: #ffffff; text-decoration: none; font-size: 14px; font-family: "Geneva"; font-weight: bold;}
 #answerSubmitButton:hover {}
@@ -118,8 +119,8 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 #seeAnswersDiv { margin-top: 20px; }
 #deletedAnswersMessage {margin-left: 40px; color: red}
 #showResultsDiv { height: 150px;}
-.showAnswersButton {border-radius: 10px; color: white; font-family: "Geneva"; font-size: 14px; padding: 0px 10px; background-color: #ff0066; border: none; margin-bottom: 5px; margin-left: 30px;}
-.showAnswersButton2 {border-radius: 10px; color: white; font-family: "Geneva"; font-size: 14px; padding: 0px 10px; background-color: #ff0066; border: none; margin-bottom: 5px; margin-left: 80px;}
+.showAnswersButton {border-radius: 10px; color: white; font-family: "Geneva"; font-size: 14px; padding: 0px 10px; background-color: #ff0066; border: none; margin-bottom: 5px; margin-left: 70px;}
+.showAnswersButton2 {border-radius: 10px; color: white; font-family: "Geneva"; font-size: 14px; padding: 0px 10px; background-color: #ff0066; border: none; margin-bottom: 5px; margin-left: 120px;}
 #qText2 {margin-left: 10px; margin-top: 5px; display: inline;}
 
  /** ScoresList **/
