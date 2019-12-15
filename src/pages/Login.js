@@ -50,7 +50,7 @@ function Login(props) {
       <button class="inviteAuditButton" onClick={() => props.signUpCreate()}>(easy sign up)</button>
 
         { isError &&
-        <p id="deletedScorePostP">The username or password provided were incorrect</p> }
+        <p id="deletedScorePostP">username or password not found</p> }
 
         </div>
       </div>

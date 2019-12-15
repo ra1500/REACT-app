@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+//import React, { useState } from "react";
 import { useAuth } from "./context/auth";
 
 function Logout(props) {
@@ -8,7 +8,7 @@ function Logout(props) {
 
   function logOut() {
     setAuthTokens();
-    //sessionStorage.clear();
+    sessionStorage.clear();
   }
   return (
         () => logOut

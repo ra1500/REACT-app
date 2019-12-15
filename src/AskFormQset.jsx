@@ -383,7 +383,6 @@ class AskFormQset extends React.Component {
 
     // called from child AskManage
     manageAset(event) {
-        const data = {qsetId: event.target.value}; //
         const name = JSON.parse(sessionStorage.getItem('tokens'));
         const u = name.userName;
         const p = name.password;

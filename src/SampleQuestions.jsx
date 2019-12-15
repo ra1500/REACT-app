@@ -1,6 +1,5 @@
 import React from "react";
 import UserTotalScore from "./UserTotalScore";
-import axios from 'axios';
 import AnswerSelection from "./AnswerSelection";
 
 
@@ -262,8 +261,8 @@ class SampleQuestions extends React.Component {
     }
 
   render() {
-    let { error, isLoaded, question, userScore, selection, answerPoints, answer1, answer2, answer3, answer4, answer5,
-     answer6, answer1Points, answer2Points, answer3Points, answer4Points, answer5Points, answer6Points} = this.state;
+    let {  question, selection, answer1, answer2, answer3, answer4, answer5,
+     answer1Points, answer2Points, answer3Points, answer4Points, answer5Points, } = this.state;
 
     if (this.state.currentQuestion <= 3) {
       return (
@@ -299,7 +298,7 @@ class SampleQuestions extends React.Component {
                 <button id="deleteAnswerSubmits" onClick={() => this.verifyDelete()}>Delete all</button>
                 <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
                   <input id="navigateQuestionsButton" type="submit" value="Go to ->" />
-                  <input id="questionsGoToInput" placeholder="#" type="number" type="text" onChange={this.handleChange}
+                  <input id="questionsGoToInput" placeholder="#" type="text" onChange={this.handleChange}
                   max="3" min="1" maxLength="2" step="1" autoComplete="off" />
                 </form>
                 <button id="navigateQuestionsButton"  onClick={this.previous}>  Back </button>
@@ -356,7 +355,7 @@ class SampleQuestions extends React.Component {
                 <button id="deleteAnswerSubmits" onClick={() => this.verifyDelete()}>Delete all</button>
                 <form id="nextQuestionForm" onSubmit={this.handleSubmit}>
                   <input id="navigateQuestionsButton" type="submit" value="Go to ->" />
-                  <input id="questionsGoToInput" placeholder="#" type="number" type="text" onChange={this.handleChange}
+                  <input id="questionsGoToInput" placeholder="#" type="text" onChange={this.handleChange}
                   max="3" min="1" maxLength="2" step="1" autoComplete="off" />
                 </form>
                 <button id="navigateQuestionsButton"  onClick={this.previous}>  Back </button>

@@ -4,10 +4,10 @@ import { Form } from "./components/AuthForms";
 import { useAuth } from "./context/auth";
 
 function UpdateUserInfo(props) {
-  const referer = "/welcome";
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const [ setIsError] = useState(false);
-  const [userName, setUserName] = useState("");
+  //const referer = "/welcome";
+  //const [isLoggedIn, setLoggedIn] = useState(false);
+  //const [ setIsError] = useState(false);
+  //const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [oldPassword, setoldPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

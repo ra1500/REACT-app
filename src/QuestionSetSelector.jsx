@@ -343,7 +343,7 @@ class QuestionSetSelector extends React.Component {
 
 
          {this.state.showAnswers &&
-         <ShowAnswers questionSetVersionEntityId={this.props.questionSetVersion} questionSetVersionEntityId={this.state.questionSetVersion} /> }
+         <ShowAnswers questionSetVersionEntityId={this.state.questionSetVersion} /> }
 
         </React.Fragment>
     ); // end return

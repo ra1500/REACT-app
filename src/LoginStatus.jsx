@@ -22,9 +22,6 @@ class LoginStatus extends React.Component {
   }
 
     componentDidMount() {
-        //let value = this.context;
-        //console.log(this.context + " context");
-        console.log(sessionStorage.getItem('tokens'));
         if ( sessionStorage.getItem('tokens') === "undefined" || sessionStorage.getItem('tokens') === null ) {   // TODO check state instead? Context?
             this.setState({userName: "(easy sign up)"});
         }
@@ -40,7 +37,7 @@ class LoginStatus extends React.Component {
     if ( sessionStorage.getItem('tokens') === "undefined" || sessionStorage.getItem('tokens') === null ) {
     this.props.showSignIn(); }
     else {
-    sessionStorage.clear();
+    //sessionStorage.clear();
     this.setState({goToLogout: true});
     this.setState({redirect: true});
     this.setState({showUserName: false, showSignUpLink: true});

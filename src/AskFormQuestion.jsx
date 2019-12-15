@@ -91,9 +91,6 @@ class AskFormQuestion extends React.Component {
    handleChange13(event) {
      this.setState({question: event.target.value});
    }
-   handleChange13(event) {
-     this.setState({question: event.target.value});
-   }
    handleChange14(event) {
      this.setState({jumpToQuestionNumber: event.target.value});
    }

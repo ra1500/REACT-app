@@ -6,7 +6,7 @@ import ContactsListRemoved from "./ContactsListRemoved";
 import InvitationForm from "./InvitationForm";
 import ManageMyContactsRemoved from "./ManageMyContactsRemoved";
 import NetworkContactPages from "./NetworkContactPages";
-import NetworkContactAudit from "./NetworkContactAudit";
+//import NetworkContactAudit from "./NetworkContactAudit";
 
 class Network extends React.Component {
   constructor(props) {

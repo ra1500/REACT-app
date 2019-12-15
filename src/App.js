@@ -5,8 +5,6 @@ import PrivateRoute from './PrivateRoute';
 import Home from './Home';
 import Answer from './Answer';
 import PublicUserPages from './PublicUserPages';
-import Login from "./pages/Login";
-import Signup from './pages/Signup';
 import { AuthContext } from "./context/auth";
 import Network from "./Network";
 import Profile from "./Profile";
