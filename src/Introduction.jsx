@@ -10,6 +10,7 @@ class Introduction extends React.Component {
     this.showSignIn = this.showSignIn.bind(this);
     this.signUpCreate = this.signUpCreate.bind(this);
     this.viewSample = this.viewSample.bind(this);
+    this.showIntroStuff = this.showIntroStuff.bind(this);
         this.state = {
           error: null,
           isLoaded: false,
@@ -21,6 +22,10 @@ class Introduction extends React.Component {
   }
 
     componentDidMount() {
+    }
+
+    showIntroStuff() {
+        this.setState({showSignIn: false, showSignUpForm: false, showIntro: true, showSample: false});
     }
 
     showSignIn() {
@@ -45,10 +50,10 @@ class Introduction extends React.Component {
     return (
     <React.Fragment>
 
-    <TitleBar showSignIn={this.showSignIn} signUpCreate={this.signUpCreate}/>
+    <TitleBar showSignIn={this.showSignIn} signUpCreate={this.signUpCreate} showIntroStuff={this.showIntroStuff}/>
 
     {this.state.showSignIn &&
-    <Login /> }
+    <Login signUpCreate={this.signUpCreate} /> }
 
     {this.state.showSignUpForm &&
     <Signup /> }

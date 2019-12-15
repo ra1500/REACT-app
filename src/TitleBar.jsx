@@ -1,5 +1,6 @@
 import LoginStatus from "./LoginStatus";
 import React from "react";
+import { Link } from 'react-router-dom'
 
 class TitleBar extends React.Component {
 
@@ -8,13 +9,13 @@ class TitleBar extends React.Component {
     return (
     <div id="titleBarDiv">
 
-        <a id="NJ" href="/"> NeuralJuice </a>
+        <Link onClick={this.props.showIntroStuff} id="NJ" to="/"> NeuralJuice </Link>
         <div id="titleLinksDiv">
-        <a id="menuLinksFirst" href="/welcome"> WELCOME </a>
-        <a className="menuLinks" href="/answer"> ANSWER </a>
-        <a className="menuLinks" href="/ask"> ASK </a>
-        <a className="menuLinks" href="/network"> NETWORK </a>
-        <a className="menuLinks" href="/me"> ME </a>
+        <Link id="menuLinksFirst" to="/welcome"> WELCOME </Link>
+        <Link className="menuLinks" to="/answer"> ANSWER </Link>
+        <Link className="menuLinks" to="/ask"> ASK </Link>
+        <Link className="menuLinks" to="/network"> NETWORK </Link>
+        <Link className="menuLinks" to="/me"> ME </Link>
         </div>
         <LoginStatus showSignIn={this.props.showSignIn} signUpCreate={this.props.signUpCreate} />
 

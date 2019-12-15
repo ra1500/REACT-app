@@ -1,9 +1,11 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import Logout from "./Logout";
 
 class LoginStatus extends React.Component {
   constructor(props) {
     super(props);
+    //LoginStatus.contextType = Context;
         this.state = {
           error: null,
           isLoaded: false,
@@ -14,11 +16,16 @@ class LoginStatus extends React.Component {
           logStatus: "Sign in",
           showSignUpLink: true,
           showUserName: false,
+          value: null,
+          goToLogout: false,
         };
   }
 
     componentDidMount() {
-        if ( window.sessionStorage.length === 0 ) {   // TODO check state instead? Context?
+        //let value = this.context;
+        //console.log(this.context + " context");
+        console.log(sessionStorage.getItem('tokens'));
+        if ( sessionStorage.getItem('tokens') === "undefined" || sessionStorage.getItem('tokens') === null ) {   // TODO check state instead? Context?
             this.setState({userName: "(easy sign up)"});
         }
         else {
@@ -28,12 +35,13 @@ class LoginStatus extends React.Component {
         }
     }
 
+
   logOut() {
-    if ( window.sessionStorage.length === 0 ) {
+    if ( sessionStorage.getItem('tokens') === "undefined" || sessionStorage.getItem('tokens') === null ) {
     this.props.showSignIn(); }
     else {
-    this.setState({authTokens: null}); // TODO: ensure this is actually logging out context state
     sessionStorage.clear();
+    this.setState({goToLogout: true});
     this.setState({redirect: true});
     this.setState({showUserName: false, showSignUpLink: true});
     this.setState({logStatus: "Sign in"});
@@ -54,6 +62,9 @@ class LoginStatus extends React.Component {
            </div>
     {this.state.redirect &&
     <Redirect to={this.state.goHome} /> }
+
+    {this.state.goToLogout &&
+    <Logout /> }
 
     </React.Fragment>
     );

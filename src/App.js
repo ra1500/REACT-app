@@ -21,10 +21,6 @@ function App(props) {
     setAuthTokens(data);
   }
 
-// <PrivateRoute path="/score" component={Score} /> // revert back to this after development
-// <PrivateRoute path="/network" component={Network} /> // revert back to this after development
-// <PrivateRoute path="/profile" component={Profile} /> // revert back to this after development
-
   return (
             <React.Fragment>
                     <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
@@ -32,11 +28,11 @@ function App(props) {
                       <div>
                         <Route exact path="/" component={Home} />
                         <Route exact path="/flavor" component={PublicUserPages} />
-                        <Route exact path="/welcome" component={Start} />
-                        <Route exact path="/answer" component={Answer} />
-                        <Route exact path="/ask" component={Ask} />
-                        <Route exact path="/network" component={Network} />
-                        <Route exact path="/me" component={Profile} />
+                        <PrivateRoute path="/welcome" component={Start} />
+                        <PrivateRoute path="/answer" component={Answer} />
+                        <PrivateRoute path="/ask" component={Ask} />
+                        <PrivateRoute path="/network" component={Network} />
+                        <PrivateRoute path="/me" component={Profile} />
                       </div>
                     </Router>
                     </AuthContext.Provider>
