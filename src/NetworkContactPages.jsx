@@ -48,7 +48,7 @@ class NetworkContactPages extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/f/" + this.props.friendId,
+        axios.get("http://localhost:3000/api/f/" + this.props.friendId,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -112,7 +112,7 @@ class NetworkContactPages extends React.Component {
         const Basic = 'Basic ' + hash;
         let data = { id: this.state.friendId, connectionStatus: this.state.connectionStatus, inviter: this.state.inviter,
          connectionType: this.state.connectionType, visibilityPermission: this.state.visibilityPermission };
-        axios.post("http://localhost:8080/f/a", data,
+        axios.post("http://localhost:3000/api/f/a", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true, showUpdateButton: false,

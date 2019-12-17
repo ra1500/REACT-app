@@ -19,7 +19,7 @@ function Signup(props) {
     else if (userName.length < 4) { setVerifyMessage("Please ensure username is at least 4 characters in length");}
     else if (password.length < 4) { setVerifyMessage("Please ensure password is at least 4 characters in length");}
     else {
-    axios.post("http://localhost:8080/user/signup", {
+    axios.post("http://localhost:3000/api/user/signup", {
       userName,
       password
     }).then(result => {

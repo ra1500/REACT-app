@@ -43,7 +43,7 @@ class ManageMyContacts extends React.Component {
         const Basic = 'Basic ' + hash;
         let data = { id: this.props.friendId, connectionStatus: this.props.connectionStatus, inviter: this.props.inviter,
          connectionType: this.state.connectionType, visibilityPermission: this.state.visibilityPermission };
-        axios.post("http://localhost:8080/f/a", data,
+        axios.post("http://localhost:3000/api/f/a", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true, showUpdatedMessage: true, showUpdateButton: false, showRemoveButton: false,
@@ -61,7 +61,7 @@ class ManageMyContacts extends React.Component {
         const Basic = 'Basic ' + hash;
         let data = { id: this.props.friendId, connectionStatus: "removed", inviter: this.props.inviter,
          connectionType: this.state.connectionType, visibilityPermission: "No" };
-        axios.post("http://localhost:8080/f/a", data,
+        axios.post("http://localhost:3000/api/f/a", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true, showRemoveButton : false, showUpdateButton : false, showDeletedMessage : true,

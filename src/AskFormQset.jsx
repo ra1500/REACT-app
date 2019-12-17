@@ -166,7 +166,7 @@ class AskFormQset extends React.Component {
         let data = { title: this.state.title, category: this.state.category, description: this.state.description,
          scoringStyle: this.state.scoringStyle, displayAnswers: this.state.displayAnswers, result1: this.state.result1, result2: this.state.result2, result3: this.state.result3, result4: this.state.result4,
           result1start: this.state.result1start, result2start: this.state.result2start, result3start: this.state.result3start,};
-        axios.post("http://localhost:8080/qs/p?qsid=" + this.state.questionSetVersion, data,
+        axios.post("http://localhost:3000/api/qs/p?qsid=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         if (response.status === 200) {
@@ -229,7 +229,7 @@ class AskFormQset extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { id: this.state.questionSetVersion };
-        axios.post("http://localhost:8080/qs/da", data,
+        axios.post("http://localhost:3000/api/qs/da", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true,
@@ -246,7 +246,7 @@ class AskFormQset extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = {typeNumber: 5};
-        axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
+        axios.post("http://localhost:3000/api/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true, inviteSelectionMessage: "Your friends" + " " + response.data.invitationMessage,
@@ -263,7 +263,7 @@ class AskFormQset extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = {typeNumber: 6};
-        axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
+        axios.post("http://localhost:3000/api/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true, inviteSelectionMessage: "Your colleagues" + " " + response.data.invitationMessage,
@@ -279,7 +279,7 @@ class AskFormQset extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = {typeNumber: 7};
-        axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
+        axios.post("http://localhost:3000/api/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true, inviteSelectionMessage: "Your Other group" + " " + response.data.invitationMessage,
@@ -295,7 +295,7 @@ class AskFormQset extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = {typeNumber: 4};
-        axios.post("http://localhost:8080/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
+        axios.post("http://localhost:3000/api/prm/sc/n?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true, inviteSelectionMessage: "Your network" + " " + response.data.invitationMessage,
@@ -312,7 +312,7 @@ class AskFormQset extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = {typeNumber: 8, userName: this.state.invitee};
-        axios.post("http://localhost:8080/prm/sc/o?qsId=" + this.state.questionSetVersion, data,
+        axios.post("http://localhost:3000/api/prm/sc/o?qsId=" + this.state.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true, inviteSelectionMessage: this.state.invitee + " " + response.data.invitationMessage,
@@ -334,7 +334,7 @@ class AskFormQset extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/f/" + value,
+        axios.get("http://localhost:3000/api/q/f/" + value,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -389,7 +389,7 @@ class AskFormQset extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/f/" + event.target.value,
+        axios.get("http://localhost:3000/api/q/f/" + event.target.value,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -443,7 +443,7 @@ class AskFormQset extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/qs/q?sn=" + this.state.questionSetVersion,
+        axios.get("http://localhost:3000/api/qs/q?sn=" + this.state.questionSetVersion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({

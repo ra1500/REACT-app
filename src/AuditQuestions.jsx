@@ -65,7 +65,7 @@ class AuditQuestions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/qs/q?sn=" + this.state.questionSetVersionEntityId,
+        axios.get("http://localhost:3000/api/qs/q?sn=" + this.state.questionSetVersionEntityId,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -87,7 +87,7 @@ class AuditQuestions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/e/" + this.state.questionSetVersionEntityId + "/" + this.state.currentQuestion,
+        axios.get("http://localhost:3000/api/q/e/" + this.state.questionSetVersionEntityId + "/" + this.state.currentQuestion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -125,7 +125,7 @@ class AuditQuestions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/e/" + this.state.questionSetVersionEntityId + "/" + this.state.jumpQuestion,
+        axios.get("http://localhost:3000/api/q/e/" + this.state.questionSetVersionEntityId + "/" + this.state.jumpQuestion,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -163,7 +163,7 @@ class AuditQuestions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/a/z?sv=" + this.state.questionSetVersionEntityId + "&fId=" + this.props.friendId,
+        axios.get("http://localhost:3000/api/a/z?sv=" + this.state.questionSetVersionEntityId + "&fId=" + this.props.friendId,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -181,7 +181,7 @@ class AuditQuestions extends React.Component {
        const token = u +':' + p;
        const hash = btoa(token);
        const Basic = 'Basic ' + hash;
-       axios.get("http://localhost:8080/a/b/" + this.state.questionsEntityId + "/" + this.props.friendId,
+       axios.get("http://localhost:3000/api/a/b/" + this.state.questionsEntityId + "/" + this.props.friendId,
        {headers : { 'Authorization' : Basic }})
        .then((response) => {
          if (response.data.answer) {
@@ -205,7 +205,7 @@ class AuditQuestions extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/qs/g?qsid=" + this.props.questionSetVersionEntityId,
+        axios.get("http://localhost:3000/api/qs/g?qsid=" + this.props.questionSetVersionEntityId,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -227,7 +227,7 @@ class AuditQuestions extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { answer: this.state.selection,answerPoints: this.state.answerPoints, auditee: this.state.friend, comments: this.state.comments };
-        axios.post("http://localhost:8080/a/r/" + this.state.questionsEntityId,
+        axios.post("http://localhost:3000/api/a/r/" + this.state.questionsEntityId,
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
@@ -247,7 +247,7 @@ class AuditQuestions extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { auditee: this.state.friend, score: this.state.userScore, };
-        axios.post("http://localhost:8080/prm/sc/q?qsId=" + this.state.questionSetVersionEntityId,
+        axios.post("http://localhost:3000/api/prm/sc/q?qsId=" + this.state.questionSetVersionEntityId,
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
@@ -265,7 +265,7 @@ class AuditQuestions extends React.Component {
     const hash = btoa(token);
     const Basic = 'Basic ' + hash;
     const data = {auditee: this.props.friend};
-    axios.post("http://localhost:8080/a/dll/" + this.state.questionSetVersionEntityId,
+    axios.post("http://localhost:3000/api/a/dll/" + this.state.questionSetVersionEntityId,
     data,
     {headers : { 'Authorization' : Basic }})
     .then((response) => {

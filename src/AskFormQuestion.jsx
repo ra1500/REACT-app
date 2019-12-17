@@ -115,7 +115,7 @@ class AskFormQuestion extends React.Component {
 
         this.setState({maxPointsTotal: +Number(this.state.maxPointsTotal) +Number(maximumPoints) -Number(maximumPointsBefore) })  ;
 
-        axios.post("http://localhost:8080/q/p?qsid=" + this.props.questionSetVersion, data,
+        axios.post("http://localhost:3000/api/q/p?qsid=" + this.props.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true,
@@ -176,7 +176,7 @@ class AskFormQuestion extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { id: this.state.questionsEntityId, }
-        axios.post("http://localhost:8080/q/del",
+        axios.post("http://localhost:3000/api/q/del",
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
@@ -199,7 +199,7 @@ class AskFormQuestion extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/e/" + this.props.questionSetVersion + "/" + (this.props.sequenceNumber-1),
+        axios.get("http://localhost:3000/api/q/e/" + this.props.questionSetVersion + "/" + (this.props.sequenceNumber-1),
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -237,7 +237,7 @@ class AskFormQuestion extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/e/" + this.props.questionSetVersion + "/" + (+this.props.sequenceNumber+1),
+        axios.get("http://localhost:3000/api/q/e/" + this.props.questionSetVersion + "/" + (+this.props.sequenceNumber+1),
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -275,7 +275,7 @@ class AskFormQuestion extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:8080/q/e/" + this.props.questionSetVersion + "/" + (this.state.jumpToQuestionNumber),
+        axios.get("http://localhost:3000/api/q/e/" + this.props.questionSetVersion + "/" + (this.state.jumpToQuestionNumber),
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
