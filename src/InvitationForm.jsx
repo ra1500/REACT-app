@@ -53,7 +53,7 @@ class InvitationForm extends React.Component {
         const Basic = 'Basic ' + hash;
         let data = { friend: this.state.friend, connectionType: this.state.connectionType, connectionStatus: this.state.connectionStatus,
          visibilityPermission: this.state.visibilityPermission, inviter: u };
-        axios.post("http://localhost:3000/api/f", data,
+        axios.post("http://localhost:8080/api/f", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         if (response.status === 204) {

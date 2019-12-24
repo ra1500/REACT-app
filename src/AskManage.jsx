@@ -23,7 +23,7 @@ class AskManage extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:3000/api/prm/sc/du",
+        axios.get("http://localhost:8080/api/prm/sc/du",
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         if (response.status === 200) {

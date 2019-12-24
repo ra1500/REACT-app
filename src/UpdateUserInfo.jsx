@@ -23,7 +23,7 @@ function UpdateUserInfo(props) {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { password: password, userName: oldPassword }; // lame security check... TODO modify
-        axios.post("http://localhost:3000/api/user/update", data,
+        axios.post("http://localhost:8080/api/user/update", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
             if (response.data.password !== "error" ) {

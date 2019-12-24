@@ -22,7 +22,7 @@ class PublicUserPages extends React.Component {
         let params = queryString.parse(url);
         let user = params.id;
         this.setState({userName: user});
-        axios.get("http://localhost:3000/api/prm/sc/dc?id=" + user)
+        axios.get("http://localhost:8080/api/prm/sc/dc?id=" + user)
         .then((response) => {
         if (response.status === 200) {
           this.setState({

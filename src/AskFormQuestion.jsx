@@ -115,7 +115,7 @@ class AskFormQuestion extends React.Component {
 
         this.setState({maxPointsTotal: +Number(this.state.maxPointsTotal) +Number(maximumPoints) -Number(maximumPointsBefore) })  ;
 
-        axios.post("http://localhost:3000/api/q/p?qsid=" + this.props.questionSetVersion, data,
+        axios.post("http://localhost:8080/api/q/p?qsid=" + this.props.questionSetVersion, data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true,
@@ -176,7 +176,7 @@ class AskFormQuestion extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { id: this.state.questionsEntityId, }
-        axios.post("http://localhost:3000/api/q/del",
+        axios.post("http://localhost:8080/api/q/del",
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
@@ -199,7 +199,7 @@ class AskFormQuestion extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:3000/api/q/e/" + this.props.questionSetVersion + "/" + (this.props.sequenceNumber-1),
+        axios.get("http://localhost:8080/api/q/e/" + this.props.questionSetVersion + "/" + (this.props.sequenceNumber-1),
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -237,7 +237,7 @@ class AskFormQuestion extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:3000/api/q/e/" + this.props.questionSetVersion + "/" + (+this.props.sequenceNumber+1),
+        axios.get("http://localhost:8080/api/q/e/" + this.props.questionSetVersion + "/" + (+this.props.sequenceNumber+1),
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -275,7 +275,7 @@ class AskFormQuestion extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:3000/api/q/e/" + this.props.questionSetVersion + "/" + (this.state.jumpToQuestionNumber),
+        axios.get("http://localhost:8080/api/q/e/" + this.props.questionSetVersion + "/" + (this.state.jumpToQuestionNumber),
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -317,27 +317,27 @@ class AskFormQuestion extends React.Component {
           <input id="newQuestion" maxlength="80" type="text" value={this.state.question} onChange={this.handleChange13}  autocomplete="off"/></div>
 
           <div class="askDiv"><span class="askText">Answer 1 &nbsp;</span>
-          <input class="newAnswer" type="text" maxlength="50" value={this.state.answer1} onChange={this.handleChange1} />
+          <input class="newAnswer" type="text" maxlength="33" value={this.state.answer1} onChange={this.handleChange1} />
           <span class="askText">Points &nbsp;</span>
           <input type="number" type="text" placeholder= "integer" maxlength="3" class="newAnswerPoints" value={this.state.answer1Points} onChange={this.handleChange2} /></div>
 
           <div class="askDiv"><span class="askText">Answer 2 &nbsp;</span>
-          <input class="newAnswer" type="text" maxlength="50" value={this.state.answer2} onChange={this.handleChange3} />
+          <input class="newAnswer" type="text" maxlength="33" value={this.state.answer2} onChange={this.handleChange3} />
           <span class="askText">Points &nbsp;</span>
           <input type="number" type="text" maxlength="3" class="newAnswerPoints" value={this.state.answer2Points} onChange={this.handleChange4} /></div>
 
           <div class="askDiv"><span class="askText">Answer 3 &nbsp;</span>
-          <input class="newAnswer" type="text" maxlength="50" value={this.state.answer3} onChange={this.handleChange5} />
+          <input class="newAnswer" type="text" maxlength="33" value={this.state.answer3} onChange={this.handleChange5} />
           <span class="askText">Points &nbsp;</span>
           <input type="number" type="text" maxlength="3" class="newAnswerPoints" value={this.state.answer3Points} onChange={this.handleChange6} /></div>
 
           <div class="askDiv"><span class="askText">Answer 4 &nbsp;</span>
-          <input class="newAnswer" type="text" maxlength="50" value={this.state.answer4} onChange={this.handleChange7} />
+          <input class="newAnswer" type="text" maxlength="33" value={this.state.answer4} onChange={this.handleChange7} />
           <span class="askText">Points &nbsp;</span>
           <input type="number" type="text" maxlength="3" class="newAnswerPoints" value={this.state.answer4Points} onChange={this.handleChange8} /></div>
 
           <div class="askDiv"><span class="askText">Answer 5 &nbsp;</span>
-          <input class="newAnswer" type="text" maxlength="50" value={this.state.answer5} onChange={this.handleChange9} />
+          <input class="newAnswer" type="text" maxlength="33" value={this.state.answer5} onChange={this.handleChange9} />
           <span class="askText">Points &nbsp;</span>
           <input type="number" type="text" maxlength="3" class="newAnswerPoints" value={this.state.answer5Points} onChange={this.handleChange10} /></div>
       </form>

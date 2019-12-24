@@ -22,7 +22,7 @@ class ShowAnswers extends React.Component {
          const token = u +':' + p;
          const hash = btoa(token);
          const Basic = 'Basic ' + hash;
-         axios.get("http://localhost:3000/api/q/b?qsId=" + this.props.questionSetVersionEntityId,
+         axios.get("http://localhost:8080/api/q/b?qsId=" + this.props.questionSetVersionEntityId,
          {headers : { 'Authorization' : Basic }})
          .then((response) => {
            this.setState({

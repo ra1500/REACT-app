@@ -42,6 +42,7 @@ class Start extends React.Component {
         <p> Welcome - Alerts </p>
         <p></p>
         <div class="secondParentDiv">
+            <p id="alertsBlueP"> Go to 'Answer' to see our new featured quizzes. </p> <br></br>
             <p class="questionsParagraph"> Network Invitations (past two weeks) </p>
             <AlertsNewContactsList /><br></br>
             <p class="questionsParagraph"> Audit Invitations (past two weeks) </p>

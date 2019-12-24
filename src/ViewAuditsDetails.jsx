@@ -23,7 +23,7 @@ class ViewAuditsDetails extends React.Component {
          const token = u +':' + p;
          const hash = btoa(token);
          const Basic = 'Basic ' + hash;
-         axios.get("http://localhost:3000/api/a/y?sv=" + this.props.questionSetVersionEntityId + "&fnm=" + this.props.auditorName,
+         axios.get("http://localhost:8080/api/a/y?sv=" + this.props.questionSetVersionEntityId + "&fnm=" + this.props.auditorName,
          {headers : { 'Authorization' : Basic }})
          .then((response) => {
            this.setState({

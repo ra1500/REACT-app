@@ -32,7 +32,7 @@ class ManageMyContactsRemoved extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { id: this.state.friendId, connectionStatus: "Connected", inviter: this.state.inviter, connectionType: "Friend", visibilityPermission: "Yes"};
-        axios.post("http://localhost:3000/api/f/a", data,
+        axios.post("http://localhost:8080/api/f/a", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
         this.setState({isLoaded: true,
@@ -49,7 +49,7 @@ class ManageMyContactsRemoved extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:3000/api/f/" + this.state.friendId,
+        axios.get("http://localhost:8080/api/f/" + this.state.friendId,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({

@@ -5,14 +5,12 @@ function Logout(props) {
    const { setAuthTokens } = useAuth();
    setAuthTokens();
 
-
   function logOut() {
     setAuthTokens();
     sessionStorage.clear();
   }
-  return (
-        () => logOut
-  );
+  return (null);
+
 }
 
 export default Logout;

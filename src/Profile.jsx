@@ -60,7 +60,7 @@ class Profile extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { };
-        axios.post("http://localhost:3000/api/a/fr/" + this.state.questionSetVersionEntityId + "/" + group,
+        axios.post("http://localhost:8080/api/a/fr/" + this.state.questionSetVersionEntityId + "/" + group,
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
@@ -78,7 +78,7 @@ class Profile extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         let data = { userName: this.state.friend };
-        axios.post("http://localhost:3000/api/a/in/" + this.state.questionSetVersionEntityId,
+        axios.post("http://localhost:8080/api/a/in/" + this.state.questionSetVersionEntityId,
         data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
@@ -97,7 +97,7 @@ class Profile extends React.Component {
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
         const data = {id: this.state.permissionId};
-        axios.post("http://localhost:3000/api/prm/sc/dl", data,
+        axios.post("http://localhost:8080/api/prm/sc/dl", data,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({
@@ -117,7 +117,7 @@ class Profile extends React.Component {
         const token = u +':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        axios.get("http://localhost:3000/api/a/ac/" + value,
+        axios.get("http://localhost:8080/api/a/ac/" + value,
         {headers : { 'Authorization' : Basic }})
         .then((response) => {
           this.setState({

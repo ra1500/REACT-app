@@ -27,7 +27,7 @@ class ScoreUrl extends React.Component {
     const token = u +':' + p;
     const hash = btoa(token);
     const Basic = 'Basic ' + hash;
-    axios.get("http://localhost:3000/api/user/pr",
+    axios.get("http://localhost:8080/api/user/pr",
     {headers : { 'Authorization' : Basic }})
     .then((response) => {
       this.setState({
@@ -61,7 +61,7 @@ class ScoreUrl extends React.Component {
     const hash = btoa(token);
     const Basic = 'Basic ' + hash;
     let data = {publicProfile : this.state.selectProfile, };  // Magic 3 of 3
-    axios.patch("http://localhost:3000/api/user/up", data,
+    axios.patch("http://localhost:8080/api/user/up", data,
     {headers : { 'Authorization' : Basic }})
     .then((response) => {
     this.setState({isLoaded: true,

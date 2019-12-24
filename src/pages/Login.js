@@ -15,7 +15,7 @@ function Login(props) {
 
 
   function postLogin() {
-    axios.post("http://localhost:3000/api/user/userId", { // TODO: make this 'light' without friendsList
+    axios.post("http://localhost:8080/api/user/userId", {
       userName,
       password
     }).then(result => {
