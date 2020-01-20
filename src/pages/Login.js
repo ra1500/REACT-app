@@ -13,6 +13,12 @@ function Login(props) {
   const [password, setPassword] = useState("");
   const { setAuthTokens } = useAuth();
 
+function enterPressed(event) {
+    var code = event.keyCode || event.which;
+    if(code === 13) {
+        postLogin();
+    }
+}
 
   function postLogin() {
     axios.post("http://localhost:8080/api/user/userId", {
@@ -43,7 +49,7 @@ function Login(props) {
         <div class="secondParentDiv">
       <Form>
         <input class="loginInput" type="username" value={userName} onChange={e => {setUserName(e.target.value);}} placeholder="username"/><br></br>
-        <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}} placeholder="password"/><br></br>
+        <input class="loginInput" type="password" value={password} onChange={e => {setPassword(e.target.value);}} placeholder="password" onKeyPress={enterPressed}/><br></br>
         <button class="greenButton" onClick={postLogin}> Let's go </button>
         <br></br>
       </Form>

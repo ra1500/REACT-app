@@ -18,6 +18,7 @@ class NetworkContactPages extends React.Component {
         this.state = {
           error: null,
           isLoaded: false,
+          profilePicture: "./profiledefault.jpg",
           friendId: this.props.friendId,
           friend: null,
           connectionType: null,
@@ -39,6 +40,7 @@ class NetworkContactPages extends React.Component {
 
     componentDidMount() {
         this.getSingleFriendship();
+        this.getProfilePicture();
     }
 
     getSingleFriendship() {
@@ -123,6 +125,30 @@ class NetworkContactPages extends React.Component {
                });
     }
 
+  getProfilePicture() {
+    const name = JSON.parse(sessionStorage.getItem('tokens'));
+    const u = name.userName;
+    const p = name.password;
+    const token = u +':' + p;
+    const hash = btoa(token);
+    const Basic = 'Basic ' + hash;
+    axios({
+      method: 'get',
+      url: "http://localhost:8080/api/files/i?fid=" + this.props.friendId,
+      responseType: 'blob',
+      headers : { 'Authorization' : Basic },
+    })
+    .then((response) => {
+        const file = new Blob([response.data], {type:'image/jpg'});
+        const imgUrl = window.URL.createObjectURL(file);
+      this.setState({
+        isLoaded: true,
+        profilePicture: imgUrl,
+      });
+           }).catch(error => {this.setState({ isLoaded: true, error, });
+           });
+    }
+
 
 
   render() {
@@ -134,8 +160,8 @@ class NetworkContactPages extends React.Component {
         </div>
 
         <div class="topParentDiv">
-            <button class="singleNetworkContactButton" onClick={this.goToGoodStuff}> Good Stuff </button>
-            <button class="singleNetworkContactButton" onClick={this.goToAudit}> Audit Them </button>
+            <button class="singleNetworkContactButton" onClick={this.goToGoodStuff}> Profile </button>
+            <button class="singleNetworkContactButton" onClick={this.goToAudit}> Review Them </button>
             <button class="singleNetworkContactButton" onClick={this.goToContactSettings}> Settings </button>
         </div>
 
@@ -152,18 +178,19 @@ class NetworkContactPages extends React.Component {
 
                 { this.state.showContactScores &&
                 <div>
+                <img id="profilePic" src={this.state.profilePicture}></img>
                 <ScoresNetworkContactPages friendId={this.props.friendId} />
                 <QuestionSetsNetworkProfile friendId={this.props.friendId} />
                 </div> }
 
                 {this.state.showQuestionSetAuditing &&
                 <div class="secondParentDiv">
-                  <p> Audit Them </p>
-                  <p> Audit your contact's answers. You can choose and submit different answers and also add comments.
-                  Your contact can then review how you scored them and read your coments.
-                  (Note that once you have submited your own answer to a question it will be saved and you will not be able to see
-                  your contacts original answer again.)</p>
-                  <p> The following were selected by {this.state.friend} for you to audit:</p>
+                  <p> Review Them </p>
+                  <p> Review your contact's answers. You can choose and submit different answers and also add comments.
+                  Your contact can then see how you scored them and read your comments.
+                  (Note that once you have submitted your own answer to a question it will be saved and you will not be able to see
+                  your contact's original answer again.)</p>
+                  <p> The following were selected by {this.state.friend} for you to review:</p>
                   <NetworkContactAudit auditMe={this.auditMe} friendId={this.state.friendId}/>
                 </div> }
 

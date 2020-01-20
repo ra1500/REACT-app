@@ -130,7 +130,7 @@ class AskFormQset extends React.Component {
   handleSubmit1(event) {
     event.preventDefault();
     this.setState({showCheckMathMessage: false, sequenceNumber: 1}); // need to reset sequenceNumber to '1' when toggling edit
-    if (this.state.result1start >= this.state.result2start && this.state.result2start >= this.state.result3start ) {
+    if (+this.state.result1start >= +this.state.result2start && +this.state.result2start >= +this.state.result3start ) {
     this.postNewQset();
     this.setState({showInputBoxes: false, showQsetDetails: true, showAskFormQuestion: true, showCheckMathMessage: false,});
     }
@@ -591,7 +591,7 @@ class AskFormQset extends React.Component {
         </div>
             { this.state.showInviteToScore &&
             <div class="topParentDiv">
-            <p> Invite to Score</p>
+            <p> Invite Contacts to Answer</p>
             <div class="secondParentDiv">
                 <button class="inviteAuditButton" value="Friends" onClick={e => this.inviteToScoreSelector(e)} > All Friends </button>
                 <button class="inviteAuditButton" value="Colleagues" onClick={e => this.inviteToScoreSelector(e)} > All Colleagues </button>

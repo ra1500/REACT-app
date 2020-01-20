@@ -243,7 +243,7 @@ class Questions extends React.Component {
         if      (this.state.userScore >= this.props.result1start && this.props.result1start > 0) { return <p class="resultMessageP">Your result is: {this.props.result1}</p>}
         else if (this.state.userScore >= this.props.result2start && this.props.result2start > 0) { return <p class="resultMessageP">Your result is: {this.props.result2}</p> }
         else if (this.state.userScore >= this.props.result3start && this.props.result3start > 0) { return <p class="resultMessageP">Your result is: {this.props.result3}</p> }
-        else if (                                                   this.props.result4start > 0) { return <p class="resultMessageP">Your result is: {this.props.result4}</p> }
+        else if (                                                   this.props.result4 !== "" ) { return <p class="resultMessageP">Your result is: {this.props.result4}</p> }
         else { return <p class="resultMessageP"> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finished! </p> }
     }
 
@@ -252,7 +252,7 @@ class Questions extends React.Component {
         if      (this.state.userScore >= this.props.result1start && this.props.result1start > 0) { resultToPost = this.props.result1 }
         else if (this.state.userScore >= this.props.result2start && this.props.result2start > 0) { resultToPost = this.props.result2 }
         else if (this.state.userScore >= this.props.result3start && this.props.result3start > 0) { resultToPost = this.props.result3 }
-        else if (                                                   this.props.result4start > 0) { resultToPost = this.props.result4 }
+        else    { resultToPost = this.props.result4 }
         //else { this.props.addToProfile("") };
         this.props.addToProfile(resultToPost);
     }
@@ -340,19 +340,19 @@ class Questions extends React.Component {
             <div id="showResultsDiv">
                 <table>
                 <tr>
-                <th>Level</th><th>&nbsp;From</th><th>To</th>
+                <th>&nbsp;From</th><th>To</th><th>Level</th>
                 </tr>
                 <tr>
-                <td class="nowrapTd">{this.props.result1}</td><td>&nbsp;{this.props.result1start}</td><td>Max Points</td>
+                <td>&nbsp;{this.props.result1start}</td><td>Max</td><td class="nowrapTd">{this.props.result1}</td>
                 </tr>
                 <tr>
-                <td class="nowrapTd">{this.props.result2}</td><td>&nbsp;{this.props.result2start}</td><td>{ Math.max(0, this.props.result2end) }</td>
+                <td>&nbsp;{this.props.result2start}</td><td>{ Math.max(0, this.props.result2end) }</td><td class="nowrapTd">{this.props.result2}</td>
                 </tr>
                 <tr>
-                <td class="nowrapTd">{this.props.result3}</td><td>&nbsp;{this.props.result3start}</td><td>{ Math.max(0, this.props.result3end) }</td>
+                <td>&nbsp;{this.props.result3start}</td><td>{ Math.max(0, this.props.result3end) }</td><td class="nowrapTd">{this.props.result3}</td>
                 </tr>
                 <tr>
-                <td class="nowrapTd">{this.props.result4}</td><td>&nbsp;{this.props.result4start}</td><td>{ Math.max(0, this.props.result4end) }</td>
+                <td>&nbsp;{this.props.result4start}</td><td>{ Math.max(0, this.props.result4end) }</td><td class="nowrapTd">{this.props.result4}</td>
                 </tr>
                 </table>
             </div> }

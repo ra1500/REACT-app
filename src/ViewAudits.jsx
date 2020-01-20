@@ -44,7 +44,7 @@ class ViewAudits extends React.Component {
                <td> {data.userName} &nbsp; &nbsp;</td>
                <td> &nbsp;{data.score} </td>
                <td> &nbsp;{data.result} </td>
-               <td> <button class="greenButton" value={data.userName} onClick={e => this.props.getAuditDetails(e)}> View audit </button> </td>
+               <td> <button class="greenButton" value={data.userName} onClick={e => this.props.getAuditDetails(e)}> See Review </button> </td>
             </tr>
          )
       })

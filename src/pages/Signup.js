@@ -26,7 +26,11 @@ function Signup(props) {
       if (result.status === 200) {
         setAuthTokens(result.data);
         setLoggedIn(true);
-      } else {
+      }
+      else if (result.status === 204){
+        { setVerifyMessage("Sorry, that username is already taken. Please choose another.");}
+      }
+      else {
         setIsError(true);
       }
     }).catch(e => {
