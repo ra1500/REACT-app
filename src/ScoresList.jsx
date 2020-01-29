@@ -64,13 +64,13 @@ class ScoresList extends React.Component {
 
         { !this.state.showList &&
          <div id="meSettingsDiv">
-         <p> Posted Scores </p>
+         <p> Posted Stats </p>
          <p class="alertsSmallP"> &nbsp;(none posted)</p>
          </div> }
 
         { this.state.showList &&
          <div id="meSettingsDiv">
-         <p> Posted Scores </p>
+         <p> Posted Stats </p>
             <table>
                <tbody>
                <tr><th class="thTitle">Title</th><th>Description</th><th>Score</th><th>Result</th></tr>

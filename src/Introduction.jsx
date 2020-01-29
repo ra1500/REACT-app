@@ -63,14 +63,13 @@ class Introduction extends React.Component {
     <p> NeuralJuice </p>
     <p></p>
     <div class="secondParentDiv">
-         <p> Send your friends a set of questions and then see what their results are.</p>
-         <p> We have some pre-made question sets such as trivia, invitations, and stock picks etc.</p>
-         <p> Or, create your own and invite your friends to answer.</p>
-         <p> Start by logging in and going to 'ASK' to create your own question set. Then invite </p>
-         <p> your network contacts to answer and see how they score. </p>
-         <p> Your friends can then invite you to comment on their answers after they've posted their results. </p>
-         <br></br>
-         <button id="sampleButton" onClick={() => this.viewSample()}>Sample</button>
+         <p> Social networking made easy. </p>
+         <p>  - See who your friends' friends are. </p>
+         <p>  - Add stats to your profile to better show who you are. </p>
+         <p>  - Create new specialized stats for use in your network. </p>
+         <p>  - Invite your network to review and comment.  </p>
+         <p>  - No trackers or cookies.  </p>
+         <button id="sampleButton" onClick={() => this.viewSample()}>Sample Stat: Animal Trivia Intelligence</button>
     </div>
 
     </div> }

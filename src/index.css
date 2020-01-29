@@ -16,9 +16,9 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 .tableTitleCenteredData {  width: 170px; text-align: center; }
 
  /** TitleBar **/
-#titleBarDiv { padding-bottom: 3px; padding-top: 3px; background-color: #737373}
-#NJ { margin-left: 15px; font-family: "Arial"; font-size: 18px; color: white; font-weight: bold; position: absolute; left: 0px; text-decoration: none;}
-#titleLinksDiv {margin: auto; width: 407px; }
+#titleBarDiv { position: fixed; top: 0; width: 100%; padding-bottom: 5px; padding-top: 5px; background-color: #737373}
+#NJ { margin-left: 15px; font-family: "Arial"; font-size: 18px; color: #ffff00; font-weight: bold; position: absolute; left: 0px; text-decoration: none;}
+#titleLinksDiv {margin: auto; width: 500px; }
 #menuLinksFirst {font-size: 14px; font-weight: bold; color: #ffffff; display: inline-block; margin-left: 10px; text-decoration: none; font-family: "Arial"}
 #menuLinksFirst:link, .menuLinks:visited { display: inline-block; text-decoration: none; color: #ffffff;}
 #menuLinksFirst:hover { text-decoration: none; color: #cccccc;}
@@ -28,7 +28,7 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 
  /** LoginStatus **/
 #loginStatusDiv { position: absolute; right: 0px; top: 0px; margin-right: 15px; }
-#logoutButton { font-family: "Arial"; font-size: 13px; background-color: #595959; color: white; font-weight: bold; border: none; border-radius: 0px; margin-right: 5px}
+#logoutButton { font-family: "Arial"; font-size: 13px; background-color: #1a1aff; color: white; font-weight: bold; border: none; border-radius: 0px; margin-right: 5px}
 #logoutButton:hover {background-color: #1a1aff}
 #userName {font-family: "Arial"; display: inline; color: white; font-weight: bold;}
 #easySignUpButton {border: none; background-color: #737373; color: white; text-decoration: none; font-weight: bold; font-size: 14px; font-family: "Geneva"}
@@ -37,14 +37,14 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 .loginInput {display: inline-block; margin-bottom: 7px; width: 250px;}
 
  /** Buttons First Level **/
-.settings2ButtonsDiv { margin: auto; width: 290px; padding-top: 10px;}
-.settings3ButtonsDiv { margin: auto; width: 420px; padding-top: 10px;}
-.settingsButton { border-radius: 14px; margin-right: 10px; width: 130px; display: inline; background-color: white; border: 1px solid; text-decoration: none; font-size: 14px; font-family: "Geneva";}
+.settings2ButtonsDiv { margin: auto; width: 320px; margin-top: 40px;}
+.settings3ButtonsDiv { margin: auto; width: 480px; margin-top: 40px;}
+.settingsButton { border-radius: 14px; margin-right: 10px; width: 150px; display: inline; background-color: white; border: 1px solid; text-decoration: none; font-size: 14px; font-family: "Geneva";}
 .settingsButton:hover {background-color: #e6e6e6}
 .settingsButton:active {background-color: #e6e6e6}
 
  /** Top-level Parent Div **/
-.topParentDiv { padding-top: 15px; padding-bottom: 15px; margin: auto; width: 800px;}
+.topParentDiv { padding-top: 15px; padding-bottom: 0px; margin: auto; margin-top: 0px; width: 800px;}
 
  /** 2nd-level Parent Div Box **/
 .secondParentDiv {border-style: solid; border-width: 1px; padding: 10px;}
@@ -95,7 +95,7 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 .qbutton:focus  { border: solid 2px #0000ff; outline: none }
 
  /** Answer (Questions) **/
-#questionsComponent {height: 560px; border-style: solid; border-width: 2px; padding: 15px; margin: auto; width: 800px;}
+#questionsComponent {height: 560px; border-style: solid; border-width: 2px; padding: 15px; margin: auto; margin-top: 10px; width: 800px;}
 #noAnswerButton {border-radius: 10px; color: black; font-family: "Geneva"; font-size: 14px; padding: 0px 10px; background-color: #e6e6e6; border: none; margin-bottom: 5px; margin-left: 10px;}
 #questionsDiv1 { display: inline-block; height: 90px; width: 100%; border-bottom-style: double }
 #questionsDiv2 { display: inline-block; width: 25%; float: right;  }
@@ -131,22 +131,31 @@ th { text-decoration: underline; font-weight: normal; padding-right: 5px; paddin
 
  /** Profile **/
 #deletedScorePostP { height: 9px; color: red; font-weight: bold;}
+.radioSelections {display: inline; padding-right: 10px; }
+.profileImageDiv { display: inline; float: top; }
 
  /** Picture **/
- #profilePicBrowseButton {}
- #profilePic { border: 1px solid; height: 80px; width: 80px; margin-right: 15px; }
+#profilePicBrowseButton {}
+#profilePic {float: left; border: 1px solid; height: 80px; width: 80px; margin-right: 15px; }
+#profilePic2 { border: 1px solid; height: 80px; width: 80px; margin-right: 15px; }
 
 /** AuditQuestions **/
 #AuditQuestionsComponent {height: 570px; border-style: solid; border-color: red; border-width: 2px; padding: 15px; margin: auto; width: 800px;}
 #auditCommentsInput {margin-bottom: 15px; width: 100%;}
 
 /** Public Profile (PublicUserPages) **/
-#titleLinksDiv2 {margin: auto; width: 100px; }
+#titleLinksDiv2 {margin: auto; width: 160px; }
 #profileUserName {display: inline; color: white; font-weight: bold;}
+#NJ2 {  font-family: "Arial"; font-size: 18px; color: #ffff00; font-weight: bold; text-decoration: none;}
 
 /** AlertsNew... **/
 #alertsBlueP {height: 9px; color: #0000ff }
 .alertsSmallP {font-size: 12px; height: 9px;}
 
+ /** FriendsContactsList **/
+.friendsTD2 {display: block; padding-top: 5px;}
+.friendsTD3 {display: block; padding-bottom: 5px;}
+.friendsTD {display: block;}
+.friendsTR { padding-bottom: 500px;}
 
 

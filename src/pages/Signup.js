@@ -45,7 +45,8 @@ function Signup(props) {
 
   return (
     <React.Fragment>
-
+      <div class="settings2ButtonsDiv">
+      </div>
       <div class="topParentDiv">
         <p> Sign up </p>
         <p></p>
@@ -56,8 +57,7 @@ function Signup(props) {
             <input class="loginInput" maxlength="100" type="password" value={verifyPassword} onChange={e => {setVerifyPassword(e.target.value);}}placeholder="password again" /><br></br>
             <button class="greenButton" onClick={postSignup}>Sign up</button>
 
-            <br></br><br></br>
-            <p>We don't use cookies.</p>
+            <br></br>
             <div>
             <p>{verifyMessage}</p>
             </div>

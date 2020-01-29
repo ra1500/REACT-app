@@ -259,14 +259,14 @@ class QuestionSetSelector extends React.Component {
         <React.Fragment>
 
           <div class="settings3ButtonsDiv">
-            <button class="settingsButton" onClick={this.renderNJSets}> NJ Sets  </button>
-            <button class="settingsButton" onClick={this.renderNetworkSets}> Network Sets </button>
-            <button class="settingsButton" onClick={this.renderMySets}> My Created Sets </button>
+            <button class="settingsButton" onClick={this.renderNJSets}> NeuralJuice Stats  </button>
+            <button class="settingsButton" onClick={this.renderNetworkSets}> Network Stats </button>
+            <button class="settingsButton" onClick={this.renderMySets}> My Created Stats </button>
           </div>
 
         { this.state.showListNetwork &&
          <div class="topParentDiv">
-        <p> Answer - Network Sets </p>
+        <p> Stats: Network Stats </p>
         <p></p>
         <div class="secondParentDiv">
             { this.state.showListNetworkNone &&
@@ -287,7 +287,7 @@ class QuestionSetSelector extends React.Component {
 
         { this.state.showList &&
          <div class="topParentDiv">
-        <p> Answer - NJ Sets </p>
+        <p> Stats: NeuralJuice Stats </p>
         <p></p>
         <div class="secondParentDiv">
             { this.state.showListNone &&
@@ -308,7 +308,7 @@ class QuestionSetSelector extends React.Component {
 
         { this.state.showListMySets &&
          <div class="topParentDiv">
-        <p> Answer - My Created Sets </p>
+        <p> Stats: My Created Stats </p>
         <p></p>
         <div class="secondParentDiv">
             { this.state.showListMySetsNone &&

@@ -1,4 +1,5 @@
 import React from 'react';
+import ProfilePicture from "./ProfilePicture";
 
 class ContactsList extends React.Component {
     constructor(props) {
@@ -11,22 +12,23 @@ class ContactsList extends React.Component {
    renderTableData() {
       return this.state.list.map((data, index) => {
          return (
-            <tr key={data.friend}>
-               <td> <button class="titleButton" value={data.id} onClick={e => this.props.renderSingleContact(e)}> {data.friend} </button> </td>
-               <td>{data.connectionStatus} &nbsp; &nbsp;</td>
-               <td>{data.connectionType} &nbsp; &nbsp;</td>
-               <td>{data.visibilityPermission}</td>
+            <tr class="friendsTR"key={data.friend}>
+               <td> <ProfilePicture friendId={data.id} /> </td>
+               <td class="friendsTD2"> <button class="titleButton" value={data.id} onClick={e => this.props.renderSingleContact(e)}> {data.friend} </button> </td>
+               <td class="friendsTD"> <p class="secondP"> Status: {data.connectionStatus} </p></td>
+               <td class="friendsTD3"> <p class="secondP"> Type: {data.connectionType} </p></td>
             </tr>
          )
       })
    }
 
+// <tr><th class=""></th><th class="thContact">Contact</th><th class="">Status</th><th>Type</th><th>View Permission</th></tr>
 
     render() {
         return (
         <React.Fragment>
          <div class="topParentDiv">
-         <p> Network - Contacts </p>
+         <p> My Network: Contacts </p>
         <p></p>
         <div class="secondParentDiv">
 
@@ -39,7 +41,6 @@ class ContactsList extends React.Component {
          <div>
             <table>
                <tbody>
-                  <tr><th class="thContact">Contact</th><th class="">Status</th><th>Type</th><th>View Permission</th></tr>
                   {this.renderTableData()}
                </tbody>
             </table>

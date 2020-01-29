@@ -43,6 +43,8 @@ function enterPressed(event) {
 // TODO why must this be <Form> instead of <form>?
   return (
     <React.Fragment>
+      <div class="settings2ButtonsDiv">
+      </div>
       <div class="topParentDiv">
         <p> Sign in </p>
         <p></p>

@@ -1,7 +1,7 @@
 import React from "react";
 import axios from 'axios';
 
-class InvitationForm extends React.Component {
+class InvitationFormContact extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -15,7 +15,6 @@ class InvitationForm extends React.Component {
           connectionStatus: "pending",
           visibilityPermission: "Yes",
           invitationSentMessage: null,
-          friendInvited: null,
           showInviteButton: true,
         };
   }
@@ -51,7 +50,7 @@ class InvitationForm extends React.Component {
         const token = u + ':' + p;
         const hash = btoa(token);
         const Basic = 'Basic ' + hash;
-        let data = { friend: this.state.friend, connectionType: this.state.connectionType, connectionStatus: this.state.connectionStatus,
+        let data = { friend: this.props.invitedFriend, connectionType: this.state.connectionType, connectionStatus: this.state.connectionStatus,
          visibilityPermission: this.state.visibilityPermission, inviter: u };
         axios.post("http://localhost:8080/api/f", data,
         {headers : { 'Authorization' : Basic }})
@@ -59,7 +58,7 @@ class InvitationForm extends React.Component {
         if (response.status === 204) {
         this.setState({invitationSentMessage: " user not found" });}
         else {
-        this.setState({isLoaded: true, friendInvited: this.state.friend, invitationSentMessage: this.state.friend + " has been invited to join your network.",
+        this.setState({isLoaded: true, invitationSentMessage: this.props.invitedFriend + " has been invited to join your network.",
                   }); }
                }).catch(error => {this.setState({ isLoaded: true, error});
                });
@@ -69,10 +68,9 @@ class InvitationForm extends React.Component {
     return (
     <React.Fragment>
       <div class="topParentDiv">
-        <p> My Network: Invite </p>
-        <p></p>
         <div class="secondParentDiv">
-        <input id="invitationBox" type="text" value={this.state.friend} onChange={this.handleChange} placeholder=" username of contact" />
+        <p> {this.props.invitedFriend}</p>
+        <p> Invite to join your network? </p>
         <form id="inviteRadio1">
             <div>
               <label><input value="Friend" onChange={this.handleChange2} type="radio" name="optradio" /> Friend (default) </label>
@@ -106,4 +104,4 @@ class InvitationForm extends React.Component {
   }
 }
 
-export default InvitationForm;
+export default InvitationFormContact;

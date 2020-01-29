@@ -55,7 +55,7 @@ class AskManage extends React.Component {
     return (
         <React.Fragment>
       <div class="topParentDiv">
-        <p> Ask - Manage</p>
+        <p> Create: Manage</p>
         <p></p>
         <div class="secondParentDiv">
 

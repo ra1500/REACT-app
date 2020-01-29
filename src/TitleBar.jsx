@@ -11,11 +11,11 @@ class TitleBar extends React.Component {
 
         <Link onClick={this.props.showIntroStuff} id="NJ" to="/"> NeuralJuice </Link>
         <div id="titleLinksDiv">
-        <Link id="menuLinksFirst" to="/welcome"> WELCOME </Link>
-        <Link className="menuLinks" to="/answer"> ANSWER </Link>
-        <Link className="menuLinks" to="/ask"> ASK </Link>
-        <Link className="menuLinks" to="/network"> NETWORK </Link>
-        <Link className="menuLinks" to="/me"> ME </Link>
+        <Link id="menuLinksFirst" to="/welcome"> HOME </Link>
+        <Link className="menuLinks" to="/network"> MY NETWORK </Link>
+        <Link className="menuLinks" to="/me"> MY PROFILE </Link>
+        <Link className="menuLinks" to="/answer"> STATS </Link>
+        <Link className="menuLinks" to="/ask"> CREATE </Link>
         </div>
         <LoginStatus showSignIn={this.props.showSignIn} signUpCreate={this.props.signUpCreate} />
 

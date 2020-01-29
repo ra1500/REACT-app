@@ -5,6 +5,7 @@ import AuditQuestions from "./AuditQuestions";
 import ManageMyContacts from "./ManageMyContacts";
 import NetworkContactAudit from "./NetworkContactAudit";
 import QuestionSetsNetworkProfile from "./QuestionSetsNetworkProfile";
+import FriendsContactsList from "./FriendsContactsList";
 
 class NetworkContactPages extends React.Component {
   constructor(props) {
@@ -14,6 +15,9 @@ class NetworkContactPages extends React.Component {
         this.goToAudit = this.goToAudit.bind(this);
         this.goToContactSettings = this.goToContactSettings.bind(this);
         this.goToGoodStuff = this.goToGoodStuff.bind(this);
+        this.goToContactsList = this.goToContactsList.bind(this);
+        this.goToNetworkListDetails = this.goToNetworkListDetails.bind(this);
+        this.inviteToJoinMyNetwork = this.inviteToJoinMyNetwork.bind(this);
         this.auditMe = this.auditMe.bind(this);
         this.state = {
           error: null,
@@ -35,12 +39,27 @@ class NetworkContactPages extends React.Component {
           isInvitee: false,
           isInviter: false,
           userName: null, // used in determining who is the 'inviter'
+          title: null,
+          blurb: null,
+          education2: null,
+          occupation: null,
+          relationshipStatus2: null,
+          location: null,
+          contactInfo: null,
+          showFriendsContactsList: false,
+          showInvite: false,
+          showNetworkListDetails: false,
+          showNetworkListNone: true,
+          list: null,
+          invitedFriend: null,
         };
   }
 
     componentDidMount() {
+        //this.setState({friendId: this.props.friendId});
         this.getSingleFriendship();
         this.getProfilePicture();
+        this.getFriendProfileText();
     }
 
     getSingleFriendship() {
@@ -81,17 +100,21 @@ class NetworkContactPages extends React.Component {
   }
 
     goToContactSettings() {
-        this.setState({showQuestionSetAuditing: false, isAfriend: false, hasPendingInvitations: false, showSettings: true, showAuditQuestions: false,});
+        this.setState({showQuestionSetAuditing: false, isAfriend: false, hasPendingInvitations: false, showSettings: true, showAuditQuestions: false, showFriendsContactsList: false});
     }
     goToAudit() {
-        this.setState({ showQuestionSetAuditing: true, isAfriend: true, hasPendingInvitations: false, showSettings: false, showContactScores: false, showAuditQuestions: false,});
+        this.setState({ showQuestionSetAuditing: true, isAfriend: true, hasPendingInvitations: false, showSettings: false, showContactScores: false, showAuditQuestions: false, showFriendsContactsList: false});
+    }
+    goToContactsList() {
+        this.getFriendships();
+        this.setState({showQuestionSetAuditing: false, isAfriend: true, hasPendingInvitations: false, showSettings: false, showContactScores: false, showAuditQuestions: false, showFriendsContactsList: true,});
     }
     goToGoodStuff() {
-        this.setState({showQuestionSetAuditing: false, isAfriend: false, showSettings: false, showAuditQuestions: false,});
+        this.setState({showQuestionSetAuditing: false, isAfriend: false, showSettings: false, showAuditQuestions: false, showFriendsContactsList: false});
         this.isAFriendOrInvitation();
     }
     auditMe(event) {
-        this.setState({showQuestionSetAuditing: false, showAuditQuestions: true,});
+        this.setState({showQuestionSetAuditing: false, showAuditQuestions: true, showFriendsContactsList: false});
         this.setState({questionSetVersionEntityId: event.target.value});
     }
 
@@ -103,6 +126,17 @@ class NetworkContactPages extends React.Component {
     this.patchFriendship();
     event.preventDefault();
   }
+
+    goToNetworkListDetails() {
+        this.setState({showInvite: false, showNetworkListDetails: true, showNetworkListNone: false,});
+    }
+    inviteToJoinMyNetwork(event) {
+        this.setState({showInvite: true, showNetworkListDetails: false, showNetworkListNone: false,});
+        const data = {friend: event.target.value};
+        this.state = {invitedFriend: data.friend};
+        this.setState({invitedFriend: this.state.invitedFriend}); // sillyness.
+        //this.setState({invitedFriend: e});
+    }
 
     // accept/decline friendship
     patchFriendship() {
@@ -149,19 +183,71 @@ class NetworkContactPages extends React.Component {
            });
     }
 
+  getFriendProfileText() {
+    const name = JSON.parse(sessionStorage.getItem('tokens'));
+    const u = name.userName;
+    const p = name.password;
+    const token = u +':' + p;
+    const hash = btoa(token);
+    const Basic = 'Basic ' + hash;
+    axios.get("http://localhost:8080/api/user/ps?fid=" + this.props.friendId,
+    {headers : { 'Authorization' : Basic }})
+    .then((response) => {
+      this.setState({
+        isLoaded: true,
+        title: response.data.title,
+        blurb: response.data.blurb,
+        education: response.data.education,
+        occupation: response.data.occupation,
+        relationshipStatus: response.data.relationshipStatus,
+        location: response.data.location,
+        contactInfo: response.data.contactInfo,
+      });
+      if (response.data.education === 1) {this.setState({education2: "High School"})};
+      if (response.data.education === 2) {this.setState({education2: "College"})};
+      if (response.data.education === 3) {this.setState({education2: "Masters"})};
+      if (response.data.education === 4) {this.setState({education2: "Phd or MD"})};
+      if (response.data.education === 5) {this.setState({education2: "Irrelevant"})};
+      if (response.data.relationshipStatus === 1) {this.setState({relationshipStatus2: "Available"})};
+      if (response.data.relationshipStatus === 2) {this.setState({relationshipStatus2: "Not Available"})};
+      if (response.data.relationshipStatus === 3) {this.setState({relationshipStatus2: "Irrelevant"})};
+           }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
+           });
+    }
 
+    getFriendships() {
+        const name = JSON.parse(sessionStorage.getItem('tokens'));
+        const u = name.userName;
+        const p = name.password;
+        const token = u +':' + p;
+        const hash = btoa(token);
+        const Basic = 'Basic ' + hash;
+        axios.get("http://localhost:8080/api/user/t?fid=" + this.props.friendId,
+        {headers : { 'Authorization' : Basic }})
+        .then((response) => {
+         if (response.status === 200) {
+          this.setState({
+            isLoaded: true,
+            list: response.data.friendsList,
+          });
+          this.goToNetworkListDetails();
+          } // end if
+               }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
+               });
+    }
 
   render() {
     return (
     <React.Fragment>
 
         <div class="NetworkSingleContactDiv">
-            <p> Network - Contacts - {this.state.friend} </p>
+            <p> My Network: Contacts - {this.state.friend} </p>
         </div>
 
         <div class="topParentDiv">
             <button class="singleNetworkContactButton" onClick={this.goToGoodStuff}> Profile </button>
             <button class="singleNetworkContactButton" onClick={this.goToAudit}> Review Them </button>
+            <button class="singleNetworkContactButton" onClick={this.goToContactsList}> Contacts </button>
             <button class="singleNetworkContactButton" onClick={this.goToContactSettings}> Settings </button>
         </div>
 
@@ -179,9 +265,22 @@ class NetworkContactPages extends React.Component {
                 { this.state.showContactScores &&
                 <div>
                 <img id="profilePic" src={this.state.profilePicture}></img>
+                <div class="scoresListTD">
+                <p class="secondP"> Title: {this.state.title}</p><br></br>
+                <p class="secondP"> About me: {this.state.blurb}</p><br></br>
+                <p class="secondP"> Location: {this.state.location}</p><br></br>
+                <p class="secondP"> Contact Info: {this.state.contactInfo}</p><br></br>
+                <p class="secondP"> Relationship status: {this.state.relationshipStatus2}</p>
+                </div>
+
                 <ScoresNetworkContactPages friendId={this.props.friendId} />
                 <QuestionSetsNetworkProfile friendId={this.props.friendId} />
                 </div> }
+
+               { this.state.showFriendsContactsList &&
+               <div>
+                <FriendsContactsList showInvite={this.state.showInvite} inviteToJoinMyNetwork={this.inviteToJoinMyNetwork} showNetworkListDetails={this.state.showNetworkListDetails} goToNetworkListDetails={this.goToNetworkListDetails}showNetworkListNone={this.state.showNetworkListNone} list={this.state.list} invitedFriend={this.state.invitedFriend}/>
+               </div> }
 
                 {this.state.showQuestionSetAuditing &&
                 <div class="secondParentDiv">

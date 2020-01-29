@@ -57,13 +57,13 @@ class QuestionSetsPrivateProfile extends React.Component {
 
         { !this.state.showList &&
          <div id="meSettingsDiv">
-         <p> My Created Sets </p>
+         <p> My Created Stats </p>
          <p class="alertsSmallP"> &nbsp;(none created)</p>
          </div> }
 
         { this.state.showList &&
          <div id="meSettingsDiv">
-         <p> My Created Sets </p>
+         <p> My Created Stats </p>
             <table>
                <tbody>
                <tr><th class="thTitle">Title</th><th>Description</th></tr>

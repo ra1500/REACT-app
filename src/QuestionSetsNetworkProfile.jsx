@@ -59,14 +59,14 @@ class QuestionSetsNetworkProfile extends React.Component {
 
         { !this.state.showList &&
          <div id="meSettingsDiv">
-         <p> Created Sets </p>
+         <p> Created Stats </p>
          <p class="alertsSmallP"> &nbsp;(none)</p>
          </div> }
 
         { this.state.showList &&
          <div class="secondParentDiv">
-         <p> Created Sets </p>
-         <p class="alertsSmallP">(to answer these go to 'Answer -> Network Sets')</p>
+         <p> Created Stats </p>
+         <p class="alertsSmallP">(to answer these go to 'Answer -> Network Stats')</p>
             <table>
                <tbody>
                <tr><th>Title</th><th>Description</th></tr>

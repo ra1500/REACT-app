@@ -484,17 +484,17 @@ class AskFormQset extends React.Component {
 
       { this.state.showIntro &&
       <div class="topParentDiv">
-        <p> Ask - Create </p>
+        <p> Create </p>
         <p></p>
         <div class="secondParentDiv">
-        <p>Create your own set of questions or manage an existing set you already created. Invite your contacts to answer. </p>
-        <p> Note that deleting a set will also delete all your contacts' answers for that set. Deleting an individual question will delete all your contacts' answers for that question.</p>
+        <p>Create your own statistic for use in your network by adding a set of questions. Or, manage an existing statistic you already created. Invite your network contacts to answer. </p>
+        <p> Note that deleting a statistic that you created will also delete all your contacts' answers for that set. Deleting an individual question will delete all your contacts' answers for that question.</p>
          </div>
       </div> }
 
       { this.state.showInputBoxes &&
       <div class="topParentDiv">
-        <p> Ask - Create </p>
+        <p> Create: Create New Statistic </p>
         <p></p>
         <div class="secondParentDiv">
       <form onSubmit={this.handleSubmit1}>
@@ -552,7 +552,7 @@ class AskFormQset extends React.Component {
 
       { this.state.showQsetDetails &&
       <div class="topParentDiv">
-        <p> Ask - Create </p>
+        <p> Create: Create New Statistic </p>
         <p></p>
         <div class="secondParentDiv">
         <div><p class="firstP">Title: </p><p class="secondP">{this.state.title}</p></div>
@@ -567,17 +567,17 @@ class AskFormQset extends React.Component {
 
       { this.state.showTooManyQsetsMessage &&
       <div class="topParentDiv">
-        <p> Ask - Create </p>
+        <p> Create: Create New Statistic </p>
         <p></p>
       <div class="secondParentDiv">
-      <p> Sorry. You have already reached the 10 sets limit. You can delete one to free up space. </p>
+      <p> Sorry. You have already reached the 10 statistics creation limit. You can delete one to free up space for a new one. </p>
       </div>
       </div> }
 
       { this.state.showFinished &&
       <div>
       <div class="topParentDiv">
-        <p> Ask - Create/Manage - Saved Question Set</p>
+        <p> Create: Create New Statistic - Saved Question Set</p>
         <p></p>
         <div class="secondParentDiv">
         <div><p class="firstP">Title: </p><p class="secondP">{this.state.title}</p></div>
@@ -612,7 +612,7 @@ class AskFormQset extends React.Component {
 
       { this.state.showAllDeleted &&
       <div class="topParentDiv">
-        <p> Ask - Deleted Question Set </p>
+        <p> Create: Deleted Question Set </p>
         <p></p>
         <div class="secondParentDiv">
         <div><p class="firstP">Title: </p><p class="secondP">{this.state.title}</p></div>

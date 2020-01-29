@@ -39,10 +39,9 @@ class Start extends React.Component {
 
        { this.state.showAlerts &&
       <div class="topParentDiv">
-        <p> Welcome - Alerts </p>
+        <p> Home: Alerts </p>
         <p></p>
         <div class="secondParentDiv">
-            <p id="alertsBlueP"> Go to 'Answer' to see our new question sets. </p> <br></br>
             <p class="questionsParagraph"> New Network Invitations (&lt; 2 weeks) </p>
             <AlertsNewContactsList /><br></br>
             <p class="questionsParagraph"> New Review Invitations (&lt; 2 weeks) </p>
@@ -54,23 +53,22 @@ class Start extends React.Component {
 
        { this.state.showFeatures &&
       <div class="topParentDiv">
-        <p> Welcome - About NeuralJuice</p>
+        <p> Home: About NeuralJuice</p>
         <p></p>
         <div class="secondParentDiv">
-            <p> NeuralJuice. The web app for quizzes, trivia, asking advice and more. </p>
-
-            <p class="questionsParagraph"> WELCOME </p>
-            <p class="questionsParagraph">  Alerts. This is the first page you see after logging in. If there is any recent activity affecting your account you will be alerted here. New network invitations, new invitations to review a network's answers and new completed reviews from contacts in your network. </p><br></br><br></br><br></br>
-            <p class="questionsParagraph"> ANSWER </p>
-            <p class="questionsParagraph"> View and answer available question sets here. NJ Sets are those created by NeuralJuice. Network Sets are from contacts in your network who have specifically invited you to answer. My Created Sets are those that you created in 'ASK' (and of course you can answer them as well). </p><br></br><br></br><br></br>
-            <p class="questionsParagraph"> ASK </p>
-            <p class="questionsParagraph">  Create your own question sets on anything you like. Edit or delete existing ones in Manage. Invite your network to answer your new set. Note that your created sets are only available to those within your network (as well as their posted results). Also, if you delete a question (or a set), it will also delete any of your contacts' answers. Limit of 40 questions per set and 10 sets per account. </p><br></br><br></br><br></br><br></br>
-            <p class="questionsParagraph"> NETWORK </p>
-            <p class="questionsParagraph"> View your list of contacts. Invite new ones based on their username. If your contact has invited you to review their answers to a set then start your review here (select the contact and then choose 'Review Them'). </p><br></br><br></br><br></br>
-            <p class="questionsParagraph"> ME </p>
-            <p class="questionsParagraph"> View your posted results and created question sets here. Invite network contacts to review your answers. View those reviews through here as well. Note that you must post a score/result before it will show here and then be available to invite reviewers. Limit of 4 question sets can be put out for review per account. </p><br></br><br></br><br></br><br></br>
+            <p> NeuralJuice. Social networking made easy. </p>
+            <p class="questionsParagraph"> HOME </p>
+            <p class="questionsParagraph">  Alerts. See what's new in your network. New network invitations, new invitations to review a contact's stat and recently completed reviews from your contacts. </p><br></br><br></br>
+            <p class="questionsParagraph"> MY NETWORK </p>
+            <p class="questionsParagraph"> View your list of contacts. Invite new ones based on their username. If your contact has invited you to review their answers to a stat then start your review here (select the contact and then choose 'Review Them'). </p><br></br><br></br><br></br>
+            <p class="questionsParagraph"> MY PROFILE </p>
+            <p class="questionsParagraph"> View your posted stat results and created stats here. Invite network contacts to review your specific answers within a stat. Read those reviews through here as well. Note that you must post a stat before it will show here and then be available to invite reviewers. Limit of 4 stats can be put out for review per account. </p><br></br><br></br><br></br><br></br>
+            <p class="questionsParagraph"> STATS </p>
+            <p class="questionsParagraph"> View and answer available stats here. NeuralJuice Stats are those created by NeuralJuice. Network Stats are from contacts in your network who have specifically invited you to answer. My Created Stats are those that you make in 'CREATE' (and of course you can answer them as well). </p><br></br><br></br><br></br>
+            <p class="questionsParagraph"> CREATE </p>
+            <p class="questionsParagraph">  Create your own descriptive stats on anything you like. Edit or delete existing ones in Manage. Invite your network to answer your new stat. Note that your created stats are only available to those within your network (as well as their posted results). Also, if you delete a question (or a stat), it will also delete any of your contacts' answers. Limit of 40 questions per stat and 10 stats per account. </p><br></br><br></br><br></br><br></br><br></br>
             <p class="questionsParagraph"> Public Profile Page </p>
-            <p class="questionsParagraph"> All accounts have a public internet URL available where their scores/results are displayed. You can find the URL under 'ME -> Settings'. Only NJ Sets can be displayed publicly. By default, new user accounts are set to 'Network' only view. Change to 'Public' for the public URL to be activated in 'ME -> Settings'. </p> <br></br><br></br><br></br>
+            <p class="questionsParagraph"> All accounts have a public internet URL available of their profile. You can find the URL in 'MY PROFILE -> Edit & Settings'. Only NeuralJuice Stats can be displayed on a user's public profile page. By default, new user accounts are set to 'Network' view only. Change to 'Public' for the public URL to be activated in 'MY PROFILE -> Edit & Settings'. </p> <br></br><br></br><br></br>
         </div>
         </div> }
 

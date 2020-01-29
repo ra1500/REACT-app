@@ -8,6 +8,7 @@ import ViewAudits from "./ViewAudits";
 import ViewAuditsDetails from "./ViewAuditsDetails";
 import UpdateUserInfo from "./UpdateUserInfo";
 import Picture from "./Picture";
+import ProfileText from "./ProfileText";
 
 
 class Profile extends React.Component {
@@ -53,13 +54,23 @@ class Profile extends React.Component {
         auditCount: null,
         isAudited: null, // used to indicate if the single selected qset has been invited for audit
         isAuditedMessage: null,
-        showPicture: false,
+        //showPicture: false,
         profilePicture: "./profiledefault.jpg",
+        profileTitle: null,
+        profileBlurb: null,
+        profileEducation: null,
+        profileOccupation: null,
+        profileRelationshipStatus: null,
+        profileLocation: null,
+        profileContactInfo: null,
+        education2: null,
+        relationshipStatus2: null,
         };
     };
 
   componentDidMount() {
     this.getProfilePicture();
+    this.getProfileText();
   }
 
     inviteToAudit(group) {
@@ -159,7 +170,7 @@ class Profile extends React.Component {
       this.setState({
         isLoaded: true,
         profilePicture: imgUrl,
-        showPicture: true,
+        //showPicture: true,
       });
            }).catch(error => {this.setState({ isLoaded: true, error, });
            });
@@ -183,6 +194,38 @@ class Profile extends React.Component {
       });
       this.getProfilePicture();
            }).catch(error => {this.setState({ isLoaded: true, error, });
+           });
+    }
+
+  getProfileText() {
+    const name = JSON.parse(sessionStorage.getItem('tokens'));
+    const u = name.userName;
+    const p = name.password;
+    const token = u +':' + p;
+    const hash = btoa(token);
+    const Basic = 'Basic ' + hash;
+    axios.get("http://localhost:8080/api/user/pr",
+    {headers : { 'Authorization' : Basic }})
+    .then((response) => {
+      this.setState({
+        isLoaded: true,
+        profileTitle: response.data.title,
+        profileBlurb: response.data.blurb,
+        profileEducation: response.data.education,
+        profileOccupation: response.data.occupation,
+        profileRelationshipStatus: response.data.relationshipStatus,
+        profileLocation: response.data.location,
+        profileContactInfo: response.data.contactInfo,
+      });
+      if (response.data.education === 1) {this.setState({education2: "High School"})};
+      if (response.data.education === 2) {this.setState({education2: "College"})};
+      if (response.data.education === 3) {this.setState({education2: "Masters"})};
+      if (response.data.education === 4) {this.setState({education2: "Phd or MD"})};
+      if (response.data.education === 5) {this.setState({education2: "Irrelevant"})};
+      if (response.data.relationshipStatus === 1) {this.setState({relationshipStatus2: "Available"})};
+      if (response.data.relationshipStatus === 2) {this.setState({relationshipStatus2: "Not Available"})};
+      if (response.data.relationshipStatus === 3) {this.setState({relationshipStatus2: "Irrelevant"})};
+           }).catch(error => {this.setState({ isLoaded: true, error, userScore: 0});
            });
     }
 
@@ -226,6 +269,7 @@ class Profile extends React.Component {
         this.setState({showSettingsSection: true, showLists: false, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: false, showCompletedAuditsDetails: false,});
     }
     goToPrivateProfile() {
+        this.getProfileText();
         this.setState({showSettingsSection: false, showLists: true, showCompletedAudits: false, showInviteToAudit: false, showIndividualScore: false, showCompletedAuditsDetails: false, showDeleted: false,});
     }
     renderSingleScore(id ,questionSetVersionEntityId, title, description, score, e) {
@@ -254,27 +298,38 @@ class Profile extends React.Component {
               { this.state.showSettingsButton &&
               <div class="settings2ButtonsDiv">
                 <button class="settingsButton" onClick={this.goToPrivateProfile}> Profile </button>
-                <button class="settingsButton" onClick={this.goToUserSettings}> Settings </button>
+                <button class="settingsButton" onClick={this.goToUserSettings}> Edit & Settings </button>
               </div> }
 
               { this.state.showSettingsSection &&
               <div class="topParentDiv">
-                <p> Me - Settings </p>
+                <p> My Profile: Edit & Settings </p>
+                <Picture profilePicture={this.state.profilePicture} getProfilePicture={this.getProfilePicture} deleteProfilePicture={this.deleteProfilePicture} />
+                <ProfileText />
                 <ScoreUrl />
                 <UpdateUserInfo />
-                <Picture profilePicture={this.state.profilePicture} getProfilePicture={this.getProfilePicture} deleteProfilePicture={this.deleteProfilePicture} />
               </div> }
 
               { this.state.showLists &&
               <div>
               <div class="NetworkSingleContactDiv">
-              <p> Me - Profile - {this.state.userName}</p>
+              <p> My Profile</p>
               </div>
               <div class="topParentDiv">
-                { this.state.showPicture &&
+
                 <div>
+
                 <img id="profilePic" src={this.state.profilePicture}></img>
-                </div> }
+
+                <div class="scoresListTD">
+                <p class="secondP"> Title: {this.state.profileTitle} </p><br></br>
+                <p class="secondP"> About Me: {this.state.profileBlurb} </p><br></br>
+                <p class="secondP"> Location: {this.state.profileLocation} </p><br></br>
+                <p class="secondP"> Contact Details: {this.state.profileContactInfo} </p><br></br>
+                <p class="secondP"> Relationship Status: {this.state.relationshipStatus2} </p>
+                </div>
+                </div>
+
                 <ScoresList renderSingleScore={this.renderSingleScore} />
                 <QuestionSetsPrivateProfile />
               </div>
@@ -283,7 +338,7 @@ class Profile extends React.Component {
               { this.state.showIndividualScore &&
               <div>
               <div class="NetworkSingleContactDiv">
-              <p> Me - My Profile - {this.state.userName} - {this.state.title}</p>
+              <p> My Profile: Profile - {this.state.userName} - {this.state.title}</p>
               </div>
 
               { !this.state.showDeleted &&
